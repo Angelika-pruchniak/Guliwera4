@@ -49,7 +49,7 @@ E-mail na stronie: kontakt@guliwera4.pl
 - [ ] Opcjonalnie:
   - polityka prywatności i regulamin sklepu (strona 3 i 66 to szkice);
   - usunąć duplikat strony 28;
-  - okładki produktów jako obrazki w koszyku;
+  - ~~okładki produktów jako obrazki w koszyku~~ zrobione 5.11.2026: PNG w `logo/okladki/` (skrypt `generuj.js`), media 122–128 ustawione jako zdjęcia produktów 67–73;
   - PDF „budżet marketingowy”.
 
 ## Aplikacja Akademia Guliwera (gałąź `claude/aplikacja-lekcje`)
