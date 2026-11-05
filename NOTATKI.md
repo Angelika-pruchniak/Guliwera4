@@ -37,6 +37,10 @@ E-mail na stronie: kontakt@guliwera4.pl
   - PDF tylko raz w koszyku.
 - Instalacja wtyczek: ZIP z GitHub raw tego repozytorium (adres z hashem commita), bo bezpośredni upload jest blokowany.
 
+## Poczta ze strony
+- Hosting, domena i poczta: nazwa.pl (serwer IP 85.128.212.180, MX = guliwera4.pl, SPF „mx a”).
+- Wysyłka maili z WordPressa: wtyczka WP Mail SMTP, nadawca kontakt@guliwera4.pl („Force From”). Hasło jest tylko w panelu WordPressa.
+
 ## Do zrobienia
 - [ ] Angelika: połączyć konto Stripe (WooCommerce → Ustawienia → Płatności → Stripe) i włączyć Kartę, BLIK, Przelewy24. Potem zakup testowy.
 - [ ] Angelika: w Tag Managerze dodać „Tag Google” z identyfikatorem GA4 (G-…) i opublikować kontener.
