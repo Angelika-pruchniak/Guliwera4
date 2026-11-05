@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – Akademia (aplikacja)
  * Description: Udostępnia aplikację Akademia Guliwera pod adresem guliwera4.pl/akademia/ (tylko dla zalogowanych), liczy postęp na serwerze, daje rabaty na PDF-y za regularną naukę i dodaje wyróżniony przycisk „Akademia” w menu strony. Zostaw włączoną.
- * Version: 1.2
+ * Version: 1.3
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -213,10 +213,19 @@ add_filter( 'woocommerce_login_redirect', 'gk_ak_po_logowaniu', 20 );
 add_filter( 'woocommerce_registration_redirect', 'gk_ak_po_logowaniu', 20 );
 add_filter( 'login_redirect', 'gk_ak_po_logowaniu', 20 );
 
+/**
+ * Rejestracja: zakładanie konta na stronie „Moje konto” jest zawsze włączone
+ * (niezależnie od ustawień WooCommerce). Login tworzy się z adresu e-mail,
+ * a hasło wpisuje sam użytkownik, więc od razu po rejestracji jest zalogowany.
+ */
+add_filter( 'pre_option_woocommerce_enable_myaccount_registration', function () { return 'yes'; } );
+add_filter( 'pre_option_woocommerce_registration_generate_username', function () { return 'yes'; } );
+add_filter( 'pre_option_woocommerce_registration_generate_password', function () { return 'no'; } );
+
 /** Na stronie „Moje konto” po przyjściu z Akademii: krótka informacja nad formularzem. */
 add_action( 'woocommerce_before_customer_login_form', function () {
 	if ( empty( $_GET['akademia'] ) ) { return; }
-	echo '<div class="woocommerce-info">Zaloguj się albo załóż darmowe konto, żeby korzystać z Akademii Guliwera i zbierać rabaty na materiały.</div>';
+	echo '<div class="woocommerce-info">Masz już konto? Zaloguj się. Pierwszy raz? Załóż darmowe konto w formularzu „Zarejestruj się” (wystarczy e-mail i hasło), żeby korzystać z Akademii Guliwera i zbierać rabaty na materiały.</div>';
 } );
 
 /* ─────────────────────────── Serwowanie aplikacji ─────────────────────────── */

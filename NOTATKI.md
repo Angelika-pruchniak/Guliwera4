@@ -49,8 +49,8 @@ E-mail na stronie: kontakt@guliwera4.pl
 
 ## Aplikacja Akademia Guliwera (gałąź `claude/aplikacja-lekcje`)
 - Kod: `aplikacja/` (React + Vite, PWA). Treść lekcji: `aplikacja/src/content/kurs.ts`. Maskotka: Lilek.
-- Na stronie: wtyczka `guliwera-akademia` (wersja 1.2, aktywna) serwuje aplikację pod https://guliwera4.pl/akademia/.
-  - Akademia tylko dla zalogowanych (Moje konto; logowanie Google przez wtyczkę Nextend Social Login, do skonfigurowania).
+- Na stronie: wtyczka `guliwera-akademia` (wersja 1.3, aktywna) serwuje aplikację pod https://guliwera4.pl/akademia/.
+  - Akademia tylko dla zalogowanych (Moje konto: logowanie i rejestracja, rejestrację wymusza wtyczka; logowanie Google przez wtyczkę Nextend Social Login, do skonfigurowania).
   - Wyróżniony przycisk „🎓 Akademia · nowość” w menu każdej podstrony (dodaje go wtyczka).
   - Rabaty na PDF-y za regularną naukę: zasady w `aplikacja/RABATY.md`.
   - Zgoda na maile z aplikacji: meta użytkownika `gk_ak_zgoda` (data zgody), do mailingu.
