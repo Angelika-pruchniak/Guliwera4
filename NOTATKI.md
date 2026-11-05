@@ -39,7 +39,8 @@ E-mail na stronie: kontakt@guliwera4.pl
 
 ## Poczta ze strony
 - Hosting, domena i poczta: nazwa.pl (serwer IP 85.128.212.180, MX = guliwera4.pl, SPF „mx a”).
-- Wygląd i treść maili systemowych: wtyczka `guliwera-maile` (opis w `wtyczki/guliwera-maile/MAILE.md`).
+- Wygląd i treść maili systemowych: wtyczka `guliwera-maile` 1.1 (zainstalowana 5.11.2026, opis w `wtyczki/guliwera-maile/MAILE.md`): konto, zamówienia, kupon Akademii, maile do administratora. Podgląd: `guliwera4.pl/?gk_mail_podglad=lista`.
+- Zamówienie (strona 64): osobne obowiązkowe pole zgody na natychmiastowe dostarczenie plików (data w meta `_gk_zgoda_cyfrowe`) i pola faktury (fakturowo.pl, faktury bez VAT, wystawiane ręcznie). Pole regulaminu: „Znam i akceptuję Regulamin sklepu… oraz Politykę prywatności…”.
 - Wysyłka maili z WordPressa: wtyczka WP Mail SMTP, nadawca kontakt@guliwera4.pl („Force From”). Hasło jest tylko w panelu WordPressa.
 
 ## Do zrobienia
