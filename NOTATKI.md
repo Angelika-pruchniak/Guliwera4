@@ -75,3 +75,8 @@ Wszystkie czaty o stronie mają w Claude tag **guliwera4.pl**.
 - „Aplikacja Akademia Guliwera – nauka dla młodych managerów”: Akademia v2, logowanie, rabaty, przycisk na stronie.
 - „Agent social media: posty FB i LinkedIn”: posty do social mediów.
 - Mailing do klientów: osobny czat (do założenia z karty zadania).
+
+## Aplikacja: stan (5.11.2026)
+- Sklepy (Google Play, App Store) wstrzymane, plan w `sklepy/PLAN.md`. Aplikacja tylko jako PWA ze strony 112 „Aplikacja”.
+- Akademia wymaga logowania (także wersja instalowana ze strony). Docelowo będzie płatna; na razie „na start za darmo”.
+- Kod QR na stronie 112: media 131 (`logo/qr-akademia.png`), bo `/akademia/qr.svg` jest za logowaniem.
