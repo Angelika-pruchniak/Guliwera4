@@ -1,14 +1,19 @@
 <?php
 /**
  * Plugin Name: Guliwera – maile
- * Description: Maile systemowe w wyglądzie Guliwera 4: powitanie po rejestracji, reset hasła, potwierdzenie zmiany hasła, alert o logowaniu z nowego urządzenia, zmiana e-maila. Ujednolica też kolory i nadawcę maili WooCommerce (zamówienia). Zostaw włączoną.
- * Version: 1.0
+ * Description: Wszystkie maile systemowe w wyglądzie Guliwera 4: konto (powitanie, reset i zmiana hasła, nowe logowanie, zmiana e-maila), zamówienia (czeka na płatność, płatność przyjęta, pliki do pobrania, nieudane, anulowane, zwrot, wiadomość, odstąpienie), kupon z Akademii i powiadomienia dla administratora. Dodaje do zamówienia zgodę na natychmiastowe dostarczenie plików i dane do faktury. Zostaw włączoną.
+ * Version: 1.1
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 define( 'GK_ML_NADAWCA', 'kontakt@guliwera4.pl' );
 define( 'GK_ML_NAZWA', 'Guliwera 4' );
-define( 'GK_ML_LOGO', 'https://guliwera4.pl/wp-content/uploads/2026/11/guliwera4-ikona.png' );
+if ( ! defined( 'GK_ML_LOGO' ) ) { define( 'GK_ML_LOGO', 'https://guliwera4.pl/wp-content/uploads/2026/11/guliwera4-ikona.png' ); }
+define( 'GK_ML_KATALOG', __DIR__ );
+
+require_once __DIR__ . '/includes/tresci-sklep.php';
+require_once __DIR__ . '/includes/sklep.php';
+require_once __DIR__ . '/includes/podglad.php';
 
 /* ─────────────────────────── Szablon maila ───────────────────────────
  * Zasady: tabela 600 px, style w linii, czcionki systemowe (Georgia/Arial),
@@ -18,12 +23,17 @@ define( 'GK_ML_LOGO', 'https://guliwera4.pl/wp-content/uploads/2026/11/guliwera4
 function gk_ml_esc( $s ) { return htmlspecialchars( (string) $s, ENT_QUOTES, 'UTF-8' ); }
 
 /**
- * @param array $a preheader, nadtytul, tytul, akapity (HTML[]), cta [etykieta, url], lista (string[]), po (HTML), uwaga (HTML), cta2 [etykieta, url]
+ * @param array $a preheader, nadtytul, tytul, akapity (HTML[]), lista (string[]), po (HTML przed przyciskiem),
+ *                 cta [etykieta, url], cta2 [etykieta, url], pod (HTML pod przyciskiem), uwaga (HTML), uwaga_ikona,
+ *                 powod (zdanie w stopce: dlaczego dostajesz tego maila), prosty (true = mail dla administratora),
+ *                 tekst_po / tekst_pod (te same treści co po / pod w wersji tekstowej).
  */
 function gk_ml_layout( array $a ) {
 	$a = array_merge( array(
 		'preheader' => '', 'nadtytul' => '', 'tytul' => '', 'akapity' => array(), 'cta' => null,
-		'lista' => array(), 'po' => '', 'uwaga' => '', 'cta2' => null,
+		'lista' => array(), 'po' => '', 'uwaga' => '', 'cta2' => null, 'pod' => '', 'uwaga_ikona' => '🔒',
+		'powod' => 'To wiadomość systemowa dotycząca Twojego konta na guliwera4.pl, dlatego otrzymujesz ją niezależnie od zgód marketingowych.',
+		'prosty' => false,
 	), $a );
 	$font  = "Arial,'Helvetica Neue',Helvetica,sans-serif";
 	$serif = "Georgia,'Times New Roman',serif";
@@ -43,16 +53,22 @@ function gk_ml_layout( array $a ) {
 	$h .= '<table role="presentation" class="gk-k" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">';
 
 	// Logo
+	if ( $a['prosty'] ) {
+		$h .= '<tr><td style="padding:0 8px 14px;font-family:' . $font . ';font-size:13px;font-weight:bold;letter-spacing:1px;color:' . $muted . ';">GULIWERA 4 · POWIADOMIENIE ZE SKLEPU</td></tr>';
+	} else {
 	$h .= '<tr><td style="padding:0 8px 18px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>';
 	$h .= '<td style="padding-right:12px;"><img src="' . gk_ml_esc( GK_ML_LOGO ) . '" width="44" height="44" alt="G4" style="display:block;border:0;border-radius:12px;"></td>';
 	$h .= '<td style="font-family:' . $serif . ';font-size:19px;font-weight:bold;color:' . $ink . ';line-height:1.1;">Guliwera 4<br><span style="font-family:' . $font . ';font-size:12px;font-weight:normal;color:' . $muted . ';">strategia, produkty cyfrowe i dobry humor</span></td>';
 	$h .= '</tr></table></td></tr>';
+	}
 
 	// Karta
 	$h .= '<tr><td bgcolor="#FFFFFF" style="background:#FFFFFF;border-radius:24px;overflow:hidden;border:1px solid #F3E3D6;">';
 	$h .= '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">';
 	// Kolorowy pasek marki
-	$h .= '<tr><td height="8" bgcolor="#FF6B3D" style="height:8px;line-height:8px;font-size:0;background:#FF6B3D;background-image:linear-gradient(90deg,#FF6B3D,#F4799F 55%,#B9A5E3);border-radius:24px 24px 0 0;">&nbsp;</td></tr>';
+	if ( ! $a['prosty'] ) {
+		$h .= '<tr><td height="8" bgcolor="#FF6B3D" style="height:8px;line-height:8px;font-size:0;background:#FF6B3D;background-image:linear-gradient(90deg,#FF6B3D,#F4799F 55%,#B9A5E3);border-radius:24px 24px 0 0;">&nbsp;</td></tr>';
+	}
 	$h .= '<tr><td class="gk-p" style="padding:34px 40px 10px;font-family:' . $font . ';color:' . $ink . ';">';
 	if ( $a['nadtytul'] ) {
 		$h .= '<p style="margin:0 0 8px;font-family:' . $font . ';font-size:13px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:#E8512A;">' . gk_ml_esc( $a['nadtytul'] ) . '</p>';
@@ -85,35 +101,50 @@ function gk_ml_layout( array $a ) {
 			$h .= '<p style="margin:0 0 20px;font-family:' . $font . ';font-size:13px;line-height:1.5;color:' . $muted . ';">Przycisk nie działa? Skopiuj ten link do przeglądarki:<br><a href="' . gk_ml_esc( $url ) . '" style="color:#E8512A;word-break:break-all;">' . gk_ml_esc( $url ) . '</a></p>';
 		}
 	}
+	if ( $a['pod'] ) { $h .= $a['pod']; }
 	$h .= '</td></tr>';
 	if ( $a['uwaga'] ) {
-		$h .= '<tr><td class="gk-p" style="padding:0 40px 30px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#FFEFC7" style="background:#FFEFC7;border-radius:14px;padding:14px 16px;font-family:' . $font . ';font-size:14px;line-height:1.5;color:' . $ink . ';">🔒 ' . $a['uwaga'] . '</td></tr></table></td></tr>';
+		$h .= '<tr><td class="gk-p" style="padding:0 40px 30px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#FFEFC7" style="background:#FFEFC7;border-radius:14px;padding:14px 16px;font-family:' . $font . ';font-size:14px;line-height:1.5;color:' . $ink . ';">' . ( $a['uwaga_ikona'] ? $a['uwaga_ikona'] . ' ' : '' ) . $a['uwaga'] . '</td></tr></table></td></tr>';
 	} else {
 		$h .= '<tr><td style="padding:0 0 20px;font-size:0;line-height:0;">&nbsp;</td></tr>';
 	}
 	$h .= '</table></td></tr>';
 
 	// Stopka
+	if ( $a['prosty'] ) {
+		$h .= '<tr><td style="padding:16px 24px 0;font-family:' . $font . ';font-size:12px;color:' . $muted . ';text-align:center;">Powiadomienie automatyczne ze sklepu guliwera4.pl (wtyczka Guliwera – maile).</td></tr>';
+		$h .= '</table></td></tr></table></body></html>';
+		return $h;
+	}
 	$h .= '<tr><td class="gk-p" style="padding:22px 24px 0;font-family:' . $font . ';font-size:12.5px;line-height:1.6;color:' . $muted . ';text-align:center;">';
 	$h .= 'Masz pytanie? Odpisz na tego maila albo napisz na <a href="mailto:' . GK_ML_NADAWCA . '" style="color:#E8512A;">' . GK_ML_NADAWCA . '</a>.<br>';
 	$h .= '<a href="https://guliwera4.pl/" style="color:' . $muted . ';">guliwera4.pl</a> · <a href="https://guliwera4.pl/akademia/" style="color:' . $muted . ';">Akademia</a> · <a href="https://guliwera4.pl/materialy/" style="color:' . $muted . ';">Materiały</a> · <a href="https://guliwera4.pl/polityka-prywatnosci/" style="color:' . $muted . ';">Prywatność</a><br>';
 	$h .= 'Angelika Pruchniak-Gąszczyk, Guliwera 4 · ul. Guliwera 4, Lublin · NIP 9462713420<br>';
-	$h .= 'To wiadomość systemowa dotycząca Twojego konta na guliwera4.pl, dlatego otrzymujesz ją niezależnie od zgód marketingowych.';
+	$h .= gk_ml_esc( $a['powod'] );
 	$h .= '</td></tr>';
 	$h .= '</table></td></tr></table></body></html>';
 	return $h;
 }
 
+/** HTML → czysty tekst (bez znaczników i encji, np. &nbsp; w cenach). */
+function gk_ml_bez_html( $s ) {
+	return trim( html_entity_decode( wp_strip_all_tags( (string) $s ), ENT_QUOTES, 'UTF-8' ) );
+}
+
 /** Wersja tekstowa (dla programów bez HTML i filtrów antyspamowych). */
 function gk_ml_tekst( array $a ) {
 	$t = mb_strtoupper( (string) ( isset( $a['tytul'] ) ? $a['tytul'] : '' ) ) . "\n\n";
-	foreach ( isset( $a['akapity'] ) ? $a['akapity'] : array() as $p ) { $t .= wp_strip_all_tags( $p ) . "\n\n"; }
-	foreach ( isset( $a['lista'] ) ? $a['lista'] : array() as $i => $li ) { $t .= ( $i + 1 ) . '. ' . wp_strip_all_tags( $li ) . "\n"; }
+	foreach ( isset( $a['akapity'] ) ? $a['akapity'] : array() as $p ) { $t .= gk_ml_bez_html( $p ) . "\n\n"; }
+	foreach ( isset( $a['lista'] ) ? $a['lista'] : array() as $i => $li ) { $t .= ( $i + 1 ) . '. ' . gk_ml_bez_html( $li ) . "\n"; }
+	if ( ! empty( $a['tekst_po'] ) ) { $t .= "\n" . trim( $a['tekst_po'] ) . "\n"; }
 	foreach ( array( 'cta', 'cta2' ) as $k ) {
 		if ( ! empty( $a[ $k ] ) ) { $t .= "\n" . $a[ $k ][0] . ': ' . $a[ $k ][1] . "\n"; }
 	}
-	if ( ! empty( $a['uwaga'] ) ) { $t .= "\n" . wp_strip_all_tags( $a['uwaga'] ) . "\n"; }
-	$t .= "\n--\nGuliwera 4 · ul. Guliwera 4, Lublin · " . GK_ML_NADAWCA . " · https://guliwera4.pl/\n";
+	if ( ! empty( $a['tekst_pod'] ) ) { $t .= "\n" . trim( $a['tekst_pod'] ) . "\n"; }
+	if ( ! empty( $a['uwaga'] ) ) { $t .= "\n" . gk_ml_bez_html( $a['uwaga'] ) . "\n"; }
+	if ( ! empty( $a['prosty'] ) ) { return $t; }
+	$t .= "\n--\nAngelika Pruchniak-Gąszczyk, Guliwera 4 · ul. Guliwera 4, Lublin · NIP 9462713420\n" . GK_ML_NADAWCA . " · https://guliwera4.pl/\n";
+	if ( ! empty( $a['powod'] ) ) { $t .= $a['powod'] . "\n"; }
 	return $t;
 }
 
@@ -241,16 +272,7 @@ function gk_ml_tresc_email_zmieniony( $user, $nowy ) {
 }
 
 /* ─────────────────────────── WooCommerce ─────────────────────────── */
-// Nasze szablony dla: nowe konto, reset hasła (HTML i tekst).
-add_filter( 'woocommerce_locate_template', function ( $template, $name ) {
-	$nasze = array( 'emails/customer-new-account.php', 'emails/customer-reset-password.php', 'emails/plain/customer-new-account.php', 'emails/plain/customer-reset-password.php' );
-	if ( in_array( $name, $nasze, true ) ) {
-		$f = __DIR__ . '/templates/' . $name;
-		if ( is_file( $f ) ) { return $f; }
-	}
-	return $template;
-}, 20, 2 );
-
+// Szablony WooCommerce (konto i zamówienia) podmienia filtr w includes/sklep.php.
 add_filter( 'woocommerce_email_subject_customer_new_account', function () { return 'Witaj w Guliwera 4! Twoje konto jest gotowe'; } );
 add_filter( 'woocommerce_email_heading_customer_new_account', function () { return 'Witaj w Guliwera 4'; } );
 add_filter( 'woocommerce_email_subject_customer_reset_password', function () { return 'Ustaw nowe hasło do konta Guliwera 4'; } );
@@ -370,21 +392,4 @@ add_action( 'woocommerce_created_customer', function ( $uid ) {
 	gk_ml_zapamietaj( $uid, hash( 'sha256', gk_ml_token() ) );
 } );
 
-/* ─────────────────────────── Podgląd dla administratora ───────────────────────────
- * guliwera4.pl/?gk_mail_podglad=powitanie|reset|haslo|logowanie|email (tylko zalogowany administrator).
- */
-add_action( 'template_redirect', function () {
-	if ( empty( $_GET['gk_mail_podglad'] ) || ! current_user_can( 'manage_options' ) ) { return; }
-	$u = wp_get_current_user();
-	switch ( sanitize_key( $_GET['gk_mail_podglad'] ) ) {
-		case 'reset':     $a = gk_ml_tresc_reset( $u->user_login, gk_ml_reset_url() . '?key=PRZYKLAD' ); break;
-		case 'haslo':     $a = gk_ml_tresc_haslo_zmienione( $u ); break;
-		case 'logowanie': $a = gk_ml_tresc_logowanie( $u, isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '', '31.61.238.144' ); break;
-		case 'email':     $a = gk_ml_tresc_email_zmieniony( $u, 'nowy@przyklad.pl' ); break;
-		default:          $a = gk_ml_tresc_powitanie( $u, $u->user_login );
-	}
-	nocache_headers();
-	header( 'Content-Type: text/html; charset=utf-8' );
-	echo gk_ml_layout( $a ); // phpcs:ignore
-	exit;
-} );
+/* Podgląd wszystkich maili dla administratora: includes/podglad.php (?gk_mail_podglad=lista). */
