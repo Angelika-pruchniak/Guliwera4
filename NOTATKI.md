@@ -74,4 +74,5 @@ Wszystkie czaty o stronie mają w Claude tag **guliwera4.pl**.
 - „Aplikacja do nauki dla młodych managerów (Guliwera 4)”: pierwsza wersja Akademii (zarchiwizowany).
 - „Aplikacja Akademia Guliwera – nauka dla młodych managerów”: Akademia v2, logowanie, rabaty, przycisk na stronie.
 - „Agent social media: posty FB i LinkedIn”: posty do social mediów.
-- Mailing do klientów: osobny czat (do założenia z karty zadania).
+- „Mailing i newsletter Guliwera 4”: maile techniczne (zamówienia, PDF, płatności) i marketingowe, kalendarz wysyłek.
+- „Akademia Guliwera w Google Play i App Store”: publikacja aplikacji w sklepach.
