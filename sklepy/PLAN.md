@@ -1,5 +1,7 @@
 # Akademia Guliwera w Google Play i App Store: plan
 
+> **Wstrzymane (5.11.2026):** na razie bez sklepów. Aplikacja działa jako PWA pod https://guliwera4.pl/akademia/ (instalacja ze strony https://guliwera4.pl/aplikacja/). Plan zostaje na później.
+
 ## Decyzje (5.11.2026)
 | Temat | Decyzja |
 |---|---|
