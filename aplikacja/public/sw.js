@@ -1,5 +1,5 @@
 // Prosty service worker: działanie offline (strona: najpierw sieć, zasoby: najpierw pamięć).
-const CACHE = 'akademia-v1'
+const CACHE = 'akademia-v2'
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(['./', './index.html', './manifest.webmanifest', './icon.svg'])))
   self.skipWaiting()

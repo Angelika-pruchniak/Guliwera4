@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Lilek } from '../components/Lilek'
+import { RabatCard } from '../components/RabatCard'
+import { konto } from '../konto'
 import { Coin, Flame, Heart, Progress, Snow, Star } from '../components/ui'
 import { fx } from '../fx'
 import {
@@ -25,7 +27,7 @@ export function Profile() {
       <div className="profile-head">
         <Lilek mood="happy" size={86} />
         <div>
-          <h1>{s.name || 'Manager'}</h1>
+          <h1>{s.name || konto?.imie || 'Manager'}</h1>
           <div className="lvl-name">Poziom {lvl.index}: {lvl.name}</div>
           <Progress value={lvl.progress} color="var(--lilac)" />
           <div className="muted small">{lvl.next ? `${s.xp} / ${lvl.next} XP do kolejnego poziomu` : `${s.xp} XP: najwyższy poziom!`}</div>
@@ -38,6 +40,8 @@ export function Profile() {
         <div className="tile t-lilac"><span>Najdłuższa seria</span><b>{s.longestStreak}</b></div>
         <div className="tile t-pink"><span>Lekcje</span><b>{Object.keys(s.done).length}</b></div>
       </div>
+
+      <RabatCard />
 
       <div className="card">
         <h3>Ostatnie 7 dni</h3>
@@ -107,12 +111,13 @@ export function Profile() {
         ) : (
           <button className="btn ghost small" onClick={() => setConfirm(true)}>Zacznij od nowa</button>
         )}
+        {konto && <a className="btn ghost small" href={konto.wyloguj}>Wyloguj się</a>}
       </div>
 
       <div className="card about">
         <h3>O aplikacji</h3>
         <p>Akademia Guliwera to autorskie lekcje <b>Guliwera 4</b> („strategia, produkty cyfrowe i dobry humor”). Zakres działów odpowiada typowym przedmiotom studiów ekonomicznych i menedżerskich: mikro- i makroekonomii, podstawom finansów, rachunkowości oraz zarządzaniu strategicznemu.</p>
-        <p className="muted small">Nazwy modeli (np. macierz BCG, model 7S, 5 sił Portera) opisują ogólnie znane koncepcje. Aplikacja nie jest powiązana z Boston Consulting Group, McKinsey &amp; Company ani żadną uczelnią. Treści mają charakter edukacyjny i nie są poradą finansową. Postęp jest zapisany tylko na tym urządzeniu.</p>
+        <p className="muted small">Nazwy modeli (np. macierz BCG, model 7S, 5 sił Portera) opisują ogólnie znane koncepcje. Aplikacja nie jest powiązana z Boston Consulting Group, McKinsey &amp; Company ani żadną uczelnią. Treści mają charakter edukacyjny i nie są poradą finansową. Postęp w aplikacji jest zapisany na tym urządzeniu, a ukończone lekcje i aktywne dni (do rabatu) na Twoim koncie guliwera4.pl.</p>
         <p className="muted small">guliwera4.pl</p>
       </div>
     </div>

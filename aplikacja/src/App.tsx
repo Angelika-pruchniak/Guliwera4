@@ -3,6 +3,7 @@ import { flatLessons, pick, quickExercises, units, type Item } from './content'
 import { Lilek } from './components/Lilek'
 import { Coin, Confetti, Flame, Heart } from './components/ui'
 import { fx } from './fx'
+import { wyslijKolejke, zglosAktywnosc, zglosLekcje } from './konto'
 import { Home } from './screens/Home'
 import { Onboarding } from './screens/Onboarding'
 import { Placement } from './screens/Placement'
@@ -32,6 +33,7 @@ export default function App() {
   const [noHearts, setNoHearts] = useState(false)
 
   useEffect(() => {
+    void wyslijKolejke()
     const t = setInterval(tickHearts, 20_000)
     return () => clearInterval(t)
   }, [])
@@ -71,6 +73,7 @@ export default function App() {
           onDone={(r) => {
             if (r.aborted) return home()
             const rewards = completeLesson(l.id, r)
+            zglosLekcje(l.id)
             setView({ name: 'result', rewards, accuracy: accuracy(r), seconds: r.seconds, title: l.title })
           }}
         />
@@ -85,6 +88,7 @@ export default function App() {
           onExit={home}
           onDone={(r) => {
             const rewards = completeReview(r)
+            zglosAktywnosc()
             setView({ name: 'result', rewards, accuracy: accuracy(r), seconds: r.seconds, heading: 'Powtórka zrobiona!', title: 'Pamięć odświeżona. W nagrodę +1 serce.' })
           }}
         />

@@ -257,3 +257,12 @@ button:disabled { cursor: default; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition: none !important; }
 }
+
+/* Rabat w sklepie */
+.rabat { border-color: var(--coral); }
+.rabat-proc { background: linear-gradient(100deg, #FF6B3D, #F4799F 55%, #B9A5E3); color: #fff; border-radius: 999px; padding: 2px 12px; font-size: 18px; }
+.rabat-wiersz { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; }
+.kupon { background: #FFEFC7; border: 2px dashed #FFC84A; border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.kupon-kod { font-size: 20px; letter-spacing: .06em; word-break: break-all; }
+.kupon .row { flex-wrap: wrap; }
+.rabat .progress { flex: none; }

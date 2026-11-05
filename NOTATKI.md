@@ -49,7 +49,11 @@ E-mail na stronie: kontakt@guliwera4.pl
 
 ## Aplikacja Akademia Guliwera (gałąź `claude/aplikacja-lekcje`)
 - Kod: `aplikacja/` (React + Vite, PWA). Treść lekcji: `aplikacja/src/content/kurs.ts`. Maskotka: Lilek.
-- Na stronie: wtyczka `guliwera-akademia` (wersja 1.1, aktywna) serwuje aplikację pod https://guliwera4.pl/akademia/.
+- Na stronie: wtyczka `guliwera-akademia` (wersja 1.2, aktywna) serwuje aplikację pod https://guliwera4.pl/akademia/.
+  - Akademia tylko dla zalogowanych (Moje konto; logowanie Google przez wtyczkę Nextend Social Login, do skonfigurowania).
+  - Wyróżniony przycisk „🎓 Akademia · nowość” w menu każdej podstrony (dodaje go wtyczka).
+  - Rabaty na PDF-y za regularną naukę: zasady w `aplikacja/RABATY.md`.
+  - Zgoda na maile z aplikacji: meta użytkownika `gk_ak_zgoda` (data zgody), do mailingu.
   Aktualizacja: `aplikacja/pakuj-wtyczke.sh` → commit `wtyczki/guliwera-akademia.zip` → wgrać ZIP z GitHub raw (hash commita, overwrite).
 - Strona 112 „Aplikacja” (https://guliwera4.pl/aplikacja/): opis, instrukcja instalacji, kod QR. W menu pozostałych stron jeszcze nie ma linku.
 - Sklepy: Google Play przez TWA (PWABuilder), wymaga konta Google Play Console i pliku /.well-known/assetlinks.json; App Store wymaga konta Apple Developer i Maca.
@@ -58,3 +62,11 @@ E-mail na stronie: kontakt@guliwera4.pl
 Aplikacja do nauki dla młodych managerów: krótkie codzienne lekcje, seria dni, punkty, poziomy.
 Wiedza z publicznie opisanych frameworków strategii i zarządzania (np. macierz BCG, 7S, MECE, piramida Minto).
 Oryginalna marka Guliwera 4, bez logo i materiałów chronionych prawem autorskim.
+
+## Mapa prac nad guliwera4.pl
+Wszystkie czaty o stronie mają w Claude tag **guliwera4.pl**.
+- „Dostęp do strony”: budowa strony WordPress, sklep, wtyczki.
+- „Aplikacja do nauki dla młodych managerów (Guliwera 4)”: pierwsza wersja Akademii (zarchiwizowany).
+- „Aplikacja Akademia Guliwera – nauka dla młodych managerów”: Akademia v2, logowanie, rabaty, przycisk na stronie.
+- „Agent social media: posty FB i LinkedIn”: posty do social mediów.
+- Mailing do klientów: osobny czat (do założenia z karty zadania).
