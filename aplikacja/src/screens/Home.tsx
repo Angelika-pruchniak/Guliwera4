@@ -4,6 +4,7 @@ import { InstallCard } from '../components/InstallCard'
 import { Lilek } from '../components/Lilek'
 import { Progress, Star } from '../components/ui'
 import { fx } from '../fx'
+import { DARMOWE_DZIALY } from '../konto'
 import { chestReady, currentLesson, dayKey, lessonStatus, unitReached, useStore } from '../store'
 
 const OFFSETS = [0, 52, 78, 52, 0, -52, -78, -52]
@@ -12,9 +13,10 @@ type Props = {
   onLesson: (flatIndex: number) => void
   onSkip: (unitIndex: number) => void
   onChest: (unitIndex: number) => void
+  pro?: boolean
 }
 
-export function Home({ onLesson, onSkip, onChest }: Props) {
+export function Home({ onLesson, onSkip, onChest, pro = false }: Props) {
   const s = useStore()
   const cur = currentLesson(s)
   const curRef = useRef<HTMLDivElement>(null)
@@ -42,7 +44,7 @@ export function Home({ onLesson, onSkip, onChest }: Props) {
           <section key={u.id} className="unit">
             <div className={`unit-banner c-${u.color}`}>
               <div>
-                <div className="unit-no">Dział {ui + 1}</div>
+                <div className="unit-no">Dział {ui + 1}{!pro && ui >= DARMOWE_DZIALY && <span className="unit-pro">PRO</span>}</div>
                 <h2>{u.title}</h2>
                 <div className="unit-sub">{u.subtitle}</div>
               </div>

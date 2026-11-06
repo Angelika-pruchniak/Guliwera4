@@ -5,6 +5,7 @@ import { Lilek, Speech } from '../components/Lilek'
 import { Heart, Progress } from '../components/ui'
 import { fx } from '../fx'
 import { buyHearts, loseHeart, PRICE_HEARTS, useStore } from '../store'
+import { getRabat, jestPro } from '../konto'
 
 export type SessionMode = 'lesson' | 'review' | 'test'
 export type SessionResult = {
@@ -61,7 +62,7 @@ export function Session({ title, items, mode, maxMistakes = 2, onExit, onDone }:
       st.mistakes++
       if (!doneIds.includes(item.id)) st.firstTryWrong.add(item.id)
       setCombo(0)
-      if (mode === 'lesson') loseHeart()
+      if (mode === 'lesson' && !jestPro(getRabat())) loseHeart()
       return
     }
     const c = combo + 1
@@ -91,7 +92,7 @@ export function Session({ title, items, mode, maxMistakes = 2, onExit, onDone }:
     st.lastOk = false
 
     if (mode === 'test' && st.mistakes > maxMistakes) return finish()
-    if (mode === 'lesson' && s.hearts <= 0) { setNoHearts(true); return }
+    if (mode === 'lesson' && !jestPro(getRabat()) && s.hearts <= 0) { setNoHearts(true); return }
     if (pos + 1 >= nextQueue.length) return finish()
     setPos(pos + 1)
   }

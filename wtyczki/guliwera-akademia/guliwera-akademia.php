@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – Akademia (aplikacja)
  * Description: Udostępnia aplikację Akademia Guliwera pod adresem guliwera4.pl/akademia/ (tylko dla zalogowanych), liczy postęp na serwerze, daje rabaty na PDF-y za regularną naukę i dodaje wyróżniony przycisk „Akademia” w menu strony. Zostaw włączoną.
- * Version: 1.3
+ * Version: 1.4
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -25,6 +25,11 @@ define( 'GK_AK_KUPON_CO_DNI', 30 );
 define( 'GK_AK_KUPON_WAZNY_DNI', 7 );
 // Produkty „Kierunek Zysk” (PDF-y), na które działa rabat.
 define( 'GK_AK_PRODUKTY', '67,68,69,70,71,72,73' );
+
+/* Akademia Pro: działy 1–2 za darmo, reszta (oraz serca bez limitu i certyfikat) w Pro. */
+define( 'GK_AK_DARMOWE_DZIALY', 2 );
+define( 'GK_AK_PRO_CENA', '249' );
+define( 'GK_AK_PRO_DNI', 365 );
 
 function gk_ak_mnoznik( $aktywne_dni ) {
 	if ( $aktywne_dni >= 14 ) { return 1.0; }
@@ -58,6 +63,13 @@ function gk_ak_postep( $uid ) {
 	return wp_parse_args( $p, array( 'lekcje' => array(), 'dni' => array(), 'kupon' => null ) );
 }
 
+function gk_ak_pro_do( $uid ) { return (int) get_user_meta( $uid, 'gk_ak_pro_do', true ); }
+function gk_ak_jest_pro( $uid ) { return gk_ak_pro_do( $uid ) > time(); }
+function gk_ak_pro_produkt() { return (int) get_option( 'gk_ak_pro_produkt', 0 ); }
+function gk_ak_daj_pro( $uid, $do ) {
+	update_user_meta( $uid, 'gk_ak_pro_do', max( gk_ak_pro_do( $uid ), (int) $do ) );
+}
+
 function gk_ak_status( $uid ) {
 	$p      = gk_ak_postep( $uid );
 	$od     = wp_date( 'Y-m-d', time() - ( GK_AK_OKNO_DNI - 1 ) * DAY_IN_SECONDS );
@@ -86,6 +98,11 @@ function gk_ak_status( $uid ) {
 		'nowyKuponOd'  => $kupon ? wp_date( 'Y-m-d', (int) $kupon['data'] + GK_AK_KUPON_CO_DNI * DAY_IN_SECONDS ) : null,
 		'moznaOdebrac' => $mozna && $rabat > 0 && function_exists( 'WC' ),
 		'zgoda'        => (bool) get_user_meta( $uid, 'gk_ak_zgoda', true ),
+		'pro'          => gk_ak_jest_pro( $uid ),
+		'proDo'        => gk_ak_pro_do( $uid ) ? wp_date( 'Y-m-d', gk_ak_pro_do( $uid ) ) : null,
+		'proUrl'       => gk_ak_pro_produkt() && function_exists( 'wc_get_checkout_url' ) ? add_query_arg( 'add-to-cart', gk_ak_pro_produkt(), wc_get_checkout_url() ) : null,
+		'proCena'      => (int) GK_AK_PRO_CENA,
+		'darmoweDzialy' => GK_AK_DARMOWE_DZIALY,
 	);
 }
 
@@ -117,6 +134,11 @@ add_action( 'rest_api_init', function () {
 		'permission_callback' => $zalogowany,
 		'callback'            => 'gk_ak_rest_kupon',
 	) );
+	register_rest_route( 'akademia/v1', '/kod', array(
+		'methods'             => 'POST',
+		'permission_callback' => $zalogowany,
+		'callback'            => 'gk_ak_rest_kod',
+	) );
 	register_rest_route( 'akademia/v1', '/zgoda', array(
 		'methods'             => 'POST',
 		'permission_callback' => $zalogowany,
@@ -147,6 +169,9 @@ function gk_ak_rest_lekcja( WP_REST_Request $r ) {
 	if ( ! in_array( $id, gk_ak_lekcje_kursu(), true ) ) {
 		return new WP_Error( 'gk_ak_lekcja', 'Nieznana lekcja.', array( 'status' => 400 ) );
 	}
+	if ( preg_match( '/^u(\d+)l/', $id, $mm ) && (int) $mm[1] > GK_AK_DARMOWE_DZIALY && ! gk_ak_jest_pro( $uid ) ) {
+		return array_merge( gk_ak_status( $uid ), array( 'zaliczona' => false, 'powod' => 'pro' ) );
+	}
 	$p      = gk_ak_postep( $uid );
 	$dzis   = gk_ak_dzis();
 	$dzisL  = count( array_filter( $p['lekcje'], function ( $d ) use ( $dzis ) { return $d === $dzis; } ) );
@@ -158,6 +183,119 @@ function gk_ak_rest_lekcja( WP_REST_Request $r ) {
 	gk_ak_zapisz_dzien( $uid, $p );
 	return array_merge( gk_ak_status( $uid ), array( 'zaliczona' => $zalicz ) );
 }
+
+/* ─────────────────────────── Kody firmowe (licencje Akademii dla firm) ─────────────────────────── */
+function gk_ak_kody() { $k = get_option( 'gk_ak_kody', array() ); return is_array( $k ) ? $k : array(); }
+
+function gk_ak_rest_kod( WP_REST_Request $r ) {
+	$uid  = get_current_user_id();
+	$kod  = strtoupper( preg_replace( '/[^A-Za-z0-9-]/', '', (string) $r->get_param( 'kod' ) ) );
+	$kody = gk_ak_kody();
+	if ( ! $kod || empty( $kody[ $kod ] ) ) {
+		return new WP_Error( 'gk_ak_kod', 'Nieprawidłowy kod.', array( 'status' => 400 ) );
+	}
+	$k = $kody[ $kod ];
+	if ( (int) $k['do'] < time() ) {
+		return new WP_Error( 'gk_ak_kod', 'Ten kod wygasł.', array( 'status' => 400 ) );
+	}
+	$uzyte = isset( $k['uzyte'] ) ? array_map( 'intval', (array) $k['uzyte'] ) : array();
+	if ( ! in_array( $uid, $uzyte, true ) ) {
+		if ( count( $uzyte ) >= (int) $k['miejsca'] ) {
+			return new WP_Error( 'gk_ak_kod', 'Wszystkie miejsca w tym kodzie są zajęte.', array( 'status' => 400 ) );
+		}
+		$uzyte[]               = $uid;
+		$kody[ $kod ]['uzyte'] = $uzyte;
+		update_option( 'gk_ak_kody', $kody, false );
+	}
+	gk_ak_daj_pro( $uid, (int) $k['do'] );
+	update_user_meta( $uid, 'gk_ak_firma', sanitize_text_field( $k['firma'] ) );
+	return gk_ak_status( $uid );
+}
+
+/** Panel: Narzędzia → Akademia: kody firm. */
+add_action( 'admin_menu', function () {
+	add_management_page( 'Akademia: kody firm', 'Akademia: kody firm', 'manage_options', 'gk-ak-kody', 'gk_ak_panel_kodow' );
+} );
+function gk_ak_panel_kodow() {
+	if ( ! current_user_can( 'manage_options' ) ) { return; }
+	$kody = gk_ak_kody();
+	if ( isset( $_POST['gk_ak_nowy'] ) && check_admin_referer( 'gk_ak_kody' ) ) {
+		$firma   = sanitize_text_field( wp_unslash( $_POST['firma'] ?? '' ) );
+		$miejsca = max( 1, (int) ( $_POST['miejsca'] ?? 10 ) );
+		$mies    = max( 1, (int) ( $_POST['miesiace'] ?? 12 ) );
+		$kod     = 'FIRMA-' . strtoupper( wp_generate_password( 6, false, false ) );
+		$kody[ $kod ] = array( 'firma' => $firma, 'miejsca' => $miejsca, 'do' => strtotime( "+$mies months" ), 'uzyte' => array() );
+		update_option( 'gk_ak_kody', $kody, false );
+		echo '<div class="notice notice-success"><p>Nowy kod: <b>' . esc_html( $kod ) . '</b></p></div>';
+	}
+	if ( isset( $_POST['gk_ak_usun'] ) && check_admin_referer( 'gk_ak_kody' ) ) {
+		unset( $kody[ sanitize_text_field( wp_unslash( $_POST['gk_ak_usun'] ) ) ] );
+		update_option( 'gk_ak_kody', $kody, false );
+	}
+	echo '<div class="wrap"><h1>Akademia Guliwera: kody dla firm</h1>';
+	echo '<p>Kod daje pracownikom firmy dostęp do Akademii Pro do daty ważności. Pracownik zakłada konto na guliwera4.pl i wpisuje kod w aplikacji: Profil → Akademia Pro.</p>';
+	echo '<form method="post">'; wp_nonce_field( 'gk_ak_kody' );
+	echo '<table class="form-table"><tr><th>Firma</th><td><input name="firma" required class="regular-text"></td></tr>';
+	echo '<tr><th>Liczba miejsc</th><td><input name="miejsca" type="number" value="10" min="1"></td></tr>';
+	echo '<tr><th>Ważność (miesiące)</th><td><input name="miesiace" type="number" value="12" min="1"></td></tr></table>';
+	echo '<p><button class="button button-primary" name="gk_ak_nowy" value="1">Utwórz kod</button></p></form>';
+	echo '<table class="widefat striped"><thead><tr><th>Kod</th><th>Firma</th><th>Zajęte / miejsca</th><th>Ważny do</th><th></th></tr></thead><tbody>';
+	foreach ( $kody as $kod => $k ) {
+		echo '<tr><td><code>' . esc_html( $kod ) . '</code></td><td>' . esc_html( $k['firma'] ) . '</td><td>' . count( (array) $k['uzyte'] ) . ' / ' . (int) $k['miejsca'] . '</td><td>' . esc_html( wp_date( 'Y-m-d', (int) $k['do'] ) ) . '</td>';
+		echo '<td><form method="post" onsubmit="return confirm(\'Usunąć kod?\')">'; wp_nonce_field( 'gk_ak_kody' );
+		echo '<button class="button-link-delete" name="gk_ak_usun" value="' . esc_attr( $kod ) . '">Usuń</button></form></td></tr>';
+	}
+	if ( ! $kody ) { echo '<tr><td colspan="5">Brak kodów.</td></tr>'; }
+	echo '</tbody></table></div>';
+}
+
+/* ─────────────────────────── Akademia Pro w sklepie ─────────────────────────── */
+// Produkt tworzy się sam (raz), gdy działa WooCommerce.
+add_action( 'init', function () {
+	if ( ! class_exists( 'WC_Product_Simple' ) ) { return; }
+	$id = gk_ak_pro_produkt();
+	if ( $id && get_post( $id ) ) { return; }
+	if ( get_transient( 'gk_ak_pro_lock' ) ) { return; }
+	set_transient( 'gk_ak_pro_lock', 1, MINUTE_IN_SECONDS );
+	$p = new WC_Product_Simple();
+	$p->set_name( 'Akademia Guliwera Pro – dostęp na 12 miesięcy' );
+	$p->set_slug( 'akademia-pro' );
+	$p->set_regular_price( GK_AK_PRO_CENA );
+	$p->set_virtual( true );
+	$p->set_sold_individually( true );
+	$p->set_catalog_visibility( 'hidden' );
+	$p->set_short_description( 'Pełny dostęp do wszystkich działów Akademii Guliwera na 12 miesięcy: lekcje ze strategii, finansów i prowadzenia zespołu, serca bez limitu i certyfikat ukończenia. Płatność jednorazowa, bez abonamentu.' );
+	$p->set_description( 'Akademia Guliwera Pro to roczny dostęp do aplikacji z codziennymi lekcjami dla młodych managerów (guliwera4.pl/akademia/). Działy 1–2 są darmowe; Pro odblokowuje wszystkie pozostałe działy i nowe lekcje dodawane w trakcie roku, usuwa limit serc i daje certyfikat ukończenia kursu. Dostęp aktywuje się automatycznie po opłaceniu zamówienia na koncie, którym logujesz się do Akademii.' );
+	$p->set_status( 'publish' );
+	update_option( 'gk_ak_pro_produkt', $p->save(), false );
+}, 30 );
+
+function gk_ak_zamowienie_pro( $order_id ) {
+	$o = wc_get_order( $order_id );
+	if ( ! $o || $o->get_meta( '_gk_ak_pro' ) || ! $o->get_user_id() ) { return; }
+	foreach ( $o->get_items() as $it ) {
+		if ( (int) $it->get_product_id() === gk_ak_pro_produkt() ) {
+			$uid = $o->get_user_id();
+			gk_ak_daj_pro( $uid, max( time(), gk_ak_pro_do( $uid ) ) + GK_AK_PRO_DNI * DAY_IN_SECONDS );
+			$o->update_meta_data( '_gk_ak_pro', time() );
+			$o->add_order_note( 'Akademia Pro aktywna do ' . wp_date( 'Y-m-d', gk_ak_pro_do( $uid ) ) . '.' );
+			$o->save();
+			return;
+		}
+	}
+}
+add_action( 'woocommerce_order_status_processing', 'gk_ak_zamowienie_pro' );
+add_action( 'woocommerce_order_status_completed', 'gk_ak_zamowienie_pro' );
+
+// Zamówienie Pro wymaga konta (dostęp przypisujemy do konta).
+add_filter( 'woocommerce_checkout_registration_required', function ( $wymagane ) {
+	if ( function_exists( 'WC' ) && WC()->cart && gk_ak_pro_produkt() ) {
+		foreach ( WC()->cart->get_cart() as $poz ) {
+			if ( (int) $poz['product_id'] === gk_ak_pro_produkt() ) { return true; }
+		}
+	}
+	return $wymagane;
+} );
 
 function gk_ak_rest_kupon() {
 	$uid = get_current_user_id();

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Lilek } from '../components/Lilek'
 import { RabatCard } from '../components/RabatCard'
+import { ProCard } from '../components/ProCard'
 import { konto } from '../konto'
 import { Coin, Flame, Heart, Progress, Snow, Star } from '../components/ui'
 import { fx } from '../fx'
@@ -11,7 +12,7 @@ import {
 
 const DAYS = ['nd', 'pn', 'wt', 'śr', 'cz', 'pt', 'sb']
 
-export function Profile() {
+export function Profile({ onCert }: { onCert: () => void }) {
   const s = useStore()
   const lvl = levelOf(s.xp)
   const [confirm, setConfirm] = useState(false)
@@ -40,6 +41,8 @@ export function Profile() {
         <div className="tile t-lilac"><span>Najdłuższa seria</span><b>{s.longestStreak}</b></div>
         <div className="tile t-pink"><span>Lekcje</span><b>{Object.keys(s.done).length}</b></div>
       </div>
+
+      <ProCard onCert={onCert} />
 
       <RabatCard />
 

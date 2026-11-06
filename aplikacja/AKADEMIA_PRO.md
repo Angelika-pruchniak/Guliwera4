@@ -1,0 +1,24 @@
+# Akademia Guliwera Pro
+
+- **Za darmo:** działy 1–2 (`GK_AK_DARMOWE_DZIALY` we wtyczce, `DARMOWE_DZIALY` w `src/konto.ts`).
+- **Pro:**
+  - wszystkie działy;
+  - serca bez limitu;
+  - certyfikat ukończenia (Profil → Akademia Pro → „Pobierz certyfikat”, po ukończeniu wszystkich lekcji).
+- **Cena:** 249 zł jednorazowo za 12 miesięcy (`GK_AK_PRO_CENA`, `GK_AK_PRO_DNI`).
+- **Produkt w sklepie:**
+  - wtyczka `guliwera-akademia` tworzy go sama: „Akademia Guliwera Pro – dostęp na 12 miesięcy”, ukryty w katalogu, wirtualny, slug `akademia-pro`;
+  - ID produktu jest w opcji `gk_ak_pro_produkt`;
+  - przycisk w aplikacji prowadzi do `/zamowienie/?add-to-cart=ID`.
+- **Aktywacja:**
+  - gdy zamówienie z produktem Pro przejdzie w status „W realizacji” albo „Zrealizowane”, konto dostaje `gk_ak_pro_do` = teraz (albo obecna data końca) + 365 dni;
+  - w zamówieniu pojawia się notatka;
+  - zakup Pro wymaga konta.
+- **Kody dla firm:**
+  - wp-admin → Narzędzia → „Akademia: kody firm”: firma, liczba miejsc, ważność w miesiącach;
+  - pracownik zakłada konto i wpisuje kod w aplikacji (Profil → Akademia Pro);
+  - kod nadaje Pro do daty ważności, dopóki są wolne miejsca;
+  - sprzedaż kodów: oferta i faktura poza sklepem (Usługi B2B, 29 zł netto/os./mies.).
+- **Rabat na PDF:**
+  - lekcje z działów Pro liczą się do rabatu tylko przy aktywnym Pro;
+  - bez Pro maksymalny rabat wynosi ok. 7% (6 z 24 lekcji).

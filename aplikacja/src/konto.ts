@@ -19,6 +19,11 @@ export type StatusRabatu = {
   nowyKuponOd: string | null
   moznaOdebrac: boolean
   zgoda: boolean
+  pro: boolean
+  proDo: string | null
+  proUrl: string | null
+  proCena: number
+  darmoweDzialy: number
 }
 
 export const konto: Cfg | null = typeof window === 'undefined' ? null : (window as unknown as { GK_AK?: Cfg }).GK_AK ?? null
@@ -35,6 +40,7 @@ function set(s: StatusRabatu | null, b: string | null) {
   emit()
 }
 
+export const getRabat = () => status
 export function useRabat() {
   return useSyncExternalStore((l) => { listeners.add(l); return () => listeners.delete(l) }, () => snapshot)
 }
@@ -87,6 +93,16 @@ export function zglosAktywnosc() { zapisz([...kolejka(), { t: 'aktywnosc' }]); v
 export async function odbierzKupon() {
   try { set(await call('kupon', {}), null) } catch (e) { set(status, (e as Error).message) }
 }
+export async function wpiszKod(kod: string): Promise<boolean> {
+  try { set(await call('kod', { kod }), null); return true } catch (e) { set(status, (e as Error).message); return false }
+}
+
+/** Działy dostępne bez Pro (indeksy od 0). Bez logowania (podgląd) też tylko darmowe. */
+export const DARMOWE_DZIALY = 2
+export const jestPro = (s: StatusRabatu | null) => !!s?.pro
+export const dzialZablokowany = (s: StatusRabatu | null, unitIndex: number) =>
+  unitIndex >= (s?.darmoweDzialy ?? DARMOWE_DZIALY) && !jestPro(s)
+
 export async function ustawZgode(zgoda: boolean) {
   try { set(await call('zgoda', { zgoda }), null) } catch (e) { set(status, (e as Error).message) }
 }
