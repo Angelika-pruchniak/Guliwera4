@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – SEO i wyszukiwarki AI
  * Description: Dane strukturalne (firma, osoba, usługi z cenami, Akademia, FAQ), sekcje „Najczęstsze pytania” na stronach, /llms.txt dla ChatGPT, Perplexity, Gemini i Claude, reguły robots.txt dla botów AI, noindex dla stron technicznych i pola Yoast dostępne do edycji przez API. Zostaw włączoną.
- * Version: 1.0
+ * Version: 1.1
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -21,9 +21,9 @@ function gk_seo_fakty() {
 		'logo'     => GK_SEO_URL . '/wp-content/uploads/2026/11/guliwera4-ikona.png',
 		'zdjecie'  => GK_SEO_URL . '/wp-content/uploads/2026/11/angelika-pruchniak-gaszczyk-portret-820x1024.jpg',
 		'uslugi'   => array(
-			array( 'Konsultacja strategiczna indywidualna', 'Jedna rozmowa (60 min), jeden konkretny problem strategiczny: produkt, firma i liczby. Online lub w Lublinie.', 500, 'za spotkanie' ),
-			array( 'Warsztat strategiczny stacjonarny', '2 godziny (1 h teorii + 1 h praktyki na realnym przypadku firmy), do 5 osób, Lublin, ul. Guliwera 4.', 450, 'za osobę' ),
-			array( 'Warsztat strategiczny online', '2 godziny na żywo zdalnie plus nagranie, do 10 osób.', 300, 'za osobę' ),
+			array( 'Konsultacja strategiczna indywidualna', 'Jedna rozmowa (60 min), jeden konkretny problem strategiczny: produkt, firma i liczby. Online lub w Lublinie.', 1200, 'za spotkanie' ),
+			array( 'Warsztat strategiczny stacjonarny', '2 godziny (1 h teorii + 1 h praktyki na realnym przypadku firmy), do 5 osób, Lublin, ul. Guliwera 4.', 540, 'za osobę' ),
+			array( 'Warsztat strategiczny online', '2 godziny na żywo zdalnie plus nagranie, do 10 osób.', 360, 'za osobę' ),
 		),
 		'produkty' => array(
 			array( 67, 'Pakiet Kierunek Zysk (wszystkie materiały)', 297 ),
@@ -46,7 +46,7 @@ function gk_seo_faq() {
 		10 => array(
 			array( 'Czym zajmuje się Guliwera 4?', 'Guliwera 4 to pracownia strategii Angeliki Pruchniak-Gąszczyk z Lublina. Pomaga małym i średnim firmom zamienić duże plany w konkretną trasę do wdrożenia: przez konsultacje strategiczne, warsztaty dla zespołów i gotowe materiały do pobrania Kierunek Zysk.' ),
 			array( 'Dla kogo jest doradztwo strategiczne Guliwera 4?', 'Dla właścicieli małych i średnich firm, założycieli, osób prowadzących nowe produkty cyfrowe oraz młodych managerów, którzy chcą podejmować decyzje oparte na liczbach i prostym planie, bez korporacyjnego żargonu.' ),
-			array( 'Ile kosztuje konsultacja strategiczna?', 'Konsultacja indywidualna kosztuje 500 zł za 60 minut. Warsztat stacjonarny w Lublinie to 450 zł za osobę (2 godziny, do 5 osób), a warsztat online 300 zł za osobę (2 godziny z nagraniem, do 10 osób).' ),
+			array( 'Ile kosztuje konsultacja strategiczna?', 'Konsultacja indywidualna kosztuje 1 200 zł za 60 minut, online albo na miejscu w Lublinie. Warsztat stacjonarny w Lublinie to 540 zł za osobę (2 godziny, do 5 osób), a warsztat online 360 zł za osobę (2 godziny z nagraniem, do 10 osób).' ),
 			array( 'Czy konsultacje są tylko w Lublinie?', 'Nie. Spotkania odbywają się online z firmami z całej Polski albo stacjonarnie w gabinecie przy ul. Guliwera 4 w Lublinie.' ),
 			array( 'Czym są materiały Kierunek Zysk?', 'To 7 materiałów PDF do samodzielnej pracy: przewodnik z ćwiczeniami, Kalkulator Zysku, Strategia na 1 stronie, Planer 90 dni, 16 skryptów sprzedażowych, audyt i dziennik decyzji. Cały pakiet kosztuje 297 zł, pojedyncze PDF-y od 39 zł.' ),
 			array( 'Czym jest Akademia Guliwera?', 'To darmowa aplikacja do nauki dla młodych managerów: codzienne lekcje na 5 minut ze strategii, finansów i prowadzenia zespołu, z quizami, serią dni i powtórkami. Za regularną naukę daje rabat do 30% na materiały Kierunek Zysk.' ),
@@ -109,7 +109,7 @@ add_action( 'wp_head', function () {
 			'founder'     => array( '@id' => $osoba ),
 			'address'     => array( '@type' => 'PostalAddress', 'streetAddress' => 'ul. Guliwera 4', 'addressLocality' => 'Lublin', 'addressRegion' => 'lubelskie', 'addressCountry' => 'PL' ),
 			'areaServed'  => array( array( '@type' => 'City', 'name' => 'Lublin' ), array( '@type' => 'Country', 'name' => 'Polska' ) ),
-			'priceRange'  => '39–500 zł',
+			'priceRange'  => '39–1200 zł',
 			'currenciesAccepted' => 'PLN',
 			'knowsAbout'  => $f['tematy'],
 			'knowsLanguage' => 'pl',
