@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – SEO i wyszukiwarki AI
  * Description: Dane strukturalne (firma, osoba, usługi z cenami, Akademia, FAQ), sekcje „Najczęstsze pytania” na stronach, /llms.txt dla ChatGPT, Perplexity, Gemini i Claude, reguły robots.txt dla botów AI, noindex dla stron technicznych i pola Yoast dostępne do edycji przez API. Zostaw włączoną.
- * Version: 1.1
+ * Version: 1.2
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -189,18 +189,93 @@ add_action( 'wpseo_add_opengraph_images', function ( $images ) {
 	}
 } );
 
-/* robots.txt: wyraźna zgoda dla wyszukiwarek i asystentów AI, bez stron technicznych. */
+/* robots.txt: jeden spójny plik (zastępuje dopiski Yoasta, WP-Optimize i innych wtyczek).
+ * Koszyk, zamówienie i konto NIE są tu blokowane, żeby Google widział na nich noindex.
+ * User-agent: * jest w tej samej grupie co boty AI, więc wszyscy dostają te same reguły. */
 add_filter( 'robots_txt', function ( $txt, $public ) {
 	if ( ! $public ) { return $txt; }
-	$boty = array( 'Googlebot', 'Bingbot', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'Applebot', 'Applebot-Extended', 'DuckAssistBot', 'meta-externalagent' );
-	$wyl  = "Disallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\nDisallow: /koszyk/\nDisallow: /zamowienie/\nDisallow: /moje-konto/\nDisallow: /akademia/\nDisallow: /*?add-to-cart=\nDisallow: /*?gk_kupon=\n";
+	$boty = array( '*', 'Googlebot', 'Bingbot', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'Applebot', 'Applebot-Extended', 'DuckAssistBot', 'meta-externalagent' );
 	$out  = "# guliwera4.pl – wyszukiwarki i asystenci AI są mile widziani\n";
 	foreach ( $boty as $b ) { $out .= "User-agent: $b\n"; }
-	$out .= "Allow: /\n" . $wyl . "\nUser-agent: *\n" . $wyl;
+	$out .= "Allow: /\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\nDisallow: /akademia/\nDisallow: /*?add-to-cart=\nDisallow: /*?gk_kupon=\nDisallow: /wp-content/uploads/wpo/\n";
 	$out .= "\n# Opis dla modeli językowych: " . GK_SEO_URL . "/llms.txt\n";
 	$out .= 'Sitemap: ' . GK_SEO_URL . "/sitemap_index.xml\n";
 	return $out;
-}, 99, 2 );
+}, PHP_INT_MAX, 2 );
+
+/* Open Graph: bez małej ikony z nagłówka, zawsze porządny obrazek (portret, gdy strona nie ma własnego). */
+add_filter( 'wpseo_frontend_presentation', function ( $p ) {
+	if ( ! is_object( $p ) ) { return $p; }
+	try {
+		$imgs = $p->open_graph_images;
+		if ( is_array( $imgs ) ) {
+			$f    = gk_seo_fakty();
+			$imgs = array_filter( $imgs, function ( $i ) use ( $f ) { return ! ( isset( $i['url'] ) && $i['url'] === $f['logo'] ); } );
+			if ( empty( $imgs ) ) {
+				$imgs = array( $f['zdjecie'] => array( 'url' => $f['zdjecie'], 'width' => 820, 'height' => 1024, 'type' => 'image/jpeg' ) );
+			}
+			$p->open_graph_images = $imgs;
+		}
+	} catch ( \Throwable $e ) { // zostaw obrazki Yoasta bez zmian
+	}
+	return $p;
+} );
+
+/* Graf Yoasta połączony z firmą z naszych danych (#firma). */
+add_filter( 'wpseo_schema_website', function ( $d ) {
+	if ( is_array( $d ) && empty( $d['publisher'] ) ) { $d['publisher'] = array( '@id' => GK_SEO_URL . '/#firma' ); }
+	return $d;
+} );
+add_filter( 'wpseo_schema_webpage', function ( $d ) {
+	if ( ! is_array( $d ) ) { return $d; }
+	if ( empty( $d['publisher'] ) ) { $d['publisher'] = array( '@id' => GK_SEO_URL . '/#firma' ); }
+	if ( is_front_page() && empty( $d['about'] ) ) { $d['about'] = array( '@id' => GK_SEO_URL . '/#firma' ); }
+	return $d;
+} );
+
+/* Strona autora (pokazywała adres e-mail): przekierowanie na „O mnie”. */
+add_filter( 'author_link', function () { return GK_SEO_URL . '/o-mnie/'; } );
+add_action( 'template_redirect', function () {
+	if ( is_author() ) { wp_safe_redirect( GK_SEO_URL . '/o-mnie/', 301 ); exit; }
+} );
+
+/* Szybkość: bez nieużywanej czcionki motywu, wcześniejsze połączenie z Google Fonts. */
+add_action( 'wp_enqueue_scripts', function () {
+	wp_dequeue_style( 'ixion-fonts-archivo' );
+	wp_deregister_style( 'ixion-fonts-archivo' );
+}, 100 );
+add_filter( 'wp_resource_hints', function ( $urls, $typ ) {
+	if ( 'preconnect' === $typ ) {
+		$urls[] = 'https://fonts.googleapis.com';
+		$urls[] = array( 'href' => 'https://fonts.gstatic.com', 'crossorigin' );
+	}
+	return $urls;
+}, 10, 2 );
+
+/* Czytelność: ciemniejszy koral w górnym pasku (kontrast 5,4:1 zamiast 2,8:1). */
+add_action( 'wp_head', function () {
+	echo '<style id="gk-seo-kontrast">html body .gk .pasek{background:#B8431F !important}</style>' . "\n";
+}, 99 );
+
+/* Jednorazowo po aktualizacji: nazwa wyświetlana zamiast adresu e-mail, wyczyszczenie pamięci podręcznej. */
+add_action( 'init', function () {
+	if ( '1.2' === get_option( 'gk_seo_ver' ) ) { return; }
+	foreach ( get_users( array( 'role' => 'administrator' ) ) as $u ) {
+		if ( is_email( $u->display_name ) ) {
+			wp_update_user( array(
+				'ID'           => $u->ID,
+				'display_name' => gk_seo_fakty()['osoba'],
+				'nickname'     => gk_seo_fakty()['osoba'],
+				'first_name'   => $u->first_name ? $u->first_name : 'Angelika',
+				'last_name'    => $u->last_name ? $u->last_name : 'Pruchniak-Gąszczyk',
+			) );
+		}
+	}
+	update_option( 'gk_seo_ver', '1.2' );
+	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
+	if ( function_exists( 'wpo_cache_flush' ) ) { wpo_cache_flush(); }
+	if ( function_exists( 'wp_cache_flush' ) ) { wp_cache_flush(); }
+}, 30 );
 
 /* ─────────────────────────── /llms.txt i /llms-full.txt ─────────────────────────── */
 function gk_seo_llms( $pelny ) {

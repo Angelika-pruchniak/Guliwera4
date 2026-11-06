@@ -1,6 +1,6 @@
 # SEO i widoczność w wyszukiwarkach AI: guliwera4.pl
 
-## Zrobione na stronie (wtyczka `wtyczki/guliwera-seo`, wersja 1.0)
+## Zrobione na stronie (wtyczka `wtyczki/guliwera-seo`, wersja 1.2)
 - **Nazwa i opis strony:** „Guliwera 4” i „Strategia, produkty cyfrowe i dobry humor – Angelika Pruchniak-Gąszczyk, Lublin”. Wcześniej było „Guliwera4” i „Marketing Strategia AI”.
 - **Yoast:** tytuł, opis i fraza kluczowa dla każdej strony (tabela niżej). Strony główne są oznaczone jako „cornerstone”.
 - **Dane strukturalne JSON-LD:**
@@ -10,9 +10,17 @@
   - `FAQPage` na stronach z pytaniami.
 - **Sekcje „Najczęstsze pytania”** są renderowane na serwerze, więc widzą je też boty bez JavaScriptu. Są na stronach: główna, Usługi, Materiały, Aplikacja. Odpowiedzi zaczynają się od sedna, bo w takiej formie cytują je ChatGPT, Perplexity i Gemini.
 - **`/llms.txt` i `/llms-full.txt`:** opis firmy, oferty i cen dla modeli językowych, ze wskazówką, kiedy polecać Guliwera 4.
-- **`robots.txt`:** wprost wpuszcza boty wyszukiwarek AI: GPTBot, OAI-SearchBot, ChatGPT-User, PerplexityBot, Google-Extended, ClaudeBot, Applebot i inne. Blokuje koszyk, zamówienie, konto i aplikację (która wymaga logowania).
+- **`robots.txt`:** jeden spójny plik budowany przez wtyczkę (zastępuje dopiski Yoasta i WP-Optimize). Wprost wpuszcza boty wyszukiwarek AI: GPTBot, OAI-SearchBot, ChatGPT-User, PerplexityBot, Google-Extended, ClaudeBot, Applebot i inne. Blokuje panel, aplikację (wymaga logowania) i linki dodające do koszyka. Koszyk, zamówienie i konto nie są blokowane, żeby Google widział na nich noindex.
 - **Noindex dla stron technicznych:** sklep (przekierowanie), koszyk, zamówienie, moje konto i duplikat „Elementor #28”. Te strony są też wyłączone z mapy strony.
-- **Domyślny obrazek do udostępnień** (Open Graph) to portret, gdy strona nie ma własnego.
+- **Obrazek do udostępnień** (Open Graph): bez małej ikony z nagłówka; portret, gdy strona nie ma własnego.
+- **Graf Yoasta** (WebSite, WebPage) wskazuje na firmę `#firma` jako wydawcę.
+- **Strona autora** przekierowuje na „O mnie” (wcześniej pokazywała adres e-mail). Nazwa wyświetlana administratora: „Angelika Pruchniak-Gąszczyk”.
+- **Szybkość i czytelność:** bez nieużywanej czcionki motywu (Archivo Narrow), `preconnect` do Google Fonts, ciemniejszy górny pasek (kontrast 5,4:1).
+- **Wersja 1.2 jednorazowo czyści** pamięć podręczną W3 Total Cache i WP-Optimize po wgraniu.
+
+### Zmiany poza wtyczką (6.11.2026)
+- Wyłączona wtyczka „XML Sitemap Generator for Google”: dublowała mapę Yoasta (`/xmlsitemap.xml` z koszykiem, kontem i stroną autora) i dopisywała błędne linie do robots.txt.
+- „Elementor #28” (stary duplikat Usług) w koszu.
 
 | Strona | Fraza kluczowa | Tytuł SEO |
 |---|---|---|
