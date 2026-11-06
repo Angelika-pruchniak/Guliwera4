@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – SEO i wyszukiwarki AI
  * Description: Dane strukturalne (firma, osoba, usługi z cenami, Akademia, FAQ), sekcje „Najczęstsze pytania” na stronach, /llms.txt dla ChatGPT, Perplexity, Gemini i Claude, reguły robots.txt dla botów AI, noindex dla stron technicznych i pola Yoast dostępne do edycji przez API. Zostaw włączoną.
- * Version: 1.3
+ * Version: 1.4
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -65,6 +65,12 @@ function gk_seo_faq() {
 			array( 'Który materiał wybrać na start?', 'Jeśli chcesz uporządkować kierunek firmy, zacznij od Strategii na 1 stronie (39 zł). Jeśli chcesz od razu działać, wybierz Planer 90 dni (59 zł). Najkorzystniej cenowo wychodzi cały pakiet za 297 zł.' ),
 			array( 'Czy jest rabat na materiały?', 'Tak. Osoby, które regularnie uczą się w darmowej aplikacji Akademia Guliwera, dostają rabat do 30% na materiały Kierunek Zysk.' ),
 		),
+		157 => array(
+			array( 'Ile kosztuje kurs Strategia w 6 tygodni?', 'Kurs kosztuje 1 990 zł. Osoby z listy oczekujących dostają cenę na start 1 590 zł. Firmy mogą zgłosić kilka osób i zapłacić na fakturę.' ),
+			array( 'Jak wygląda kurs?', 'To 6 spotkań na żywo online po 90 minut, raz w tygodniu, w grupie do 20 osób. Między spotkaniami robisz zadania na swojej firmie i dostajesz informację zwrotną. Spotkania są nagrywane.' ),
+			array( 'Z czym wychodzę po kursie?', 'Ze strategią swojej firmy na jednej stronie i planem działań na 90 dni (cele, kluczowe rezultaty, właściciele zadań), a także z pakietem PDF Kierunek Zysk, który jest w cenie kursu.' ),
+			array( 'Kiedy startuje kurs?', 'Pierwsza edycja rusza w lutym 2027. Dokładny termin i link do zapisu dostaną najpierw osoby z listy oczekujących na stronie kursu.' ),
+		),
 		112 => array(
 			array( 'Czy Akademia Guliwera jest darmowa?', 'Tak. Wystarczy darmowe konto na guliwera4.pl. Aplikacja działa w przeglądarce na telefonie i komputerze i można ją dodać do ekranu głównego.' ),
 			array( 'Czego uczy Akademia Guliwera?', 'Języka biznesu i narzędzi managera: przychód, marża, EBITDA, CAC i LTV, rachunek zysków i strat, MECE, drzewo problemów, piramida Minto, zasada 80/20, SWOT, macierz BCG, model 7S, priorytety, cele SMART i OKR, delegowanie i feedback.' ),
@@ -78,7 +84,7 @@ add_filter( 'the_content', function ( $html ) {
 	if ( ! is_singular( 'page' ) || get_the_ID() !== get_queried_object_id() ) { return $html; }
 	$faq = gk_seo_faq();
 	$id  = get_the_ID();
-	if ( empty( $faq[ $id ] ) || false === strpos( $html, '<footer class="stopka">' ) ) { return $html; }
+	if ( empty( $faq[ $id ] ) || false === strpos( $html, '<footer class="stopka"' ) ) { return $html; }
 	$s  = '<section class="sekcja gk-faq" id="pytania" style="background:#fff;"><div class="wrap">';
 	$s .= '<div class="naglowek"><span class="pisane">krótko i konkretnie</span><h2>Najczęstsze pytania</h2></div>';
 	$s .= '<div style="display:grid;gap:12px;max-width:860px;">';
@@ -86,8 +92,22 @@ add_filter( 'the_content', function ( $html ) {
 		$s .= '<details style="background:#FFF6EE;border-radius:20px;padding:18px 22px;"><summary style="cursor:pointer;font-family:Fraunces,Georgia,serif;font-weight:600;font-size:20px;line-height:1.3;">' . esc_html( $qa[0] ) . '</summary><p style="margin:12px 0 0;color:#3A2340;">' . esc_html( $qa[1] ) . '</p></details>';
 	}
 	$s .= '</div></div></section>';
-	return str_replace( '<footer class="stopka">', $s . '<footer class="stopka">', $html );
+	$poz = strpos( $html, '<footer class="stopka"' );
+	return substr( $html, 0, $poz ) . $s . substr( $html, $poz );
 }, 99 );
+
+/** Pozycja „Kurs” w menu każdej strony (za „Materiały”) i link z karty kursu na stronie Usługi B2B. */
+add_filter( 'the_content', function ( $html ) {
+	$kurs = 'https://guliwera4.pl/kurs-strategia/';
+	if ( false === strpos( $html, 'href="' . $kurs . '">Kurs<' ) && false === strpos( $html, 'href="' . $kurs . '" class' ) ) {
+		$html = preg_replace( '#(<li><a(?: class="on")? href="https://guliwera4\.pl/materialy/">Materiały</a></li>)#u', '$1<li><a href="' . $kurs . '">Kurs</a></li>', $html, 1 );
+	}
+	return str_replace(
+		array( '<a href="https://guliwera4.pl/kontakt/"><h4>Kurs „Strategia w 6 tygodni”</h4>', '<span class="c">wkrótce</span>' ),
+		array( '<a href="' . $kurs . '"><h4>Kurs „Strategia w 6 tygodni”</h4>', '<span class="c">1 990 zł · start luty 2027</span>' ),
+		$html
+	);
+}, 97 );
 
 /** Nazwa „Usługi B2B” w menu, stopkach i przyciskach na wszystkich stronach (strony mają menu w swoim HTML). */
 add_filter( 'the_content', function ( $html ) {
@@ -174,6 +194,19 @@ add_action( 'wp_head', function () {
 			'provider'    => array( '@id' => $firma ),
 			'offers'      => array( '@type' => 'Offer', 'price' => 0, 'priceCurrency' => 'PLN', 'category' => 'Free' ),
 			'hasCourseInstance' => array( '@type' => 'CourseInstance', 'courseMode' => 'online', 'courseWorkload' => 'PT5M' ),
+		);
+	}
+	if ( is_front_page() || is_page( array( 157, 32 ) ) ) {
+		$graph[] = array(
+			'@type'       => 'Course',
+			'@id'         => GK_SEO_URL . '/kurs-strategia/#kurs',
+			'name'        => 'Strategia w 6 tygodni – kurs strategii firmy online',
+			'description' => 'Kurs strategii firmy online w małej grupie: 6 spotkań na żywo po 90 minut, od diagnozy firmy do strategii na jednej stronie i planu 90 dni.',
+			'url'         => GK_SEO_URL . '/kurs-strategia/',
+			'inLanguage'  => 'pl',
+			'provider'    => array( '@id' => $firma ),
+			'offers'      => array( '@type' => 'Offer', 'price' => 1990, 'priceCurrency' => 'PLN', 'category' => 'Paid', 'availability' => 'https://schema.org/PreOrder', 'url' => GK_SEO_URL . '/kurs-strategia/' ),
+			'hasCourseInstance' => array( '@type' => 'CourseInstance', 'courseMode' => 'online', 'startDate' => '2027-02', 'courseSchedule' => array( '@type' => 'Schedule', 'repeatFrequency' => 'P1W', 'repeatCount' => 6, 'duration' => 'PT90M' ) ),
 		);
 	}
 	$faq = gk_seo_faq();
@@ -305,6 +338,7 @@ function gk_seo_llms( $pelny ) {
 		$url = function_exists( 'get_permalink' ) && get_permalink( $p[0] ) ? get_permalink( $p[0] ) : GK_SEO_URL . '/materialy/';
 		$t  .= "- [{$p[1]}]({$url}): {$p[2]} zł\n";
 	}
+	$t .= "\n## Kurs Strategia w 6 tygodni\n- [Kurs strategii firmy online](" . GK_SEO_URL . "/kurs-strategia/): 6 spotkań na żywo po 90 min w grupie do 20 osób, od diagnozy do strategii na 1 stronie i planu 90 dni. 1 990 zł (lista oczekujących: 1 590 zł). Pierwsza edycja: luty 2027.\n";
 	$t .= "\n## Akademia Guliwera\n- [Akademia Guliwera](" . GK_SEO_URL . "/aplikacja/): darmowa aplikacja dla młodych managerów, lekcje na 5 minut dziennie (finanse, metryki, MECE, piramida Minto, BCG, 7S, OKR, feedback), quizy i powtórki. Za regularną naukę rabat do 30% na materiały.\n\n";
 	$t .= "## Najważniejsze strony\n";
 	$t .= "- [Strona główna](" . GK_SEO_URL . "/): kim jestem i od czego zacząć\n";

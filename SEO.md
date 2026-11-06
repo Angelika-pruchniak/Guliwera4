@@ -1,6 +1,7 @@
 # SEO i widoczność w wyszukiwarkach AI: guliwera4.pl
 
-## Zrobione na stronie (wtyczka `wtyczki/guliwera-seo`, wersja 1.3)
+## Zrobione na stronie (wtyczka `wtyczki/guliwera-seo`, wersja 1.4)
+- Od 6.11.2026 jest strona kursu `/kurs-strategia/` (ID 157) z listą oczekujących; pozycję „Kurs” w menu wszystkich stron dodaje wtyczka.
 - Od 6.11.2026 strona Usługi to **Usługi B2B dla dużych firm i korporacji**. Etykietę „Usługi B2B” w menu wszystkich stron podmienia wtyczka.
 - **Nazwa i opis strony:** „Guliwera 4” i „Strategia, produkty cyfrowe i dobry humor – Angelika Pruchniak-Gąszczyk, Lublin”. Wcześniej było „Guliwera4” i „Marketing Strategia AI”.
 - **Yoast:** tytuł, opis i fraza kluczowa dla każdej strony (tabela niżej). Strony główne są oznaczone jako „cornerstone”.
@@ -31,6 +32,7 @@
 | O mnie (6) | Angelika Pruchniak-Gąszczyk | Angelika Pruchniak-Gąszczyk – strateg biznesu \| Guliwera 4 |
 | Lokalizacja (52) | Guliwera 4 Lublin | Guliwera 4 Lublin – lokalizacja i dojazd |
 | Kontakt (60) | kontakt Guliwera 4 | Kontakt – umów konsultację strategiczną \| Guliwera 4 |
+| Kurs Strategia w 6 tygodni (157) | kurs strategii firmy | Kurs strategii firmy online – Strategia w 6 tygodni \| Guliwera 4 |
 | Aplikacja (112) | aplikacja dla managerów | Akademia Guliwera – aplikacja dla managerów \| Guliwera 4 |
 
 ## Do zrobienia przez Angelikę (poza stroną, ma największy wpływ na polecenia AI)
