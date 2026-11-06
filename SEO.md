@@ -1,6 +1,7 @@
 # SEO i widoczność w wyszukiwarkach AI: guliwera4.pl
 
-## Zrobione na stronie (wtyczka `wtyczki/guliwera-seo`, wersja 1.2.1)
+## Zrobione na stronie (wtyczka `wtyczki/guliwera-seo`, wersja 1.3)
+- Od 6.11.2026 strona Usługi to **Usługi B2B dla dużych firm i korporacji**. Etykietę „Usługi B2B” w menu wszystkich stron podmienia wtyczka.
 - **Nazwa i opis strony:** „Guliwera 4” i „Strategia, produkty cyfrowe i dobry humor – Angelika Pruchniak-Gąszczyk, Lublin”. Wcześniej było „Guliwera4” i „Marketing Strategia AI”.
 - **Yoast:** tytuł, opis i fraza kluczowa dla każdej strony (tabela niżej). Strony główne są oznaczone jako „cornerstone”.
 - **Dane strukturalne JSON-LD:**
@@ -25,7 +26,7 @@
 | Strona | Fraza kluczowa | Tytuł SEO |
 |---|---|---|
 | Strona główna (10) | doradztwo strategiczne | Doradztwo strategiczne dla firm \| Guliwera 4, Lublin |
-| Usługi (32) | konsultacja strategiczna | Konsultacja strategiczna i warsztaty – cennik \| Guliwera 4 |
+| Usługi B2B (32) | warsztaty strategiczne dla firm | Usługi B2B: warsztaty strategiczne dla firm \| Guliwera 4 |
 | Materiały (74) | materiały strategiczne PDF | Materiały strategiczne PDF Kierunek Zysk \| Guliwera 4 |
 | O mnie (6) | Angelika Pruchniak-Gąszczyk | Angelika Pruchniak-Gąszczyk – strateg biznesu \| Guliwera 4 |
 | Lokalizacja (52) | Guliwera 4 Lublin | Guliwera 4 Lublin – lokalizacja i dojazd |
