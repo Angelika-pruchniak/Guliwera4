@@ -1,6 +1,6 @@
 # SEO i widoczność w wyszukiwarkach AI: guliwera4.pl
 
-## Zrobione na stronie (wtyczka `wtyczki/guliwera-seo`, wersja 1.2)
+## Zrobione na stronie (wtyczka `wtyczki/guliwera-seo`, wersja 1.2.1)
 - **Nazwa i opis strony:** „Guliwera 4” i „Strategia, produkty cyfrowe i dobry humor – Angelika Pruchniak-Gąszczyk, Lublin”. Wcześniej było „Guliwera4” i „Marketing Strategia AI”.
 - **Yoast:** tytuł, opis i fraza kluczowa dla każdej strony (tabela niżej). Strony główne są oznaczone jako „cornerstone”.
 - **Dane strukturalne JSON-LD:**

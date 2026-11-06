@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – SEO i wyszukiwarki AI
  * Description: Dane strukturalne (firma, osoba, usługi z cenami, Akademia, FAQ), sekcje „Najczęstsze pytania” na stronach, /llms.txt dla ChatGPT, Perplexity, Gemini i Claude, reguły robots.txt dla botów AI, noindex dla stron technicznych i pola Yoast dostępne do edycji przez API. Zostaw włączoną.
- * Version: 1.2
+ * Version: 1.2.1
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -244,13 +244,9 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_dequeue_style( 'ixion-fonts-archivo' );
 	wp_deregister_style( 'ixion-fonts-archivo' );
 }, 100 );
-add_filter( 'wp_resource_hints', function ( $urls, $typ ) {
-	if ( 'preconnect' === $typ ) {
-		$urls[] = 'https://fonts.googleapis.com';
-		$urls[] = array( 'href' => 'https://fonts.gstatic.com', 'crossorigin' );
-	}
-	return $urls;
-}, 10, 2 );
+add_action( 'wp_head', function () {
+	echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n" . '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+}, 1 );
 
 /* Czytelność: ciemniejszy koral w górnym pasku (kontrast 5,4:1 zamiast 2,8:1). */
 add_action( 'wp_head', function () {
@@ -259,7 +255,7 @@ add_action( 'wp_head', function () {
 
 /* Jednorazowo po aktualizacji: nazwa wyświetlana zamiast adresu e-mail, wyczyszczenie pamięci podręcznej. */
 add_action( 'init', function () {
-	if ( '1.2' === get_option( 'gk_seo_ver' ) ) { return; }
+	if ( '1.2.1' === get_option( 'gk_seo_ver' ) ) { return; }
 	foreach ( get_users( array( 'role' => 'administrator' ) ) as $u ) {
 		if ( is_email( $u->display_name ) ) {
 			wp_update_user( array(
@@ -271,7 +267,7 @@ add_action( 'init', function () {
 			) );
 		}
 	}
-	update_option( 'gk_seo_ver', '1.2' );
+	update_option( 'gk_seo_ver', '1.2.1' );
 	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
 	if ( function_exists( 'wpo_cache_flush' ) ) { wpo_cache_flush(); }
 	if ( function_exists( 'wp_cache_flush' ) ) { wp_cache_flush(); }
