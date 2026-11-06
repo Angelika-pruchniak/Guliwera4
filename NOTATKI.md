@@ -37,6 +37,9 @@ E-mail na stronie: kontakt@guliwera4.pl
   - PDF tylko raz w koszyku.
 - Instalacja wtyczek: ZIP z GitHub raw tego repozytorium (adres z hashem commita), bo bezpośredni upload jest blokowany.
 
+## SEO
+- Wtyczka `guliwera-seo` (dane strukturalne, FAQ, llms.txt, robots dla AI, pola Yoast przez API). Plan i zadania: `SEO.md`.
+
 ## Poczta ze strony
 - Hosting, domena i poczta: nazwa.pl (serwer IP 85.128.212.180, MX = guliwera4.pl, SPF „mx a”).
 - Wygląd i treść maili systemowych: wtyczka `guliwera-maile` (opis w `wtyczki/guliwera-maile/MAILE.md`).
