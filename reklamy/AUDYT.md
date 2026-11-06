@@ -14,7 +14,7 @@ Legenda: ✅ jest · 🔧 do zrobienia (mogę przygotować) · 👤 do zrobienia
 ## 1. Pomiar
 | # | Element | Stan | Co dalej |
 |---|---|---|---|
-| 1.1 | GTM GTM-5JKVC955 w wtyczce | ✅ | – |
+| 1.1 | GTM w wtyczce | ✅ | Zmiana na GTM-KK3LPNV6 (konto Google „Guliwera4”), wtyczka 2.0.1. |
 | 1.2 | Tag Google GA4 (G-…) w GTM | 👤 brak | Założyć usługę GA4, dodać tag, opublikować. Blokuje wszystko poniżej. |
 | 1.3 | Zdarzenia e-commerce w dataLayer (view_item, add_to_cart, begin_checkout, purchase) | ✅ / do weryfikacji | Test w podglądzie GTM; sprawdzić, czy W3 Total Cache nie podaje z cache stron z `add_to_cart`. |
 | 1.4 | `purchase` tylko po opłaceniu | 🔧 | Teraz wysyła się na stronie podziękowania niezależnie od statusu (BLIK/P24 mogą wrócić jako „oczekujące”). Warunek: status w realizacji/zrealizowane. |

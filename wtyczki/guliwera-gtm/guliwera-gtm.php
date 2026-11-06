@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Guliwera – zgoda na cookies i Google Tag Manager
- * Description: Polski baner zgody na cookies (Akceptuję / Odrzucam) w kolorach strony. Google Tag Manager (GTM-5JKVC955) uruchamia się dopiero po zgodzie, z trybem zgody Google (Consent Mode v2). Przekazuje zdarzenia e-commerce WooCommerce. Dodaje linki do polityki prywatności, regulaminu i ustawień cookies w stopce. Musi pozostać włączona.
- * Version: 2.0
+ * Description: Polski baner zgody na cookies (Akceptuję / Odrzucam) w kolorach strony. Google Tag Manager (GTM-KK3LPNV6) uruchamia się dopiero po zgodzie, z trybem zgody Google (Consent Mode v2). Przekazuje zdarzenia e-commerce WooCommerce. Dodaje linki do polityki prywatności, regulaminu i ustawień cookies w stopce. Musi pozostać włączona.
+ * Version: 2.0.1
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
-define( 'GK_GTM_ID', 'GTM-5JKVC955' );
+define( 'GK_GTM_ID', 'GTM-KK3LPNV6' );
 define( 'GK_ZGODA_COOKIE', 'gk_zgoda' );
 
 /* ---------- 1. Tryb zgody Google + GTM tylko po zgodzie ---------- */
