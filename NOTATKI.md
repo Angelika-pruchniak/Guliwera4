@@ -66,3 +66,7 @@ E-mail na stronie: kontakt@guliwera4.pl
 Aplikacja do nauki dla młodych managerów: krótkie codzienne lekcje, seria dni, punkty, poziomy.
 Wiedza z publicznie opisanych frameworków strategii i zarządzania (np. macierz BCG, 7S, MECE, piramida Minto).
 Oryginalna marka Guliwera 4, bez logo i materiałów chronionych prawem autorskim.
+
+## Mapa czatów (wątek „Dostęp do strony”, tag guliwera4.pl) – uzupełnienie
+- „Produkty fizyczne”: planer papierowy „Rok w czterech kwartałach”, druk, wysyłka, zgodność (gałąź `claude/produkty-fizyczne`).
+- „Strategia – zyski, koszty, budżet (Guliwera 4)”: macierz zysków, KPI na koniec 2026 i 2027, model finansowy z przeliczanym budżetem (gałąź `claude/strategia`).
