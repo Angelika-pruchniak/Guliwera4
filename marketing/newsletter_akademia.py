@@ -39,13 +39,28 @@ PAKIET = {
 }
 
 WEJSCIA = [
-    ("Rejestracja w Akademii", "Po założeniu konta aplikacja pokazuje ekran „Odbierz darmowy Pakiet startowy” z niezaznaczonym polem zgody. Zaznaczenie zapisuje zgodę (`gk_ak_zgoda`, data, źródło) i wysyła kontakt do Mailchimpa ze statusem „pending”, a Mailchimp wysyła mail potwierdzający.", "tag `akademia`, źródło `akademia_onboarding`"),
+    ("Rejestracja w Akademii", "Po założeniu konta aplikacja pokazuje ekran „Odbierz darmowy Pakiet startowy” z niezaznaczonym polem zgody. Zaznaczenie zapisuje zgodę (`gk_ak_zgoda`, data, źródło), a WordPress wysyła mail potwierdzający. Po kliknięciu kontakt trafia do Mailchimpa.", "tag `akademia`, źródło `akademia_onboarding`"),
     ("Strona /pakiet-startowy/", "Strona z formularzem: imię + e-mail + zgoda. Dla osób z reklam i LinkedIna, które nie chcą jeszcze zakładać konta. Po potwierdzeniu dostają pakiet i zaproszenie do Akademii.", "tag `lead`, źródło `formularz_pakiet`"),
     ("Profil w Akademii", "Istniejący przełącznik zgody na maile w Profilu (dla osób, które ominęły ekran powitalny).", "tag `akademia`, źródło `akademia_profil`"),
     ("Zamówienie w sklepie", "Opcjonalnie: niezaznaczone pole „Chcę dostawać newsletter i Pakiet startowy”. Do decyzji po pierwszych zakupach.", "tag `klient`, źródło `zamowienie`"),
 ]
 
-DANE = [
+ARCHITEKTURA = {
+    "zalozenie": "Mailchimp Free: 250 kontaktów, 500 wysyłek w miesiącu, najwyżej 250 dziennie, bez wieloetapowych automatyzacji. Dlatego dzielimy pracę: automaty wysyła WordPress, a Mailchimp tylko wydania i kampanie.",
+    "podzial": [
+        ("WordPress (wtyczka guliwera-newsletter)", "zapis i zgoda, mail potwierdzający (double opt-in), seria powitalna W1–W7, maile wyzwalane Z1–Z7, wypis jednym kliknięciem, preferencje", "Maile wychodzą przez SMTP nazwa.pl z kontakt@guliwera4.pl, w tym samym szablonie co maile sklepu. Nie zużywają limitu Mailchimpa. WordPress ma dane o nauce i zakupach od ręki, więc niczego nie trzeba synchronizować."),
+        ("Mailchimp Free", "lista osób z potwierdzoną zgodą, wydania co 2 tygodnie i kampanie (Black Week, Plan na 2027), statystyki", "WordPress dodaje do Mailchimpa tylko osoby po potwierdzeniu, z datą i źródłem zgody. Wypis w Mailchimpie wraca do WordPressa (webhook) i odwrotnie."),
+    ],
+    "progi": [
+        "Jedno wydanie do całej listy zużywa tyle wysyłek, ile jest kontaktów. Przy 250 osobach mieszczą się 2 wysyłki w miesiącu.",
+        "Listopad (lista ok. 30–80 osób): wydanie #1 + 3 maile Black Week mieszczą się z zapasem.",
+        "Styczeń: przy ponad 160 osobach 3 wysyłki (5.01, 8.01, 19.01) przekroczą 500. Wtedy łączymy 5.01 i 8.01 w jeden mail, a 8.01 wysyłamy tylko do osób bez zakupu.",
+        "Próg decyzji: 200 kontaktów albo 450 wysyłek w miesiącu. Wtedy albo płatny Mailchimp Essentials, albo wydania też z WordPressa (wymaga sprawdzenia limitów SMTP w nazwa.pl).",
+        "Do sprawdzenia w panelu: plan Free dodaje stopkę Mailchimpa i może ograniczać własne szablony HTML. Wtedy wydanie składamy z bloków edytora w kolorach marki.",
+    ],
+}
+
+DANE = [  # pola w Mailchimpie: tylko do segmentacji wydań; automaty czytają dane wprost z WordPressa
     ("ZRODLO", "akademia_onboarding / akademia_profil / formularz_pakiet / zamowienie", "przy zapisie"),
     ("FNAME", "imię (jeśli podane)", "przy zapisie"),
     ("AK_LEKCJE", "liczba ukończonych lekcji", "codziennie z WordPressa"),
@@ -62,10 +77,10 @@ def m(kod, kiedy, segment, temat_a, temat_b, preheader, cel, tresc, cta, warunek
 
 SERIA = [
     m("P0", "od razu po zapisie", "każdy zapis", "Potwierdź zapis i odbierz pakiet", "", "Jedno kliknięcie i Pakiet startowy jest Twój.",
-      "Potwierdzić adres (double opt-in). Mail systemowy Mailchimpa, tylko przetłumaczony i w kolorach marki.",
+      "Potwierdzić adres (double opt-in). Wysyła WordPress, link ważny 7 dni.",
       ["Cześć! Kliknij przycisk, żeby potwierdzić zapis. Zaraz potem wyślę Ci Pakiet startowy Kierunek Zysk: kalkulator zysku, przykład strategii na 1 stronie i przegląd miesiąca w 15 minut.",
        "Nie zapisujesz się? Zignoruj tę wiadomość, nic się nie stanie."],
-      ("Potwierdzam i odbieram pakiet", "link potwierdzenia Mailchimpa")),
+      ("Potwierdzam i odbieram pakiet", "link potwierdzenia (WordPress)")),
     m("W1", "dzień 0, zaraz po potwierdzeniu", "każdy potwierdzony", "Twój Pakiet startowy jest tutaj", "3 narzędzia na start (0 zł)",
       "Kalkulator zysku, przykład strategii na 1 stronie i przegląd miesiąca w 15 minut.",
       "Dostarczyć obiecany pakiet i zrobić pierwszy mały krok: kalkulator albo pierwszą lekcję.",
@@ -125,7 +140,7 @@ SERIA = [
       ["Dziękuję za te 2 tygodnie. Od teraz piszę co 2 tygodnie, we wtorek o 7:30: jeden temat ze strategii, jedno narzędzie, jedna lekcja z Akademii i jedna oferta, zawsze oznaczona.",
        "[Blok warunkowy] AK_DARMOWE = tak: „Masz za sobą darmowe działy Akademii. Kolejne działy (finanse, metryki, zespół) są w Akademii Pro.” Inaczej: „Do końca darmowych działów zostało Ci *|6 − AK_LEKCJE|* lekcji.”",
        "Chcesz rzadziej? Ustaw „raz w miesiącu” albo „tylko Akademia” w preferencjach."],
-      ("Ustaw preferencje", "strona preferencji Mailchimpa"),
+      ("Ustaw preferencje", "strona preferencji na guliwera4.pl"),
       "Na koniec serii: tag `seria_powitalna_ok`, kontakt wpada do newslettera cyklicznego."),
 ]
 
@@ -198,17 +213,17 @@ PRAWO = [
     "Promocje: najniższa cena z 30 dni przed obniżką (dyrektywa Omnibus), bez fałszywej presji czasu; „do 30.11” musi być prawdą.",
     "Bez obietnic wyniku finansowego („zarobisz”, „podwoisz zysk”); rabat za naukę opisany uczciwie (zależy od regularności).",
     "Dostarczalność: uwierzytelniona domena guliwera4.pl w Mailchimpie (DKIM i SPF w DNS nazwa.pl), DMARC co najmniej p=none, nadawca kontakt@guliwera4.pl.",
-    "Higiena listy: kontakty bez otwarć i kliknięć przez 90 dni dostają mail „zostajesz?”, a bez reakcji trafiają do archiwum.",
+    "Higiena listy: kontakty bez otwarć i kliknięć przez 90 dni dostają mail „zostajesz?”, a bez reakcji trafiają do archiwum. Na planie Free to też oszczędność limitu.",
     "Polityka prywatności: dopisać Mailchimp (Intuit) jako odbiorcę danych i transfer do USA (Data Privacy Framework).",
 ]
 
 WDROZENIE = [
-    ("Ty", "Mailchimp: wybrać plan z wieloetapowymi automatyzacjami (Customer Journeys z warunkami). Darmowy plan ma limity na automatyzacje i liczbę maili.", "przed 15.11", "❓"),
-    ("Ty + ja", "Mailchimp: lista „Guliwera 4”, double opt-in, polskie formularze i mail potwierdzający, pola i tagi z tabeli, uwierzytelnienie domeny (rekordy DNS w nazwa.pl), stopka.", "do 15.11", "🔧"),
+    ("Ty", "Mailchimp Free: klucz API (Konto → Extras → API keys) wpisany w panelu WordPressa, nigdy w czacie ani repo. Uwierzytelnienie domeny: rekordy DNS w nazwa.pl według instrukcji, którą przygotuję.", "do 15.11", "👤"),
+    ("ja", "Mailchimp: lista „Guliwera 4”, pola i tagi z tabeli, stopka z danymi firmy, webhook wypisu do WordPressa.", "do 15.11", "🔧"),
     ("ja", "Pakiet startowy: kalkulator zysku (XLSX + kopia w Arkuszach Google), przykład strategii na 1 stronie, checklista przeglądu miesiąca. Pliki w bibliotece mediów.", "do 14.11", "🔧"),
-    ("ja", "Wtyczka `guliwera-newsletter`: ekran zgody po rejestracji w Akademii, wysyłka kontaktu do Mailchimpa (pending), codzienna synchronizacja pól Akademii, tagi po zakupie, zdarzenie `generate_lead` w GTM. Klucz API tylko w panelu WordPressa.", "do 16.11", "🔧"),
+    ("ja", "Wtyczka `guliwera-newsletter`: zapis i zgoda (Akademia + formularz), double opt-in, seria W1–W7 i maile Z1–Z7 wysyłane przez WordPress według harmonogramu, wypis i preferencje, przekazanie potwierdzonych osób do Mailchimpa, zdarzenie `generate_lead` w GTM.", "do 16.11", "🔧"),
     ("ja", "Strona /pakiet-startowy/ z formularzem i strona „Sprawdź skrzynkę” (z ofertą 39 zł po potwierdzeniu).", "do 16.11", "🔧"),
-    ("ja", "Szablony HTML w stylu marki (jak maile sklepu) i 7 maili serii powitalnej + Z1–Z7 jako szkice w Mailchimpie. Nic nie startuje bez Twojej akceptacji.", "do 16.11", "🔧"),
+    ("ja", "Podgląd wszystkich maili serii i Z1–Z7 (zrzuty komputer + telefon) do akceptacji; szablon wydania #1 jako szkic w Mailchimpie. Nic nie startuje bez Twojej akceptacji.", "do 16.11", "🔧"),
     ("Ty", "Akceptacja treści i włączenie serii powitalnej. Test: zapis na własny adres, przejście całej ścieżki.", "16.11", "👤"),
     ("razem", "Start reklam K1 Akademia (czat o reklamach) kierujących do Akademii i /pakiet-startowy/.", "17.11", "👤"),
     ("ja", "Co 2 tygodnie: szkic wydania w czwartek przed wysyłką, Ty dopisujesz 1 akapit własnymi słowami i akceptujesz (ok. 45 min).", "od 12.11", "🔁"),
@@ -216,9 +231,9 @@ WDROZENIE = [
 ]
 
 DECYZJE = [
-    ("Zawartość Pakietu startowego", "Kalkulator zysku + przykład strategii na 1 stronie + przegląd miesiąca", "Najmocniej prowadzi do 39 zł i Pakietu, a kalkulator jest w strategii jako magnes."),
-    ("Plan Mailchimpa", "Plan z Customer Journeys (warunki, opóźnienia)", "Seria W1–W7 i Z1–Z7 to automatyzacje wieloetapowe z warunkami. Ceny sprawdź w panelu: zależą od liczby kontaktów."),
-    ("Głos maili marketingowych", "Pierwsza osoba: „Angelika z Guliwera 4”", "Newsletter sprzedaje markę osobistą. Maile sklepu zostają w formie „my”."),
+    ("Zawartość Pakietu startowego", "✅ Kalkulator zysku + przykład strategii na 1 stronie + przegląd miesiąca (decyzja 8.11)", "Najmocniej prowadzi do 39 zł i Pakietu, a kalkulator jest w strategii jako magnes."),
+    ("Plan Mailchimpa", "✅ Free (decyzja 8.11) + automaty z WordPressa", "Free nie ma wieloetapowych automatyzacji i ma 500 wysyłek w miesiącu, więc serie wysyła WordPress. Próg zmiany planu: 200 kontaktów albo 450 wysyłek w miesiącu."),
+    ("Głos maili marketingowych", "✅ Pierwsza osoba: „Angelika z Guliwera 4” (decyzja 8.11)", "Newsletter sprzedaje markę osobistą. Maile sklepu zostają w formie „my”."),
     ("Rabat Akademii 30%", "Zostawić w komunikacji, ale mocniej sprzedawać Pro", "Strategia krytykuje rabat 30% za koszt marży; do 30% działa teraz tylko z Pro, więc wspiera sprzedaż Pro."),
     ("Black Week", "Pakiet −30% 24–30.11, 3 maile do listy", "Zgodne z planem reklam (K2); kupony Akademii się nie łączą."),
 ]
@@ -235,6 +250,9 @@ def md():
     o += [""] + [f"- {z}" for z in PAKIET["zasady"]]
     o += ["", "## Wejścia na listę", "", "| Wejście | Jak działa | Oznaczenie |", "|---|---|---|"]
     o += [f"| {a} | {b} | {c} |" for a, b, c in WEJSCIA]
+    o += ["", "## Kto co wysyła (Mailchimp Free)", "", ARCHITEKTURA["zalozenie"], "", "| Narzędzie | Co robi | Jak |", "|---|---|---|"]
+    o += [f"| {a} | {b} | {c} |" for a, b, c in ARCHITEKTURA["podzial"]]
+    o += [""] + [f"- {x}" for x in ARCHITEKTURA["progi"]]
     o += ["", "## Dane w Mailchimpie (pola i tagi)", "", "| Pole / tag | Zawartość | Aktualizacja |", "|---|---|---|"]
     o += [f"| `{a}` | {b} | {c} |" for a, b, c in DANE]
     for tytul, lista in (("Seria powitalna (14 dni, automatyczna)", SERIA), ("Maile wyzwalane zachowaniem (automatyczne)", ZACHOWANIA)):
@@ -349,14 +367,17 @@ ul.pr{{max-width:76ch;padding-left:20px;margin:0}} ul.pr li{{margin-bottom:8px}}
 
 <section class="sek"><h2>Jak ktoś trafia na listę</h2><p class="opis">Zawsze osobna zgoda i potwierdzenie mailem (double opt-in). Najważniejsze wejście to ekran po rejestracji w Akademii.</p>
 {tabela(["Wejście", "Jak działa", "Oznaczenie w Mailchimpie"], WEJSCIA)}
+<h3>Kto co wysyła</h3><p class="wazne">{e(ARCHITEKTURA["zalozenie"])}</p>
+{tabela(["Narzędzie", "Co robi", "Jak"], ARCHITEKTURA["podzial"])}
+<ul class="pr" style="margin-top:14px">{"".join(f"<li>{e(x)}</li>" for x in ARCHITEKTURA["progi"])}</ul>
 <h3>Dane, które WordPress przekazuje do Mailchimpa</h3>
 {tabela(["Pole / tag", "Zawartość", "Aktualizacja"], DANE)}</section>
 
-<section class="sek"><h2>Seria powitalna: 14 dni, automatycznie</h2><p class="opis">P0 potwierdza zapis, W1 dostarcza pakiet. Każdy mail ma jedną lekcję albo narzędzie i jeden przycisk. Oferty: 39 zł w dniu 1, Pakiet w dniu 8, Akademia Pro po ukończeniu darmowych działów.</p>
+<section class="sek"><h2>Seria powitalna: 14 dni, automatycznie</h2><p class="opis">Wysyła WordPress, nie zużywa limitu Mailchimpa. P0 potwierdza zapis, W1 dostarcza pakiet. Każdy mail ma jedną lekcję albo narzędzie i jeden przycisk. Oferty: 39 zł w dniu 1, Pakiet w dniu 8, Akademia Pro po ukończeniu darmowych działów.</p>
 <ol class="os" aria-label="Oś serii powitalnej">{os_}</ol>
 <div class="siatka">{"".join(karta(x) for x in SERIA)}</div></section>
 
-<section class="sek"><h2>Maile wyzwalane nauką i zakupami</h2><p class="opis">Lecą same, tylko do osób ze zgodą. Dane przychodzą z Akademii raz dziennie.</p>
+<section class="sek"><h2>Maile wyzwalane nauką i zakupami</h2><p class="opis">Lecą same z WordPressa, tylko do osób ze zgodą. WordPress sprawdza dane z Akademii raz dziennie.</p>
 <div class="siatka">{"".join(karta(x) for x in ZACHOWANIA)}</div></section>
 
 <section class="sek"><h2>Wydania i kampanie: listopad – styczeń</h2><p class="opis">Co 2 tygodnie we wtorek o 7:30: managerowie czytają pocztę przed pracą, a wtorek omija poniedziałkowy zalew. Kampanie mają dodatkowy piątek 12:00 i ostatni dzień promocji 18:00. Każda wysyłka ręczna wychodzi dopiero po Twojej akceptacji.</p>
