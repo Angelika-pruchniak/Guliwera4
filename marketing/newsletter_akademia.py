@@ -97,7 +97,7 @@ SERIA = [
       ["Większość strategii, które widziałam w firmach, ma 40 slajdów i nikt ich nie czyta po tygodniu. Dobra strategia mieści się na jednej kartce i odpowiada na 5 pytań:",
        "Dokąd idziemy (cel na rok, liczbą). Gdzie gramy (klienci, produkty, kanały). Czym wygrywamy (dlaczego ktoś wybierze nas). Czego NIE robimy (to najtrudniejsze pole). Po czym poznamy postęp (3–5 liczb).",
        "Zajrzyj do przykładu z Pakietu startowego i spróbuj wypełnić tylko jedno pole: „czego nie robimy”. To ćwiczenie zajmuje 10 minut i porządkuje pół kalendarza.",
-       "Jeśli chcesz zrobić to porządnie dla swojej firmy, mam szablon Strategia na 1 stronie: edytowalny plik, instrukcja krok po kroku i przykłady dla 3 typów firm. Kosztuje 39 zł."],
+       "Jeśli chcesz zrobić to porządnie dla swojej firmy, mam pełny szablon Strategia na 1 stronie z instrukcją. Kosztuje 39 zł."],
       ("Zobacz szablon za 39 zł", "/zamowienie/?add-to-cart=69 (przez stronę produktu)"),
       "W Akademii: lekcja o MECE jako P.S. („jak dzielić problem, żeby nic nie zgubić”)."),
     m("W3", "dzień 3, 7:30", "każdy", "5 minut dziennie. Policzyłam, ile to daje", "Twoja seria w Akademii: *|AK_SERIA|* dni",
