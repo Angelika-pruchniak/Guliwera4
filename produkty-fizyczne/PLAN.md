@@ -22,7 +22,7 @@ Co z tego wynika:
 - **Ryczałt**: sprzedaż towarów (planer) ma zwykle stawkę 3%, inna niż dla produktów cyfrowych – osobna ewidencja
   przychodów według stawek. Sprawdzić PKD w CEIDG (handel detaliczny przez internet). 🧾
 - **Termin przed świętami**: InPost ma ostatnie bezpieczne nadania ok. 18–19.12. Towar w domu do ok. 5.12, więc
-  pliki do drukarni do **24.11**, proof do 28.11. Treść i skład planera (216 stron) – ok. 2 tygodnie.
+  pliki do drukarni do **24.11**, proof do 28.11. Treść i skład planera (220 stron) – ok. 2 tygodnie.
 - **InPost**: na 50 paczek wystarczy konto InPost dla firm (ShipX, płatność za etykietę) i oficjalna wtyczka
   InPost PL dla WooCommerce (mapa Paczkomatów) albo broker (Furgonetka/Apaczka). Rekomendacja: oficjalna wtyczka InPost. ❓
 - **Allegro i Empik (później, np. styczeń)**: Allegro wymaga danych GPSR w ofercie, EAN dla własnej marki nie zawsze;

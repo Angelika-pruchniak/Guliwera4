@@ -13,6 +13,14 @@ E-mail na stronie: kontakt@guliwera4.pl
 - Logo i favicon: folder `logo/` (ikona-512.png, logo-poziome.png, mark.svg, avatar i baner LinkedIn).
 - Zdjęcie: `zdjecia/angelika-portret.jpg`. Tylko kadr i wyostrzenie, bez zmiany rysów twarzy (wyraźna prośba).
 
+## Zasady nadrzędne dla wszystkich produktów (wymóg Angeliki, 8.11.2026)
+- **Spójność z identyfikacją Guliwera 4**: logo G4, paleta „liliputy”, Fraunces/DM Sans/Caveat, hasło, styl okładek „Kierunek Zysk”.
+- **Bank wiedzy i pozycja ekspertki**: treść oparta na technikach konsultingu strategicznego (MECE, drzewo problemów,
+  piramida Minto, 80/20, BCG, 7S, SWOT, 5 sił, OKR) i narzędziach ekonomistów (koszt alternatywny, koszt utopiony,
+  analiza krańcowa, elastyczność, próg rentowności, ekonomia jednostkowa, cash flow, ROI, NPV). Bez cudzych logo.
+- **Macierz zysków**: każdy produkt wpisuje się w macierz zysków (KPI na koniec 2026 i na 2027); każdy element budżetu
+  jest parametrem, który przeliczamy po zmianie (wzory, nie wpisane na sztywno kwoty). Lokalizacja macierzy: ❓ do uzupełnienia.
+
 ## Strona (WordPress + Jetpack, site ID 258438467)
 - Strony: 10 Strona główna, 32 Usługi, 6 O mnie, 52 Lokalizacja, 60 Kontakt (formularz Jetpack), 74 Materiały.
   Treść to bloki `wp:html` z szablonem `elementor_canvas` (bez Elementora, żeby uniknąć starego cache).

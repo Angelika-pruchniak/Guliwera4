@@ -5,7 +5,7 @@ Ceny z ofert zapisywać poza repozytorium.
 
 ---
 
-**Temat:** Zapytanie ofertowe – planer A5, 216 stron, nakład 30 / 50 / 100 szt., termin do 5.12.2026
+**Temat:** Zapytanie ofertowe – planer A5, 220 stron, nakład 30 / 50 / 100 szt., termin do 5.12.2026
 
 Dzień dobry,
 
@@ -13,7 +13,7 @@ prowadzę firmę Guliwera 4 z Lublina i przygotowuję własny planer roczny. Pro
 
 **Wspólne parametry**
 - format netto A5 (148 × 210 mm), pion;
-- środek: 216 stron (108 kartek);
+- środek: 220 stron (110 kartek);
 - oprawa miękka klejona PUR;
 - nakłady do wyceny: 30, 50 i 100 egzemplarzy;
 - pliki: PDF/X-4, spady 3 mm, CMYK, 300 dpi.
