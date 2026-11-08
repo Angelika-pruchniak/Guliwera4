@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 1.2
+ * Version: 1.3
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -108,3 +108,24 @@ add_action( 'init', function () {
 	update_option( 'gk_strona_ver2', '1.2' );
 	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
 }, 21 );
+
+/* Wersja 1.3: portret w jasnym garniturze (media 171) zamiast różowego (media 94) na wszystkich stronach. */
+add_action( 'init', function () {
+	if ( '1.3' === get_option( 'gk_strona_ver3' ) ) { return; }
+	global $wpdb;
+	$z = array(
+		'angelika-pruchniak-gaszczyk-portret-820x1024.jpg' => 'angelika-pruchniak-gaszczyk-jasny-garnitur-819x1024.jpg',
+		'angelika-pruchniak-gaszczyk-portret-768x959.jpg'  => 'angelika-pruchniak-gaszczyk-jasny-garnitur-768x960.jpg',
+		'angelika-pruchniak-gaszczyk-portret-600x750.jpg'  => 'angelika-pruchniak-gaszczyk-jasny-garnitur-600x750.jpg',
+		'angelika-pruchniak-gaszczyk-portret.jpg'          => 'angelika-pruchniak-gaszczyk-jasny-garnitur.jpg',
+		'w różowym garniturze'                             => 'w jasnym garniturze',
+	);
+	$ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_type IN ('page','post','product') AND post_content LIKE '%angelika-pruchniak-gaszczyk-portret%'" );
+	foreach ( $ids as $id ) {
+		$c = (string) $wpdb->get_var( $wpdb->prepare( "SELECT post_content FROM {$wpdb->posts} WHERE ID = %d", $id ) );
+		$n = str_replace( array_keys( $z ), array_values( $z ), $c );
+		if ( $n !== $c ) { $wpdb->update( $wpdb->posts, array( 'post_content' => $n ), array( 'ID' => $id ) ); clean_post_cache( $id ); }
+	}
+	update_option( 'gk_strona_ver3', '1.3' );
+	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
+}, 22 );
