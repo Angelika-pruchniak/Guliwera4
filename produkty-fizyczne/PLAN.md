@@ -8,7 +8,29 @@ Legenda: ❓ decyzja Angeliki · 🧾 potwierdzić z księgową · 🔧 mogę pr
 
 ---
 
-## 0. Rekomendacja w skrócie
+## Decyzje z 8.11.2026 (aktualizacja)
+Produkt: **planer roczny Q1–Q4 z lekcjami dla osób z ADHD**, niedatowany, miękka okładka „do korporacji”, 50 szt.,
+bez personalizacji, sprzedaż przed świętami, magazyn i pakowanie w domu (Lublin), InPost, tylko Polska, dostawa płatna,
+ryczałt, brak EORI i BDO, później Allegro i Empik. Szczegóły produktu: `PLANER-ROCZNY.md`,
+zapytanie do drukarni: `ZAPYTANIE-DRUKARNIA.md`.
+
+Co z tego wynika:
+- **Drukarnia w Polsce, druk cyfrowy.** Przy 50 szt. Alibaba nie ma sensu (MOQ 300–500, 6–12 tyg.). **EORI niepotrzebny.**
+  Rozdziały o Alibabie zostają na przyszłą, większą partię.
+- **BDO – złożyć wniosek teraz** (bdo.mos.gov.pl, marszałek województwa lubelskiego, dział „wprowadzający produkty
+  w opakowaniach”). Wpis jest wymagany przed rozpoczęciem sprzedaży, a rozpatrzenie może potrwać. 👤 🧾
+- **Ryczałt**: sprzedaż towarów (planer) ma zwykle stawkę 3%, inna niż dla produktów cyfrowych – osobna ewidencja
+  przychodów według stawek. Sprawdzić PKD w CEIDG (handel detaliczny przez internet). 🧾
+- **Termin przed świętami**: InPost ma ostatnie bezpieczne nadania ok. 18–19.12. Towar w domu do ok. 5.12, więc
+  pliki do drukarni do **24.11**, proof do 28.11. Treść i skład planera (216 stron) – ok. 2 tygodnie.
+- **InPost**: na 50 paczek wystarczy konto InPost dla firm (ShipX, płatność za etykietę) i oficjalna wtyczka
+  InPost PL dla WooCommerce (mapa Paczkomatów) albo broker (Furgonetka/Apaczka). Rekomendacja: oficjalna wtyczka InPost. ❓
+- **Allegro i Empik (później, np. styczeń)**: Allegro wymaga danych GPSR w ofercie, EAN dla własnej marki nie zawsze;
+  Empik Marketplace zwykle wymaga EAN → członkostwo GS1 Polska (opłata wstępna i roczna – sprawdzić cennik).
+  Stany 50 szt. trzeba synchronizować między kanałami (ręcznie albo wtyczką). ❓
+- **Treści o ADHD**: bez obietnic medycznych; w reklamach nie zwracamy się do cech zdrowotnych odbiorcy.
+
+## 0. Rekomendacja w skrócie (wersja wyjściowa)
 1. **Planer niedatowany** (bez dat): nie traci wartości po styczniu, nie zostaje martwy towar.
 2. **Na styczeń: drukarnia w Polsce, nakład próbny 50–100 szt.** Alibaba do stycznia jest zbyt ryzykowna:
    próbki + produkcja + transport to 6–10 tygodni, a fabryki w Chinach od ok. połowy stycznia do końca lutego
