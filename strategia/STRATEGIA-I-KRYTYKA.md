@@ -1,159 +1,129 @@
-# Strategia Guliwera 4: ścieżka zakupowa, koszty, EBITDA i krytyka (stan 8.11.2026)
+# Strategia Guliwera 4 v2: produkty cyfrowe jako dźwignia zysku (stan 8.11.2026)
 
-Repozytorium jest publiczne. Są tu tylko ceny ze strony, wzory i **założenia**. Prawdziwe koszty, sprzedaż i podatki
-wpisujemy wyłącznie w prywatnej kopii modelu (`model-szablon-2027.xlsx` → Google Drive).
-Legenda: 🧾 potwierdzić z księgową · ❓ decyzja Angeliki.
+Repozytorium jest publiczne. Tu są tylko ceny ze strony, wzory i **założenia** z badań rynku.
+Prawdziwe liczby wpisujemy tylko w prywatnej kopii `model-szablon-2027.xlsx` (Google Drive).
+🧾 = potwierdzić z księgową · ❓ = decyzja Angeliki.
 
----
-
-## 1. Obecna strategia na stronie i ścieżka zakupowa
-
-**Co sprzedaje strona dziś (ceny ze strony):**
-
-| Linia | Produkt | Cena | Dla kogo |
-|---|---|---|---|
-| B2B | Strateg na abonament | od 3 500 zł netto / mies., min. 3 mies. | zarządy, duże firmy |
-| B2B | Warsztat pół dnia / cały dzień | 4 900 / 8 900 zł netto (do 12 os.) | zespoły kierownicze |
-| B2B | Sesja strategiczna 60 min | 1 200 zł netto | 1 osoba |
-| B2B (plan) | Przegląd Decyzji | 3 000 zł netto | kupujący pakiet PDF (strony /konsultacja jeszcze nie ma) |
-| Kurs | Strategia w 6 tygodni (luty 2027) | 1 990 zł, z listy 1 590 zł, do 20 os. | właściciele MŚP, młodzi managerowie |
-| PDF | Kierunek Zysk: 7 materiałów + pakiet | 39–147 zł, pakiet 297 zł | właściciele małych firm |
-| Darmowe | Akademia Guliwera (aplikacja) | 0 zł, rabat do 30% na PDF | młodzi managerowie |
-| Fizyczny (plan) | Planer roczny (ADHD), 50 szt. | 109–129 zł | osoby z ADHD w korporacji |
-
-**Ścieżki (gdzie się zaczynają i gdzie kończą):**
-
-1. **B2C – PDF:** wejście (reklama / LinkedIn / wyszukiwarka) → strona główna albo /materialy/ →
-   `/zamowienie/?add-to-cart=ID` → zgoda na natychmiastowe dostarczenie (bez adresu) → płatność Stripe → mail z plikiem.
-   **Koniec ścieżki = mail z plikiem.** Nie ma dalszego kroku: brak sekwencji maili po zakupie na żywo,
-   brak oferty kolejnego produktu, brak strony konsultacji (/konsultacja).
-2. **Akademia:** strona główna → /akademia/ (konto) → lekcje → kupon do 30% → PDF. Koniec = tańszy PDF.
-3. **Kurs:** /kurs-strategia/ → formularz listy oczekujących (Jetpack) → (luty) mail z zapisem. Koniec = zapis na listę;
-   trzeba sprawdzić, czy zgłoszenia trafiają do Mailchimp.
-4. **B2B:** strona główna (hero kieruje na Usługi B2B) → /uslugi/ → /kontakt/ → rozmowa 20 min → oferta → faktura.
-   Koniec = faktura; naturalny następny krok (abonament) jest opisany, ale nie ma go w procesie.
-
-**Stan faktyczny lejka (Jetpack, 26.10–8.11):** 144 odsłony, ok. 20 osób, **0 odsyłaczy z zewnątrz**.
-Odsłony to głównie strona główna, Moje konto, Materiały – w dużej mierze testy. Lejek jeszcze nie istnieje: nie ma ruchu,
-nie ma historii konwersji, a według `NOTATKI.md` połączenie konta Stripe i tag GA4 są otwartymi zadaniami
-(wtyczka Stripe jest aktywna, połączenia konta nie da się sprawdzić z kontenera).
-
-**Ekonomia ścieżek (założenia modelu, wariant: VAT dla doradztwa = tak):**
-
-| Produkt | Cena netto dla firmy | Marża po CAC / godz. | Ćwiartka macierzy |
-|---|---|---|---|
-| Abonament | 3 500 zł | ok. 500 zł/h | Dojna krowa |
-| Kurs (uczestnik) | ok. 1 455 zł | ok. 470 zł/h | Dojna krowa (staje się Gwiazdą przy grupie 15–20 os.) |
-| Sesja 60 min | 1 200 zł | ok. 470 zł/h | Dojna krowa |
-| Przegląd Decyzji | 3 000 zł | ok. 370 zł/h | Dojna krowa |
-| Warsztat ½ / 1 dzień | 4 900 / 8 900 zł | ok. 340–350 zł/h | Dojna krowa |
-| PDF (średni koszyk 95 zł) | ok. 77 zł | ok. 95 zł/h przy CAC 60 zł | Znak zapytania |
-| Planer papierowy | 97 zł | ok. 16 zł/h (z 80 h projektu) | **Pies** |
+**Zmiana względem v1 (decyzja Angeliki, 8.11):** dźwignią są płatne produkty na stronie, a nie szkolenia i doradztwo.
+Twój czas to twardy limit: **2 soboty w miesiącu** i **2–3 spotkania 1:1 po 1 h tygodniowo**. Pracujesz na etacie w dwóch firmach.
 
 ---
 
-## 2. Koszty, budżet, podatki – co znalazłam, czego brakuje
+## 1. Na czym zarabiają za granicą twórcy marek osobistych z biznesu
 
-**Znalezione w repozytorium i wcześniejszych czatach:**
-- reklamy: **1 000 zł/mies.** (Meta 650 / Google 350), 17.11.2026 – luty 2027 (`reklamy/gemini/01-strategia-brief.md`);
-- KPI reklam: koszt zakupu ≤60 zł, ROAS ≥2, koszt rejestracji w Akademii ≤8 zł;
-- Black Friday: −30% na Pakiet (297 → 207,90 zł), 24–30.11 (propozycja, ❓);
-- planer: partia 50 szt. = **1 900–2 900 zł** gotówki z góry (druk 35–55 zł/szt. brutto, proof i transport 150 zł, opakowanie 2,5 zł);
-  ryczałt dla towaru 3% 🧾; BDO i GPSR do załatwienia;
-- forma: **ryczałt, zwolnienie podmiotowe z VAT** (limit 200 000 zł 🧾), opłaty za płatność przyjęte 2%;
-- konsultacja Przegląd Decyzji: ok. 8 h pracy, limit 6/mies., konwersja z pakietu 8–12% (założenie).
+| Kto | Model | Co z tego bierzemy |
+|---|---|---|
+| Justin Welsh (solo, LinkedIn + newsletter) | Z 10 mln USD przychodu przez całą działalność: **produkty ok. 6,75 mln** (kursy ok. 150 USD), konsulting 1,17 mln, sponsoring 0,8 mln, subskrypcje 0,7 mln, społeczność 0,63 mln. Szablony w abonamencie: 2 584 osoby po 8 miesiącach | Produkty nagrane > konsulting. Newsletter to silnik sprzedaży. Abonament z szablonami |
+| Easlo (szablony Notion, solo) | ok. 239 tys. USD rocznie. **Połowę przychodu dały tanie szablony za 20–40 USD**, nie flagowy za 130 USD. Najpierw darmowe szablony, potem płatne | Tanie szablony wejściowe + darmowy magnes na zapis |
+| Lenny Rachitsky (newsletter) | Płatna subskrypcja 15 USD/mies. lub 150 USD/rok; newsletter i podcast > 1 mln USD rocznie | Przychód powtarzalny z treści |
+| Ali Abdaal | Kursy ok. 40% przychodu, reklamy i sponsoring reszta | Kurs nagrany jako produkt główny |
+| Dane platformy Stan (2025) | Najwięcej sztuk: pliki do pobrania (2,2 mln). Średnio: plik 51 USD, kurs 96 USD, członkostwo 61 USD | Drabina: plik → kurs → członkostwo |
 
-**Nie znalazłam** (w repo, na Dysku ani w czatach, które mogę przeczytać): ZUS (pełny / preferencyjny / mały ZUS plus / etat),
-kosztu księgowej, abonamentów (plan WordPress.com, Canva, Metricool, Mailchimp), stawek ryczałtu dla PDF-ów i konsultingu.
-W modelu są jako parametry z wartościami przykładowymi – do podmiany w prywatnej kopii.
+**Benchmarki lejka (rynek, rozrzut duży):** zakup na premierę kursu to 1–3% listy, z listy oczekujących 20–35%.
+Ruch ciepły (lista, polecenia) konwertuje na stronie sprzedażowej w 3–5%, zimny z reklam w 0,1–1%.
+Kurs sprzedawany cały czas, bez premiery: ok. 1–2% listy.
+
+**Wspólny wzór:** (1) **lista mailowa** jest aktywem firmy; (2) darmowy magnes → tani produkt → produkt główny nagrany raz →
+abonament; (3) czas na żywo jest na samej górze drabiny, mało miejsc, wysoka cena; (4) reklamy kupują **zapisy na listę**,
+a nie zimną sprzedaż.
+
+Źródła: [Justin Welsh – $10M journey](https://www.justinwelsh.me/newsletter/my-10m-journey) ·
+[Growth In Reverse – Justin Welsh](https://growthinreverse.com/justin-welsh/) ·
+[Stan – State of the Creator Economy 2026](https://stan.store/blog/state-of-the-creator-economy/) ·
+[Easlo – case study](https://partnerkin.com/en/blog/case_study/jason-chin-easlo-notion) ·
+[Kajabi – Notion templates](https://www.kajabi.com/blog/can-you-make-money-selling-notion-templates) ·
+[CNBC – Lenny Rachitsky](https://www.cnbc.com/make-it/2024/01/15/lenny-rachitskys-advice-for-success-in-a-podcast-and-newsletter.html) ·
+[Monetizes – Ali Abdaal](https://monetizes.net/case-studies/ali-abdaal-a-doctor-turned-youtuber-who-publishes-his-own-re) ·
+[Benchmarki konwersji kursów](https://www.acceleroi.com/blog/unlocking-success-exploring-the-average-conversion-rate-for-online-courses) ·
+[Anouska Rood – sales page conversion](https://www.anouskarood.com/good-conversion-rate/)
 
 ---
 
-## 3. Jak to się przekłada na EBITDA
+## 2. Ścieżka zakupowa: jest i ma być
 
-EBITDA w JDG = przychód − koszty działalności (reklamy, narzędzia, księgowa, druk, opłaty). Nie ma amortyzacji ani odsetek,
-a ryczałt i składki właścicielki są **pod** EBITDA. Dlatego w JDG EBITDA zawyża wynik: nie zawiera wynagrodzenia za Twój czas.
-Model liczy więc trzy miary: **EBITDA**, **zysk „na rękę”** (po ZUS, zdrowotnej, ryczałcie)
-i **EBITDA po koszcie alternatywnym czasu** (godziny × stawka alternatywna).
+**Dziś:** strona główna kieruje na Usługi B2B. PDF-y kupuje się przez `/zamowienie/?add-to-cart=ID` i ścieżka kończy się mailem z plikiem.
+Akademia daje rabat do 30% na PDF. Kurs ma tylko listę oczekujących. Ruch: 144 odsłony w 2 tygodnie, 0 odsyłaczy.
+Stripe i GA4 to otwarte zadania.
 
-Ilustracja przy domyślnych założeniach (2027, VAT dla doradztwa = tak, ZUS preferencyjny, stawka alternatywna 250 zł/h):
+**Docelowa drabina (każdy szczebel prowadzi na następny):**
 
-| | Ostrożny | Bazowy | Ambitny | **Rekomendowany** |
+| Szczebel | Produkt | Cena | Twój czas | Rola |
 |---|---|---|---|---|
-| Przychód netto | 71 tys. | 218 tys. | 495 tys. | **190 tys.** |
-| Reklamy | 6 tys. | 12 tys. | 24 tys. | **4,8 tys.** |
-| EBITDA | 49 tys. | 183 tys. | 435 tys. | **171 tys.** |
-| Zysk na rękę | 25 tys. | 141 tys. | 352 tys. | **130 tys.** |
-| Godziny / mies. | 42 | 72 ❌ | 128 ❌ | **56 ✅** |
-| Zysk na rękę / h | 50 zł | 162 zł | 230 zł | **195 zł** |
-| EBITDA po koszcie czasu | −77 tys. | −34 tys. | +52 tys. | **+4 tys.** |
-| Udział B2B w przychodzie | 57% | 60% | 60% | **72%** |
+| 0 | Akademia + newsletter + darmowy kalkulator | 0 zł | 0 | zapis na listę |
+| 1 | Strategia na 1 stronie (zaraz po zapisie) | 39 zł | 0 | pierwszy zakup |
+| 2 | Szablony i PDF (Excel/Canva/Notion) | 49–99 zł | 0 | drugi zakup |
+| 3 | **Pakiet Kierunek Zysk** | 297 zł | 0 | produkt główny |
+| 4 | **Kurs wideo** (program „Strategia w 6 tygodni”, nagrany raz) | 697 zł | 36 h raz | gwiazda – okna sprzedaży 4×/rok |
+| 5 | **Klub Kierunek Zysk**: nowy szablon co miesiąc + Q&A raz w miesiącu w sobotę | 49 zł/mies. | 2 h/mies. | przychód powtarzalny |
+| 6 | Warsztat sobotni online dla grupy (do 25 os.) | 249 zł/os. | 1 sobota | premium, ograniczone miejsca |
+| 7 | Sesja 1:1 60 min | 1 200 zł | 1 h | premium, max 10/mies. |
+| B2B | Licencja Akademii + kursu dla zespołu | 4 900 zł/rok | 0 | ten sam produkt sprzedany firmie |
 
-Wniosek: w każdym scenariuszu, który w ogóle się opłaca, **60–75% EBITDA daje B2B i kurs**. PDF-y, Akademia i planer
-to narzędzia marketingowe, nie źródło zysku. Scenariusz ambitny wymaga 128 h/mies., więc bez zatrudnienia kogoś jest nierealny.
-
----
-
-## 4. Krytyka: co w obecnym planie nie działa (od najważniejszego)
-
-1. **Sklep może nie przyjmować pieniędzy.** Połączenie Stripe i GA4 to otwarte zadania. Reklamy od 17.11 bez działającej
-   płatności i pomiaru to wydatek bez możliwości sprzedaży i bez danych dla algorytmów. **Warunek startu reklam: zakup testowy + GA4.**
-2. **VAT dla doradztwa.** Usługi doradcze są wyłączone ze zwolnienia podmiotowego (art. 113 ust. 13 ustawy o VAT) 🧾.
-   Jeśli to dotyczy sesji, Przeglądu Decyzji, warsztatów i abonamentu, VAT obowiązuje **od pierwszej faktury za doradztwo**
-   i obejmuje **całą** sprzedaż, także PDF, kurs i planer. Przy cenach brutto bez zmian to −18,7% przychodu z B2C.
-   Klientom B2B to nie przeszkadza (ceny netto + VAT, odliczają go). Trzeba to rozstrzygnąć **przed pierwszą fakturą B2B**,
-   a hasło „zwolniona z VAT” przestaje być prawdziwe w reklamach.
-3. **Plan reklam nie spina się ekonomicznie.** PDF: 77 zł netto − opłaty − ryczałt ≈ 68 zł; przy CAC 60 zł zostaje ok. 8 zł
-   na zamówieniu. ROAS 2 to dla PDF-ów w praktyce zero. Rejestracje w Akademii za 8 zł z rabatem 30% dodatkowo obniżają marżę.
-   1 000 zł/mies. przy CAC 60 zł daje ok. 17 zamówień, a nie 40, które zakłada scenariusz bazowy.
-   12 tys. zł rocznie na zimne reklamy PDF to tyle, ile marża z 1,3 warsztatu całodniowego.
-4. **Za dużo produktów na zerowy ruch.** 8 PDF-ów, aplikacja (z planem Google Play i App Store), kurs, 5 formatów B2B,
-   planer papierowy, Alibaba, newsletter, agent social media. Każdy kawałek jest sensowny, razem rozpraszają przy 40–60 h/mies.
-   Zasada 80/20: B2B i kurs dają większość zysku.
-5. **Planer papierowy przed świętami to „pies” w macierzy.** 1,9–2,9 tys. zł gotówki z góry, ok. 80 h składu 220 stron,
-   pliki do drukarni do 24.11, czyli w tym samym tygodniu co Black Friday. Do tego BDO i GPSR. Maksymalny zysk z partii to
-   ok. 1,6–1,7 tys. zł, przy sprzedaży wszystkich 50 sztuk. Wychodzi ok. 16 zł/h, przy koszcie alternatywnym 250 zł/h.
-6. **Cztery grupy odbiorców w czterech komunikatach.** Strona główna: korporacje („dla dużych firm”). PDF: właściciele
-   małych firm. Akademia: młodzi managerowie. Planer: osoby z ADHD. Marka mówi do każdej z tych grup naraz,
-   więc żadna nie czuje się zaproszona. Pieniądze są w pierwszej grupie.
-7. **Nie ma lejka B2B.** Scenariusz rekomendowany potrzebuje ok. 140 leadów B2B rocznie, czyli ok. 12 miesięcznie (przy 25% skuteczności),
-   a dziś ma 0 odsyłaczy. Najważniejszy KPI 2027 to leady B2B, nie sprzedaż PDF-ów.
-8. **Rabat Akademii kanibalizuje sprzedaż.** Do 30% dostają najbardziej zaangażowane osoby, które i tak najczęściej by kupiły.
-   Lepiej: rabat na kurs albo licencja Akademii dla zespołów (B2B, HR/L&D).
-9. **Nazwy firm na stronie głównej** („Na co dzień pracuję z…”) wymagają zgody tych firm. Sprawdź też umowę o pracę
-   i zakaz konkurencji, jeśli pracujesz na etacie ❓.
-10. **EBITDA jest myląca, bo czas jest darmowy.** Ostrożny i bazowy mają ujemną EBITDA po koszcie czasu. Prowadzenie firmy
-    opłaca się wtedy mniej niż alternatywa.
+**Kalendarz sobót:** w I–III soboty idą na nagranie kursu, premiera w kwietniu. Od IV jedna sobota to warsztat,
+druga to Q&A Klubu i nagrywanie nowych materiałów. Kurs na żywo (6 tygodni) i warsztaty B2B w tygodniu odpadają.
 
 ---
 
-## 5. Rekomendacja: scenariusz B2B-first z kursem jako skalą
+## 3. Wyniki modelu 2027 (założenia domyślne, nie dane firmy)
 
-**Zasada:** zysk z B2B i kursu, PDF-y i Akademia jako dowód kompetencji i wejście do lejka, planer odłożony.
+| | Ostrożny | **Bazowy** | Ambitny |
+|---|---|---|---|
+| Lista mailowa XII 2027 | 600 | **1 600** | 4 800 |
+| Przychód netto | 61 tys. | **187 tys.** | 507 tys. |
+| w tym produkty cyfrowe | 33% | **49%** | 68% |
+| EBITDA | 40 tys. | **158 tys.** | 460 tys. |
+| Zysk na rękę | 23 tys. | **128 tys.** | 392 tys. |
+| Twoje godziny w roku | 234 | **258** | 306 |
+| Zysk na rękę / godz. | 99 zł | **497 zł** | 1 281 zł |
+| Soboty się mieszczą? | tak | **tak** | tak |
+| Koszt VAT od B2C (jeśli sesje wyłączają zwolnienie) | 6 tys. | **26 tys.** | 83 tys. |
 
-**Do końca 2026 (KPI na 31.12.2026):**
-- zakup testowy działa (Stripe), GA4 zbiera `purchase` i `generate_lead`, rozstrzygnięty VAT dla doradztwa 🧾;
-- planer papierowy **wstrzymany**; zamiast niego wersja PDF planera do druku (zero zapasu), test popytu;
-- Black Friday −30% na Pakiet: komunikat do własnej publiczności (Mailchimp, LinkedIn) + retargeting; zimne reklamy ≤400 zł/mies.;
-- strona /konsultacja (Przegląd Decyzji) i 6 maili po zakupie na żywo (po Twojej akceptacji);
-- 10 rozmów z ciepłymi kontaktami tygodniowo → cel: **2 sesje i 1 warsztat** zaklepane na I kw. 2027,
-  **≥60 osób** na liście kursu do 15.01.2027.
+Wariant bazowy **bez sesji 1:1 i bez VAT**: przychód 156 tys., zysk na rękę 104 tys., produkty cyfrowe 70%.
+Sesje dają więc ok. +24 tys. zł za 48 h, czyli ok. 500 zł/h, ale tylko jeśli kwestię VAT rozstrzygnie księgowa 🧾.
 
-**2027 (miesięczne KPI: arkusz „KPI 2027”):** abonament od II kw. (1 klient, potem 2), kurs w 2–3 edycjach
-(10–15 os.), 4 warsztaty pół dnia + 3 całodniowe, sesje 1–3/mies., PDF ok. 20 zamówień/mies. bez zimnych reklam,
-≤56 h/mies.
-
-**Kryteria wyjścia (bez nich nie skalujemy):**
-- reklamy zimne: po 8 tygodniach CAC >60 zł albo ROAS <2 → stop, budżet na LinkedIn i retargeting;
-- kurs: lista <60 osób na 15.01 → przesunięcie edycji, nie obniżka ceny;
-- planer papierowy: wraca tylko, gdy PDF planera sprzeda ≥100 szt. do czerwca 2027 (partia jesień 2027 na 2028);
-- aplikacja w sklepach (Google Play/App Store): dopiero po ≥300 aktywnych użytkownikach w przeglądarce.
+**Macierz zysków (bazowy):** Gwiazda: kurs wideo (28% przychodu, 36 h raz).
+Dojne krowy: sesje 1:1 (31%) i warsztat sobotni (20%), ograniczone Twoim czasem.
+Znaki zapytania: 39 zł, szablony, Pakiet, Klub, licencje. Każdy osobno jest mały, ale razem budują listę i drugi zakup.
+Planer papierowy wypada z modelu (Pies: ok. 16 zł/h).
 
 ---
 
-## 6. Model (`model-szablon-2027.xlsx`)
+## 4. Krytyka nowego planu (bo musi być)
 
-Arkusze: Jak czytać · Parametry · Produkty · Wynik i EBITDA · Macierz zysków · KPI 2027.
-Każda kwota to parametr albo wzór. Zmiana ceny, kosztu, ZUS, VAT albo wolumenu przelicza EBITDA, zysk na rękę,
-próg rentowności, limit VAT, CAC/ROAS, macierz i KPI miesięczne. Skrypt `buduj-model.py` odtwarza plik.
-Prawdziwe liczby wpisujemy tylko w kopii na prywatnym Dysku.
+1. **Wszystko zależy od listy mailowej, a dziś jej praktycznie nie ma.** Scenariusz bazowy zakłada wzrost ruchu o 12% co miesiąc
+   (z 500 do ok. 1 950 odsłon) i 4% zapisów. Bez stałego publikowania tego nie będzie. **KPI nr 1: nowe zapisy miesięcznie**
+   (bazowy: ok. 110–160).
+2. **Marketing nie ma czasu w Twoim kalendarzu.** Newsletter i posty to ok. 2 h tygodniowo poza sobotami.
+   Rozwiązanie: agent social media pisze szkice, Ty tylko zatwierdzasz; newsletter raz na 2 tygodnie. Inaczej lejek stoi.
+3. **Kurs wideo to główny zakład** i największe ryzyko. 2% listy na premierę to środek widełek rynkowych dla listy ciepłej.
+   Przy 1% przychód z kursu spada o połowę. Najpierw przedsprzedaż na liście oczekujących (cel: 20–35% z listy).
+4. **VAT** 🧾. Jeśli sesje 1:1 to doradztwo, mogą wyłączać zwolnienie i obciążyć VAT-em **wszystkie** produkty cyfrowe
+   (−18,7% przy tych samych cenach). Do rozstrzygnięcia przed pierwszą sesją. Druga opcja: pierwszy rok bez sesji, zwolnienie do limitu.
+5. **Rabat Akademii 30% na PDF** zjada marżę z najbardziej zaangażowanych osób. Lepiej rabat na kurs albo darmowy miesiąc w Klubie.
+6. **Reklamy mają kupować zapisy (5–10 zł), nie sprzedaż.** Wartość zapisu w modelu to ok. 100–120 zł przychodu w ciągu roku.
+   Kryterium wyjścia: jeśli koszt zapisu > 12 zł albo po 8 tygodniach 39 zł kupuje < 3% nowych zapisów, reklamy stop.
+7. **Klub ma sens dopiero od ok. 1 000 osób na liście** (bazowy: 38 członków w XII). Nie startować przed kursem.
+8. **Nie robimy teraz:** planera papierowego, aplikacji w sklepach, kursu na żywo przez 6 tygodni, warsztatów B2B w dni robocze.
+
+---
+
+## 5. Plan działania
+
+**Do 31.12.2026 (KPI na koniec roku):**
+- działa płatność (zakup testowy), GA4 mierzy zapis i zakup; księgowa rozstrzyga VAT dla sesji 🧾;
+- zapis na listę po skorzystaniu z Akademii lub kalkulatora, a zaraz po zapisie oferta „Strategii na 1 stronie” za 39 zł;
+  potem 5 maili prowadzących do Pakietu;
+- Black Friday −30% na Pakiet tylko dla własnej listy i LinkedIn;
+- strona kursu zmieniona z „6 tygodni na żywo” na **kurs wideo + 2 sesje Q&A w sobotę** i lista oczekujących z ceną przedsprzedaży;
+- cel: **250 osób na liście**, 5–10 zakupów za 39 zł, 60 osób na liście oczekujących kursu.
+
+**2027:** I–III nagrania (soboty) → IV premiera kursu → V start Klubu → okna sprzedaży kursu VI, IX, XI.
+KPI miesięczne: arkusz „KPI 2027” (odwiedziny, zapisy, lista, zakupy na każdym szczeblu, EBITDA, gotówka, godziny w soboty).
+
+---
+
+## 6. Model
+
+Arkusze: Jak czytać · Parametry (3 kolumny scenariuszy) · Wynik i EBITDA · Macierz zysków · KPI 2027 · M-Ostrożny / M-Bazowy / M-Ambitny.
+Każda kwota to parametr albo wzór (ok. 2 000 formuł). Zmiana ceny, konwersji, ruchu, VAT, ZUS albo kosztu przelicza wszystko.
+Model sprawdza też, czy soboty się mieszczą. `buduj-model.py` odtwarza plik.
