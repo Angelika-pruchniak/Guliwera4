@@ -112,9 +112,9 @@ Wartości poniżej to założenia (widełki), nie oferty.
 
 Wzory:
 - koszt partii **K = N × d + P** → A: 2 900 zł · B: 1 900 zł
-- marża na sztuce (przed reklamą) **m = C × (1 − p% − r%) − o** → A: 120,05 zł · B: 100,95 zł
+- marża na sztuce (przed reklamą) **m = C × (1 − p% − r%) − o** → A: 120,05 zł · B: 101,05 zł
 - **próg rentowności partii (szt.) = K / m** → A: 25 szt. · B: 19 szt. (z reklamą: K / (m − CAC) → A: 33 · B: 27)
-- zysk przy sprzedaży całej partii **Z = N × (m − CAC) − K** → A: 1 603 zł · B: 1 648 zł
+- zysk przy sprzedaży całej partii **Z = N × (m − CAC) − K** → A: 1 603 zł · B: 1 653 zł
 - **ROI partii = Z / K** → A: 55% · B: 87%
 
 KPI do macierzy (na koniec 2026 i miesięcznie w 2027): sprzedane sztuki, przychód, marża na sztuce, zysk partii,
