@@ -58,3 +58,11 @@ E-mail na stronie: kontakt@guliwera4.pl
 Aplikacja do nauki dla młodych managerów: krótkie codzienne lekcje, seria dni, punkty, poziomy.
 Wiedza z publicznie opisanych frameworków strategii i zarządzania (np. macierz BCG, 7S, MECE, piramida Minto).
 Oryginalna marka Guliwera 4, bez logo i materiałów chronionych prawem autorskim.
+
+## Strategia 2027 – decyzja z 8.11.2026 (gałąź `claude/strategia`, plik `strategia/STRATEGIA-I-KRYTYKA.md`)
+- Dźwignia zysku: **płatne produkty cyfrowe na stronie**, nie szkolenia. Czas Angeliki: 2 soboty/mies. + 2–3 spotkania 1:1 po 1 h tygodniowo.
+- **Drabina produktów (zaakceptowana):** Akademia + newsletter (0 zł, zapis na listę) → Strategia na 1 stronie 39 zł → szablony/PDF 49–99 zł →
+  Pakiet 297 zł → kurs wideo 697 zł (nagranie I–III 2027, premiera IV) → Klub 49 zł/mies. (od V) → warsztat sobotni online 249 zł/os.
+  i sesje 1:1 1 200 zł (max 10/mies.) → licencje B2B dla zespołów.
+- KPI nr 1: nowe zapisy na listę miesięcznie. Model z wzorami: `strategia/model-szablon-2027.xlsx` (prawdziwe liczby tylko w prywatnej kopii).
+- Wstrzymane: planer papierowy, aplikacja w sklepach, kurs na żywo 6 tygodni, warsztaty B2B w dni robocze. 🧾 VAT dla sesji 1:1 do rozstrzygnięcia.
