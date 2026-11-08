@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 1.1
+ * Version: 1.2
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -90,3 +90,21 @@ add_action( 'init', function () {
 	update_option( 'gk_strona_ver', '1.1' );
 	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
 }, 20 );
+
+/* Wersja 1.2: bez nazw firm (EPAM, Grupa Azoty, Aruba IT, CosmoEYE) – decyzja Angeliki 8.11. */
+add_action( 'init', function () {
+	if ( '1.2' === get_option( 'gk_strona_ver2' ) ) { return; }
+	global $wpdb;
+	$z = array(
+		'<div class="dowody"><h3>PONAD 10 LAT WPROWADZANIA PRODUKTÓW NA RYNEK, M.IN. W</h3><div class="marki"><span>EPAM</span><span>Grupa Azoty</span><span>Aruba IT</span><span>CosmoEYE</span></div></div>' => '<div class="dowody"><h3>PONAD 10 LAT WPROWADZANIA NOWYCH PRODUKTÓW NA RYNEK W KORPORACJACH I FIRMACH TECHNOLOGICZNYCH</h3></div>',
+		'dla klientów takich jak Aruba IT, i prowadzę wprowadzanie nowych produktów na rynek dla organizacji wielkości Grupy Azoty i EPAM:' => 'dla klientów z branży IT, i prowadzę wprowadzanie nowych produktów na rynek w dużych organizacjach przemysłowych i technologicznych:',
+		'Poza korporacyjnym IT i przemysłem chemicznym prowadzę' => 'Poza korporacyjnym IT i przemysłem prowadzę',
+	);
+	foreach ( array( 10, 6 ) as $id ) {
+		$c = (string) $wpdb->get_var( $wpdb->prepare( "SELECT post_content FROM {$wpdb->posts} WHERE ID = %d", $id ) );
+		$n = str_replace( array_keys( $z ), array_values( $z ), $c );
+		if ( $n !== $c ) { $wpdb->update( $wpdb->posts, array( 'post_content' => $n ), array( 'ID' => $id ) ); clean_post_cache( $id ); }
+	}
+	update_option( 'gk_strona_ver2', '1.2' );
+	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
+}, 21 );
