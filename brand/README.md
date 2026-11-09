@@ -14,11 +14,12 @@ Pytania i akceptacja nowych elementów: kontakt@guliwera4.pl
 | `logo/png/` | Te same wersje w PNG z przezroczystością (500–2000 px) | Canva, PowerPoint, Word |
 | `logo/favicon/` | favicon.ico, favicon.svg, PNG 16–512, apple-touch-icon-180 | Strony i aplikacje |
 | `kolory/` | `kolory.css`, `kolory.json`, `guliwera4-paleta.ase` (Adobe), `kolory.gpl` (GIMP, Inkscape, Krita), `kontrasty.md` | Wgranie palety do programu |
-| `szablony/` | 23 szablony HTML do edycji + `png/` (podgląd w dokładnym wymiarze) + `png/siatka/` (podgląd z siatką) | Social media, reklamy, prezentacje, okładka PDF |
+| `szablony/` | 25 szablonów HTML do edycji + `png/` (podgląd w dokładnym wymiarze) + `png/siatka/` (podgląd z siatką) | Social media, reklamy, prezentacje, okładka PDF |
 | `szablony/email/` | Podpis e-mail do skopiowania | Gmail, Outlook |
 | `lilek/` | Maskotka Lilek w 6 nastrojach (SVG + PNG 800 px) | Tylko Akademia i darmowe treści |
 | `okladki/` | Wizualizacje okładek „Kierunek Zysk” 1200 × 1200 | Sklep, posty produktowe |
 | `zdjecia/` | Portret Angeliki w jasnym garniturze | Bez zmian rysów twarzy, bez filtrów |
+| `zdjecia-sesja/` | 10 zdjęć z sesji (opisy w README folderu) | Posty, story, LinkedIn, prezentacje |
 | `narzedzia/` | Skrypty generujące logo, paletę, Lilka, PNG i PDF | Tylko gdy zmieniasz źródła |
 
 ## Szybki start: grafika do social media
@@ -41,6 +42,7 @@ Pytania i akceptacja nowych elementów: kontakt@guliwera4.pl
 |---|---|---|
 | `ig-1080x1350-cytat` / `-porada` / `-produkt` / `-wydarzenie` | 1080 × 1350 | post IG / FB |
 | `ig-1080x1350-karuzela-1-okladka` / `-2-slajd` / `-3-koniec` | 1080 × 1350 | karuzela |
+| `ig-1080x1350-zdjecie`, `story-1080x1920-zdjecie` | 1080 × 1350, 1080 × 1920 | post i story ze zdjęciem z sesji |
 | `ig-1080x1080-cytat` / `-porada` | 1080 × 1080 | post kwadratowy |
 | `story-1080x1920-porada` / `-wydarzenie` | 1080 × 1920 | story / reels |
 | `linkedin-1200x1200-porada`, `linkedin-1200x627-link` | 1200 × 1200, 1200 × 627 | LinkedIn (627 także jako grafika linku FB) |
