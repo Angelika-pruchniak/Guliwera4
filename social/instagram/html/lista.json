@@ -1,0 +1,252 @@
+{
+ "pliki": [
+  {
+   "n": "k1-strategia-na-1-stronie-01",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k1-strategia-na-1-stronie-02",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k1-strategia-na-1-stronie-03",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k1-strategia-na-1-stronie-04",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k1-strategia-na-1-stronie-05",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k1-strategia-na-1-stronie-06",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k1-strategia-na-1-stronie-07",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k2-marza-a-narzut-01",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k2-marza-a-narzut-02",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k2-marza-a-narzut-03",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k2-marza-a-narzut-04",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k2-marza-a-narzut-05",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k2-marza-a-narzut-06",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k3-trzy-liczby-w-poniedzialek-01",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k3-trzy-liczby-w-poniedzialek-02",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k3-trzy-liczby-w-poniedzialek-03",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k3-trzy-liczby-w-poniedzialek-04",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k3-trzy-liczby-w-poniedzialek-05",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k3-trzy-liczby-w-poniedzialek-06",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k4-nowy-produkt-6-pytan-01",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k4-nowy-produkt-6-pytan-02",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k4-nowy-produkt-6-pytan-03",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k4-nowy-produkt-6-pytan-04",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k4-nowy-produkt-6-pytan-05",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k4-nowy-produkt-6-pytan-06",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k4-nowy-produkt-6-pytan-07",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "k4-nowy-produkt-6-pytan-08",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "r1-trzy-pytania-tekst-1",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": true
+  },
+  {
+   "n": "r1-trzy-pytania-tekst-2",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": true
+  },
+  {
+   "n": "r1-trzy-pytania-tekst-3",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": true
+  },
+  {
+   "n": "r1-trzy-pytania-tekst-4",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": true
+  },
+  {
+   "n": "r1-trzy-pytania-tekst-5",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": false
+  },
+  {
+   "n": "r2-etat-i-wlasna-marka-tekst-1",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": true
+  },
+  {
+   "n": "r2-etat-i-wlasna-marka-tekst-2",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": true
+  },
+  {
+   "n": "r2-etat-i-wlasna-marka-tekst-3",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": true
+  },
+  {
+   "n": "r2-etat-i-wlasna-marka-tekst-4",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": true
+  },
+  {
+   "n": "r2-etat-i-wlasna-marka-tekst-5",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": false
+  },
+  {
+   "n": "r3-zacznij-za-darmo-tekst-1",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": true
+  },
+  {
+   "n": "r3-zacznij-za-darmo-tekst-2",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": true
+  },
+  {
+   "n": "r3-zacznij-za-darmo-tekst-3",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": true
+  },
+  {
+   "n": "r3-zacznij-za-darmo-tekst-4",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": true
+  },
+  {
+   "n": "r3-zacznij-za-darmo-tekst-5",
+   "w": 1080,
+   "h": 1920,
+   "przezroczyste": false
+  }
+ ],
+ "rolki": {
+  "r1-trzy-pytania": [
+   "04-telefon-kobalt.jpg",
+   "03-laptop-zakiet-tweed.jpg",
+   "06-laptop-garnitur.jpg",
+   "05-szkolenia-sukienka.jpg",
+   null
+  ],
+  "r2-etat-i-wlasna-marka": [
+   "08-rozowy-garnitur-paryskie-biuro.jpg",
+   "10-notes-sukienka-blekit.jpg",
+   "09-kanapa-bialy-garnitur.jpg",
+   "07-portret-boucle.jpg",
+   null
+  ],
+  "r3-zacznij-za-darmo": [
+   "05-szkolenia-sukienka.jpg",
+   "07-portret-boucle.jpg",
+   "06-laptop-garnitur.jpg",
+   "09-kanapa-bialy-garnitur.jpg",
+   null
+  ]
+ }
+}

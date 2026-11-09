@@ -1,0 +1,80 @@
+/* Guliwera 4 · wspólny styl szablonów graficznych (paleta v3 „liliputy”).
+   Zmieniaj teksty w plikach HTML, nie tutaj. Wymiary i marginesy są częścią brandbooka. */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=Caveat:wght@500;600&display=swap');
+:root{
+  --krem:#FFF6EE;--koral:#FF6B3D;--koral-ciemny:#E8512A;--roz:#F4799F;--roz-jasny:#FFD9E4;
+  --liliowy:#B9A5E3;--liliowy-jasny:#EDE5FB;--zolty:#FFC84A;--zolty-jasny:#FFEFC7;--brzoskwinia:#FFD8C2;
+  --atrament:#3A2340;--atrament-60:#7A6580;--granat:#1E2A4A;--bialy:#FFFFFF;
+  --naglowek:"Fraunces",Georgia,"Times New Roman",serif;
+  --tekst:"DM Sans",Arial,Helvetica,sans-serif;
+  --reka:"Caveat","Segoe Print","Bradley Hand",cursive;
+}
+*{box-sizing:border-box}html,body{margin:0;background:#d9d2cc}
+body{display:flex;justify-content:center;padding:24px;font-family:var(--tekst)}
+/* PŁÓTNO: w = szerokość, h = wysokość, m = margines bezpieczny (z brandbooka) */
+.plotno{position:relative;overflow:hidden;width:var(--w);height:var(--h);background:var(--krem);color:var(--atrament);
+  font-family:var(--tekst);-webkit-font-smoothing:antialiased;flex:none}
+.pole{position:absolute;inset:var(--mt,var(--m)) var(--mr,var(--m)) var(--mb,var(--m)) var(--ml,var(--m));display:flex;flex-direction:column;z-index:2}
+/* Formaty */
+.f-ig45{--w:1080px;--h:1350px;--m:80px}
+.f-ig11{--w:1080px;--h:1080px;--m:80px}
+.f-story{--w:1080px;--h:1920px;--m:80px;--mt:250px;--mb:340px}
+.f-li11{--w:1200px;--h:1200px;--m:88px}
+.f-li-link{--w:1200px;--h:627px;--m:64px}
+.f-li-baner{--w:1584px;--h:396px;--m:56px;--ml:500px}
+.f-li-firma{--w:1128px;--h:191px;--m:28px;--ml:300px}
+.f-fb{--w:1640px;--h:624px;--m:52px;--ml:270px;--mr:270px}
+.f-yt{--w:1280px;--h:720px;--m:64px}
+.f-g-poziom{--w:1200px;--h:628px;--m:48px}
+.f-g-300{--w:300px;--h:250px;--m:16px}
+.f-prez{--w:1920px;--h:1080px;--m:120px}
+.f-a4{--w:1240px;--h:1754px;--m:112px}
+/* Tła */
+.t-krem{background:var(--krem)}.t-bialy{background:#fff}.t-lil{background:var(--liliowy-jasny)}.t-zol{background:var(--zolty-jasny)}
+.t-roz{background:var(--roz-jasny)}.t-brz{background:var(--brzoskwinia)}.t-granat{background:var(--granat);color:var(--krem)}
+.t-liliowy{background:var(--liliowy);color:var(--atrament)}
+/* Koła dekoracyjne: zawsze przycięte krawędzią płótna, nigdy pod tekstem w całości */
+.kolo{position:absolute;border-radius:50%;z-index:1}
+/* Typografia (skala dla płócien 1080 px; inne formaty nadpisują --skala) */
+.plotno{--skala:1}
+.f-li11{--skala:1.08}.f-li-link,.f-g-poziom{--skala:.82}.f-yt{--skala:1}.f-prez{--skala:1.15}.f-story{--skala:1.18}
+.f-li-baner{--skala:.8}.f-fb{--skala:.85}.f-a4{--skala:1.1}
+.reka{font-family:var(--reka);font-weight:600;font-size:calc(52px*var(--skala));line-height:1.1;color:var(--koral-ciemny)}
+.t-granat .reka{color:var(--zolty)}
+.h1{font-family:var(--naglowek);font-weight:600;font-size:calc(100px*var(--skala));line-height:1.04;letter-spacing:-.015em;margin:0;text-wrap:balance}
+.h2{font-family:var(--naglowek);font-weight:600;font-size:calc(68px*var(--skala));line-height:1.08;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.lead{font-size:calc(40px*var(--skala));line-height:1.4;margin:0;color:var(--atrament-60)}
+.t-granat .lead{color:rgba(255,246,238,.82)}
+.tekst{font-size:calc(38px*var(--skala));line-height:1.45;margin:0}
+.etykieta{font-size:calc(24px*var(--skala));font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+/* Żółte podkreślenie akcentu: maks. 1 na grafikę, 1–4 słowa */
+.zakres{position:relative;display:inline-block;z-index:1;white-space:nowrap}
+.zakres::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.06em;height:.32em;background:var(--zolty);z-index:-1;border-radius:40% 60% 55% 45%/60% 50% 50% 40%}
+/* Pigułki */
+.pigulka{display:inline-flex;align-items:center;gap:.4em;border-radius:999px;font-weight:700;padding:.45em 1.05em;font-size:calc(26px*var(--skala));letter-spacing:.06em;text-transform:uppercase;align-self:flex-start}
+.p-zolta{background:var(--zolty);color:var(--atrament)}.p-granat{background:var(--granat);color:#fff}.p-biala{background:#fff;color:var(--atrament)}.p-brz{background:var(--brzoskwinia);color:var(--granat)}
+.przycisk{display:inline-block;border-radius:999px;font-weight:700;padding:.62em 1.5em;font-size:calc(34px*var(--skala));background:var(--koral-ciemny);color:#fff;align-self:flex-start;line-height:1.2}
+.przycisk.atr{background:var(--koral);color:var(--atrament)}
+/* Klasa „srodek” na .pole: treść między nadtytułem a stopką wyśrodkowana w pionie */
+.pole.srodek>:nth-child(2){margin-top:auto!important}
+/* Stopka z logo */
+.stopka{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:24px;font-size:calc(26px*var(--skala));color:var(--atrament-60)}
+.t-granat .stopka{color:rgba(255,246,238,.8)}
+.marka{display:flex;align-items:center;gap:16px;font-weight:500}
+.marka img{height:calc(64px*var(--skala));width:auto;display:block}
+.portret{overflow:hidden;border-radius:999px 999px 28px 28px;background:linear-gradient(165deg,var(--brzoskwinia),var(--roz-jasny) 60%,var(--liliowy-jasny))}
+.portret img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block}
+.lista{list-style:none;margin:0;padding:0;display:grid;gap:calc(26px*var(--skala))}
+.lista li{display:grid;grid-template-columns:calc(64px*var(--skala)) 1fr;gap:calc(22px*var(--skala));align-items:start;font-size:calc(38px*var(--skala));line-height:1.35}
+.lista b.nr{font-family:var(--naglowek);font-weight:700;font-size:1.25em;color:var(--koral-ciemny);line-height:1}
+/* Nakładka siatki: dodaj ?siatka do adresu albo naciśnij G */
+.siatka-on .plotno::after{content:"";position:absolute;inset:var(--mt,var(--m)) var(--mr,var(--m)) var(--mb,var(--m)) var(--ml,var(--m));
+  outline:3px dashed rgba(30,42,74,.7);background:repeating-linear-gradient(90deg,rgba(255,107,61,.10) 0 calc((100% - 5*24px)/6),transparent 0 calc((100% - 5*24px)/6 + 24px));z-index:50;pointer-events:none}
+.siatka-on .plotno::before{content:"";position:absolute;inset:0;z-index:49;pointer-events:none;
+  background:linear-gradient(rgba(30,42,74,.18),rgba(30,42,74,.18)) top/100% var(--mt,var(--m)) no-repeat,linear-gradient(rgba(30,42,74,.18),rgba(30,42,74,.18)) bottom/100% var(--mb,var(--m)) no-repeat,
+  linear-gradient(rgba(30,42,74,.18),rgba(30,42,74,.18)) left/var(--ml,var(--m)) 100% no-repeat,linear-gradient(rgba(30,42,74,.18),rgba(30,42,74,.18)) right/var(--mr,var(--m)) 100% no-repeat}
+.siatka-on .strefa{display:block!important}
+.strefa{display:none;position:absolute;z-index:51;background:repeating-linear-gradient(45deg,rgba(232,81,42,.28) 0 10px,rgba(232,81,42,.08) 10px 20px);outline:2px solid #E8512A;pointer-events:none}
+.strefa span{position:absolute;left:8px;top:6px;font:700 18px/1.2 var(--tekst);color:#7a1d05;background:#fff;padding:2px 6px;border-radius:6px}
+[contenteditable]:focus{outline:2px dashed var(--koral);outline-offset:6px}
+@media print{body{padding:0;background:none}}
