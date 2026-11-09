@@ -1,0 +1,713 @@
+<meta charset="utf-8">
+<title>Brandbook Guliwera 4</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Brandbook marki Guliwera 4: logo, kolory, typografia, elementy graficzne, fotografia, szablony social media i checklista dla grafika.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=Caveat:wght@500;600&display=swap">
+<style>
+/* Układ: dokument jak strona guliwera4.pl — kremowe tło, przyklejony spis treści po lewej (jak .spis), białe karty treści.
+   Jedna, jasna wersja kolorystyczna celowo: brandbook pokazuje prawdziwe kolory marki. */
+:root{
+  --krem:#FFF6EE;--koral:#FF6B3D;--koral-ciemny:#E8512A;--roz:#F4799F;--roz-jasny:#FFD9E4;
+  --liliowy:#B9A5E3;--liliowy-jasny:#EDE5FB;--zolty:#FFC84A;--zolty-jasny:#FFEFC7;--brzoskwinia:#FFD8C2;
+  --atrament:#3A2340;--atrament-60:#7A6580;--granat:#1E2A4A;--bialy:#FFFFFF;
+  --linia:rgba(58,35,64,.12);--cien:0 14px 36px rgba(58,35,64,.06);
+  --f-nagl:"Fraunces",Georgia,"Times New Roman",serif;--f-tekst:"DM Sans",Arial,Helvetica,sans-serif;--f-reka:"Caveat","Segoe Print",cursive;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--krem);color:var(--atrament);font-family:var(--f-tekst);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;margin:0}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+h1,h2,h3,h4{font-family:var(--f-nagl);font-weight:600;line-height:1.1;letter-spacing:-.015em;margin:0;text-wrap:balance;color:var(--atrament)}
+p{margin:0 0 .9em}a{color:var(--atrament);text-decoration-color:var(--koral);text-decoration-thickness:2px;text-underline-offset:3px}
+a:hover{color:var(--koral-ciemny)}
+:focus-visible{outline:3px solid var(--granat);outline-offset:3px;border-radius:6px}
+img{max-width:100%;height:auto}
+code,.mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:.88em;background:var(--zolty-jasny);padding:.08em .4em;border-radius:6px}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.pisane{font-family:var(--f-reka);font-weight:600;font-size:clamp(24px,3vw,32px);color:var(--koral-ciemny);line-height:1.15;display:block}
+.zakres{position:relative;display:inline-block;z-index:1}
+.zakres::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.06em;height:.32em;background:var(--zolty);z-index:-1;border-radius:40% 60% 55% 45%/60% 50% 50% 40%}
+.etyk{font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--atrament-60)}
+.mut{color:var(--atrament-60)}.maly{font-size:14.5px}
+/* Nagłówek */
+.top{position:relative;overflow:hidden;padding-block:clamp(36px,6vw,80px) clamp(30px,4vw,56px)}
+.top::before{content:"";position:absolute;width:560px;height:560px;border-radius:50%;background:var(--roz-jasny);right:-180px;top:-200px}
+.top::after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:var(--liliowy-jasny);right:240px;bottom:-170px}
+.top .wrap{position:relative;z-index:2}
+.top-logo{height:64px;width:auto;display:block;margin-bottom:clamp(28px,4vw,44px)}
+.top h1{font-size:clamp(40px,6.4vw,78px);max-width:14ch;margin-top:8px}
+.top .lead{font-size:clamp(18px,2vw,21px);max-width:58ch;margin-top:20px;color:var(--atrament-60)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.meta span{background:#fff;border-radius:999px;padding:6px 14px;font-size:14px;font-weight:500;box-shadow:var(--cien)}
+/* Dokument */
+.doc{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(24px,3.5vw,48px);align-items:start;padding-bottom:80px}
+@media(max-width:940px){.doc{grid-template-columns:minmax(0,1fr)}}
+.spis{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px);background:var(--liliowy-jasny);border-radius:24px;padding:20px 22px;font-size:15px;max-height:calc(100vh - 40px);overflow:auto}
+@media(max-width:940px){.spis{position:static;max-height:none}}
+.spis ol{margin:10px 0 0;padding-left:22px;display:grid;gap:5px}
+.spis a{text-decoration:none}.spis a:hover{color:var(--koral-ciemny)}
+.spis .dodatki{margin-top:14px;padding-top:12px;border-top:1px solid var(--linia);display:grid;gap:5px}
+.tresc{display:grid;gap:clamp(22px,3vw,34px);min-width:0}
+.sek{background:#fff;border-radius:28px;padding:clamp(22px,4vw,52px);box-shadow:0 16px 44px rgba(58,35,64,.08);min-width:0;scroll-margin-top:20px}
+.sek>header{margin-bottom:28px}
+.sek>header .nr{font-family:var(--f-nagl);font-weight:700;color:var(--koral-ciemny);font-size:20px}
+.sek h2{font-size:clamp(30px,4vw,46px);margin-top:4px}
+.sek>header p{margin-top:12px;max-width:62ch;color:var(--atrament-60)}
+.sek h3{font-size:clamp(21px,2.3vw,26px);margin:38px 0 14px}
+.sek h3:first-of-type{margin-top:8px}
+.sek h4{font-family:var(--f-tekst);font-size:15px;font-weight:700;letter-spacing:.02em;margin:0 0 6px}
+.sek p,.sek li{max-width:70ch}
+.sek ul,.sek ol{padding-left:22px;margin:0 0 1em}.sek li{margin-bottom:6px}
+.siatka{display:grid;gap:18px}
+.k2{grid-template-columns:repeat(2,minmax(0,1fr))}.k3{grid-template-columns:repeat(3,minmax(0,1fr))}.k4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:860px){.k3,.k4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.k2,.k3,.k4{grid-template-columns:minmax(0,1fr)}}
+.karta{border-radius:22px;padding:22px 24px;min-width:0}
+.karta p:last-child,.karta ul:last-child{margin-bottom:0}
+.b-lil{background:var(--liliowy-jasny)}.b-zol{background:var(--zolty-jasny)}.b-roz{background:var(--roz-jasny)}.b-brz{background:var(--brzoskwinia)}.b-krem{background:var(--krem)}
+.ramka{background:var(--zolty-jasny);border-radius:18px;padding:16px 20px;margin:0 0 18px}
+.ramka.lil{background:var(--liliowy-jasny)}.ramka.roz{background:var(--roz-jasny)}
+.tabela{overflow-x:auto;margin:6px 0 20px;border-radius:16px;border:1px solid var(--linia)}
+table{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--linia);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{background:var(--krem);font-weight:700;font-size:13.5px;letter-spacing:.02em}
+.pig{display:inline-block;border-radius:999px;padding:3px 11px;font-size:12.5px;font-weight:700;letter-spacing:.06em;white-space:nowrap}
+.ok{background:#DDF5EA;color:#14573D}.zle{background:#FFE1D6;color:#8A2A0E}.uw{background:var(--zolty-jasny);color:#6B4A00}
+/* Ton */
+.ton{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media(max-width:620px){.ton{grid-template-columns:minmax(0,1fr)}}
+.ton div{border-radius:18px;padding:16px 18px;font-size:16px}
+.ton .nie{background:var(--krem);color:var(--atrament-60);text-decoration:line-through;text-decoration-color:rgba(232,81,42,.6)}
+.ton .tak{background:var(--liliowy-jasny)}
+.ton b{display:block;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px;text-decoration:none}
+/* Logo */
+.logo-pole{border-radius:20px;display:flex;align-items:center;justify-content:center;padding:28px;min-height:170px}
+.logo-pole img{max-height:110px;width:auto}
+.logo-pole.ciemne{background:var(--granat)}.logo-pole.jasne{background:var(--krem)}.logo-pole.bialy{background:#fff;border:1px solid var(--linia)}
+.logo-pole.zdj{background:url(img/portret.jpg) center 30%/cover}
+figure{margin:0;min-width:0}
+figcaption{font-size:14px;color:var(--atrament-60);margin-top:8px;line-height:1.45}
+figcaption b{color:var(--atrament)}
+.ochrona{position:relative;display:inline-block;padding:clamp(18px,4vw,40px);background:repeating-linear-gradient(45deg,rgba(244,121,159,.18) 0 8px,rgba(244,121,159,.06) 8px 16px);border-radius:8px;outline:2px dashed var(--roz)}
+.ochrona img{display:block;height:clamp(70px,12vw,120px);width:auto;background:var(--krem)}
+.ochrona i{position:absolute;font-style:normal;font-weight:700;font-size:13px;color:var(--koral-ciemny)}
+/* Zakazy */
+.zakazy{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media(max-width:860px){.zakazy{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.zakaz{background:var(--krem);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.zakaz .pole{height:110px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#fff;overflow:hidden;position:relative}
+.zakaz .pole::after{content:"";position:absolute;inset:0;background:linear-gradient(to top right,transparent calc(50% - 1.5px),rgba(232,81,42,.85) calc(50% - 1.5px),rgba(232,81,42,.85) calc(50% + 1.5px),transparent calc(50% + 1.5px))}
+.zakaz img{height:70px;width:auto}
+.zakaz p{font-size:14px;margin:0;line-height:1.4}
+/* Kolory */
+.kolory{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.kolor{border-radius:20px;overflow:hidden;background:#fff;border:1px solid var(--linia);display:flex;flex-direction:column;min-width:0}
+.kolor .pr{height:96px;display:flex;align-items:flex-end;padding:10px 14px;font-weight:700;font-size:14px}
+.kolor .op{padding:12px 14px 14px;font-size:13.5px;line-height:1.5;display:grid;gap:2px;font-variant-numeric:tabular-nums}
+.kolor .op b{font-size:15.5px;font-family:var(--f-nagl);font-weight:600}
+.kolor .rola{color:var(--atrament-60);margin-top:4px}
+.kopiuj{all:unset;cursor:pointer;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;border-bottom:1px dashed var(--atrament-60);justify-self:start}
+.kopiuj:hover{color:var(--koral-ciemny)}.kopiuj:focus-visible{outline:2px solid var(--granat)}
+.proporcje{display:flex;height:64px;border-radius:16px;overflow:hidden;margin:6px 0 10px;border:1px solid var(--linia)}
+.proporcje div{display:flex;align-items:flex-end;padding:8px 10px;font-size:13px;font-weight:700;min-width:0;white-space:nowrap;overflow:hidden}
+.pary{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.para{border-radius:16px;padding:16px 16px 14px;min-height:118px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;border:1px solid var(--linia)}
+.para .t{font-family:var(--f-nagl);font-weight:600;font-size:22px;line-height:1.1}
+.para .o{font-size:12.5px;font-weight:700;display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.para .o span.pig{font-size:11.5px}
+/* Typografia */
+.kroj{border-radius:22px;padding:24px;background:var(--krem);display:flex;flex-direction:column;gap:6px;min-width:0}
+.kroj .wz{font-size:clamp(44px,6vw,64px);line-height:1;overflow-wrap:anywhere}
+.skala{display:grid;gap:0;border:1px solid var(--linia);border-radius:18px;overflow:hidden}
+.skala>div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;align-items:baseline;padding:14px 18px;border-bottom:1px solid var(--linia)}
+.skala>div:last-child{border-bottom:0}
+@media(max-width:620px){.skala>div{grid-template-columns:minmax(0,1fr)}}
+.skala .opis{font-size:13px;color:var(--atrament-60);line-height:1.4}
+.skala .opis b{display:block;color:var(--atrament);font-size:14px}
+/* Przyciski */
+.btn{display:inline-block;font-family:var(--f-tekst);font-size:16px;font-weight:700;padding:15px 28px;border-radius:999px;text-decoration:none;border:2.5px solid var(--koral);background:var(--koral);color:#fff;line-height:1.2}
+.btn.ciemny{background:var(--koral-ciemny);border-color:var(--koral-ciemny);font-size:19px}
+.btn.atr{color:var(--atrament)}
+.btn.obrys{background:transparent;color:var(--koral-ciemny);border-color:var(--koral)}
+.btn.bialy{background:#fff;border-color:#fff;color:var(--koral-ciemny)}
+.btn.mala{padding:11px 20px;font-size:15px}
+.demo{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:22px;border-radius:20px;background:var(--krem)}
+.demo.granat{background:var(--granat)}
+.plak{display:inline-block;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+/* Galerie */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;align-items:start}
+.gal img{border-radius:12px;display:block;box-shadow:var(--cien);background:#eee;width:100%}
+.lilki{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+@media(max-width:760px){.lilki{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.lilki figure{background:var(--krem);border-radius:18px;padding:12px 10px;text-align:center}
+.lilki img{height:96px;width:auto}
+.portret-luk{aspect-ratio:4/5;border-radius:999px 999px 24px 24px;overflow:hidden;background:linear-gradient(165deg,var(--brzoskwinia),var(--roz-jasny) 60%,var(--liliowy-jasny));box-shadow:0 24px 50px rgba(58,35,64,.15);max-width:320px}
+.portret-luk img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block}
+/* Tak / nie tak */
+.tn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:22px}
+@media(max-width:620px){.tn{grid-template-columns:minmax(0,1fr)}}
+.tn figure{background:var(--krem);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.tn .wz{border-radius:14px;min-height:170px;display:flex;flex-direction:column;justify-content:center;padding:20px;overflow:hidden;position:relative}
+.tn figcaption{margin:0;font-size:14.5px;color:var(--atrament)}
+.tn .pig{align-self:flex-start}
+/* Checklista */
+.check{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.check li{max-width:none;margin:0}
+.check label{display:grid;grid-template-columns:26px minmax(0,1fr);gap:10px;align-items:start;background:var(--krem);border-radius:14px;padding:12px 14px;cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--koral-ciemny);margin-top:3px}
+.check input:checked+span{color:var(--atrament-60);text-decoration:line-through}
+.pliki{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.pliki div{background:var(--krem);border-radius:16px;padding:14px 16px;font-size:14.5px;min-width:0;overflow-wrap:anywhere}
+.pliki b{display:block;font-size:15.5px;margin-bottom:2px}
+.stopka{padding-block:30px 50px;color:var(--atrament-60);font-size:14px;border-top:1px solid var(--linia)}
+.stopka .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--atrament);color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:500;z-index:20}
+/* Druk / PDF */
+@page{size:A4;margin:14mm 12mm}
+@media print{
+  body{font-size:10.5pt;background:#fff}
+  .spis,.toast,.kopiuj-info{display:none!important}
+  .doc{display:block;padding:0}
+  .top{padding:0 0 10mm}.top::before,.top::after{display:none}
+  .sek{box-shadow:none;border-radius:0;padding:0;break-before:page}
+  .sek>header{margin-bottom:6mm}
+  figure,.kolor,.para,.zakaz,.tn figure,.karta,.skala>div,.check label,table tr{break-inside:avoid}
+  .gal{grid-template-columns:repeat(4,1fr)}
+  a{text-decoration:none}
+  .stopka{border:0}
+  h3,h4{break-after:avoid}h3+*{break-before:avoid}
+}
+</style>
+
+<header class="top"><div class="wrap">
+  <img class="top-logo" src="img/logo-poziome.svg" alt="Guliwera 4 · Angelika Pruchniak-Gąszczyk">
+  <span class="pisane">brandbook dla grafików i współpracowników</span>
+  <h1>Jak wygląda i mówi <span class="zakres">Guliwera 4</span></h1>
+  <p class="lead">Jedno miejsce z zasadami marki: logo, kolory, fonty, zdjęcia i gotowe szablony. Trzymaj się ich, a każdy projekt będzie od razu „nasz”. Jeśli czegoś tu nie ma, zapytaj zamiast zgadywać.</p>
+  <div class="meta"><span>Wersja 1.0 · listopad 2026</span><span>Paleta v3 „liliputy”</span><span>Pliki: folder <b>brand/</b> w repozytorium</span></div>
+</div></header>
+
+<div class="wrap doc">
+<nav class="spis" aria-label="Spis treści">
+  <div class="etyk">Spis treści</div>
+  <ol>
+    <li><a href="#esencja">Esencja marki</a></li>
+    <li><a href="#logo">Logo</a></li>
+    <li><a href="#kolory">Kolory</a></li>
+    <li><a href="#typografia">Typografia</a></li>
+    <li><a href="#elementy">Elementy graficzne</a></li>
+    <li><a href="#fotografia">Fotografia</a></li>
+    <li><a href="#social">Social media</a></li>
+    <li><a href="#zastosowania">Inne zastosowania</a></li>
+    <li><a href="#tak-nie">Tak / nie tak i checklista</a></li>
+  </ol>
+  <div class="dodatki"><a href="#pliki">Pliki do pobrania</a><a href="#kontakt">Pytania i akceptacja</a></div>
+</nav>
+
+<main class="tresc">
+
+<!-- ============ 1. ESENCJA ============ -->
+<section class="sek" id="esencja">
+  <header><span class="nr">1</span><h2>Esencja marki</h2><p>Kim jesteśmy, dla kogo robimy i jak brzmimy. Ten rozdział czytają wszyscy, także osoby, które piszą teksty do grafik.</p></header>
+
+  <div class="siatka k2">
+    <div class="karta b-lil"><h4>Misja</h4><p>Zamieniamy duże strategie w konkretną trasę. Uczymy strategii i liczb w krótkich, praktycznych porcjach i dajemy gotowe narzędzia, żeby mała firma i młody zespół wiedzieli, co zmienić w przyszły poniedziałek.</p></div>
+    <div class="karta b-zol"><h4>Hasło marki</h4><p style="font-family:var(--f-reka);font-size:30px;line-height:1.15;color:var(--atrament)">strategia, produkty cyfrowe i dobry humor</p><p class="maly mut">Zawsze małymi literami, bez kropki. Pisane fontem Caveat albo DM Sans.</p></div>
+  </div>
+
+  <h3>Dla kogo</h3>
+  <div class="siatka k2">
+    <div class="karta b-krem"><h4>Właściciele małych firm</h4><p>Firmy od 1 do około 20 osób: usługi, handel, e-commerce, gabinety, pracownie. Mają mnóstwo pomysłów i mało czasu. Chcą wiedzieć, co konkretnie zmienić, żeby firma zarabiała więcej, bez czytania grubych książek.</p></div>
+    <div class="karta b-krem"><h4>Młodzi managerowie</h4><p>Pierwszy zespół, zwykle 25–35 lat. Awansowali, bo byli dobrzy w swojej pracy, a teraz muszą planować, priorytetyzować i rozmawiać o liczbach. Szukają prostych frameworków (BCG, 80/20, piramida Minto) w 5 minut dziennie.</p></div>
+  </div>
+
+  <h3>Osobowość</h3>
+  <div class="tabela"><table>
+    <thead><tr><th>Jesteśmy</th><th>Ale nie</th><th>Jak to widać</th></tr></thead>
+    <tbody>
+      <tr><td><b>Konkretni</b></td><td>suchi i techniczni</td><td>Liczby, kroki, przykłady z małych firm. Jedna myśl na grafikę.</td></tr>
+      <tr><td><b>Ciepli</b></td><td>infantylni</td><td>Pastele, krem, łagodne kształty, zwracanie się na „Ty”.</td></tr>
+      <tr><td><b>Z humorem</b></td><td>prześmiewczy</td><td>Lilek, odręczne wstawki, lekkie żarty z Liliputów i Guliwera. Nigdy kosztem odbiorcy.</td></tr>
+      <tr><td><b>Kompetentni</b></td><td>korporacyjni i wyniośli</td><td>Ponad 10 lat wprowadzania produktów na rynek, ale mówimy prostym językiem.</td></tr>
+    </tbody></table></div>
+
+  <h3>Ton komunikacji</h3>
+  <ul>
+    <li><b>Na „Ty”</b>, w obu formach, gdy to naturalne: „gotowa lub gotowy”. Zwroty „Ty”, „Twoja firma” piszemy wielką literą.</li>
+    <li><b>Krótko:</b> zdania do 20 słów, jedna myśl w akapicie, czasowniki zamiast rzeczowników („policz marżę”, nie „dokonaj kalkulacji marży”).</li>
+    <li><b>Konkretnie:</b> liczba, przykład lub krok w każdym komunikacie.</li>
+    <li><b>Ciepło i z humorem:</b> jedno lekkie zdanie na komunikat wystarczy. Przykłady z aplikacji: „Każdy Guliwer kiedyś się mylił.”, „Prezes byłby dumny!”.</li>
+    <li><b>Bez żargonu:</b> jeśli używamy terminu (marża, KPI, BCG), od razu tłumaczymy go po ludzku.</li>
+  </ul>
+  <div class="ton">
+    <div class="nie"><b>Nie tak</b>Wykorzystaj synergię ekosystemu wartości, aby zoptymalizować quick winy w Q1.</div>
+    <div class="tak"><b>Tak</b>Wybierz jedną rzecz, która w styczniu da najwięcej. Resztę odłóż na luty.</div>
+    <div class="nie"><b>Nie tak</b>ZAROBISZ 10 000 ZŁ MIESIĘCZNIE!!! Tylko dziś!</div>
+    <div class="tak"><b>Tak</b>W godzinę masz cel, wybory i wskaźniki firmy na jednej kartce.</div>
+  </div>
+
+  <h3>Słownik</h3>
+  <div class="siatka k2">
+    <div class="karta b-krem"><h4>Używamy</h4><p>plan, kierunek, trasa, liczby, marża, zysk, decyzja, priorytet, krok, narzędzie, szablon, 5 minut dziennie, za darmo, bez zobowiązań, Akademia Guliwera, Kierunek Zysk, Lilek</p></div>
+    <div class="karta b-krem"><h4>Unikamy</h4><p>synergia, ekosystem, leverage, quick win, disruption, ASAP, „game changer”, „guru”, „sekretna metoda”, „pasywny dochód”, „gwarancja wyników”</p></div>
+  </div>
+
+  <h3>Czego unikamy zawsze</h3>
+  <div class="ramka roz">
+    <ul style="margin:0">
+      <li><b>Obietnic dochodu i wyników</b>: żadnych kwot, „podwoisz przychody”, „zarobisz”, zrzutów ekranu z przelewami. Obiecujemy jasny plan i narzędzia, nie pieniądze.</li>
+      <li><b>Sztucznej presji</b>: „ostatnie miejsca”, liczniki i „tylko dziś” tylko wtedy, gdy są prawdziwe.</li>
+      <li><b>Straszenia i zawstydzania</b> („Twoja firma upadnie, jeśli…”).</li>
+      <li><b>Stylu „guru”</b>: drogie samochody, plaże z laptopem, stosy gotówki.</li>
+      <li><b>Nazw firm, z którymi Angelika pracowała, i danych klientów.</b> Doświadczenie opisujemy ogólnie: „ponad 10 lat wprowadzania nowych produktów na rynek w korporacjach i firmach technologicznych”.</li>
+      <li><b>Krzyku w tekście</b>: CAPS LOCK w zdaniach, kilka wykrzykników, ściany emoji. Wielkie litery tylko w krótkich etykietach (np. „KROK 1 · ZA DARMO”).</li>
+    </ul>
+  </div>
+
+  <h3>Nazwy, które piszemy zawsze tak samo</h3>
+  <div class="tabela"><table>
+    <thead><tr><th>Poprawnie</th><th>Niepoprawnie</th></tr></thead>
+    <tbody>
+      <tr><td>Guliwera 4</td><td>Guliwera4, GULIWERA 4, Guliwer 4, G-4</td></tr>
+      <tr><td>guliwera4.pl (adres, małymi literami)</td><td>www.Guliwera4.pl, https://guliwera4.pl/ w grafice</td></tr>
+      <tr><td>Angelika Pruchniak-Gąszczyk</td><td>A. Pruchniak, Angelika P.-G.</td></tr>
+      <tr><td>Akademia Guliwera · Kierunek Zysk · Lilek</td><td>akademia guliwera, KIERUNEK ZYSK w zdaniu, Lilek-maskotka</td></tr>
+    </tbody></table></div>
+</section>
+
+<!-- ============ 2. LOGO ============ -->
+<section class="sek" id="logo">
+  <header><span class="nr">2</span><h2>Logo</h2><p>Znak G4 to łuk (jak brama i łuk portretu na stronie), litery G4 w kroju Fraunces i żółty uśmiech. Używaj wyłącznie gotowych plików z folderu <code>brand/logo/</code>. Teksty w plikach SVG są zamienione na krzywe, więc nie potrzebujesz fontów.</p></header>
+
+  <h3>Wersje</h3>
+  <div class="siatka k3">
+    <figure><div class="logo-pole jasne"><img src="img/znak-g4.svg" alt="Znak G4"></div><figcaption><b>Znak G4</b> (podstawowy). Awatary, małe przestrzenie, stopki grafik, pieczątka na materiałach. <code>znak-g4.svg</code></figcaption></figure>
+    <figure><div class="logo-pole jasne"><img src="img/logo-poziome.svg" alt="Logo poziome" style="max-height:70px"></div><figcaption><b>Logo poziome z podpisem.</b> Dokumenty, prezentacje, strony tytułowe, nagłówki maili. <code>logo-poziome.svg</code></figcaption></figure>
+    <figure><div class="logo-pole jasne"><img src="img/logo-poziome-krotkie.svg" alt="Logo poziome krótkie" style="max-height:80px"></div><figcaption><b>Logo poziome krótkie.</b> Gdy brakuje miejsca na podpis (poniżej 360 px szerokości). <code>logo-poziome-krotkie.svg</code></figcaption></figure>
+    <figure><div class="logo-pole jasne"><img src="img/logo-osobiste.svg" alt="Logo osobiste" style="max-height:62px"></div><figcaption><b>Logo osobiste.</b> Jak w nagłówku guliwera4.pl: materiały Angeliki, prelekcje, podpis maila. <code>logo-osobiste.svg</code></figcaption></figure>
+    <figure><div class="logo-pole jasne"><img src="img/ikona.svg" alt="Ikona" style="max-height:90px"></div><figcaption><b>Ikona / favicon.</b> Znak dociągnięty do krawędzi, lepiej czytelny w 16–48 px. Folder <code>logo/favicon/</code> (ICO, PNG, SVG, apple-touch-icon).</figcaption></figure>
+    <figure><div class="logo-pole jasne"><img src="img/awatar.svg" alt="Awatar" style="max-height:120px;border-radius:50%"></div><figcaption><b>Awatar</b> 400 i 1080 px na kremowym tle (LinkedIn firmy, Facebook, YouTube). Wariant <code>awatar-granat</code> tylko gdy tło profilu jest jasne.</figcaption></figure>
+  </div>
+
+  <h3>Na jasnym i ciemnym tle</h3>
+  <div class="siatka k4">
+    <figure><div class="logo-pole jasne"><img src="img/logo-poziome-krotkie.svg" alt="" style="max-height:60px"></div><figcaption><b>Krem, biały, jasne pastele:</b> wersja podstawowa.</figcaption></figure>
+    <figure><div class="logo-pole ciemne"><img src="img/logo-poziome-krotkie-ciemne-tlo.svg" alt="" style="max-height:60px"></div><figcaption><b>Granat, atrament:</b> wersja <code>…-ciemne-tlo</code> (kremowe litery).</figcaption></figure>
+    <figure><div class="logo-pole" style="background:var(--koral)"><img src="img/znak-g4-granat.svg" alt="" style="max-height:90px"></div><figcaption><b>Koral, róż, liliowy:</b> tylko znak jednokolorowy granat lub atrament.</figcaption></figure>
+    <figure><div class="logo-pole zdj" style="align-items:flex-start;justify-content:flex-start"><img src="img/znak-g4-bialy.svg" alt="" style="max-height:60px"></div><figcaption><b>Zdjęcie:</b> znak biały na spokojnej, jasnej części kadru albo znak na kremowej plakietce.</figcaption></figure>
+  </div>
+  <p class="maly mut">Wersje jednokolorowe (<code>znak-g4-atrament</code>, <code>-granat</code>, <code>-bialy</code>, <code>-koral</code>) służą do druku jednym kolorem, grawerów, tłoczeń i teł, na których gradient ginie. Litery i uśmiech są w nich wycięte (przezroczyste).</p>
+
+  <h3>Pole ochronne i minimalne rozmiary</h3>
+  <div class="siatka k2" style="align-items:center">
+    <div style="text-align:center"><div class="ochrona"><img src="img/znak-g4.svg" alt="Znak G4 z polem ochronnym"><i style="top:6px;left:50%;transform:translateX(-50%)">x</i><i style="left:8px;top:50%;transform:translateY(-50%)">x</i></div></div>
+    <div>
+      <p><b>x = ¼ wysokości znaku G4.</b> Wokół znaku i każdej wersji logo zostaw co najmniej x wolnego miejsca: bez tekstu, krawędzi kadru i innych logotypów. W logo poziomym x liczysz od wysokości łuku.</p>
+      <div class="tabela"><table>
+        <thead><tr><th>Wersja</th><th>Ekran</th><th>Druk</th></tr></thead>
+        <tbody>
+          <tr><td>Znak G4</td><td>24 px wysokości</td><td>8 mm</td></tr>
+          <tr><td>Ikona (favicon)</td><td>16 px</td><td>nie używać</td></tr>
+          <tr><td>Logo poziome z podpisem</td><td>360 px szerokości</td><td>70 mm</td></tr>
+          <tr><td>Logo poziome krótkie</td><td>32 px wysokości</td><td>10 mm wysokości</td></tr>
+          <tr><td>Logo osobiste</td><td>340 px szerokości</td><td>65 mm</td></tr>
+        </tbody></table></div>
+    </div>
+  </div>
+
+  <h3>Zakazy</h3>
+  <div class="zakazy">
+    <div class="zakaz"><div class="pole"><img src="img/znak-g4.svg" alt="" style="transform:scaleX(1.6)"></div><p>Nie rozciągaj i nie ściskaj. Skaluj zawsze proporcjonalnie (Shift).</p></div>
+    <div class="zakaz"><div class="pole"><img src="img/znak-g4.svg" alt="" style="filter:hue-rotate(150deg)"></div><p>Nie zmieniaj kolorów ani gradientu.</p></div>
+    <div class="zakaz"><div class="pole"><img src="img/znak-g4.svg" alt="" style="filter:drop-shadow(6px 8px 4px rgba(0,0,0,.6))"></div><p>Bez cieni, obrysów, poświat i efektów 3D.</p></div>
+    <div class="zakaz"><div class="pole"><img src="img/znak-g4.svg" alt="" style="transform:rotate(-18deg)"></div><p>Nie obracaj i nie pochylaj.</p></div>
+    <div class="zakaz"><div class="pole" style="background:var(--koral)"><img src="img/znak-g4.svg" alt=""></div><p>Nie kładź wersji z gradientem na koralu ani różu.</p></div>
+    <div class="zakaz"><div class="pole"><span style="font-family:Arial;font-weight:700;font-size:30px;color:var(--atrament)">Guliwera 4</span></div><p>Nie przepisuj logotypu innym fontem.</p></div>
+    <div class="zakaz"><div class="pole"><img src="img/znak-g4.svg" alt="" style="opacity:.35"></div><p>Bez przezroczystości i logo jako tła/wzoru.</p></div>
+    <div class="zakaz"><div class="pole"><img src="img/lilek-zadowolony.svg" alt="" style="height:60px;margin-right:-8px"><img src="img/znak-g4.svg" alt="" style="height:56px"></div><p>Nie łącz z Lilkiem, ikonami ani innymi znakami.</p></div>
+  </div>
+</section>
+
+<!-- ============ 3. KOLORY ============ -->
+<section class="sek" id="kolory">
+  <header><span class="nr">3</span><h2>Kolory</h2><p>Paleta v3 „liliputy”: ciepły krem, energetyczny koral, pastele i dwa ciemne kolory do tekstu i mocnych sekcji. Kliknij kod HEX, żeby go skopiować. Pliki: <code>brand/kolory/</code> (CSS, JSON, paleta ASE do Adobe, GPL do GIMP/Inkscape).</p></header>
+
+  <div class="kolory" id="paleta"></div>
+  <p class="maly mut" style="margin-top:12px">CMYK to przybliżenie z konwersji matematycznej. Przed drukiem poproś drukarnię o dopasowanie do jej profilu (najczęściej FOGRA39 lub FOGRA51) i o proof koloru. Pastele i koral w druku wychodzą zwykle bledsze: oceniaj na wydruku, nie na ekranie.</p>
+
+  <h3>Proporcje użycia</h3>
+  <div class="proporcje" aria-label="Proporcje kolorów">
+    <div style="flex:55;background:var(--krem)">krem i biel 55%</div>
+    <div style="flex:20;background:var(--liliowy-jasny)">pastele 20%</div>
+    <div style="flex:12;background:var(--atrament);color:#fff">atrament 12%</div>
+    <div style="flex:8;background:var(--koral);color:var(--atrament)">koral 8%</div>
+    <div style="flex:5;background:var(--zolty)">żółty</div>
+  </div>
+  <ul>
+    <li><b>Tło:</b> krem albo biel. Sekcje i karty w jasnych pastelach (liliowy jasny, żółty jasny, róż jasny, brzoskwinia). Maksymalnie 2 różne pastele na jednej grafice.</li>
+    <li><b>Tekst:</b> atrament, pomocniczy atrament 60%. Nigdy czysta czerń.</li>
+    <li><b>Akcent:</b> koral (przyciski, liczba 4, numery), żółty (podkreślenie „zakres”, uśmiech, plakietki). Jeden mocny akcent na grafikę.</li>
+    <li><b>Mocne sekcje:</b> granat (ogłoszenia, premiery, oferta dla firm) i liliowy (sekcja CTA). Najwyżej jedna taka sekcja na stronę lub co 3–4 post w siatce profilu.</li>
+  </ul>
+
+  <h3>Pary kontrastowe (WCAG 2.2)</h3>
+  <p>Tekst musi mieć kontrast co najmniej <b>4,5:1</b> (AA). Kontrast <b>3:1</b> wystarcza tylko dla dużego tekstu: od 24 px albo od 19 px pogrubionego. Pełna tabela wszystkich par: <code>brand/kolory/kontrasty.md</code>.</p>
+  <div class="pary" id="pary"></div>
+
+  <h3>Kolory zakazane i ograniczone</h3>
+  <div class="tabela"><table>
+    <thead><tr><th>Zasada</th><th>Dlaczego</th></tr></thead>
+    <tbody>
+      <tr><td><span class="pig zle">NIE</span> Biały tekst na koralu</td><td>Kontrast 2,8:1. Na koralu piszemy atramentem lub granatem (5,0:1). Biały tekst kładziemy na koralu ciemnym (3,7:1, tylko duży tekst).</td></tr>
+      <tr><td><span class="pig zle">NIE</span> Biały tekst na liliowym</td><td>Kontrast 2,2:1. Na liliowym tylko atrament lub granat.</td></tr>
+      <tr><td><span class="pig zle">NIE</span> Koral, róż, żółty jako kolor tekstu na jasnym tle</td><td>Kontrast poniżej 2,7:1. Wyjątek: cyfra 4 w logo i duże dekoracyjne cyfry powyżej 60 px.</td></tr>
+      <tr><td><span class="pig uw">TYLKO DUŻY</span> Koral ciemny jako tekst na kremie lub bieli</td><td>3,5–3,7:1. Dozwolony dla Caveat, etykiet i linków od 19 px pogrubionych. Linki w zwykłym tekście: atrament z koralowym podkreśleniem.</td></tr>
+      <tr><td><span class="pig uw">TYLKO DUŻY</span> Atrament 60% na liliowym jasnym</td><td>4,3:1. Na pastelach drobny tekst pisz atramentem.</td></tr>
+      <tr><td><span class="pig zle">NIE</span> Czerń #000, szarości neutralne, zielenie, niebieskie i neony spoza palety</td><td>Wyglądają obco. Ciemny kolor to atrament albo granat.</td></tr>
+      <tr><td><span class="pig uw">OGRANICZONE</span> Gradienty</td><td>Tylko dwa: koral → róż w znaku G4 i gradient okładek Kierunek Zysk (sekcja 5). Żadnych innych gradientów w tłach i tekstach.</td></tr>
+      <tr><td><span class="pig uw">OGRANICZONE</span> Kolory techniczne</td><td>Zieleń sukcesu #1F9D6B tylko w aplikacji (poprawna odpowiedź). Liliowy cień krawata #8F79C9 i złoto pióra #E8A92E tylko w rysunku Lilka. Kolory gradientu okładek (#F8B68C, #FDDCC6, #F2BFC5) tylko na okładkach.</td></tr>
+    </tbody></table></div>
+  <div class="ramka lil"><b>Uwaga do strony guliwera4.pl.</b> Obecne przyciski (biały tekst 16 px na koralu) i nagłówek w liliowej sekcji CTA (biały na liliowym) nie spełniają WCAG. W nowych projektach stosuj zasady powyżej; zmiany na stronie wprowadza osoba odpowiedzialna za WordPress.</div>
+</section>
+
+<!-- ============ 4. TYPOGRAFIA ============ -->
+<section class="sek" id="typografia">
+  <header><span class="nr">4</span><h2>Typografia</h2><p>Trzy kroje z Google Fonts. Fraunces mówi „ekspertka z charakterem”, DM Sans „konkret”, a Caveat dodaje odręczny uśmiech.</p></header>
+
+  <div class="siatka k3">
+    <div class="kroj"><span class="etyk">Nagłówki</span><span class="wz" style="font-family:var(--f-nagl);font-weight:600">Aa Ąę</span><b>Fraunces</b><span class="maly mut">600 SemiBold w nagłówkach, 700 Bold w logo i cenach, 400 w cytatach. Optyczny rozmiar automatyczny.</span></div>
+    <div class="kroj"><span class="etyk">Tekst</span><span class="wz" style="font-family:var(--f-tekst);font-weight:500">Aa Ąę</span><b>DM Sans</b><span class="maly mut">400 tekst, 500 menu i podpisy, 700 przyciski i etykiety, 800 tylko tytuły okładek Kierunek Zysk.</span></div>
+    <div class="kroj"><span class="etyk">Wstawki odręczne</span><span class="wz" style="font-family:var(--f-reka);font-weight:600;color:var(--koral-ciemny)">cześć!</span><b>Caveat</b><span class="maly mut">600 SemiBold. Tylko krótka wstawka nad nagłówkiem, do 6 słów, małymi literami.</span></div>
+  </div>
+
+  <h3>Skala na stronie www i w dokumentach ekranowych</h3>
+  <div class="skala">
+    <div><div class="opis"><b>H1</b>Fraunces 600 · 38–70 px · interlinia 1,08 · odstęp −1,5%</div><div style="font-family:var(--f-nagl);font-weight:600;font-size:clamp(30px,4.6vw,56px);line-height:1.08;letter-spacing:-.015em">Strategia w <span class="zakres">5 minut</span></div></div>
+    <div><div class="opis"><b>H2</b>Fraunces 600 · 30–50 px · 1,08</div><div style="font-family:var(--f-nagl);font-weight:600;font-size:clamp(26px,3.4vw,40px);line-height:1.08">Trzy kroki do planu</div></div>
+    <div><div class="opis"><b>H3</b>Fraunces 600 · 24–30 px · 1,15</div><div style="font-family:var(--f-nagl);font-weight:600;font-size:26px;line-height:1.15">Akademia Guliwera</div></div>
+    <div><div class="opis"><b>Wstawka</b>Caveat 600 · 24–34 px · koral ciemny</div><div class="pisane">od czego zacząć?</div></div>
+    <div><div class="opis"><b>Lead</b>DM Sans 400 · 18–21 px · 1,6 · atrament 60%</div><div style="font-size:20px;color:var(--atrament-60)">Krótkie lekcje, gotowe narzędzia i jasny plan.</div></div>
+    <div><div class="opis"><b>Tekst</b>DM Sans 400 · 17–18 px · 1,62 · do 70 znaków w wierszu</div><div style="font-size:18px;line-height:1.62">Zacznij od darmowych lekcji. Gdy będziesz gotowa lub gotowy, sięgnij po narzędzia.</div></div>
+    <div><div class="opis"><b>Etykieta</b>DM Sans 700 · 13 px · wersaliki · odstęp +12%</div><div class="etyk" style="color:var(--koral-ciemny);font-size:13px">KROK 1 · ZA DARMO</div></div>
+    <div><div class="opis"><b>Drobny</b>DM Sans 400 · 13,5–15 px</div><div style="font-size:14.5px;color:var(--atrament-60)">Bez karty, bez zobowiązań.</div></div>
+  </div>
+
+  <h3>Skala w grafikach social media (płótno 1080 px)</h3>
+  <div class="tabela"><table>
+    <thead><tr><th>Element</th><th>Krój</th><th>Rozmiar</th><th>Interlinia</th></tr></thead>
+    <tbody>
+      <tr><td>Wstawka odręczna</td><td>Caveat 600</td><td>48–56 px</td><td>1,1</td></tr>
+      <tr><td>Nagłówek główny</td><td>Fraunces 600</td><td>80–104 px</td><td>1,04</td></tr>
+      <tr><td>Nagłówek slajdu</td><td>Fraunces 600</td><td>64–72 px</td><td>1,08</td></tr>
+      <tr><td>Lead / tekst</td><td>DM Sans 400</td><td>38–40 px</td><td>1,4</td></tr>
+      <tr><td>Etykieta, pigułka</td><td>DM Sans 700, wersaliki</td><td>24–26 px</td><td>1</td></tr>
+      <tr><td>Stopka (adres, numer slajdu)</td><td>DM Sans 400–500</td><td>26 px</td><td>1</td></tr>
+    </tbody></table></div>
+  <p><b>Minimum w grafice 1080 px: 26 px.</b> Mniejszy tekst jest nieczytelny na telefonie. W formatach 1200 px mnóż rozmiary przez 1,1, w story przez 1,2.</p>
+
+  <h3>Druk i PDF</h3>
+  <p>Tytuł 28–36 pt, nagłówki 16–20 pt (Fraunces 600), tekst 10,5–11 pt / interlinia 1,5 (DM Sans 400), przypisy i etykiety 8–9 pt. Fonty zawsze osadzone w PDF.</p>
+
+  <h3>Akcent „zakres”: żółte podkreślenie</h3>
+  <div class="siatka k2" style="align-items:center">
+    <div class="karta b-krem"><p style="font-family:var(--f-nagl);font-weight:600;font-size:34px;line-height:1.1;margin:0">Duże strategie zamieniam w <span class="zakres">konkretną trasę.</span></p></div>
+    <ul>
+      <li>Żółty (#FFC84A) pas pod 1–4 słowami, wysokość 32% wielkości liter, lekko nieregularne końce, 6% nad linią bazową.</li>
+      <li><b>Jedno podkreślenie</b> na grafikę lub sekcję. Podkreślamy korzyść albo liczbę („5 minut”, „1 stronie”).</li>
+      <li>Tylko pod nagłówkami Fraunces. Nie pod tekstem ciągłym i nie na żółtym tle.</li>
+      <li>Kod CSS: klasa <code>.zakres</code> w <code>brand/szablony/wspolne/styl.css</code>.</li>
+    </ul>
+  </div>
+
+  <h3>Zamienniki i licencje</h3>
+  <div class="tabela"><table>
+    <thead><tr><th>Krój</th><th>Zamiennik systemowy</th><th>Gdzie zamiennik jest OK</th></tr></thead>
+    <tbody>
+      <tr><td>Fraunces</td><td>Georgia</td><td>Maile, Word i PowerPoint u odbiorców bez fontów</td></tr>
+      <tr><td>DM Sans</td><td>Arial lub Helvetica</td><td>Maile, dokumenty Office</td></tr>
+      <tr><td>Caveat</td><td>brak, pomiń wstawkę</td><td>Nie zastępuj innym „pisanym” fontem (Comic Sans, Segoe Script)</td></tr>
+    </tbody></table></div>
+  <p>Wszystkie trzy kroje są na licencji <b>SIL Open Font License 1.1</b>: darmowe także komercyjnie, wolno je osadzać w PDF, na stronach i w aplikacjach. Nie wolno sprzedawać samych plików fontów. Pobieranie: <a href="https://fonts.google.com/specimen/Fraunces" target="_blank" rel="noopener">Fraunces</a>, <a href="https://fonts.google.com/specimen/DM+Sans" target="_blank" rel="noopener">DM Sans</a>, <a href="https://fonts.google.com/specimen/Caveat" target="_blank" rel="noopener">Caveat</a>. W Canvie wszystkie trzy są dostępne w bibliotece fontów.</p>
+</section>
+
+<!-- ============ 5. ELEMENTY GRAFICZNE ============ -->
+<section class="sek" id="elementy">
+  <header><span class="nr">5</span><h2>Elementy graficzne</h2><p>Kilka prostych, powtarzalnych elementów, które robią „klimat” marki. Nie dodawaj nowych bez akceptacji.</p></header>
+
+  <div class="siatka k2">
+    <div class="karta b-krem">
+      <h4>Koła</h4>
+      <ul><li>Pełne, pastelowe koła (róż jasny, liliowy jasny, żółty jasny, brzoskwinia), zawsze <b>przycięte krawędzią</b> formatu.</li><li>1–2 koła na grafikę, średnica 40–70% szerokości płótna, najczęściej w prawym górnym rogu.</li><li>Na granacie: biel 8–12% lub żółty 14% przezroczystości.</li><li>Nie pod tekstem w kontrastowym kolorze, bez obrysów i gradientów.</li></ul>
+    </div>
+    <div class="karta b-krem" style="display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:16px;align-items:center">
+      <div><h4>Łuk portretu</h4><p>Zdjęcie w kształcie bramy, jak łuk znaku G4: półkole u góry, zaokrąglenie 24 px na dole, proporcja 4:5. Tło pod zdjęciem: gradient brzoskwinia → róż jasny → liliowy jasny. CSS: <code>border-radius: 999px 999px 24px 24px</code>.</p></div>
+      <div class="portret-luk"><img src="img/portret.jpg" alt="Angelika Pruchniak-Gąszczyk w łuku portretu" loading="lazy"></div>
+    </div>
+  </div>
+
+  <h3>Zaokrąglenia i cienie</h3>
+  <div class="tabela"><table>
+    <thead><tr><th>Element</th><th>Zaokrąglenie</th><th>Cień</th></tr></thead>
+    <tbody>
+      <tr><td>Przyciski, plakietki, pigułki</td><td>pełne (999 px)</td><td>brak</td></tr>
+      <tr><td>Duże karty i sekcje</td><td>28–32 px (www), 28–40 px (grafiki 1080)</td><td><code>0 14px 36px rgba(58,35,64,.06)</code></td></tr>
+      <tr><td>Karta wyróżniona, treść dokumentu</td><td>28 px</td><td><code>0 16px 44px rgba(58,35,64,.08)</code></td></tr>
+      <tr><td>Ramki informacyjne, spis treści</td><td>18–24 px</td><td>brak</td></tr>
+      <tr><td>Portret w łuku</td><td>półkole + 24 px</td><td><code>0 24px 50px rgba(58,35,64,.15)</code></td></tr>
+      <tr><td>Okładka produktu</td><td>4% szerokości okładki</td><td><code>0 16px 34px rgba(58,35,64,.2)</code></td></tr>
+    </tbody></table></div>
+  <p class="maly">Cienie zawsze miękkie i w odcieniu atramentu. Nigdy twarde czarne cienie, nigdy cień na tekście lub logo. Ostre rogi (0 px) nie występują w marce.</p>
+
+  <h3>Przyciski i plakietki</h3>
+  <div class="demo">
+    <span class="btn ciemny">Zacznij za darmo</span>
+    <span class="btn atr">Kup i pobierz</span>
+    <span class="btn obrys">Zobacz materiały</span>
+    <span class="btn mala ciemny" style="font-size:15px">Mały</span>
+    <span class="plak" style="background:var(--zolty)">premiera · kwiecień 2027</span>
+    <span class="plak" style="background:var(--brzoskwinia)">wkrótce</span>
+    <span class="plak" style="background:var(--granat);color:#fff">krok 1</span>
+  </div>
+  <ul style="margin-top:14px">
+    <li><b>Główny:</b> pigułka, DM Sans 700, wysokość ok. 54 px (padding 15 × 28 px). Kolor dostępny: koral ciemny z białym tekstem od 19 px albo koral z tekstem w atramencie. Hover: ciemniej o jeden odcień i uniesienie o 2 px.</li>
+    <li><b>Drugorzędny:</b> obrys 2,5 px koral, tekst koral ciemny. Na ciemnym tle przycisk biały z tekstem koral ciemny.</li>
+    <li>Jeden główny przycisk w widoku. Tekst przycisku to czasownik: „Zacznij za darmo”, „Kup i pobierz”, „Zapisz się”.</li>
+    <li>Plakietki: wersaliki 13 px (www) lub 24–26 px (social), odstęp +12%, tło żółte, brzoskwiniowe, liliowe jasne lub granatowe.</li>
+  </ul>
+
+  <h3>Ikony</h3>
+  <p>Marka nie ma własnego zestawu ikon. Używamy <b><a href="https://lucide.dev" target="_blank" rel="noopener">Lucide</a></b> (licencja ISC, darmowa): obrys 2 px przy 24 px, zaokrąglone końce, kolor atrament lub koral ciemny, bez wypełnień. W listach zalet znak <b style="color:var(--koral)">✓</b> w koralu, w linkach strzałka „→”. W grafikach nie używamy emoji.</p>
+
+  <h3>Okładki PDF „Kierunek Zysk”</h3>
+  <div class="gal" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr))">
+    <figure><img src="img/okl-kierunek-zysk-przewodnik.jpg" alt="Okładka Przewodnik" loading="lazy"><figcaption>Wariant jasny (gradient)</figcaption></figure>
+    <figure><img src="img/okl-strategia-na-1-stronie.jpg" alt="Okładka Strategia na 1 stronie" loading="lazy"><figcaption>Wariant granatowy</figcaption></figure>
+    <figure><img src="img/okl-audyt-i-bank-40-testow.jpg" alt="Okładka Audyt" loading="lazy"><figcaption>Wariant jasny 2</figcaption></figure>
+    <figure><img src="img/okl-planer-90-dni.jpg" alt="Okładka Planer 90 dni" loading="lazy"><figcaption>Tło kwadratu: pastel produktu</figcaption></figure>
+  </div>
+  <ul style="margin-top:14px">
+    <li><b>Format:</b> A4 pionowo, zaokrąglenie 4% szerokości. Szablon: <code>brand/szablony/okladka-pdf-a4.html</code>; gotowe okładki: <code>brand/okladki/</code>.</li>
+    <li><b>Tło:</b> gradient 160° #F8B68C → #FDDCC6 → #F2BFC5 (jasny) albo granat (wariant mocny). Dwa białe koła 28% i 18% krycia.</li>
+    <li><b>Układ od góry:</b> „● KIERUNEK ZYSK” (DM Sans 700, odstęp +14%) · pigułka z typem materiału · tytuł <b>DM Sans 800</b>, odstęp −2% · na dole linia, „guliwera4.pl” i „Materiał X z 7”.</li>
+    <li><b>Kolor tekstu:</b> granat na jasnym, biały na granacie; pigułka odwrotnie (granat/brzoskwinia).</li>
+    <li><b>Wizualizacja do sklepu:</b> kwadrat 1200 × 1200 w pastelu produktu, okładka obrócona o −3°, miękki cień.</li>
+    <li>Linia Kierunek Zysk celowo ma tytuły bezszeryfowe: to „narzędzia”. Fraunces zostaje dla marki i treści.</li>
+  </ul>
+
+  <h3>Maskotka Lilek</h3>
+  <div class="lilki">
+    <figure><img src="img/lilek-zadowolony.svg" alt="Lilek zadowolony" loading="lazy"><figcaption>zadowolony · domyślny</figcaption></figure>
+    <figure><img src="img/lilek-macha.svg" alt="Lilek macha" loading="lazy"><figcaption>macha · powitanie, CTA</figcaption></figure>
+    <figure><img src="img/lilek-radosc.svg" alt="Lilek radość" loading="lazy"><figcaption>radość · sukces, brawo</figcaption></figure>
+    <figure><img src="img/lilek-mysli.svg" alt="Lilek myśli" loading="lazy"><figcaption>myśli · pytanie, quiz</figcaption></figure>
+    <figure><img src="img/lilek-smutny.svg" alt="Lilek smutny" loading="lazy"><figcaption>smutny · błąd, „prawie”</figcaption></figure>
+    <figure><img src="img/lilek-spi.svg" alt="Lilek śpi" loading="lazy"><figcaption>śpi · przerwa w serii</figcaption></figure>
+  </div>
+  <div class="siatka k2" style="margin-top:16px">
+    <div class="karta b-krem"><h4>Kim jest</h4><p>Mały Liliput w trójgraniastym kapeluszu z piórkiem i krawacie managera. Maskotka Akademii Guliwera: kibicuje, podpowiada, czasem się myli. Mówi krótko i z humorem („Bingo!”, „Prawie!”).</p></div>
+    <div class="karta b-krem"><h4>Zasady</h4><ul><li>Tylko przy Akademii, nauce, aplikacji i darmowych treściach. Nie na okładkach płatnych PDF i nie w ofercie dla firm.</li><li>Jeden Lilek na grafikę, min. 80 px wysokości, przy krawędzi, nie zasłania tekstu.</li><li>Gotowe pliki z <code>brand/lilek/</code>. Nie zmieniaj kolorów, proporcji ani stroju; nowe pozy tylko po akceptacji.</li><li>Dymek: biały, zaokrąglony 18 px, do 6 słów.</li></ul></div>
+  </div>
+</section>
+
+<!-- ============ 6. FOTOGRAFIA ============ -->
+<section class="sek" id="fotografia">
+  <header><span class="nr">6</span><h2>Fotografia</h2><p>Jasno, naturalnie i ciepło. Zdjęcia mają wyglądać jak dobry dzień w jasnym biurze, nie jak sesja w studiu.</p></header>
+  <div class="siatka k2" style="align-items:start">
+    <figure><div class="portret-luk" style="max-width:300px;margin:0 auto"><img src="img/portret.jpg" alt="Portret Angeliki w jasnym garniturze" loading="lazy"></div><figcaption style="text-align:center">Portret główny: <code>logo/angelika-portret-bialy.jpg</code> (kopia w <code>brand/zdjecia/</code>), 1086 × 1358 px.</figcaption></figure>
+    <div>
+      <h4>Styl zdjęć</h4>
+      <ul>
+        <li>Naturalne, miękkie światło dzienne, widoczne jasne plamy słońca.</li>
+        <li>Jasne wnętrza: biel, beż, krem, drewno, rośliny. Spokojne tła bez napisów i cudzych logo.</li>
+        <li>Ciepły balans bieli, lekko podniesione cienie, naturalne kolory skóry.</li>
+        <li>Ludzie w prawdziwych sytuacjach małej firmy: kawiarnia, pracownia, notes, laptop, rozmowa zespołu.</li>
+        <li>Zdjęcia stockowe: Unsplash lub Pexels (sprawdź licencję), tylko w tym samym klimacie.</li>
+      </ul>
+      <h4 style="margin-top:18px">Kadrowanie portretu</h4>
+      <ul>
+        <li>Proporcja 4:5 w łuku portretu albo 9:16 w story. Oczy w górnej jednej trzeciej kadru.</li>
+        <li>W CSS lub w programie: punkt ostrości na twarzy (<code>object-position: 50% 18%</code>).</li>
+        <li>Nie ucinaj głowy ani dłoni w połowie palców. Zostaw powietrze nad głową w łuku.</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Dozwolone i zakazane</h3>
+  <div class="siatka k2">
+    <div class="karta" style="background:#EAF7F0"><h4>Wolno</h4><ul><li>Przycinać i prostować kadr.</li><li>Lekko rozjaśnić, poprawić balans bieli w stronę ciepła.</li><li>Delikatnie wyostrzyć.</li><li>Usunąć drobne zabrudzenia tła (kurz, kabel).</li></ul></div>
+    <div class="karta b-roz"><h4>Nie wolno</h4><ul><li><b>Zmieniać rysów twarzy</b>, wygładzać skóry, wyszczuplać, zmieniać koloru oczu i ust (wyraźna prośba Angeliki).</li><li>Ciężkich filtrów, winiet, czerni i bieli, efektów „vintage”.</li><li>Zmieniać koloru garnituru i tła, generować tła lub ubrań AI.</li><li>Ciemnych, zimnych i niebieskich tonów, zdjęć „uścisk dłoni w garniturach”.</li><li>Zdjęć z logo innych firm i wizerunkiem klientów bez zgody.</li></ul></div>
+  </div>
+</section>
+
+<!-- ============ 7. SOCIAL MEDIA ============ -->
+<section class="sek" id="social">
+  <header><span class="nr">7</span><h2>Social media</h2><p>Gotowe szablony do edycji leżą w <code>brand/szablony/</code>: otwierasz plik HTML w Chrome, klikasz tekst i piszesz. Klawisz <b>G</b> pokazuje siatkę i strefy, których nie zasłaniaj. Eksport do PNG w dokładnym rozmiarze robi skrypt (instrukcja w README).</p></header>
+
+  <h3>Wymiary, marginesy i ilość tekstu</h3>
+  <div class="tabela"><table>
+    <thead><tr><th>Format</th><th>Wymiar (px)</th><th>Margines bezpieczny</th><th>Strefy do omijania</th><th>Maks. tekstu</th></tr></thead>
+    <tbody>
+      <tr><td>Post IG / FB pionowy</td><td>1080 × 1350</td><td>80</td><td>w siatce profilu IG widać środek 3:4 (ucięte ok. 34 px z boków)</td><td>nagłówek 12 słów + 25 słów</td></tr>
+      <tr><td>Post IG / FB kwadrat</td><td>1080 × 1080</td><td>80</td><td>brak</td><td>nagłówek 10 słów + 1 zdanie</td></tr>
+      <tr><td>Story / Reels</td><td>1080 × 1920</td><td>80 z boków</td><td>góra 250, dół 340, przy Reels prawy pas 140 (przyciski)</td><td>nagłówek 10 słów + 20 słów</td></tr>
+      <tr><td>Karuzela IG / LinkedIn</td><td>1080 × 1350</td><td>80</td><td>numer slajdu w stopce po prawej</td><td>okładka 8 słów, slajd 35 słów</td></tr>
+      <tr><td>LinkedIn post kwadrat</td><td>1200 × 1200</td><td>88</td><td>brak</td><td>nagłówek 12 słów + 3 punkty</td></tr>
+      <tr><td>LinkedIn / FB link</td><td>1200 × 627</td><td>64</td><td>brak</td><td>8 słów</td></tr>
+      <tr><td>Baner LinkedIn (profil)</td><td>1584 × 396</td><td>56, z lewej 500</td><td>lewa część ok. 440 px: zdjęcie profilowe</td><td>hasło + 8 słów</td></tr>
+      <tr><td>Baner LinkedIn (firma)</td><td>1128 × 191</td><td>28, z lewej 300</td><td>logo firmy z lewej na dole</td><td>8 słów</td></tr>
+      <tr><td>Okładka Facebook</td><td>1640 × 624</td><td>52, z boków 270</td><td>na telefonie widać środek ok. 1100 px</td><td>10 słów</td></tr>
+      <tr><td>Miniatura YouTube</td><td>1280 × 720</td><td>64</td><td>prawy dolny róg 240 × 90: czas filmu</td><td>4 słowa</td></tr>
+      <tr><td>Reklama Meta</td><td>1080 × 1080, 1080 × 1350, 1080 × 1920</td><td>80</td><td>jak wyżej dla formatu</td><td>tekst do 20% powierzchni, 1 CTA</td></tr>
+      <tr><td>Reklama Google (Display, PMax)</td><td>1200 × 628, 1200 × 1200, 300 × 250</td><td>48 / 16 przy 300 × 250</td><td>Google przycina do 1:1 i 4:1: ważne rzeczy w środku</td><td>6 słów + CTA</td></tr>
+    </tbody></table></div>
+
+  <h3>Siatka i miejsce na logo</h3>
+  <ul>
+    <li><b>6 kolumn</b> z odstępem 24 px wewnątrz marginesu bezpiecznego. Tekst zajmuje 4–6 kolumn, obraz lub Lilek 2–3.</li>
+    <li><b>Stopka</b> zawsze na dole pola: po lewej znak G4 (64 px przy 1080) i „Angelika Pruchniak-Gąszczyk” albo „guliwera4.pl”, po prawej adres, numer slajdu lub krótkie CTA.</li>
+    <li><b>Kolejność od góry:</b> wstawka Caveat lub plakietka → nagłówek Fraunces (z jednym „zakresem”) → lead/treść → przycisk → stopka.</li>
+    <li>Treść wyśrodkowana w pionie między górą a stopką. Wyrównanie do lewej; wyśrodkowanie tylko w okładce Facebook i cytacie 1:1.</li>
+  </ul>
+  <div class="gal">
+    <figure><img src="img/siatka/ig-1080x1350-porada.jpg" alt="Siatka posta 1080×1350" loading="lazy"><figcaption>1080 × 1350 z siatką</figcaption></figure>
+    <figure><img src="img/siatka/story-1080x1920-porada.jpg" alt="Siatka story" loading="lazy"><figcaption>Story: strefy UI zakreskowane</figcaption></figure>
+    <figure><img src="img/siatka/linkedin-baner-1584x396.jpg" alt="Siatka banera LinkedIn" loading="lazy"><figcaption>Baner LinkedIn: miejsce na zdjęcie</figcaption></figure>
+    <figure><img src="img/siatka/facebook-okladka-1640x624.jpg" alt="Siatka okładki Facebook" loading="lazy"><figcaption>Okładka FB: boki ucinane na telefonie</figcaption></figure>
+    <figure><img src="img/siatka/youtube-miniatura-1280x720.jpg" alt="Siatka miniatury YouTube" loading="lazy"><figcaption>YouTube: róg z czasem filmu</figcaption></figure>
+  </div>
+
+  <h3>Układy</h3>
+  <div class="gal">
+    <figure><img src="img/szablony/ig-1080x1350-cytat.jpg" alt="Układ cytat" loading="lazy"><figcaption><b>Cytat.</b> Krem, wstawka, cytat Fraunces do 18 słów, komentarz.</figcaption></figure>
+    <figure><img src="img/szablony/ig-1080x1350-porada.jpg" alt="Układ porada" loading="lazy"><figcaption><b>Porada.</b> Pastel, plakietka, nagłówek, 3 punkty z numerami.</figcaption></figure>
+    <figure><img src="img/szablony/ig-1080x1350-produkt.jpg" alt="Układ produkt" loading="lazy"><figcaption><b>Produkt.</b> Pastel produktu, nazwa, korzyść, cena, przycisk, okładka.</figcaption></figure>
+    <figure><img src="img/szablony/ig-1080x1350-wydarzenie.jpg" alt="Układ wydarzenie" loading="lazy"><figcaption><b>Wydarzenie.</b> Granat, data w żółtej plakietce, tytuł, przycisk.</figcaption></figure>
+    <figure><img src="img/szablony/ig-1080x1350-karuzela-1-okladka.jpg" alt="Karuzela okładka" loading="lazy"><figcaption><b>Karuzela 1/3.</b> Okładka z obietnicą i „Przesuń →”.</figcaption></figure>
+    <figure><img src="img/szablony/ig-1080x1350-karuzela-2-slajd.jpg" alt="Karuzela slajd" loading="lazy"><figcaption><b>Karuzela 2/3.</b> Biały slajd: etykieta, nagłówek, tekst, ramka z przykładem.</figcaption></figure>
+    <figure><img src="img/szablony/ig-1080x1350-karuzela-3-koniec.jpg" alt="Karuzela koniec" loading="lazy"><figcaption><b>Karuzela 3/3.</b> Liliowy, CTA, Lilek przy Akademii.</figcaption></figure>
+    <figure><img src="img/szablony/story-1080x1920-wydarzenie.jpg" alt="Story wydarzenie" loading="lazy"><figcaption><b>Story.</b> Zapowiedź z naklejką-linkiem.</figcaption></figure>
+    <figure><img src="img/szablony/linkedin-1200x627-link.jpg" alt="LinkedIn link" loading="lazy"><figcaption><b>LinkedIn link.</b> Tytuł + portret w łuku.</figcaption></figure>
+    <figure><img src="img/szablony/youtube-miniatura-1280x720.jpg" alt="Miniatura YouTube" loading="lazy"><figcaption><b>YouTube.</b> 4 słowa, portret, numer lekcji.</figcaption></figure>
+    <figure><img src="img/szablony/reklama-meta-1080x1080.jpg" alt="Reklama Meta" loading="lazy"><figcaption><b>Reklama Meta.</b> Jedna obietnica, przycisk, Lilek.</figcaption></figure>
+    <figure><img src="img/szablony/reklama-google-1200x628.jpg" alt="Reklama Google" loading="lazy"><figcaption><b>Reklama Google.</b> 5 słów + CTA.</figcaption></figure>
+  </div>
+  <div class="ramka" style="margin-top:18px"><b>Reklamy:</b> treść reklamy podlega tym samym zasadom co posty, a dodatkowo zasadom Meta i Google. Bez obietnic zarobku, bez „przed i po”, bez pytań o cechy osobiste („Masz długi?”). Na grafice jedna obietnica i jeden przycisk.</div>
+</section>
+
+<!-- ============ 8. ZASTOSOWANIA ============ -->
+<section class="sek" id="zastosowania">
+  <header><span class="nr">8</span><h2>Inne zastosowania</h2><p>Te same zasady w dokumentach, mailach, na stronie i w druku.</p></header>
+
+  <div class="siatka k2">
+    <div class="karta b-krem"><h4>PDF i e-booki (wnętrze)</h4><ul><li>A4, marginesy 18 mm, kolumna tekstu do 150 mm.</li><li>Tło białe, nagłówki Fraunces 600 w atramencie, tekst DM Sans 10,5 pt.</li><li>Ćwiczenia i ramki na pastelach (żółty jasny = ważne, liliowy jasny = ćwiczenie, róż jasny = uwaga), zaokrąglenie 4 mm.</li><li>Stopka: „guliwera4.pl · nazwa materiału” po lewej, numer strony po prawej, 8 pt, atrament 60%.</li><li>Ostatnia strona: logo poziome, kontakt, licencja „do użytku własnego”.</li></ul></div>
+    <div class="karta b-krem"><h4>Prezentacje</h4><ul><li>16:9, 1920 × 1080, margines 120 px.</li><li>Slajd tytułowy: krem, koło róż jasny, portret w łuku, logo poziome krótkie na dole.</li><li>Slajd treści: biel, etykieta działu, nagłówek, maks. 40 słów albo 3 karty w pastelach.</li><li>Tekst min. 28 px. Numer slajdu i znak G4 w stopce.</li><li>Szablony: <code>prezentacja-1920x1080-*.html</code>. W PowerPoint/Keynote odtwórz wymiary 1:1.</li></ul></div>
+    <div class="karta b-krem"><h4>Newsletter i maile</h4><ul><li>Szerokość 600 px, tło krem, treść na białej karcie (zaokrąglenie 24 px).</li><li>Nagłówek: znak G4 48 px + „Guliwera 4”. Fonty z zamiennikami: Fraunces → Georgia, DM Sans → Arial.</li><li>Przycisk-pigułka koral ciemny, biały tekst 17–18 px pogrubiony, zbudowany z tabeli (działa w Outlooku).</li><li>Temat do 50 znaków, konkretny: „Oto Twój PDF · zamówienie nr 123”.</li><li>Stopka 13 px atrament 60%: dane firmy, link do wypisu.</li></ul></div>
+    <div class="karta b-krem"><h4>Strona www</h4><ul><li>Kontener 1180 px, marginesy boczne 16–60 px, sekcje 56–100 px w pionie.</li><li>Karty: biel lub pastel, zaokrąglenie 28 px, padding 24–34 px, miękki cień.</li><li>Przyciski i plakietki: jak w sekcji 5. Linki: atrament z podkreśleniem w koralu lub koral ciemny pogrubiony.</li><li>Menu: DM Sans 500 15,5 px, aktywna pozycja podkreślona różem 2,5 px.</li><li>Tokeny kolorów: <code>brand/kolory/kolory.css</code> (te same nazwy co na stronie).</li></ul></div>
+    <div class="karta b-krem"><h4>Podpis e-mail</h4><ul><li>Gotowy plik: <code>brand/szablony/email/podpis-email.html</code> (otwórz, zaznacz, skopiuj do Gmaila lub Outlooka).</li><li>Znak G4 48 px, imię i nazwisko Georgia/Fraunces 16 px, hasło Caveat zastąpione kursywą, adres guliwera4.pl.</li><li>Bez cytatów, banerów i obrazków poza znakiem.</li></ul></div>
+    <div class="karta b-krem"><h4>Druk</h4><ul><li>PDF/X-4 lub PDF/X-1a, CMYK, 300 dpi, fonty osadzone, spad 3 mm (wizytówka 85 × 55 mm + 2 mm wg drukarni).</li><li>Papier niepowlekany biały lub kremowy, matowy. Bez folii błysk.</li><li>Tekst poniżej 8 pt tylko w atramencie (nie w pastelach i koralu).</li><li>Proof koloru dla koralu i pasteli przed nakładem.</li><li>Logo do druku: wersje SVG/PDF wektorowe, nigdy PNG z sieci.</li></ul></div>
+  </div>
+</section>
+
+<!-- ============ 9. TAK / NIE ============ -->
+<section class="sek" id="tak-nie">
+  <header><span class="nr">9</span><h2>Tak / nie tak i checklista</h2><p>Najczęstsze błędy w jednym miejscu. Przed oddaniem projektu przejdź przez checklistę.</p></header>
+
+  <div class="tn">
+    <figure><div class="wz" style="background:var(--koral)"><span style="font-family:var(--f-nagl);font-weight:600;font-size:30px;color:var(--atrament)">Zacznij od 5 minut</span></div><span class="pig ok">TAK</span><figcaption>Na koralu tekst w atramencie albo granacie.</figcaption></figure>
+    <figure><div class="wz" style="background:var(--koral)"><span style="font-family:var(--f-nagl);font-weight:600;font-size:30px;color:#fff">Zacznij od 5 minut</span></div><span class="pig zle">NIE TAK</span><figcaption>Biały na koralu: kontrast 2,8:1, nieczytelne na słońcu.</figcaption></figure>
+  </div>
+  <div class="tn">
+    <figure><div class="wz" style="background:var(--krem)"><span class="pisane" style="font-size:26px">myśl na poniedziałek</span><span style="font-family:var(--f-nagl);font-weight:600;font-size:28px;line-height:1.1">Mniej pomysłów, więcej <span class="zakres">wdrożeń</span>.</span></div><span class="pig ok">TAK</span><figcaption>Jedno podkreślenie, krótka wstawka Caveat, jedna myśl.</figcaption></figure>
+    <figure><div class="wz" style="background:var(--krem)"><span style="font-family:var(--f-reka);font-size:22px;line-height:1.1;color:var(--koral)">Dziś chcę Wam opowiedzieć o tym, jak wdrażać pomysły w firmie i dlaczego to ważne!!!</span><span style="font-family:var(--f-nagl);font-weight:600;font-size:24px;line-height:1.15"><span class="zakres">Mniej</span> pomysłów, <span class="zakres">więcej</span> <span class="zakres">wdrożeń</span></span></div><span class="pig zle">NIE TAK</span><figcaption>Długi tekst Caveat w koralu, trzy podkreślenia, wykrzykniki.</figcaption></figure>
+  </div>
+  <div class="tn">
+    <figure><div class="wz" style="background:var(--krem);padding:0;align-items:center"><div class="portret-luk" style="width:120px;margin:16px auto;box-shadow:none"><img src="img/portret.jpg" alt=""></div></div><span class="pig ok">TAK</span><figcaption>Naturalne światło, łuk portretu, twarz bez retuszu.</figcaption></figure>
+    <figure><div class="wz" style="background:var(--krem);padding:0;align-items:center"><div style="width:150px;height:150px;margin:10px auto;overflow:hidden;border-radius:0"><img src="img/portret.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:50% 15%;filter:contrast(1.5) saturate(.2) sepia(.5) brightness(.8)"></div></div><span class="pig zle">NIE TAK</span><figcaption>Ciężki filtr, ostre rogi, przyciemnienie.</figcaption></figure>
+  </div>
+  <div class="tn">
+    <figure><div class="wz" style="background:var(--liliowy-jasny)"><span class="etyk" style="color:var(--atrament)">porada</span><span style="font-family:var(--f-nagl);font-weight:600;font-size:26px;line-height:1.1">3 liczby, które warto znać</span><span style="font-size:15px">1. Marża · 2. Koszt klienta · 3. Gotówka</span></div><span class="pig ok">TAK</span><figcaption>Pastel z palety, 3 punkty, dużo powietrza.</figcaption></figure>
+    <figure><div class="wz" style="background:linear-gradient(135deg,#4ADE80,#2563EB);color:#000"><span style="font-family:Arial;font-weight:700;font-size:20px;text-transform:uppercase">3 liczby które MUSISZ znać aby zarobić 10 000 zł!!!</span><span style="font-size:11px;font-family:Arial">1. marża 2. koszt klienta 3. gotówka 4. ROI 5. EBITDA 6. CAC 7. LTV 8. churn…</span></div><span class="pig zle">NIE TAK</span><figcaption>Kolory spoza palety, obietnica zarobku, za dużo tekstu, czerń.</figcaption></figure>
+  </div>
+
+  <h3>Checklista przed oddaniem projektu</h3>
+  <ul class="check" id="checklista">
+    <li><label><input type="checkbox" id="c1"><span>Format ma dokładny wymiar z tabeli, a treść mieści się w marginesie bezpiecznym i poza strefami UI.</span></label></li>
+    <li><label><input type="checkbox" id="c2"><span>Logo z pliku z <code>brand/logo/</code>, właściwa wersja do tła, pole ochronne i minimalny rozmiar zachowane.</span></label></li>
+    <li><label><input type="checkbox" id="c3"><span>Tylko kolory z palety v3; tekst w parach z kontrastem AA (żadnego białego na koralu i liliowym).</span></label></li>
+    <li><label><input type="checkbox" id="c4"><span>Fonty: Fraunces, DM Sans, Caveat. Rozmiary nie mniejsze niż minimum (26 px przy 1080).</span></label></li>
+    <li><label><input type="checkbox" id="c5"><span>Najwyżej jedno żółte podkreślenie i jedna wstawka Caveat (do 6 słów).</span></label></li>
+    <li><label><input type="checkbox" id="c6"><span>Ilość tekstu w limicie dla formatu; jedna myśl i jeden przycisk.</span></label></li>
+    <li><label><input type="checkbox" id="c7"><span>Tekst sprawdzony: ton na „Ty”, bez żargonu, bez obietnic dochodu, polskie znaki, brak literówek.</span></label></li>
+    <li><label><input type="checkbox" id="c8"><span>Nazwy zapisane poprawnie: Guliwera 4, guliwera4.pl, Angelika Pruchniak-Gąszczyk, Kierunek Zysk.</span></label></li>
+    <li><label><input type="checkbox" id="c9"><span>Zdjęcia: jasne, naturalne; portret bez zmian rysów twarzy i bez filtrów.</span></label></li>
+    <li><label><input type="checkbox" id="c10"><span>Lilek tylko przy Akademii i darmowych treściach, z gotowego pliku, nie zasłania tekstu.</span></label></li>
+    <li><label><input type="checkbox" id="c11"><span>Brak nazw firm, z którymi pracowała Angelika, danych klientów i cudzych logo.</span></label></li>
+    <li><label><input type="checkbox" id="c12"><span>Eksport: PNG (social) lub PDF z osadzonymi fontami (druk: CMYK, 300 dpi, spad 3 mm).</span></label></li>
+    <li><label><input type="checkbox" id="c13"><span>Pliki nazwane: <code>2026-11-09_ig-porada_3-liczby.png</code> (data, format, temat; małe litery, bez spacji i polskich znaków).</span></label></li>
+    <li><label><input type="checkbox" id="c14"><span>Oddajesz plik do edycji (HTML, Figma, Canva lub źródło) razem z PNG/PDF.</span></label></li>
+  </ul>
+  <p class="maly mut" style="margin-top:10px">Zaznaczenia zostają tylko w Twojej przeglądarce.</p>
+</section>
+
+<section class="sek" id="pliki">
+  <header><span class="nr">+</span><h2>Pliki do pobrania</h2><p>Wszystko leży w folderze <code>brand/</code> publicznego repozytorium marki: <a href="https://github.com/Angelika-pruchniak/guliwera4/tree/claude/brandbook/brand" target="_blank" rel="noopener">github.com/Angelika-pruchniak/guliwera4 → brand</a>. Zacznij od pliku README.</p></header>
+  <div class="pliki">
+    <div><b>logo/svg/</b>Znak G4 (5 wersji), logo poziome i krótkie (jasne i ciemne tło), logo osobiste, ikona, awatary. Tekst zamieniony na krzywe.</div>
+    <div><b>logo/png/ i logo/favicon/</b>PNG z przezroczystością w dużych rozdzielczościach, favicon ICO/SVG/PNG, apple-touch-icon.</div>
+    <div><b>kolory/</b>kolory.css, kolory.json, guliwera4-paleta.ase (Adobe), kolory.gpl, tabela kontrastów.</div>
+    <div><b>szablony/</b>23 szablony HTML do edycji (social, reklamy, prezentacja, okładka A4), podgląd PNG, podpis e-mail.</div>
+    <div><b>lilek/</b>Lilek w 6 nastrojach: SVG i PNG 800 px.</div>
+    <div><b>okladki/ i zdjecia/</b>Okładki Kierunek Zysk (wizualizacje 1200 px) i portret Angeliki.</div>
+    <div><b>brandbook/</b>Ten dokument jako strona HTML i PDF do wysłania.</div>
+    <div><b>narzedzia/</b>Skrypty, które generują logo, paletę, Lilka i eksportują szablony do PNG.</div>
+  </div>
+</section>
+
+<section class="sek" id="kontakt">
+  <header><span class="nr">+</span><h2>Pytania i akceptacja</h2></header>
+  <p>Wątpliwość, nowy format albo pomysł, którego nie ma w brandbooku? Napisz przed oddaniem projektu: <b>kontakt@guliwera4.pl</b>. Nowe elementy (ikony, pozy Lilka, kolory, układy) wchodzą do marki dopiero po akceptacji Angeliki i dopisaniu do brandbooka.</p>
+</section>
+</main>
+</div>
+
+<footer class="stopka"><div class="wrap"><span>© 2026 Angelika Pruchniak-Gąszczyk · Guliwera 4 · ul. Guliwera 4, Lublin</span><span>Brandbook v1.0 · listopad 2026</span></div></footer>
+
+<script>
+(function(){
+  var P=[
+    ["Krem","#FFF6EE","255 246 238","0 4 7 0","tło główne",0],
+    ["Koral","#FF6B3D","255 107 61","0 58 76 0","akcent, przyciski, cyfra 4",0],
+    ["Koral ciemny","#E8512A","232 81 42","0 65 82 9","przyciski z białym tekstem, hover, wstawki",1],
+    ["Róż","#F4799F","244 121 159","0 50 35 4","gradient znaku, podkreślenie menu",0],
+    ["Róż jasny","#FFD9E4","255 217 228","0 15 11 0","koła, karty",0],
+    ["Liliowy","#B9A5E3","185 165 227","19 27 0 11","sekcja CTA, krawat Lilka",0],
+    ["Liliowy jasny","#EDE5FB","237 229 251","6 9 0 2","karty, ramki, spis treści",0],
+    ["Żółty","#FFC84A","255 200 74","0 22 71 0","„zakres”, uśmiech, plakietki",0],
+    ["Żółty jasny","#FFEFC7","255 239 199","0 6 22 0","ramki „ważne”, karty",0],
+    ["Brzoskwinia","#FFD8C2","255 216 194","0 15 24 0","tła okładek, plakietka „wkrótce”",0],
+    ["Atrament","#3A2340","58 35 64","9 45 0 75","tekst, nagłówki",1],
+    ["Atrament 60%","#7A6580","122 101 128","5 21 0 50","tekst pomocniczy",1],
+    ["Granat","#1E2A4A","30 42 74","59 43 0 71","mocne sekcje, okładki, kapelusz Lilka",1]
+  ];
+  var el=document.getElementById('paleta');
+  el.innerHTML=P.map(function(c){return '<div class="kolor"><div class="pr" style="background:'+c[1]+';color:'+(c[5]?'#fff':'#3A2340')+(c[0]==='Krem'?';border-bottom:1px solid rgba(58,35,64,.12)':'')+'">'+c[0]+'</div><div class="op"><b>'+c[0]+'</b><button class="kopiuj" type="button" data-hex="'+c[1]+'" aria-label="Kopiuj '+c[1]+'">'+c[1]+'</button><span>RGB '+c[2]+'</span><span>CMYK '+c[3]+'</span><span class="rola">'+c[4]+'</span></div></div>';}).join('');
+  var PARY=[
+    ["Atrament na kremie","#3A2340","#FFF6EE","13,2","AAA"],["Atrament 60% na kremie","#7A6580","#FFF6EE","4,9","AA"],
+    ["Krem na granacie","#FFF6EE","#1E2A4A","13,2","AAA"],["Żółty na granacie","#FFC84A","#1E2A4A","9,2","AAA"],
+    ["Koral na granacie","#FF6B3D","#1E2A4A","5,0","AA"],["Atrament na koralu","#3A2340","#FF6B3D","5,0","AA"],
+    ["Biały na koralu ciemnym","#FFFFFF","#E8512A","3,7","duży"],["Atrament na liliowym","#3A2340","#B9A5E3","6,4","AA"],
+    ["Atrament na żółtym","#3A2340","#FFC84A","9,1","AAA"],["Granat na brzoskwini","#1E2A4A","#FFD8C2","10,7","AAA"],
+    ["Atrament na liliowym jasnym","#3A2340","#EDE5FB","11,5","AAA"],["Koral ciemny na kremie","#E8512A","#FFF6EE","3,5","duży"],
+    ["Biały na koralu","#FFFFFF","#FF6B3D","2,8","nie"],["Biały na liliowym","#FFFFFF","#B9A5E3","2,2","nie"],["Koral na kremie","#FF6B3D","#FFF6EE","2,7","nie"]
+  ];
+  document.getElementById('pary').innerHTML=PARY.map(function(p){var k=p[4]==='nie'?'zle':p[4]==='duży'?'uw':'ok';var t=p[4]==='nie'?'NIE':p[4]==='duży'?'TYLKO DUŻY':p[4];return '<div class="para" style="background:'+p[2]+';color:'+p[1]+'"><span class="t">'+p[0]+'</span><span class="o"><span>'+p[3]+':1</span><span class="pig '+k+'">'+t+'</span></span></div>';}).join('');
+  function toast(t){var d=document.createElement('div');d.className='toast';d.setAttribute('role','status');d.textContent=t;document.body.appendChild(d);setTimeout(function(){d.remove()},1600);}
+  el.addEventListener('click',function(e){var b=e.target.closest('.kopiuj');if(!b)return;var h=b.getAttribute('data-hex');
+    try{navigator.clipboard.writeText(h).then(function(){toast('Skopiowano '+h)},function(){sel(b,h)});}catch(err){sel(b,h)}});
+  function sel(b,h){var r=document.createRange();r.selectNodeContents(b);var s=getSelection();s.removeAllRanges();s.addRange(r);toast('Zaznaczono '+h+', skopiuj Ctrl+C');}
+  var KEY='g4-checklista';var st={};try{st=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  document.querySelectorAll('#checklista input').forEach(function(i){if(st[i.id])i.checked=true;i.addEventListener('change',function(){st[i.id]=i.checked;try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}});});
+})();
+</script>

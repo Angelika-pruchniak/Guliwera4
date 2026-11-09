@@ -1,0 +1,17 @@
+/* Guliwera 4 · paleta v3 „liliputy” */
+:root{
+  --krem: #FFF6EE; /* Krem: tło główne */
+  --koral: #FF6B3D; /* Koral: akcent główny, przyciski, liczba 4 */
+  --koral-ciemny: #E8512A; /* Koral ciemny: linki, hover, tekst akcentowy */
+  --roz: #F4799F; /* Róż: gradient znaku, podkreślenia menu */
+  --roz-jasny: #FFD9E4; /* Róż jasny: koła dekoracyjne, karty */
+  --liliowy: #B9A5E3; /* Liliowy: sekcje CTA, krawat Lilka */
+  --liliowy-jasny: #EDE5FB; /* Liliowy jasny: karty, ramki spisu treści */
+  --zolty: #FFC84A; /* Żółty: podkreślenie „zakres”, uśmiech znaku, plakietki */
+  --zolty-jasny: #FFEFC7; /* Żółty jasny: ramki z ważną informacją, karty */
+  --brzoskwinia: #FFD8C2; /* Brzoskwinia: tła okładek, plakietki „wkrótce” */
+  --atrament: #3A2340; /* Atrament: tekst główny, nagłówki */
+  --atrament-60: #7A6580; /* Atrament 60%: tekst pomocniczy, podpisy */
+  --granat: #1E2A4A; /* Granat: ciemne sekcje, okładki v3, kapelusz Lilka */
+  --bialy: #FFFFFF; /* Biały: karty i sekcje na kremie */
+}

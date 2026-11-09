@@ -1,0 +1,240 @@
+[
+  {
+    "slug": "krem",
+    "nazwa": "Krem",
+    "hex": "#FFF6EE",
+    "rgb": [
+      255,
+      246,
+      238
+    ],
+    "cmyk_przyblizone": [
+      0,
+      4,
+      7,
+      0
+    ],
+    "rola": "tło główne"
+  },
+  {
+    "slug": "koral",
+    "nazwa": "Koral",
+    "hex": "#FF6B3D",
+    "rgb": [
+      255,
+      107,
+      61
+    ],
+    "cmyk_przyblizone": [
+      0,
+      58,
+      76,
+      0
+    ],
+    "rola": "akcent główny, przyciski, liczba 4"
+  },
+  {
+    "slug": "koral-ciemny",
+    "nazwa": "Koral ciemny",
+    "hex": "#E8512A",
+    "rgb": [
+      232,
+      81,
+      42
+    ],
+    "cmyk_przyblizone": [
+      0,
+      65,
+      82,
+      9
+    ],
+    "rola": "linki, hover, tekst akcentowy"
+  },
+  {
+    "slug": "roz",
+    "nazwa": "Róż",
+    "hex": "#F4799F",
+    "rgb": [
+      244,
+      121,
+      159
+    ],
+    "cmyk_przyblizone": [
+      0,
+      50,
+      35,
+      4
+    ],
+    "rola": "gradient znaku, podkreślenia menu"
+  },
+  {
+    "slug": "roz-jasny",
+    "nazwa": "Róż jasny",
+    "hex": "#FFD9E4",
+    "rgb": [
+      255,
+      217,
+      228
+    ],
+    "cmyk_przyblizone": [
+      0,
+      15,
+      11,
+      0
+    ],
+    "rola": "koła dekoracyjne, karty"
+  },
+  {
+    "slug": "liliowy",
+    "nazwa": "Liliowy",
+    "hex": "#B9A5E3",
+    "rgb": [
+      185,
+      165,
+      227
+    ],
+    "cmyk_przyblizone": [
+      19,
+      27,
+      0,
+      11
+    ],
+    "rola": "sekcje CTA, krawat Lilka"
+  },
+  {
+    "slug": "liliowy-jasny",
+    "nazwa": "Liliowy jasny",
+    "hex": "#EDE5FB",
+    "rgb": [
+      237,
+      229,
+      251
+    ],
+    "cmyk_przyblizone": [
+      6,
+      9,
+      0,
+      2
+    ],
+    "rola": "karty, ramki spisu treści"
+  },
+  {
+    "slug": "zolty",
+    "nazwa": "Żółty",
+    "hex": "#FFC84A",
+    "rgb": [
+      255,
+      200,
+      74
+    ],
+    "cmyk_przyblizone": [
+      0,
+      22,
+      71,
+      0
+    ],
+    "rola": "podkreślenie „zakres”, uśmiech znaku, plakietki"
+  },
+  {
+    "slug": "zolty-jasny",
+    "nazwa": "Żółty jasny",
+    "hex": "#FFEFC7",
+    "rgb": [
+      255,
+      239,
+      199
+    ],
+    "cmyk_przyblizone": [
+      0,
+      6,
+      22,
+      0
+    ],
+    "rola": "ramki z ważną informacją, karty"
+  },
+  {
+    "slug": "brzoskwinia",
+    "nazwa": "Brzoskwinia",
+    "hex": "#FFD8C2",
+    "rgb": [
+      255,
+      216,
+      194
+    ],
+    "cmyk_przyblizone": [
+      0,
+      15,
+      24,
+      0
+    ],
+    "rola": "tła okładek, plakietki „wkrótce”"
+  },
+  {
+    "slug": "atrament",
+    "nazwa": "Atrament",
+    "hex": "#3A2340",
+    "rgb": [
+      58,
+      35,
+      64
+    ],
+    "cmyk_przyblizone": [
+      9,
+      45,
+      0,
+      75
+    ],
+    "rola": "tekst główny, nagłówki"
+  },
+  {
+    "slug": "atrament-60",
+    "nazwa": "Atrament 60%",
+    "hex": "#7A6580",
+    "rgb": [
+      122,
+      101,
+      128
+    ],
+    "cmyk_przyblizone": [
+      5,
+      21,
+      0,
+      50
+    ],
+    "rola": "tekst pomocniczy, podpisy"
+  },
+  {
+    "slug": "granat",
+    "nazwa": "Granat",
+    "hex": "#1E2A4A",
+    "rgb": [
+      30,
+      42,
+      74
+    ],
+    "cmyk_przyblizone": [
+      59,
+      43,
+      0,
+      71
+    ],
+    "rola": "ciemne sekcje, okładki v3, kapelusz Lilka"
+  },
+  {
+    "slug": "bialy",
+    "nazwa": "Biały",
+    "hex": "#FFFFFF",
+    "rgb": [
+      255,
+      255,
+      255
+    ],
+    "cmyk_przyblizone": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rola": "karty i sekcje na kremie"
+  }
+]
