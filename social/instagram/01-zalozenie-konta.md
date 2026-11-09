@@ -34,7 +34,7 @@ Jeśli wybierzesz inną nazwę niż @angelika.guliwera4, daj znać: podmienię s
 **Imię i nazwisko (pole „Imię”, jest przeszukiwane!):**
 `Angelika | strategia i liczby dla małych firm`
 
-**Zdjęcie profilowe:** `social/instagram/zdjecie-profilowe-1080.jpg` (kadr z portretu, bez zmian twarzy).
+**Zdjęcie profilowe:** `social/instagram/zdjecie-profilowe-1080.jpg` (kadr Twojego prawdziwego zdjęcia w jasnym garniturze, bez żadnych zmian). Takie samo jak na stronie i LinkedIn = łatwiej Cię rozpoznać.
 
 **Bio (do 150 znaków, wersja A, polecam):**
 ```

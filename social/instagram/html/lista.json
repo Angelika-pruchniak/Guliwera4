@@ -1,6 +1,16 @@
 {
  "pliki": [
   {
+   "n": "p04-cytat-etat",
+   "w": 1080,
+   "h": 1350
+  },
+  {
+   "n": "p10-produkt-strategia",
+   "w": 1080,
+   "h": 1350
+  },
+  {
    "n": "k1-strategia-na-1-stronie-01",
    "w": 1080,
    "h": 1350
@@ -228,24 +238,24 @@
  ],
  "rolki": {
   "r1-trzy-pytania": [
-   "04-telefon-kobalt.jpg",
-   "03-laptop-zakiet-tweed.jpg",
-   "06-laptop-garnitur.jpg",
-   "05-szkolenia-sukienka.jpg",
+   "logo/angelika-portret-bialy.jpg",
+   "brand/zdjecia-sesja/08-rozowy-garnitur-paryskie-biuro.jpg",
+   "brand/zdjecia-sesja/09-kanapa-bialy-garnitur.jpg",
+   "brand/zdjecia-sesja/07-portret-boucle.jpg",
    null
   ],
   "r2-etat-i-wlasna-marka": [
-   "08-rozowy-garnitur-paryskie-biuro.jpg",
-   "10-notes-sukienka-blekit.jpg",
-   "09-kanapa-bialy-garnitur.jpg",
-   "07-portret-boucle.jpg",
+   "brand/zdjecia-sesja/09-kanapa-bialy-garnitur.jpg",
+   "brand/zdjecia-sesja/01-biurko-granat.jpg#980,0,1565,1005",
+   "logo/angelika-portret-bialy.jpg",
+   "brand/zdjecia-sesja/07-portret-boucle.jpg",
    null
   ],
   "r3-zacznij-za-darmo": [
-   "05-szkolenia-sukienka.jpg",
-   "07-portret-boucle.jpg",
-   "06-laptop-garnitur.jpg",
-   "09-kanapa-bialy-garnitur.jpg",
+   "brand/zdjecia-sesja/07-portret-boucle.jpg",
+   "brand/zdjecia-sesja/09-kanapa-bialy-garnitur.jpg",
+   "logo/angelika-portret-bialy.jpg",
+   "brand/zdjecia-sesja/01-biurko-granat.jpg#980,0,1565,1005",
    null
   ]
  }

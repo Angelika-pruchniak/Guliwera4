@@ -8,7 +8,14 @@ import os, json, html
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # social/
 OUT = os.path.join(ROOT, 'instagram', 'html')
 os.makedirs(OUT, exist_ok=True)
-FOTO = '../../../brand/zdjecia-sesja/'
+FOTO = '../../../'  # ścieżki zdjęć względem katalogu repozytorium
+# TWARZ ANGELIKI: tylko B (prawdziwe zdjęcie), 07 i 09. 05 i 10 – NIE (inna twarz).
+# 01, 04, 08 – najwyżej jako kadr klimatyczny bez eksponowania twarzy; 02, 03, 06 – nie używamy.
+B = 'logo/angelika-portret-bialy.jpg'
+F07 = 'brand/zdjecia-sesja/07-portret-boucle.jpg'
+F09 = 'brand/zdjecia-sesja/09-kanapa-bialy-garnitur.jpg'
+F08 = 'brand/zdjecia-sesja/08-rozowy-garnitur-paryskie-biuro.jpg'
+F01_DETAL = 'brand/zdjecia-sesja/01-biurko-granat.jpg#980,0,1565,1005'  # biurko, laptop, tulipany – bez twarzy
 Z = '../../zasoby/'
 
 HEAD = f'''<!doctype html><html lang="pl"><head><meta charset="utf-8"><title>{{t}}</title>
@@ -36,7 +43,7 @@ def okladka(k, razem):
     return f'''<div class="plotno f-ig45 t-krem">
 <div class="kolo" style="width:820px;height:820px;background:{kolo};right:-330px;top:-300px"></div>
 <div class="portret" style="position:absolute;right:80px;top:130px;width:360px;height:480px;z-index:2;box-shadow:0 30px 60px rgba(58,35,64,.12)">
-<img src="{FOTO}{k['foto']}" style="object-position:{k.get('pozycja','50% 18%')}"></div>
+<img src="{FOTO}{k['foto'].split('#')[0]}" style="object-position:{k.get('pozycja','50% 18%')}"></div>
 <div class="pole">
   <span class="pigulka p-granat">{k['pigulka']}</span>
   <p class="h1" style="margin-top:auto;max-width:540px;font-size:{k.get('rozmiar',100)}px">{k['tytul']}</p>
@@ -84,7 +91,7 @@ KONIEC_AKADEMIA = dict(
 
 KARUZELE = {
  'k1-strategia-na-1-stronie': dict(
-   okladka=dict(foto='10-notes-sukienka-blekit.jpg', pigulka='zapisz na poniedziałek', pozycja='50% 14%',
+   okladka=dict(foto=B, pigulka='zapisz na poniedziałek', pozycja='52% 10%',
                 tytul='Strategia firmy na <span class="zakres">1 stronie</span>',
                 lead='5 pytań, które porządkują więcej niż 40 slajdów. Przesuń →'),
    slajdy=[
@@ -107,7 +114,7 @@ KARUZELE = {
    koniec=KONIEC_AKADEMIA),
 
  'k2-marza-a-narzut': dict(
-   okladka=dict(foto='06-laptop-garnitur.jpg', pigulka='liczby bez stresu', pozycja='42% 40%', kolo='var(--zolty-jasny)',
+   okladka=dict(foto=F09, pigulka='liczby bez stresu', pozycja='45% 20%', kolo='var(--zolty-jasny)',
                 tytul='Narzut 50% to nie <span class="zakres">marża 50%</span>', rozmiar=92,
                 lead='Najczęstszy błąd w cenniku małej firmy. Przesuń →'),
    slajdy=[
@@ -126,9 +133,9 @@ KARUZELE = {
    koniec=dict(KONIEC_AKADEMIA, lead='W Akademii są lekcje o kosztach, zysku i progu rentowności. 5 minut dziennie.')),
 
  'k3-trzy-liczby-w-poniedzialek': dict(
-   okladka=dict(foto='02-kanapa-blekit.jpg', pigulka='rytuał na poniedziałek', kolo='var(--liliowy-jasny)',
+   okladka=dict(foto=F07, pigulka='rytuał na poniedziałek', kolo='var(--liliowy-jasny)',
                 tytul='3 liczby, które sprawdzam <span class="zakres">co tydzień</span>', rozmiar=92,
-                lead='10 minut przy kawie zamiast nerwów na koniec miesiąca. Przesuń →', pozycja='47% 30%'),
+                lead='10 minut przy kawie zamiast nerwów na koniec miesiąca. Przesuń →', pozycja='50% 18%'),
    slajdy=[
     dict(etykieta='liczba 1', tytul='Gotówka ÷ koszty stałe',
          tekst='Na ile miesięcy wystarczy pieniędzy na koncie, gdyby sprzedaż stanęła?',
@@ -146,9 +153,9 @@ KARUZELE = {
    koniec=KONIEC_AKADEMIA),
 
  'k4-nowy-produkt-6-pytan': dict(
-   okladka=dict(foto='07-portret-boucle.jpg', pigulka='zanim wydasz budżet', kolo='var(--brzoskwinia)',
+   okladka=dict(foto=B, pigulka='zanim wydasz budżet', kolo='var(--brzoskwinia)',
                 tytul='Nowy produkt? <span class="zakres">6 pytań</span> przed premierą', rozmiar=90,
-                lead='Wprowadzałam produkty na rynek. Te pytania oszczędzają najwięcej. Przesuń →', pozycja='50% 18%'),
+                lead='Wprowadzałam produkty na rynek. Te pytania oszczędzają najwięcej. Przesuń →', pozycja='52% 10%'),
    slajdy=[
     dict(etykieta='pytanie 1', tytul='Kto kupi jako pierwszy?', tekst='Wypisz 10 konkretnych osób albo firm. Nie potrafisz? To sygnał, że rynek jest jeszcze mglisty.'),
     dict(etykieta='pytanie 2', tytul='Jaki problem znika?', tlo='t-krem', tekst='Jedno zdanie językiem klienta, nie językiem funkcji.',
@@ -192,24 +199,24 @@ def nakladka(tekst, styl='dol', maly=''):
 
 ROLKI = {
  'r1-trzy-pytania': [
-   ('04-telefon-kobalt.jpg', 'hook', 'Zanim powiesz „tak” nowemu projektowi…', 'zadaj sobie 3 pytania'),
-   ('03-laptop-zakiet-tweed.jpg', 'dol', 'Czy to przybliża mnie do celu na ten kwartał?', 'pytanie 1'),
-   ('06-laptop-garnitur.jpg', 'dol', 'Co przestanę robić, żeby to zmieścić?', 'pytanie 2'),
-   ('05-szkolenia-sukienka.jpg', 'dol', 'Ile to zarobi i kiedy?', 'pytanie 3'),
+   (B, 'hook', 'Zanim powiesz „tak” nowemu projektowi…', 'zadaj sobie 3 pytania'),
+   (F08, 'dol', 'Czy to przybliża mnie do celu na ten kwartał?', 'pytanie 1'),
+   (F09, 'dol', 'Co przestanę robić, żeby to zmieścić?', 'pytanie 2'),
+   (F07, 'dol', 'Ile to zarobi i kiedy?', 'pytanie 3'),
    (None, 'koniec', 'Zacznij za darmo', 'zapisz na później'),
  ],
  'r2-etat-i-wlasna-marka': [
-   ('08-rozowy-garnitur-paryskie-biuro.jpg', 'hook', 'Etat + własna marka. Co mi naprawdę pomaga:', 'bez ściemy'),
-   ('10-notes-sukienka-blekit.jpg', 'dol', 'Jeden cel na kwartał. Nie dziesięć.', '1'),
-   ('09-kanapa-bialy-garnitur.jpg', 'dol', 'Stałe bloki w kalendarzu na własną markę.', '2'),
-   ('07-portret-boucle.jpg', 'dol', 'Produkty cyfrowe zamiast sprzedawania godzin.', '3'),
+   (F09, 'hook', 'Etat + własna marka. Co mi naprawdę pomaga:', 'bez ściemy'),
+   (F01_DETAL, 'dol', 'Jeden cel na kwartał. Nie dziesięć.', '1'),
+   (B, 'dol', 'Stałe bloki w kalendarzu na własną markę.', '2'),
+   (F07, 'dol', 'Produkty cyfrowe zamiast sprzedawania godzin.', '3'),
    (None, 'koniec', 'A co pomaga Tobie?', 'napisz w komentarzu'),
  ],
  'r3-zacznij-za-darmo': [
-   ('05-szkolenia-sukienka.jpg', 'hook', 'Strategia i liczby dla małych firm. Po ludzku.', 'cześć, jestem Angelika'),
-   ('07-portret-boucle.jpg', 'dol', 'Krótkie lekcje: kilka minut dziennie w telefonie.', 'Akademia Guliwera'),
-   ('06-laptop-garnitur.jpg', 'dol', 'Zysk, próg rentowności, macierz BCG, priorytety.', 'czego się nauczysz'),
-   ('09-kanapa-bialy-garnitur.jpg', 'dol', 'Bez żargonu. Z przykładami z małych firm.', 'jak'),
+   (F07, 'hook', 'Strategia i liczby dla małych firm. Po ludzku.', 'cześć, jestem Angelika'),
+   (F09, 'dol', 'Krótkie lekcje: kilka minut dziennie w telefonie.', 'Akademia Guliwera'),
+   (B, 'dol', 'Zysk, próg rentowności, macierz BCG, priorytety.', 'czego się nauczysz'),
+   (F01_DETAL, 'dol', 'Bez żargonu. Z przykładami z małych firm.', 'jak'),
    (None, 'koniec', 'Zacznij za darmo', 'link w bio'),
  ],
 }
@@ -220,7 +227,31 @@ def zapisz(nazwa, body, tytul):
         f.write(HEAD.replace('{t}', html.escape(tytul)) + body + FOOT)
 
 
+POJEDYNCZE = {
+ 'p04-cytat-etat': f'''<div class="plotno f-ig45 t-krem">
+<div class="kolo" style="width:620px;height:620px;background:var(--roz-jasny);right:-220px;top:-200px"></div>
+<div class="kolo" style="width:360px;height:360px;background:var(--liliowy-jasny);left:-140px;bottom:120px"></div>
+<div class="pole srodek">
+  <span class="reka">etat + własna marka</span>
+  <p class="h1" style="margin-top:150px;font-size:92px">„Nie mam wolnej chwili. Mam <span class="zakres">stałe bloki</span> w kalendarzu.”</p>
+  <p class="lead" style="margin-top:40px">Dwa poranki w tygodniu traktuję jak spotkanie z najważniejszym klientem.</p>
+  <div class="stopka"><span class="marka"><img src="{Z}znak-g4.svg" alt=""><span>@angelika.guliwera4</span></span><span>guliwera4.pl</span></div>
+</div></div>''',
+ 'p10-produkt-strategia': f'''<div class="plotno f-ig45 t-brz">
+<div class="kolo" style="width:700px;height:700px;background:rgba(255,255,255,.4);right:-260px;top:-240px"></div>
+<div class="pole srodek">
+  <span class="reka">nie masz czasu na strategię?</span>
+  <p class="h1" style="margin-top:20px;font-size:84px;max-width:12ch">Strategia na <span class="zakres">1 stronie</span></p>
+  <p class="lead" style="margin-top:24px;max-width:15ch;color:var(--atrament)">Szablon i instrukcja. Jeden wieczór i masz plan.</p>
+  <div style="display:flex;align-items:center;gap:28px;margin-top:40px"><span class="przycisk">Link w bio</span><span class="h2" style="font-size:64px">39 zł</span></div>
+  <div style="position:absolute;right:-110px;bottom:110px;width:560px;filter:drop-shadow(0 24px 36px rgba(58,35,64,.22))"><img src="{Z}okladka-strategia-na-1-stronie.png" alt="" style="display:block;width:100%;clip-path:polygon(19.4% 10.9%,76.4% 8%,80.6% 88.6%,23.4% 91.6%)"></div>
+  <div class="stopka"><span class="marka"><img src="{Z}znak-g4.svg" alt=""><span>@angelika.guliwera4</span></span><span>guliwera4.pl/materialy</span></div>
+</div></div>''',
+}
+
 lista = []
+for n, body in POJEDYNCZE.items():
+    zapisz(n, body, n); lista.append(dict(n=n, w=1080, h=1350))
 for kid, k in KARUZELE.items():
     razem = len(k['slajdy']) + 2
     zapisz(f'{kid}-01', okladka(k['okladka'], razem), kid); lista.append(dict(n=f'{kid}-01', w=1080, h=1350))

@@ -14,7 +14,7 @@ const { pliki } = JSON.parse(fs.readFileSync(path.join(dir, 'lista.json'), 'utf8
     await p.goto('file://' + path.join(dir, f.n + '.html'));
     await p.evaluate(() => document.fonts.ready);
     const el = await p.$('.plotno');
-    const dest = f.przezroczyste ? path.join(out, 'rolki', f.n + '.png') : path.join(out, f.n.startsWith('r') ? 'rolki' : 'karuzele', f.n + '.png');
+    const dest = f.przezroczyste ? path.join(out, 'rolki', f.n + '.png') : path.join(out, f.n.startsWith('r') ? 'rolki' : f.n.startsWith('p') ? 'posty' : 'karuzele', f.n + '.png');
     fs.mkdirSync(path.dirname(dest), { recursive: true });
     await el.screenshot({ path: dest, omitBackground: !!f.przezroczyste });
   }

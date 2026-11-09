@@ -24,7 +24,8 @@ Lejek: post → **Akademia (darmowa)** → Strategia na 1 stronie 39 zł → Pak
 | `instagram/02-posty-i-plan.md` | siatka 12 postów, opisy, hashtagi, plan 4 tygodni |
 | `instagram/podglad-siatki.jpg` | jak będzie wyglądał profil |
 | `instagram/zdjecie-profilowe-1080.jpg` | zdjęcie profilowe (kadr portretu) |
-| `instagram/zdjecia-4x5/` | 10 zdjęć z sesji w formacie postu 1080×1350 (tylko kadr) |
+| `instagram/zdjecia-4x5/` | 3 zdjęcia z prawdziwą twarzą Angeliki, 1080×1350 (tylko kadr) |
+| `instagram/png/posty/` | grafiki pojedyncze (cytat, produkt) |
 | `instagram/png/karuzele/` | 4 karuzele gotowe do wrzucenia (1080×1350) |
 | `instagram/rolki/` | 3 rolki MP4 1080×1920, 15 s, + okładki |
 | `linkedin/posty-start.md` | 8 postów, plan publikacji, pytania o historie |
@@ -44,6 +45,6 @@ Wymaga fontów Fraunces, DM Sans, Caveat (Google Fonts), Playwright i ffmpeg.
 
 ## Zasady (skrót)
 - Identyfikacja wizualna z brandbooka: krem, koral, róż, liliowy, żółty, atrament, granat; Fraunces / DM Sans / Caveat.
-- Zdjęcia: tylko kadr, światło, ostrość. Bez zmian rysów twarzy. Przy publikacji włączaj etykietę AI dla zdjęć generowanych/retuszowanych; w reklamach przestrzegaj zasad Meta.
+- Zdjęcia: twarz Angeliki tylko na `logo/angelika-portret-bialy.jpg` (prawdziwe), 07 i 09. Nigdy 05 i 10 (inna twarz). 01/08 tylko jako kadr klimatyczny. Tylko kadr, światło, ostrość. Bez zmian rysów twarzy. Przy publikacji włączaj etykietę AI dla zdjęć generowanych/retuszowanych; w reklamach przestrzegaj zasad Meta.
 - Bez nazw firm, z którymi pracowała Angelika, bez danych klientów, bez haseł (repo publiczne).
 - Strona WordPress: bez zmian.

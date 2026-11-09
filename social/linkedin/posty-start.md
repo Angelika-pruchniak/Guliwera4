@@ -6,16 +6,16 @@ Status: **SZKIC – nic nie jest opublikowane ani zaplanowane.** Styl według `s
 
 ## Plan publikacji
 
-| Nr | Data (godz. 7:45) | Temat | Zdjęcie (z `social/instagram/zdjecia-4x5/`) | CTA |
+| Nr | Data (godz. 7:45) | Temat | Zdjęcie (z `social/instagram/zdjecia-4x5/`, tylko z Twoją prawdziwą twarzą) | CTA |
 |---|---|---|---|---|
-| 1 | wt 17.11 | Strategie dla innych → jedna dla siebie (przedstawienie) | 07-portret-boucle | Akademia (komentarz) |
-| 2 | czw 19.11 | „Klienci na pewno tego chcą” – lekcja z premier produktów | 04-telefon-kobalt | pytanie |
-| 3 | wt 24.11 | Etat + własna marka | 01-biurko-granat | pytanie |
-| 4 | czw 26.11 | Mama i przedsiębiorczyni: najlepsze pytanie strategiczne | 10-notes-sukienka-blekit | pytanie |
-| 5 | wt 1.12 | Narzut ≠ marża | 06-laptop-garnitur | Akademia |
-| 6 | czw 3.12 | 14 priorytetów, zrealizowane 3 | 05-szkolenia-sukienka | pytanie |
-| 7 | wt 8.12 | Dlaczego mój pierwszy produkt kosztuje 39 zł | 08-rozowy-garnitur | Strategia na 1 stronie |
-| 8 | czw 10.12 | Czego nauczyły mnie lata w strategii (5 lekcji) + zapowiedź kursu | 09-kanapa-bialy-garnitur | lista oczekujących / Akademia |
+| 1 | wt 17.11 | Strategie dla innych → jedna dla siebie (przedstawienie) | angelika-portret-bialy (prawdziwe) | Akademia (komentarz) |
+| 2 | czw 19.11 | „Klienci na pewno tego chcą” – lekcja z premier produktów | 07-portret-boucle | pytanie |
+| 3 | wt 24.11 | Etat + własna marka | 09-kanapa-bialy-garnitur | pytanie |
+| 4 | czw 26.11 | Mama i przedsiębiorczyni: najlepsze pytanie strategiczne | angelika-portret-bialy | pytanie |
+| 5 | wt 1.12 | Narzut ≠ marża | dokument PDF `linkedin/pdf/k2-marza-a-narzut.pdf` (karuzela; tytuł dokumentu: „Narzut ≠ marża – ściąga”) | Akademia |
+| 6 | czw 3.12 | 14 priorytetów, zrealizowane 3 | 07-portret-boucle | pytanie |
+| 7 | wt 8.12 | Dlaczego mój pierwszy produkt kosztuje 39 zł | grafika `png/posty/p10-produkt-strategia.png` | Strategia na 1 stronie |
+| 8 | czw 10.12 | Czego nauczyły mnie lata w strategii (5 lekcji) + zapowiedź kursu | angelika-portret-bialy albo Twoje nowe zdjęcie | lista oczekujących / Akademia |
 
 Rytm: 2 posty w tygodniu. Link zawsze w **pierwszym komentarzu**, nie w treści. Pierwsza godzina po publikacji: odpowiadasz na komentarze i komentujesz 5 postów innych osób. Metricool (LinkedIn jest już podłączony w marce LAP) – zaplanuję po Twoim „OK”.
 

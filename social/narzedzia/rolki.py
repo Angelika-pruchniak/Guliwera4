@@ -49,7 +49,12 @@ for rid, zdjecia in lista['rolki'].items():
     sceny = []
     for i, foto in enumerate(zdjecia, start=1):
         txt = Image.open(os.path.join(ROOT, 'instagram', 'png', 'rolki', f'{rid}-tekst-{i}.png')).convert('RGBA')
-        img = Image.open(os.path.join(REPO, 'brand', 'zdjecia-sesja', foto)).convert('RGB') if foto else None
+        img = None
+        if foto:
+            sciezka, _, kadr = foto.partition('#')  # opcjonalny kadr „x0,y0,x1,y1” (np. detal bez twarzy)
+            img = Image.open(os.path.join(REPO, sciezka)).convert('RGB')
+            if kadr:
+                img = img.crop(tuple(int(v) for v in kadr.split(',')))
         dl = HOOK if i == 1 else (KONIEC if foto is None else SCENA)
         sceny.append((img, txt, dl, i))
 
