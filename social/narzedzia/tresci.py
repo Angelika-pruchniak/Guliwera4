@@ -35,7 +35,7 @@ FOOT = '</body></html>'
 def stopka(nr, razem, jasna=False):
     znak = 'znak-g4-bialy.svg' if jasna else 'znak-g4.svg'
     return (f'<div class="stopka"><span class="marka"><img src="{Z}{znak}" alt="">'
-            f'<span>@angelika.guliwera4</span></span><span>{nr} / {razem}</span></div>')
+            f'<span>@angelika.pruchniak</span></span><span>{nr} / {razem}</span></div>')
 
 
 def okladka(k, razem):
@@ -235,7 +235,7 @@ POJEDYNCZE = {
   <span class="reka">etat + własna marka</span>
   <p class="h1" style="margin-top:150px;font-size:92px">„Nie mam wolnej chwili. Mam <span class="zakres">stałe bloki</span> w kalendarzu.”</p>
   <p class="lead" style="margin-top:40px">Dwa poranki w tygodniu traktuję jak spotkanie z najważniejszym klientem.</p>
-  <div class="stopka"><span class="marka"><img src="{Z}znak-g4.svg" alt=""><span>@angelika.guliwera4</span></span><span>guliwera4.pl</span></div>
+  <div class="stopka"><span class="marka"><img src="{Z}znak-g4.svg" alt=""><span>@angelika.pruchniak</span></span><span>guliwera4.pl</span></div>
 </div></div>''',
  'p10-produkt-strategia': f'''<div class="plotno f-ig45 t-brz">
 <div class="kolo" style="width:700px;height:700px;background:rgba(255,255,255,.4);right:-260px;top:-240px"></div>
@@ -245,7 +245,7 @@ POJEDYNCZE = {
   <p class="lead" style="margin-top:24px;max-width:15ch;color:var(--atrament)">Szablon i instrukcja. Jeden wieczór i masz plan.</p>
   <div style="display:flex;align-items:center;gap:28px;margin-top:40px"><span class="przycisk">Link w bio</span><span class="h2" style="font-size:64px">39 zł</span></div>
   <div style="position:absolute;right:-110px;bottom:110px;width:560px;filter:drop-shadow(0 24px 36px rgba(58,35,64,.22))"><img src="{Z}okladka-strategia-na-1-stronie.png" alt="" style="display:block;width:100%;clip-path:polygon(19.4% 10.9%,76.4% 8%,80.6% 88.6%,23.4% 91.6%)"></div>
-  <div class="stopka"><span class="marka"><img src="{Z}znak-g4.svg" alt=""><span>@angelika.guliwera4</span></span><span>guliwera4.pl/materialy</span></div>
+  <div class="stopka"><span class="marka"><img src="{Z}znak-g4.svg" alt=""><span>@angelika.pruchniak</span></span><span>guliwera4.pl/materialy</span></div>
 </div></div>''',
 }
 

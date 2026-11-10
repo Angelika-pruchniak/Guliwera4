@@ -8,11 +8,13 @@ Nie mogę sprawdzić dostępności nazw z tego środowiska (Instagram blokuje au
 
 | Kolejność | @handle | Dlaczego |
 |---|---|---|
-| 1 | **@angelika.guliwera4** | Twarz + marka w jednym. Najlepsze dla marki osobistej. Używam tej nazwy w grafikach. |
-| 2 | @angelika.pruchniak | Czysta marka osobista, gdyby kiedyś Guliwera 4 zmieniła nazwę. |
-| 3 | @guliwera4 | Gdy wolisz konto firmowe. Zarezerwuj je i tak (nawet puste), żeby nikt go nie zajął. |
+| 1 | **@angelika.pruchniak** | Marka osobista pod Twoim nazwiskiem, krótkie i łatwe do wpisania. Ta nazwa jest teraz na grafikach. |
+| 2 | @angelikapruchniak | To samo bez kropki, gdyby wersja z kropką była zajęta. |
+| 3 | @angelika.pruchniak.gaszczyk | Pełne nazwisko (bez polskich znaków, Instagram ich nie przyjmuje). |
 
-Jeśli wybierzesz inną nazwę niż @angelika.guliwera4, daj znać: podmienię stopkę na grafikach (1 linijka w `social/narzedzia/tresci.py`).
+Konta @guliwera4 nie ma i go nie zakładamy: budujesz markę osobistą pod swoim nazwiskiem, a Guliwera 4 pojawia się w bio i linku.
+
+Jeśli wybierzesz inną nazwę niż @angelika.pruchniak, daj znać: podmienię stopkę na grafikach (1 linijka w `social/narzedzia/tresci.py`).
 
 ## 2. Zakładanie konta
 
@@ -32,7 +34,7 @@ Jeśli wybierzesz inną nazwę niż @angelika.guliwera4, daj znać: podmienię s
 ## 4. Profil
 
 **Imię i nazwisko (pole „Imię”, jest przeszukiwane!):**
-`Angelika | strategia i liczby dla małych firm`
+`Angelika Pruchniak-Gąszczyk | strategia i liczby`
 
 **Zdjęcie profilowe:** `social/instagram/zdjecie-profilowe-1080.jpg` (kadr Twojego prawdziwego zdjęcia w jasnym garniturze, bez żadnych zmian). Takie samo jak na stronie i LinkedIn = łatwiej Cię rozpoznać.
 

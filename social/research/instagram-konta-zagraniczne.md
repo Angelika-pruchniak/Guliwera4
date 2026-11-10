@@ -30,7 +30,7 @@ Stan: listopad 2026. Liczby obserwujących to szacunki z publicznych zestawień 
 7. **Rytm, nie zryw.** Najlepsze konta publikują regularnie od lat. Dla jednej osoby z etatem realne jest 3 posty w tygodniu + relacje.
 8. **Życie prywatne jako kontekst, nie temat.** Rodzina, poranki, kawa – zawsze z lekcją biznesową na końcu.
 
-## Moje zasady dla @angelika.guliwera4 (trzymam się ich w każdej treści)
+## Moje zasady dla @angelika.pruchniak (trzymam się ich w każdej treści)
 
 **Proporcje (na 10 postów w feedzie):**
 - 4 × porada/edukacja (karuzele: strategia, liczby, priorytety)
