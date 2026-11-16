@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Lilek } from '../components/Lilek'
+import { Wafel } from '../components/Wafel'
 import { Coin, Confetti, Flame, Star } from '../components/ui'
 import { fx } from '../fx'
 import { BADGES, type Rewards } from '../store'
@@ -32,7 +32,7 @@ export function Result({ rewards, accuracy, seconds, title, heading, onContinue 
       <Confetti key={p} />
       {p === 'main' && (
         <>
-          <Lilek mood="cheer" size={150} className="jump" />
+          <Wafel mood="cheer" size={150} className="jump" />
           <h1>{heading ?? (accuracy === 1 ? 'Bezbłędnie!' : 'Lekcja zaliczona!')}</h1>
           <p className="lead">{title}</p>
           <div className="tiles">
@@ -48,7 +48,7 @@ export function Result({ rewards, accuracy, seconds, title, heading, onContinue 
         <>
           <div className="big-flame"><Flame size={140} /></div>
           <h1 className="streak-num">{rewards.streak}</h1>
-          <p className="lead">{rewards.streak === 1 ? 'Pierwszy dzień serii! Wróć jutro, żeby ją podtrzymać.' : `dni z rzędu! Lilek jest pod wrażeniem.`}</p>
+          <p className="lead">{rewards.streak === 1 ? 'Pierwszy dzień serii! Wróć jutro, żeby ją podtrzymać.' : `dni z rzędu! Wafel merda z wrażenia.`}</p>
           <div className="week">
             {Array.from({ length: 7 }, (_, d) => (
               <span key={d} className={d < Math.min(rewards.streak, 7) ? 'on' : ''}><Flame size={22} off={d >= Math.min(rewards.streak, 7)} /></span>
@@ -58,7 +58,7 @@ export function Result({ rewards, accuracy, seconds, title, heading, onContinue 
       )}
       {p === 'level' && (
         <>
-          <Lilek mood="cheer" size={130} className="jump" />
+          <Wafel mood="cheer" size={130} className="jump" />
           <div className="level-badge"><Star size={28} /> Nowy poziom</div>
           <h1>{rewards.levelUp}</h1>
           <p className="lead">Awans! Jeszcze trochę i będziesz tłumaczyć EBITDA na firmowej wigilii.</p>

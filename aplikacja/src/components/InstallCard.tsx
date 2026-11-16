@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useInstall } from '../install'
-import { Lilek } from './Lilek'
+import { Wafel } from './Wafel'
 
 export function InstallCard() {
   const { installed, canPrompt, ios, prompt } = useInstall()
@@ -12,13 +12,13 @@ export function InstallCard() {
   const hide = () => { setHidden(true); try { localStorage.setItem('install-hidden', '1') } catch { /* ignoruj */ } }
   return (
     <div className="install-card">
-      <Lilek mood="wave" size={48} />
+      <Wafel mood="wave" size={48} />
       <div className="install-text">
         <b>Zainstaluj Akademię na telefonie</b>
         {howto ? (
           <span>W Safari dotknij <b>Udostępnij</b> (kwadrat ze strzałką), a potem <b>Do ekranu początkowego</b>.</span>
         ) : (
-          <span>Ikona Lilka na ekranie, działa też offline.</span>
+          <span>Ikona Wafla na ekranie, działa też offline.</span>
         )}
       </div>
       <div className="install-btns">
