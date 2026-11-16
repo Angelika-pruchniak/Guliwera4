@@ -2,7 +2,7 @@
 // node okladka/generuj.js
 const path = require('path');
 const { chromium } = require('playwright');
-const { wafel } = require('../wafel/generuj-wafla.js');
+const { wafel } = require('../../../brand/wafel/generuj-wafla.js');
 const F = path.join(__dirname, '../fonty');
 const u = n => `url(data:font/ttf;base64,${require('fs').readFileSync(path.join(F, n)).toString('base64')})`;
 const css = `
@@ -27,7 +27,7 @@ b{display:block;font-family:"Fraunces",serif;font-weight:600;color:#1E2A4A;font-
   await p.setContent(`<style>${css}</style><div class="kw"><div class="okl">
     <span class="m">PODSUMOWANIE ROKU</span><div><span class="tag">ZESZYT · 30 STRON · NA TABLET</span></div>
     <b>Pochwal się!</b><div class="s">Przypomnij sobie, co Ci się udało w&nbsp;2026</div><div class="r">rok 2026: zrobione ✓</div>
-    <div class="pies">${wafel('radosny').replace(/ width="400" height="400"/, '')}</div>
+    <div class="pies">${wafel('macha').replace(/ width="400" height="\d+"/, '')}</div>
     <div class="d"><span>guliwera4.pl</span><span>z Waflem</span></div></div></div>`, { waitUntil: 'load' });
   await p.evaluate(() => document.fonts.ready);
   await p.screenshot({ path: path.join(__dirname, 'pochwal-sie-podsumowanie-roku.png') });

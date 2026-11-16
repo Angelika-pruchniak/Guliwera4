@@ -1,12 +1,12 @@
 // Treść zeszytu „Pochwal się! Podsumowanie roku 2026”. Każda funkcja = jedna strona A4.
 // Pola: data-pole (tekst, wielowierszowe gdy data-multi), data-check (kratka). buduj.js zamienia je na pola formularza PDF.
 const fs = require('fs'), path = require('path');
-const { wafel } = require('./wafel/generuj-wafla.js');
+const { wafel } = require('../../brand/wafel/generuj-wafla.js');
 
 const ROK = 2026, NOWY = 2027;
 const TYTUL = 'Pochwal się!';
 const logo = fs.readFileSync(path.join(__dirname, 'zasoby/logo-poziome.svg'), 'utf8').replace(/ width="\d+" height="\d+"/, '');
-const pies = (n, w) => `<div class="wafel" style="width:${w}">${wafel(n).replace(/ width="400" height="400"/, '')}</div>`;
+const pies = (n, w) => `<div class="wafel" style="width:${w}">${wafel(n).replace(/ width="400" height="\d+"/, '')}</div>`;
 
 // --- pomocnicze ---
 const ln = (id, n, lh = '8mm') => `<div class="pole linie" data-pole="${id}" data-multi style="height:calc(${n} * ${lh});--lh:${lh}"></div>`;
@@ -40,9 +40,9 @@ strony.push(() => S('okladka', `
     <div style="font-family:Fraunces,serif;font-size:21pt;font-weight:600;color:var(--gr);line-height:1.15;max-width:150mm">Podsumowanie roku ${ROK}.<br>Przypomnij sobie, co Ci się udało, i&nbsp;wejdź w&nbsp;${NOWY} z&nbsp;energią.</div>
     <div class="reka" style="color:var(--koral-c);font-size:24pt;margin-top:6mm;transform:rotate(-3deg);display:inline-block">rok ${ROK}: zrobione ✓</div>
   </div>
-  <div style="position:absolute;right:6mm;bottom:20mm">${pies('radosny', '112mm')}</div>
+  <div style="position:absolute;right:6mm;bottom:20mm">${pies('macha', '112mm')}</div>
   <div style="position:absolute;left:18mm;bottom:14mm;font-size:8.5pt;color:var(--gr);max-width:85mm">
-    <b>Z Waflem</b>, owczarkiem australijskim, który przyjmuje klientów Guliwera 4 i ocenia każdy sukces merdaniem.
+    <b>Z Waflem</b>, owczarkiem australijskim Guliwera 4, który przyjmuje klientów i ocenia każdy sukces merdaniem.
   </div>`, { bezRamki: true }));
 
 // 2. CZEŚĆ
@@ -138,7 +138,7 @@ const dzial = (klasa, nr, tytul, opis, nastroj) => () => S(`${klasa} dzial`, `
   </div>
   <div class="pies">${pies(nastroj, '100%')}</div>`, { bezRamki: true });
 
-strony.push(dzial('zyski', '1', 'Co Ci się udało', 'Zaczynamy od najprzyjemniejszego. Zbierzesz dowody, że ten rok był pełniejszy, niż się wydaje w&nbsp;grudniowym zmęczeniu. Nie oceniaj, tylko notuj.', 'radosny'));
+strony.push(dzial('zyski', '1', 'Co Ci się udało', 'Zaczynamy od najprzyjemniejszego. Zbierzesz dowody, że ten rok był pełniejszy, niż się wydaje w&nbsp;grudniowym zmęczeniu. Nie oceniaj, tylko notuj.', 'radosc'));
 
 // 5. ROK W PIGUŁCE
 strony.push(() => S('zyski', `
@@ -194,7 +194,7 @@ strony.push(() => S('zyski', `
         </ul>
       </div>
       <div style="display:flex;gap:3mm;align-items:flex-end">
-        <div class="dymek" style="flex:1">Wafel liczy na łapach do czterech. Ty licz dalej.</div>${pies('radosny', '30mm')}
+        <div class="dymek" style="flex:1">Wafel liczy na łapach do czterech. Ty licz dalej.</div>${pies('macha', '30mm')}
       </div>
     </div>
   </div>`));
@@ -314,14 +314,14 @@ strony.push(() => S('zyski', `
     <p style="margin:6mm 0 0;font-size:11pt;max-width:130mm">oraz wiele mniejszych zwycięstw, które się liczą, nawet jeśli nikt nie dał za nie medalu. <b>Do teraz.</b></p>
     <div style="display:flex;justify-content:space-between;align-items:flex-end;width:100%;margin-top:auto">
       <div style="width:55mm;text-align:left">${wr('dyp_data')}<div class="mala">data</div></div>
-      ${pies('dumny', '50mm')}
+      ${pies('siedzi', '50mm')}
       <div style="width:55mm;text-align:center">${lapa}<div style="border-top:.25mm solid var(--linia)" class="mala">Wafel, Komisja ds. Merdania</div></div>
     </div>
   </div>
   <p class="mala" style="text-align:center;margin-bottom:5mm">Wydrukuj i powieś. Albo zrób zrzut ekranu i ustaw jako tapetę na styczeń.</p>`));
 
 // 16. ROZDZIAŁ 2
-strony.push(dzial('lekcje', '2', 'Czego nauczył Cię ten rok', 'Teraz, z listą sukcesów w kieszeni, możesz spokojnie spojrzeć na to, co było trudne. Nie szukamy winnych. Szukamy lekcji, które warto zabrać dalej.', 'dumny'));
+strony.push(dzial('lekcje', '2', 'Czego nauczył Cię ten rok', 'Teraz, z listą sukcesów w kieszeni, możesz spokojnie spojrzeć na to, co było trudne. Nie szukamy winnych. Szukamy lekcji, które warto zabrać dalej.', 'mysli'));
 
 // 17. KOŁO
 function kolo() {
@@ -403,7 +403,7 @@ strony.push(() => S('lekcje', `
     <div class="karta"><span class="etyk">Co powiedział(a)bym sobie 1 stycznia ${ROK}?</span>${ln('lek_list', 6)}</div>
   </div>
   <div style="display:flex;gap:4mm;align-items:flex-end;margin-top:4mm">
-    ${pies('dumny', '28mm')}
+    ${pies('siedzi', '28mm')}
     <div class="dymek" style="flex:1">Najlepsza lekcja Wafla z ${ROK}: kanapa jest wygodniejsza, gdy się na nią zasłuży. Twoja na pewno jest mądrzejsza.</div>
   </div>`));
 
@@ -483,7 +483,7 @@ strony.push(() => S('energia', `
     </div>
   </div>`).join('')}
   <div class="karta akc" style="display:flex;gap:4mm;align-items:center">
-    ${pies('radosny', '24mm')}
+    ${pies('macha', '24mm')}
     <p style="margin:0"><b>Chcesz z tych zamiarów zrobić konkretny plan?</b> Ten zeszyt ma rodzeństwo: <b>Zestaw Plan ${NOWY}</b> (Strategia na 1 stronie + Planer 90 dni) prowadzi od zamiaru do kwartalnego planu działań. Szczegóły na stronie 29.</p>
   </div>`));
 
@@ -543,7 +543,7 @@ strony.push(() => S('energia', `
     </div>
     <div style="display:flex;flex-direction:column;align-items:center">
       <div class="dymek" style="margin-bottom:2mm">Pochwal się w sieci z <b>#PochwalSię${ROK}</b>. Wafel lubi czytać dobre wiadomości.</div>
-      ${pies('radosny', '48mm')}
+      ${pies('macha', '48mm')}
     </div>
   </div>`));
 
