@@ -10,7 +10,7 @@ Podgląd: `podglad-kolka.jpg`. Na tym zdjęciu Angelika się nie uśmiecha. Uśm
 `Angelika Pruchniak-Gąszczyk | strategia firmy`
 
 ## Bio (max 150 znaków)
-**Decyzja Angeliki 16.11: wersja 2.** Zdjęcia A–C odrzucone („brzydkie”), Angelika przyśle nowe.
+**Decyzja Angeliki 16.11: wersja 2.** Zdjęcie profilowe: `profilowe-nowe-1080.jpg` (przysłane przez Angelikę).
 **Wersja 1 (polecam, 145 zn.)**
 ```
 Strategia i sprzedaż dla małych firm, bez korpomowy
