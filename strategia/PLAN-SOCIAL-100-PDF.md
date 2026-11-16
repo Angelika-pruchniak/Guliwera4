@@ -2,7 +2,7 @@
 
 Przygotowany w czacie „Strategia” 16.11.2026. Bez prawdziwych danych sprzedażowych: tylko ruch i założenia.
 
-## 1. Stan na 16.11 (Jetpack + Metricool)
+## 1. Stan na 16.11 (Jetpack)
 
 - **Ruch na stronie 1–16.11:** 194 odsłony, ok. 49 odwiedzin; w ostatnim tygodniu (9–16.11) **25 odsłon**.
   Strony produktów: Pakiet 11, Skrypty 2, Planer 1, Audyt 1 odsłona. Z zewnątrz przyszło **1 wejście z Facebooka**.
