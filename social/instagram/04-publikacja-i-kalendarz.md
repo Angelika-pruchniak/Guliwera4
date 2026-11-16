@@ -28,7 +28,7 @@ Opisy postów 1–12 są w `02-posty-i-plan.md`. Opisy nowych rolek r4–r7 są 
    - **B:** publikuje czat Claude in Chrome na Twoim komputerze, przez Meta Business Suite. Wymaga włączonego komputera i przeglądarki.
 4. **Napisz mi nazwę konta.** Wtedy podmienię ją w stopkach grafik (`narzedzia/tresci.py`) i wystartuję.
 
-Zdjęcia z sesji 07 i 09 są częściowo generowane. Przy ich publikacji włączam etykietę „Informacja o AI”.
+**Zmiana 16.11:** zdjęć z sesji 07 i 09 nie publikujemy. Są częściowo generowane, a brandbook (s. 20) zabrania zdjęć z twarzą zmienioną przez AI. Twarz Angeliki tylko z prawdziwego portretu `angelika-portret-bialy.jpg`.
 
 ## Kalendarz (4 publikacje tygodniowo: 2 rolki, 1 karuzela, 1 zdjęcie; start z 3 postami naraz, żeby profil nie był pusty)
 
@@ -36,15 +36,15 @@ Godziny wstępne: 19:00 rolki i karuzele, 12:00 zdjęcia. Po 2 tygodniach popraw
 
 | Data | Godz. | Format | Treść (plik) | Opis | CTA |
 |---|---|---|---|---|---|
-| pon 23.11 | 12:00 | zdjęcie (przypięte) | `zdjecia-4x5/07-portret-boucle.jpg` | post 1 „Cześć, jestem Angelika” | Akademia, link w bio |
+| pon 23.11 | 12:00 | zdjęcie (przypięte) | `zdjecia-4x5/angelika-portret-bialy.jpg` | post 1 „Cześć, jestem Angelika” | Akademia, link w bio |
 | pon 23.11 | 15:00 | karuzela | k1 strategia na 1 stronie (7 sl.) | post 2 | Akademia |
 | pon 23.11 | 19:00 | rolka | r3 zacznij za darmo | post 3 | Akademia |
 | śr 25.11 | 19:00 | rolka | **r4 strategia na 1 stronie** | niżej | Strategia na 1 stronie 39 zł |
-| pt 27.11 | 12:00 | zdjęcie | `zdjecia-4x5/angelika-portret-bialy.jpg` | post 7 „Przy okazji” | Akademia |
+| pt 27.11 | 12:00 | grafika | `png/posty/p04-cytat-etat.png` | post 4 (bez linii [UZUPEŁNIJ]) | komentarz |
 | ndz 29.11 | 19:00 | rolka | r1 trzy pytania | post 6 | zapisz |
 | pon 30.11 | 19:00 | rolka | **r5 narzut to nie marża** | niżej | zapisz, karuzela w środę |
 | śr 2.12 | 19:00 | karuzela | k2 marża a narzut (6 sl.) | post 5 | Akademia |
-| pt 4.12 | 12:00 | zdjęcie | `zdjecia-4x5/09-kanapa-bialy-garnitur.jpg` | post 12 „Plan na grudzień” (bez linii [UZUPEŁNIJ]) | Strategia na 1 stronie |
+| pt 4.12 | 12:00 | grafika (do zrobienia z szablonu brandbooka) | `png/posty/p12-plan-na-grudzien.png` | post 12 „Plan na grudzień” (bez linii [UZUPEŁNIJ]) | Strategia na 1 stronie |
 | ndz 6.12 | 19:00 | rolka | r2 etat i własna marka | post 9 | komentarz |
 | pon 7.12 | 19:00 | rolka | **r6 trzy liczby w poniedziałek** | niżej | Akademia |
 | śr 9.12 | 19:00 | karuzela | k3 trzy liczby w poniedziałek (6 sl.) | post 8 | Strategia na 1 stronie |
@@ -52,11 +52,11 @@ Godziny wstępne: 19:00 rolki i karuzele, 12:00 zdjęcia. Po 2 tygodniach popraw
 | ndz 13.12 | 19:00 | rolka | **r7 plan 2027 w godzinę** | niżej | Planer 90 dni 59 zł |
 | pon 14.12 | 19:00 | rolka | rolka z nagrania Angeliki (scenariusz 4 z `03-scenariusze-nagran.md`); bez nagrania: rolka „Wasze pytania” z komentarzy | do napisania | Akademia |
 | śr 16.12 | 19:00 | karuzela | k4 nowy produkt, 6 pytań (8 sl.) | post 11 | Akademia |
-| pt 18.12 | 12:00 | grafika | `png/posty/p04-cytat-etat.png` | post 4 (bez linii [UZUPEŁNIJ]) | komentarz |
+| pt 18.12 | 12:00 | zdjęcie | `zdjecia-4x5/angelika-portret-bialy.jpg` (inny kadr niż 23.11) | post 7 „Przy okazji” | Akademia |
 | ndz 20.12 | 19:00 | rolka | rolka „podsumowanie roku” (zrobię z wyników i komentarzy) | do napisania | Planer 90 dni |
 
 Pierwsze 9 postów (siatka po 2 tygodniach):
-- 3 zdjęcia z twarzą (07, portret, 09),
+- 1 prawdziwe zdjęcie z twarzą (portret) + grafiki,
 - 2 karuzele,
 - 4 rolki.
 
@@ -147,7 +147,7 @@ Co raportuję:
 Do tego wnioski i zmiany na kolejny tydzień.
 
 ## Zasady
-- **Twarz Angeliki** tylko na: `logo/angelika-portret-bialy.jpg`, zdjęciach 07 i 09 oraz portrecie różowym ze strony.
+- **Twarz Angeliki** tylko na prawdziwych zdjęciach: `logo/angelika-portret-bialy.jpg` i portret różowy ze strony. Zdjęć 07 i 09 nie używamy (częściowo AI, brandbook s. 20).
 - **Zdjęć 05 i 10 nie używamy.**
 - Bez zmian rysów twarzy.
 - Bez nazw firm, z którymi pracowała Angelika, bez obietnic dochodu.
