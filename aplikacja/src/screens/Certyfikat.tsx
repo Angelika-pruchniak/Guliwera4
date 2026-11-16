@@ -1,6 +1,6 @@
 import { konto } from '../konto'
 import { useStore } from '../store'
-import { Lilek } from '../components/Lilek'
+import { Wafel } from '../components/Wafel'
 
 export function Certyfikat({ onClose }: { onClose: () => void }) {
   const s = useStore()
@@ -9,7 +9,7 @@ export function Certyfikat({ onClose }: { onClose: () => void }) {
   return (
     <div className="cert-wrap">
       <div className="cert">
-        <Lilek mood="cheer" size={90} />
+        <Wafel mood="cheer" size={90} />
         <p className="cert-nad">Certyfikat ukończenia</p>
         <h1>Akademia Guliwera</h1>
         <p>Potwierdzamy, że</p>

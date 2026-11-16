@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { isExercise, type Item, type TeachCard } from '../content'
 import { ExerciseCard } from '../components/ExerciseCard'
-import { Lilek, Speech } from '../components/Lilek'
+import { Wafel, Speech } from '../components/Wafel'
 import { Heart, Progress } from '../components/ui'
 import { fx } from '../fx'
 import { buyHearts, loseHeart, PRICE_HEARTS, useStore } from '../store'
@@ -123,7 +123,7 @@ export function Session({ title, items, mode, maxMistakes = 2, onExit, onDone }:
       {confirmExit && (
         <div className="modal-bg">
           <div className="modal">
-            <Lilek mood="sad" size={90} />
+            <Wafel mood="sad" size={90} />
             <h3>Już uciekasz?</h3>
             <p>Jeśli wyjdziesz teraz, postęp tej lekcji przepadnie.</p>
             <button className="btn big" onClick={() => setConfirmExit(false)}>Zostaję!</button>
@@ -134,7 +134,7 @@ export function Session({ title, items, mode, maxMistakes = 2, onExit, onDone }:
       {noHearts && (
         <div className="modal-bg">
           <div className="modal">
-            <Lilek mood="sleep" size={90} />
+            <Wafel mood="sleep" size={90} />
             <h3>Skończyły się serca</h3>
             <p>Serca odnawiają się same: jedno co 30 minut. Możesz też zrobić powtórkę (+1 serce) albo kupić pełen zapas.</p>
             <button className="btn big" disabled={s.coins < PRICE_HEARTS}

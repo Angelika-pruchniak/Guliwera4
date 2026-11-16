@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { flatLessons, pick, quickExercises, units, type Item } from './content'
-import { Lilek } from './components/Lilek'
+import { Wafel } from './components/Wafel'
 import { Coin, Confetti, Flame, Heart } from './components/ui'
 import { fx } from './fx'
 import { dzialZablokowany, jestPro, useRabat, wyslijKolejke, zglosAktywnosc, zglosLekcje } from './konto'
@@ -61,7 +61,7 @@ export default function App() {
             setView({
               name: 'result', rewards, accuracy: null, seconds: null, heading: 'Poziom sprawdzony!',
               title: u === 0
-                ? 'Zaczynamy od podstaw: dział 1, „Język pieniędzy”. Lilek poprowadzi Cię krok po kroku.'
+                ? 'Zaczynamy od podstaw: dział 1, „Język pieniędzy”. Wafel poprowadzi Cię krok po kroku.'
                 : `Twój start: dział ${u + 1}, „${units[u].title}”. Działy 1–${u} masz odblokowane, możesz do nich wracać.`,
             })
           }}
@@ -124,7 +124,7 @@ export default function App() {
       return (
         <div className="result">
           {view.mood === 'cheer' && <Confetti />}
-          <Lilek mood={view.mood} size={140} className={view.mood === 'cheer' ? 'jump' : ''} />
+          <Wafel mood={view.mood} size={140} className={view.mood === 'cheer' ? 'jump' : ''} />
           <h1>{view.title}</h1>
           <p className="lead">{view.text}</p>
           <button className="btn big result-btn" onClick={home}>Dalej</button>
@@ -145,7 +145,7 @@ export default function App() {
   const chest = (u: number) => {
     const amount = openChest(u)
     fx('coin')
-    setView({ name: 'info', mood: 'cheer', title: `+${amount} monet!`, text: `Skrzynia działu „${units[u].title}” otwarta. Wydaj monety w sklepiku Lilka.` })
+    setView({ name: 'info', mood: 'cheer', title: `+${amount} monet!`, text: `Skrzynia działu „${units[u].title}” otwarta. Wydaj monety w sklepiku Wafla.` })
   }
 
   const streak = visibleStreak(s)
@@ -172,7 +172,7 @@ export default function App() {
       {proModal && (
         <div className="modal-bg" onClick={() => setProModal(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <Lilek mood="think" size={90} />
+            <Wafel mood="think" size={90} />
             <h3>Ten dział jest w Akademii Pro</h3>
             <ProZakup compact />
             <button className="btn ghost" onClick={() => setProModal(false)}>Może później</button>
@@ -182,7 +182,7 @@ export default function App() {
       {noHearts && (
         <div className="modal-bg" onClick={() => setNoHearts(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <Lilek mood="sleep" size={90} />
+            <Wafel mood="sleep" size={90} />
             <h3>Brak serc</h3>
             <p>Jedno serce wraca co 30 minut. Zrób powtórkę (+1 serce) albo uzupełnij zapas.</p>
             <button className="btn big" disabled={s.coins < PRICE_HEARTS} onClick={() => { if (buyHearts()) { fx('coin'); setNoHearts(false) } }}>
