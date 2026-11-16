@@ -1,5 +1,5 @@
 import { exerciseById, flatLessons, isExercise, pick, type Exercise } from '../content'
-import { Lilek, Speech } from '../components/Lilek'
+import { Wafel, Speech } from '../components/Wafel'
 import { Heart } from '../components/ui'
 import { currentLesson, dueReviewIds, useStore } from '../store'
 
@@ -32,7 +32,7 @@ export function Practice({ onStart }: { onStart: () => void }) {
         </>
       ) : (
         <div className="center">
-          <Lilek mood="sleep" size={120} />
+          <Wafel mood="sleep" size={120} />
           <p>Tu pojawią się powtórki po Twojej pierwszej lekcji. Na razie możesz potrenować pytania z najbliższej lekcji (bez utraty serc).</p>
           <button className="btn big" onClick={onStart}>Trening na rozgrzewkę</button>
         </div>
