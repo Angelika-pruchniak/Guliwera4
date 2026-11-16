@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Lilek, Speech } from '../components/Lilek'
+import { Wafel, Speech } from '../components/Wafel'
 import { fx } from '../fx'
 import { update } from '../store'
 
@@ -26,7 +26,7 @@ export function Onboarding({ onFinish }: { onFinish: (mode: 'zero' | 'test') => 
     <div className="onboarding">
       {step === 0 && (
         <div className="ob-step center">
-          <Lilek mood="wave" size={170} className="bounce" />
+          <Wafel mood="wave" size={170} className="bounce" />
           <h1>Akademia Guliwera</h1>
           <p className="lead">Język biznesu w 5 minut dziennie. EBITDA, CAPEX, macierz BCG, MECE i wszystko, o czym mówią na zarządzie.</p>
           <button className="btn big" onClick={next}>Zaczynamy</button>
@@ -34,7 +34,7 @@ export function Onboarding({ onFinish }: { onFinish: (mode: 'zero' | 'test') => 
       )}
       {step === 1 && (
         <div className="ob-step">
-          <Speech mood="happy" text="Cześć! Jestem Lilek. Mały, ale łebski. Jak mam do Ciebie mówić?" />
+          <Speech mood="happy" text="Cześć! Jestem Wafel, owczarek z Guliwera 4. Pilnuję, żeby nikt nie zgubił się w liczbach. Jak mam do Ciebie mówić?" />
           <input className="input" placeholder="Twoje imię" value={name} autoFocus maxLength={30}
             onChange={(e) => setName(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && name.trim() && next()} />
           <button className="btn big" disabled={!name.trim()} onClick={next}>Dalej</button>
