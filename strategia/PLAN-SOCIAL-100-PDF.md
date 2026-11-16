@@ -89,7 +89,7 @@ albo Strategia na 1 stronie za 39 zł.
 | 22–31.12 | Lekko + przypomnienie | podsumowanie roku, „co zostawiasz w 2026”, ostatnie przypomnienie o zestawie |
 
 **Zasady treści:** forma neutralna płciowo, bez obietnic dochodu („zarobisz X zł”), bez zwracania się do cech osobistych,
-źródła przy badaniach, identyfikacja Kierunek Zysk (koral, liliowy, Fraunces / DM Sans), maskotka Lilek przy Akademii.
+źródła przy badaniach, identyfikacja Kierunek Zysk (koral, liliowy, Fraunces / DM Sans), maskotka Wafel.
 Przy każdej obniżce: najniższa cena z 30 dni przed obniżką (Omnibus).
 
 ## 6. KPI tygodniowe (czat od postów raportuje w poniedziałek)
