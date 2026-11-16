@@ -8,14 +8,14 @@ P = [  # slug, nazwa, hex, rola
  ("koral-ciemny","Koral ciemny","#E8512A","linki, hover, tekst akcentowy"),
  ("roz","Róż","#F4799F","gradient znaku, podkreślenia menu"),
  ("roz-jasny","Róż jasny","#FFD9E4","koła dekoracyjne, karty"),
- ("liliowy","Liliowy","#B9A5E3","sekcje CTA, krawat Lilka"),
+ ("liliowy","Liliowy","#B9A5E3","sekcje CTA, liliowe łaty Wafla"),
  ("liliowy-jasny","Liliowy jasny","#EDE5FB","karty, ramki spisu treści"),
  ("zolty","Żółty","#FFC84A","podkreślenie „zakres”, uśmiech znaku, plakietki"),
  ("zolty-jasny","Żółty jasny","#FFEFC7","ramki z ważną informacją, karty"),
  ("brzoskwinia","Brzoskwinia","#FFD8C2","tła okładek, plakietki „wkrótce”"),
  ("atrament","Atrament","#3A2340","tekst główny, nagłówki"),
  ("atrament-60","Atrament 60%","#7A6580","tekst pomocniczy, podpisy"),
- ("granat","Granat","#1E2A4A","ciemne sekcje, okładki v3, kapelusz Lilka"),
+ ("granat","Granat","#1E2A4A","ciemne sekcje, okładki v3, sierść Wafla"),
 ]
 EXTRA = [("bialy","Biały","#FFFFFF","karty i sekcje na kremie")]
 def rgb(h): h=h.lstrip('#'); return tuple(int(h[i:i+2],16) for i in (0,2,4))
