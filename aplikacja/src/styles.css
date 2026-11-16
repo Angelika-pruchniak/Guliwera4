@@ -54,15 +54,11 @@ button:disabled { cursor: default; }
 .card p { margin: 0; }
 
 /* ── maskotka ── */
-.lilek { display: block; overflow: visible; }
-.lilek-eyes { animation: blink 4.5s infinite; transform-origin: 60px 67px; }
-@keyframes blink { 0%, 94%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
-.lilek-wave .lilek-arm-r { animation: wave 1.2s ease-in-out infinite; transform-origin: 96px 80px; }
-@keyframes wave { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-120deg) translate(4px, -6px); } }
-.lilek-arms-up { animation: arms .5s ease-in-out infinite alternate; transform-origin: 60px 80px; }
-@keyframes arms { to { transform: translateY(-3px); } }
-.lilek-think .lilek-arm-r { transform: rotate(-60deg) translate(-6px, 4px); transform-origin: 96px 80px; }
-.lilek-sad { animation: shake .5s; }
+.wafel { display: block; flex: none; }
+.wafel svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.wafel-wave svg, .wafel-think svg { animation: tilt 2.4s ease-in-out infinite; transform-origin: 50% 90%; }
+@keyframes tilt { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-4deg); } }
+.wafel-sad { animation: shake .5s; }
 .bounce { animation: bounce 2s ease-in-out infinite; }
 .jump { animation: jump .9s ease-in-out infinite; }
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }

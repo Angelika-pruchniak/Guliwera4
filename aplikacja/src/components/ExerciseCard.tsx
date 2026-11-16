@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { shuffle, type Exercise } from '../content'
 import { fx } from '../fx'
-import { Lilek, oops, praise } from './Lilek'
+import { Wafel, oops, praise } from './Wafel'
 
 const LABEL: Record<Exercise['kind'], string> = {
   choice: 'Wybierz odpowiedź',
@@ -58,7 +58,7 @@ export function ExerciseCard({ ex, onResult, onContinue, allowSkip }: Props) {
         {phase === 'feedback' ? (
           <>
             <div className="fb">
-              <Lilek mood={correct ? 'cheer' : 'sad'} size={56} />
+              <Wafel mood={correct ? 'cheer' : 'sad'} size={56} />
               <div>
                 <div className="fb-title">{msg}</div>
                 {!correct && solution && <div className="fb-sol">Poprawnie: <b>{solution}</b></div>}
