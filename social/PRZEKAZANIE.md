@@ -7,7 +7,7 @@ Dla czatu, który prowadzi i publikuje Instagram („Agent social media: posty F
 ## Gotowe pliki
 - `README.md`: plan, struktura, zasady.
 - `instagram/01-zalozenie-konta.md`: konto Twórca, nazwa konta, bio (2 wersje), linki z UTM (CTA nr 1: guliwera4.pl/aplikacja/), 5 wyróżnionych relacji, Facebook, Metricool, etykiety AI.
-  - Marka osobista jest pod nazwiskiem Angeliki. Nazwy konta w kolejności: @angelika.pruchniak → @angelikapruchniak → @angelika.pruchniak.gaszczyk.
+  - Marka osobista jest pod nazwiskiem Angeliki. Nazwy konta w kolejności: @angelika.pgaszczyk → @angelikapruchniak → @angelika.pgaszczyk.gaszczyk.
   - Konta @guliwera4 nie zakładamy.
 - `instagram/zdjecie-profilowe-1080.jpg`: kadr prawdziwego portretu (`logo/angelika-portret-bialy.jpg`).
 - `instagram/02-posty-i-plan.md`: 12 postów IG z opisami i hashtagami oraz plan na 4 tygodnie. Daty startowały 16.11, więc trzeba je przesunąć na dzień założenia konta.

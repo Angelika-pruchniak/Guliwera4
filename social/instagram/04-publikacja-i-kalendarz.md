@@ -19,7 +19,7 @@ Opisy postów 1–12 są w `02-posty-i-plan.md`. Opisy nowych rolek r4–r7 są 
 ## Co musi zrobić Angelika (raz, ok. 15 minut)
 
 1. **Załóż konto** według `01-zalozenie-konta.md`:
-   - Nazwa: @angelika.pruchniak, a jeśli zajęta, kolejne z listy w tamtym pliku.
+   - Konto założone 16.11: @angelika.pgaszczyk (https://www.instagram.com/angelika.pgaszczyk/).
    - Konto profesjonalne.
    - Bio, linki z UTM i zdjęcie profilowe `zdjecie-profilowe-1080.jpg`.
 2. **Połącz Instagram ze stroną Guliwera 4 na Facebooku:** Ustawienia → Centrum kont.

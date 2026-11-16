@@ -18,7 +18,7 @@ Lejek: post → **Akademia (darmowa)** → Strategia na 1 stronie 39 zł → Pak
 
 | Plik / folder | Co |
 |---|---|
-| `research/instagram-konta-zagraniczne.md` | 12 kont z USA/UK + **zasady dla @angelika.pruchniak** |
+| `research/instagram-konta-zagraniczne.md` | 12 kont z USA/UK + **zasady dla @angelika.pgaszczyk** |
 | `research/linkedin-styl-dominika-zak.md` | analiza stylu + wzór posta |
 | `instagram/01-zalozenie-konta.md` | instrukcja: konto, handle, bio, linki, wyróżnione, Facebook, Metricool, etykiety AI |
 | `instagram/02-posty-i-plan.md` | siatka 12 postów, opisy, hashtagi, plan 4 tygodni |

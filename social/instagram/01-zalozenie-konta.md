@@ -8,13 +8,13 @@ Nie mogę sprawdzić dostępności nazw z tego środowiska (Instagram blokuje au
 
 | Kolejność | @handle | Dlaczego |
 |---|---|---|
-| 1 | **@angelika.pruchniak** | Marka osobista pod Twoim nazwiskiem, krótkie i łatwe do wpisania. Ta nazwa jest teraz na grafikach. |
+| 1 | **@angelika.pgaszczyk** | Marka osobista pod Twoim nazwiskiem, krótkie i łatwe do wpisania. Ta nazwa jest teraz na grafikach. |
 | 2 | @angelikapruchniak | To samo bez kropki, gdyby wersja z kropką była zajęta. |
-| 3 | @angelika.pruchniak.gaszczyk | Pełne nazwisko (bez polskich znaków, Instagram ich nie przyjmuje). |
+| 3 | @angelika.pgaszczyk.gaszczyk | Pełne nazwisko (bez polskich znaków, Instagram ich nie przyjmuje). |
 
 Konta @guliwera4 nie ma i go nie zakładamy: budujesz markę osobistą pod swoim nazwiskiem, a Guliwera 4 pojawia się w bio i linku.
 
-Jeśli wybierzesz inną nazwę niż @angelika.pruchniak, daj znać: podmienię stopkę na grafikach (1 linijka w `social/narzedzia/tresci.py`).
+Jeśli wybierzesz inną nazwę niż @angelika.pgaszczyk, daj znać: podmienię stopkę na grafikach (1 linijka w `social/narzedzia/tresci.py`).
 
 ## 2. Zakładanie konta
 
