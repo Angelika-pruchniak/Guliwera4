@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Lilek } from '../components/Lilek'
+import { Wafel } from '../components/Wafel'
 import { Coin, Flame, Heart, Progress, Snow, Star } from '../components/ui'
 import { fx } from '../fx'
 import {
@@ -23,7 +23,7 @@ export function Profile() {
   return (
     <div className="page">
       <div className="profile-head">
-        <Lilek mood="happy" size={86} />
+        <Wafel mood="happy" size={86} />
         <div>
           <h1>{s.name || 'Manager'}</h1>
           <div className="lvl-name">Poziom {lvl.index}: {lvl.name}</div>
@@ -53,7 +53,7 @@ export function Profile() {
       </div>
 
       <div className="card">
-        <h3>Sklepik Lilka <span className="coins"><Coin size={18} /> {s.coins}</span></h3>
+        <h3>Sklepik Wafla <span className="coins"><Coin size={18} /> {s.coins}</span></h3>
         <div className="shop-row">
           <Snow size={30} />
           <div><b>Zamrożenie serii</b><div className="muted small">Ratuje serię, gdy opuścisz dzień. Masz: {s.freezes}/2</div></div>
