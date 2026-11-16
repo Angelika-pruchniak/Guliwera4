@@ -13,6 +13,15 @@ E-mail na stronie: kontakt@guliwera4.pl
 - Logo i favicon: folder `logo/` (ikona-512.png, logo-poziome.png, mark.svg, avatar i baner LinkedIn).
 - Zdjęcie: `zdjecia/angelika-portret.jpg`. Tylko kadr i wyostrzenie, bez zmiany rysów twarzy (wyraźna prośba).
 
+## Maskotka: Wafel (zasada obowiązująca wszystkie czaty)
+- **Jedyna maskotka marki to Wafel**: owczarek australijski Angeliki, który przyjmuje klientów Guliwera 4.
+  Liliowy merle + granat, biała strzałka na głowie, brązowe oko po liliowej stronie i niebieskie po granatowej,
+  koralowe policzki, koralowa bandana z „4”. Pliki i opis póz: `brand/wafel/` (SVG, PNG, generator).
+- **Lilek jest wycofany (decyzja Angeliki, 16.11.2026).** Nie używać go w żadnych materiałach. Tam, gdzie był,
+  zamienić na Wafla (mapa nastrojów: happy→siedzi, cheer→radosc, sad→smutny, think→mysli, wave→macha, sleep→spi).
+- Gałęzie, które jeszcze mają Lilka: przy najbliższej pracy zrebazować na `main` i podmienić (`Lilek.tsx` już nie istnieje,
+  import: `import { Wafel, Speech } from './components/Wafel'`).
+
 ## Strona (WordPress + Jetpack, site ID 258438467)
 - Strony: 10 Strona główna, 32 Usługi, 6 O mnie, 52 Lokalizacja, 60 Kontakt (formularz Jetpack), 74 Materiały.
   Treść to bloki `wp:html` z szablonem `elementor_canvas` (bez Elementora, żeby uniknąć starego cache).
@@ -48,7 +57,7 @@ E-mail na stronie: kontakt@guliwera4.pl
   - PDF „budżet marketingowy”.
 
 ## Aplikacja Akademia Guliwera (gałąź `claude/aplikacja-lekcje`)
-- Kod: `aplikacja/` (React + Vite, PWA). Treść lekcji: `aplikacja/src/content/kurs.ts`. Maskotka: Lilek.
+- Kod: `aplikacja/` (React + Vite, PWA). Treść lekcji: `aplikacja/src/content/kurs.ts`. Maskotka: Wafel (`aplikacja/src/components/Wafel.tsx`).
 - Na stronie: wtyczka `guliwera-akademia` (wersja 1.1, aktywna) serwuje aplikację pod https://guliwera4.pl/akademia/.
   Aktualizacja: `aplikacja/pakuj-wtyczke.sh` → commit `wtyczki/guliwera-akademia.zip` → wgrać ZIP z GitHub raw (hash commita, overwrite).
 - Strona 112 „Aplikacja” (https://guliwera4.pl/aplikacja/): opis, instrukcja instalacji, kod QR. W menu pozostałych stron jeszcze nie ma linku.
