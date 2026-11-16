@@ -86,7 +86,7 @@ function gk_nl_tresc( $kod, array $k, array $d ) {
 				),
 				'po'        => gk_nl_p( 'Zacznij od kalkulatora. To 10 minut i zwykle pierwsze „aha” przy marży.' ),
 				'cta'       => array( 'Pobierz Pakiet startowy', $pakiet ),
-				'pod'       => gk_nl_p( 'Wolisz zacząć od nauki? W Akademii Guliwera czeka lekcja na 5 minut (Lilek już się rozgrzewa): ' . gk_nl_link( ! empty( $d['ma_konto'] ) ? 'Otwórz Akademię' : 'Załóż darmowe konto w Akademii', $akad ) . '.' )
+				'pod'       => gk_nl_p( 'Wolisz zacząć od nauki? W Akademii Guliwera czeka lekcja na 5 minut (Wafel już się rozgrzewa): ' . gk_nl_link( ! empty( $d['ma_konto'] ) ? 'Otwórz Akademię' : 'Załóż darmowe konto w Akademii', $akad ) . '.' )
 					. gk_nl_p( 'Co dalej: przez 2 tygodnie dostaniesz ode mnie kilka krótkich maili z jedną lekcją albo narzędziem w każdym, potem newsletter co 2 tygodnie we wtorek rano.', 'color:#7A6580;font-size:15px;' ),
 				'tekst_pod' => 'Akademia Guliwera: ' . $akad,
 			);
@@ -118,7 +118,7 @@ function gk_nl_tresc( $kod, array $k, array $d ) {
 
 		case 'W3':
 			$stan = (int) $d['lekcje'] > 0
-				? 'Masz za sobą <b>' . (int) $d['lekcje'] . ' ' . gk_nl_lekcji( (int) $d['lekcje'] ) . '</b>, a Twoja seria to <b>' . (int) $d['seria'] . ' ' . gk_nl_dni( (int) $d['seria'] ) . '</b>. Lilek jest dumny.'
+				? 'Masz za sobą <b>' . (int) $d['lekcje'] . ' ' . gk_nl_lekcji( (int) $d['lekcje'] ) . '</b>, a Twoja seria to <b>' . (int) $d['seria'] . ' ' . gk_nl_dni( (int) $d['seria'] ) . '</b>. Wafel jest dumny.'
 				: 'Twoja pierwsza lekcja nadal czeka. Zajmie mniej czasu niż kawa.';
 			$a += array(
 				'preheader' => 'Mały nawyk, duży efekt w skali roku. Plus jak działa rabat za naukę.',
@@ -227,7 +227,7 @@ function gk_nl_tresc( $kod, array $k, array $d ) {
 				'preheader' => $n . ' dni nauki z rzędu. Krótka gratulacja, bez oferty.',
 				'nadtytul'  => 'Seria ' . $n . ' dni',
 				'tytul'     => $n . ' dni z rzędu. Szacun!',
-				'akapity'   => array( gk_nl_cz( $k ) . ' ' . $n . ' dni nauki z rzędu. Lilek zrobił z tej okazji taniec, którego nie pokażemy. Jutro dzień ' . ( $n + 1 ) . '?' ),
+				'akapity'   => array( gk_nl_cz( $k ) . ' ' . $n . ' dni nauki z rzędu. Wafel zrobił z tej okazji taniec, którego nie pokażemy. Jutro dzień ' . ( $n + 1 ) . '?' ),
 				'cta'       => array( 'Otwórz lekcję', $akad ),
 			);
 			return array( $n . ' dni z rzędu. Szacun!', $a );

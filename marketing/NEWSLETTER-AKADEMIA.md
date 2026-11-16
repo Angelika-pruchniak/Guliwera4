@@ -98,7 +98,7 @@ Treść:
 > Cześć *|FNAME|*! Tu Angelika z Guliwera 4. Dziękuję za zapis. Obiecany pakiet jest pod przyciskiem, a w środku są 3 pliki:
 > 1) Kalkulator zysku: wpisz cenę, koszty i zobacz, ile musisz sprzedać, żeby wyjść na plus. 2) Strategia na 1 stronie: wypełniony przykład, żeby zobaczyć, jak wygląda gotowa strategia. 3) Przegląd miesiąca w 15 minut: 7 pytań na ostatni piątek miesiąca.
 > Zacznij od kalkulatora. To 10 minut i zwykle pierwsze „aha” przy marży.
-> Wolisz zacząć od nauki? W Akademii Guliwera czeka lekcja na 5 minut (Lilek już się rozgrzewa).
+> Wolisz zacząć od nauki? W Akademii Guliwera czeka lekcja na 5 minut (Wafel już się rozgrzewa).
 > Co dalej: przez 2 tygodnie dostaniesz ode mnie kilka krótkich maili z jedną lekcją i jednym narzędziem w każdym, potem newsletter co 2 tygodnie we wtorek rano. Wypisać się możesz w każdej chwili, jednym kliknięciem.
 
 ### W2 · Jedna kartka zamiast 40 slajdów
@@ -128,7 +128,7 @@ Treść:
 Treść:
 
 > 5 minut dziennie to ok. 30 godzin nauki w roku. Tyle co dwa porządne szkolenia, tylko bez wyjazdu i bez slajdów.
-> [Blok warunkowy] AK_LEKCJE = 0: „Twoja pierwsza lekcja nadal czeka. Zajmie mniej czasu niż kawa.” AK_LEKCJE ≥ 1: „Masz za sobą *|AK_LEKCJE|* lekcji, a Twoja seria to *|AK_SERIA|* dni. Lilek jest dumny.”
+> [Blok warunkowy] AK_LEKCJE = 0: „Twoja pierwsza lekcja nadal czeka. Zajmie mniej czasu niż kawa.” AK_LEKCJE ≥ 1: „Masz za sobą *|AK_LEKCJE|* lekcji, a Twoja seria to *|AK_SERIA|* dni. Wafel jest dumny.”
 > Jak działa rabat: za regularną naukę Akademia daje kupon na materiały Kierunek Zysk. Im więcej lekcji i aktywnych dni w ostatnich 4 tygodniach, tym wyższy rabat. W darmowych działach 1–2 to do ok. 7%, z Akademią Pro do 30%.
 > Wskazówka: ustaw lekcję na stałą porę, np. zaraz po pierwszej kawie. Aplikację możesz dodać do ekranu telefonu jak zwykłą apkę.
 
@@ -200,7 +200,7 @@ Treść:
 ### Z1 · Ukończone 2 działy Akademii. Co dalej?
 
 - **Kiedy:** gdy AK_DARMOWE zmieni się na „tak” · **Segment:** ze zgodą, bez Pro
-- **Temat A:** Ukończone 2 działy Akademii. Co dalej? · **Temat B:** Lilek ma dla Ciebie certyfikat (prawie)
+- **Temat A:** Ukończone 2 działy Akademii. Co dalej? · **Temat B:** Wafel ma dla Ciebie certyfikat (prawie)
 - **Preheader:** Kolejne działy: finanse, metryki, zespół. Akademia Pro na 12 miesięcy.
 - **Cel:** Sprzedaż Akademii Pro 249 zł w najlepszym momencie: po ukończeniu darmowej części.
 - **CTA:** Odblokuj Akademię Pro → przycisk Pro w aplikacji / produkt akademia-pro
@@ -222,12 +222,12 @@ Treść:
 
 Treść:
 
-> 7 dni nauki z rzędu. Lilek zrobił z tej okazji taniec, którego nie pokażemy. Jutro dzień 8?
+> 7 dni nauki z rzędu. Wafel zrobił z tej okazji taniec, którego nie pokażemy. Jutro dzień 8?
 
 ### Z3 · Wracasz na 5 minut?
 
 - **Kiedy:** 7 dni bez lekcji (po co najmniej 1 lekcji) · **Segment:** ze zgodą
-- **Temat A:** Wracasz na 5 minut? · **Temat B:** Lilek pyta, co słychać
+- **Temat A:** Wracasz na 5 minut? · **Temat B:** Wafel pyta, co słychać
 - **Preheader:** Twoja seria czeka. Jedna lekcja i wracasz do gry.
 - **Cel:** Reaktywacja nauki.
 - **CTA:** Wracam do lekcji → /akademia/

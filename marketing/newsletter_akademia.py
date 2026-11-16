@@ -87,7 +87,7 @@ SERIA = [
       ["Cześć *|FNAME|*! Tu Angelika z Guliwera 4. Dziękuję za zapis. Obiecany pakiet jest pod przyciskiem, a w środku są 3 pliki:",
        "1) Kalkulator zysku: wpisz cenę, koszty i zobacz, ile musisz sprzedać, żeby wyjść na plus. 2) Strategia na 1 stronie: wypełniony przykład, żeby zobaczyć, jak wygląda gotowa strategia. 3) Przegląd miesiąca w 15 minut: 7 pytań na ostatni piątek miesiąca.",
        "Zacznij od kalkulatora. To 10 minut i zwykle pierwsze „aha” przy marży.",
-       "Wolisz zacząć od nauki? W Akademii Guliwera czeka lekcja na 5 minut (Lilek już się rozgrzewa).",
+       "Wolisz zacząć od nauki? W Akademii Guliwera czeka lekcja na 5 minut (Wafel już się rozgrzewa).",
        "Co dalej: przez 2 tygodnie dostaniesz ode mnie kilka krótkich maili z jedną lekcją i jednym narzędziem w każdym, potem newsletter co 2 tygodnie we wtorek rano. Wypisać się możesz w każdej chwili, jednym kliknięciem."],
       ("Pobierz Pakiet startowy", "/pakiet-startowy/pliki/ (adres plików)"),
       "Drugi przycisk (tekstowy): „Otwórz Akademię” → /akademia/. Dla tagu `lead` (bez konta): „Załóż darmowe konto w Akademii”."),
@@ -104,7 +104,7 @@ SERIA = [
       "Mały nawyk, duży efekt w skali roku. Plus jak działa rabat za naukę.",
       "Zbudować nawyk nauki w Akademii. Uczciwie wyjaśnić rabat i Akademię Pro.",
       ["5 minut dziennie to ok. 30 godzin nauki w roku. Tyle co dwa porządne szkolenia, tylko bez wyjazdu i bez slajdów.",
-       "[Blok warunkowy] AK_LEKCJE = 0: „Twoja pierwsza lekcja nadal czeka. Zajmie mniej czasu niż kawa.” AK_LEKCJE ≥ 1: „Masz za sobą *|AK_LEKCJE|* lekcji, a Twoja seria to *|AK_SERIA|* dni. Lilek jest dumny.”",
+       "[Blok warunkowy] AK_LEKCJE = 0: „Twoja pierwsza lekcja nadal czeka. Zajmie mniej czasu niż kawa.” AK_LEKCJE ≥ 1: „Masz za sobą *|AK_LEKCJE|* lekcji, a Twoja seria to *|AK_SERIA|* dni. Wafel jest dumny.”",
        "Jak działa rabat: za regularną naukę Akademia daje kupon na materiały Kierunek Zysk. Im więcej lekcji i aktywnych dni w ostatnich 4 tygodniach, tym wyższy rabat. W darmowych działach 1–2 to do ok. 7%, z Akademią Pro do 30%.",
        "Wskazówka: ustaw lekcję na stałą porę, np. zaraz po pierwszej kawie. Aplikację możesz dodać do ekranu telefonu jak zwykłą apkę."],
       ("Otwórz dzisiejszą lekcję", "/akademia/")),
@@ -145,7 +145,7 @@ SERIA = [
 ]
 
 ZACHOWANIA = [
-    m("Z1", "gdy AK_DARMOWE zmieni się na „tak”", "ze zgodą, bez Pro", "Ukończone 2 działy Akademii. Co dalej?", "Lilek ma dla Ciebie certyfikat (prawie)",
+    m("Z1", "gdy AK_DARMOWE zmieni się na „tak”", "ze zgodą, bez Pro", "Ukończone 2 działy Akademii. Co dalej?", "Wafel ma dla Ciebie certyfikat (prawie)",
       "Kolejne działy: finanse, metryki, zespół. Akademia Pro na 12 miesięcy.",
       "Sprzedaż Akademii Pro 249 zł w najlepszym momencie: po ukończeniu darmowej części.",
       ["Gratulacje: darmowe działy Akademii masz za sobą. To *|AK_LEKCJE|* lekcji i seria *|AK_SERIA|* dni.",
@@ -155,9 +155,9 @@ ZACHOWANIA = [
       "Przypomnienie po 3 dniach tylko dla osób bez tagu `kupil_pro`, potem koniec serii (bez naciskania)."),
     m("Z2", "seria 7 i 30 dni", "ze zgodą", "7 dni z rzędu. Szacun!", "",
       "Krótka gratulacja, bez oferty.", "Wzmocnić nawyk. Mail bez sprzedaży.",
-      ["7 dni nauki z rzędu. Lilek zrobił z tej okazji taniec, którego nie pokażemy. Jutro dzień 8?"],
+      ["7 dni nauki z rzędu. Wafel zrobił z tej okazji taniec, którego nie pokażemy. Jutro dzień 8?"],
       ("Otwórz lekcję", "/akademia/")),
-    m("Z3", "7 dni bez lekcji (po co najmniej 1 lekcji)", "ze zgodą", "Wracasz na 5 minut?", "Lilek pyta, co słychać",
+    m("Z3", "7 dni bez lekcji (po co najmniej 1 lekcji)", "ze zgodą", "Wracasz na 5 minut?", "Wafel pyta, co słychać",
       "Twoja seria czeka. Jedna lekcja i wracasz do gry.", "Reaktywacja nauki.",
       ["Tydzień przerwy to nic złego. Najtrudniejsza lekcja to ta pierwsza po przerwie, więc wybrałam krótką: *|następna lekcja|*.",
        "Uwaga: rabat za naukę liczy aktywne dni z ostatnich 4 tygodni, więc po przerwie trochę spada. Wraca, gdy wracasz Ty."],
