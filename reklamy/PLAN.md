@@ -20,7 +20,7 @@ Budżet: **1000 zł/mies.** łącznie. Priorytet: 1) sprzedaż PDF, 2) społeczn
 ## Struktura (Meta Ads, od 17.11.2026)
 | Kampania | Cel / optymalizacja | Budżet | Odbiorcy | Reklamy |
 |---|---|---|---|---|
-| **K1 Akademia** | Sprzedaż → zdarzenie CompleteRegistration (`sign_up`) | 13 zł/dzień (~400 zł/mies.) | Advantage+, Polska, 25–55, wykluczeni zarejestrowani | Lilek, „5 minut dziennie, 0 zł”, „rabat do 30% na materiały za regularną naukę” |
+| **K1 Akademia** | Sprzedaż → zdarzenie CompleteRegistration (`sign_up`) | 13 zł/dzień (~400 zł/mies.) | Advantage+, Polska, 25–55, wykluczeni zarejestrowani | Wafel, „5 minut dziennie, 0 zł”, „rabat do 30% na materiały za regularną naukę” |
 | **K2 Sprzedaż PDF** | Sprzedaż → Purchase | 20 zł/dzień (~600 zł/mies.) | Advantage+, Polska (sugestie: małe firmy, zarządzanie) | A: Strategia na 1 stronie 39 zł; B: Pakiet 297 zł |
 
 Listopad (17–30.11, 14 dni) ≈ 466 zł.
