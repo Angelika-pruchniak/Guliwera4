@@ -1,0 +1,1 @@
+{"name":"podsumowanie-roku","private":true,"scripts":{"build":"node buduj.js"},"dependencies":{"@pdf-lib/fontkit":"^1.1.1","pdf-lib":"^1.17.1"}}

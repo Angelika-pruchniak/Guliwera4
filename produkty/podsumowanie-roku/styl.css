@@ -1,0 +1,80 @@
+/* Pochwal się! Podsumowanie roku · Guliwera 4 · styl stron A4 */
+@font-face{font-family:"DM Sans";src:url(fonty/DMSans-400-normal.ttf);font-weight:400}
+@font-face{font-family:"DM Sans";src:url(fonty/DMSans-700-normal.ttf);font-weight:700}
+@font-face{font-family:"Fraunces";src:url(fonty/Fraunces-600-normal.ttf);font-weight:600}
+@font-face{font-family:"Fraunces";src:url(fonty/Fraunces-700-normal.ttf);font-weight:700}
+@font-face{font-family:"Fraunces";src:url(fonty/Fraunces-500-italic.ttf);font-weight:500;font-style:italic}
+@font-face{font-family:"Caveat";src:url(fonty/Caveat-500-normal.ttf);font-weight:500}
+@font-face{font-family:"Caveat";src:url(fonty/Caveat-700-normal.ttf);font-weight:700}
+
+:root{
+  --krem:#FFF6EE;--koral:#FF6B3D;--koral-c:#E8512A;--roz:#F4799F;--roz-j:#FFD9E4;
+  --lil:#B9A5E3;--lil-j:#EDE5FB;--zol:#FFC84A;--zol-j:#FFEFC7;--brzo:#FFD8C2;
+  --atr:#3A2340;--atr6:#7A6580;--gr:#1E2A4A;--bialy:#fff;
+  --akc:var(--koral);--akc-j:var(--brzo);--akc-t:var(--koral-c);
+  --linia:#E9D9CF;
+}
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#ddd}
+body{font-family:"DM Sans",sans-serif;color:var(--atr);font-size:10.5pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+@media print{body{background:none}}
+
+.strona{width:210mm;height:297mm;position:relative;overflow:hidden;background:var(--krem);padding:15mm 16mm 16mm;page-break-after:always;break-after:page;display:flex;flex-direction:column;margin:0 auto}
+@media screen{.strona{margin:8mm auto;box-shadow:0 4px 20px rgba(0,0,0,.12)}}
+.strona.zyski{--akc:var(--koral);--akc-j:var(--brzo);--akc-t:var(--koral-c)}
+.strona.lekcje{--akc:var(--lil);--akc-j:var(--lil-j);--akc-t:#6E58A8}
+.strona.energia{--akc:var(--zol);--akc-j:var(--zol-j);--akc-t:#B07A00}
+
+/* nagłówek i stopka */
+.gora{display:flex;justify-content:space-between;align-items:center;font-size:7.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--atr6);margin-bottom:7mm}
+.gora .rozdz::before{content:"";display:inline-block;width:2.2mm;height:2.2mm;border-radius:50%;background:var(--akc);margin-right:2mm;vertical-align:.2mm}
+.dol{position:absolute;left:16mm;right:16mm;bottom:8mm;display:flex;justify-content:space-between;font-size:7.5pt;color:var(--atr6);border-top:.3mm solid var(--linia);padding-top:2mm}
+
+/* typografia */
+h1,h2,h3{font-family:"Fraunces",serif;font-weight:600;margin:0;line-height:1.08;letter-spacing:-.01em}
+h1{font-size:30pt}
+h2{font-size:22pt;margin-bottom:2.5mm}
+h3{font-size:12.5pt;margin:0 0 1.6mm}
+p{margin:0 0 2.5mm}
+.lead{font-size:11pt;color:var(--atr);max-width:150mm;margin-bottom:5mm}
+.mala{font-size:8.5pt;color:var(--atr6)}
+.reka{font-family:"Caveat",cursive;font-weight:700;color:var(--akc-t);font-size:17pt;line-height:1}
+.zakres{background:linear-gradient(transparent 62%,var(--zol) 62%,var(--zol) 92%,transparent 92%);padding:0 .6mm}
+em.f{font-family:"Fraunces",serif;font-style:italic;font-weight:500}
+
+/* karty i siatki */
+.karta{background:var(--bialy);border-radius:4mm;padding:4mm 4.5mm;box-shadow:0 .6mm 2.2mm rgba(58,35,64,.06)}
+.karta.akc{background:var(--akc-j)}
+.siatka{display:grid;gap:4mm}
+.k2{grid-template-columns:1fr 1fr}.k3{grid-template-columns:repeat(3,1fr)}.k4{grid-template-columns:repeat(4,1fr)}
+.rosnij{flex:1;min-height:0}
+.pigulka{display:inline-block;background:var(--gr);color:#fff;font-size:7.5pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:1.2mm 3.2mm;border-radius:99mm}
+.pigulka.jasna{background:var(--akc-j);color:var(--atr)}
+.etyk{font-size:7.5pt;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--akc-t);margin-bottom:1.2mm;display:block}
+
+/* pola do pisania (w PDF dostają pola formularza) */
+.pole{display:block;width:100%;position:relative}
+.linie{background-image:repeating-linear-gradient(to bottom,transparent 0,transparent calc(var(--lh,8mm) - .25mm),var(--linia) calc(var(--lh,8mm) - .25mm),var(--linia) var(--lh,8mm));}
+.wiersz{height:var(--wh,8mm);border-bottom:.25mm solid var(--linia)}
+.ramka{border:.3mm dashed var(--linia);border-radius:3mm;background:rgba(255,255,255,.55)}
+.numer{display:grid;grid-template-columns:7mm 1fr;align-items:end;gap:1mm}
+.numer b{font-family:"Fraunces",serif;font-weight:600;font-size:10pt;color:var(--akc-t);text-align:right;padding-bottom:1mm}
+.kratka{width:4.6mm;height:4.6mm;border:.35mm solid var(--atr6);border-radius:1.2mm;display:inline-block;flex:none;background:#fff}
+.lista-check{display:flex;flex-direction:column;gap:2.6mm}
+.lista-check div{display:flex;gap:3mm;align-items:center}
+
+/* rozdziały */
+.dzial{padding:0;background:var(--akc-j)}
+.dzial .w{position:absolute;left:18mm;right:18mm;top:58mm}
+.dzial .nr{font-family:"Fraunces",serif;font-size:120pt;line-height:.8;color:var(--akc);font-weight:700;opacity:.9}
+.dzial h1{font-size:40pt;margin:6mm 0 4mm}
+.dzial .kolo{position:absolute;border-radius:50%;background:rgba(255,255,255,.45)}
+.dzial .pies{position:absolute;right:10mm;bottom:12mm;width:92mm}
+
+.wafel svg{width:100%;height:auto;display:block}
+.dymek{position:relative;background:#fff;border-radius:4mm;padding:3mm 4mm;font-family:"Caveat",cursive;font-size:15pt;line-height:1.05;color:var(--atr);box-shadow:0 .6mm 2.2mm rgba(58,35,64,.08)}
+
+/* okładka */
+.okladka{padding:0;background:linear-gradient(160deg,#F8B68C 0%,#FDDCC6 48%,#F2BFC5 100%)}
+.okladka .kolo{position:absolute;border-radius:50%;background:rgba(255,255,255,.3)}
