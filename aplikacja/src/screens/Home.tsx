@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { flatLessons, units } from '../content'
 import { InstallCard } from '../components/InstallCard'
-import { Lilek } from '../components/Lilek'
+import { Wafel } from '../components/Wafel'
 import { Progress, Star } from '../components/ui'
 import { fx } from '../fx'
 import { chestReady, currentLesson, dayKey, lessonStatus, unitReached, useStore } from '../store'
@@ -28,7 +28,7 @@ export function Home({ onLesson, onSkip, onChest }: Props) {
     <div className="home">
       <InstallCard />
       <div className="goal-card">
-        <Lilek mood={todayXp >= s.dailyGoal ? 'cheer' : 'happy'} size={54} />
+        <Wafel mood={todayXp >= s.dailyGoal ? 'cheer' : 'happy'} size={54} />
         <div className="goal-text">
           <b>{todayXp >= s.dailyGoal ? 'Cel dnia zrobiony!' : `Cel dnia: ${todayXp}/${s.dailyGoal} XP`}</b>
           <Progress value={todayXp / s.dailyGoal} color="var(--yellow)" />
@@ -75,7 +75,7 @@ export function Home({ onLesson, onSkip, onChest }: Props) {
                     )}
                     {isCur && (
                       <div className={`node-mascot ${OFFSETS[l.flatIndex % OFFSETS.length] > 0 ? 'left' : ''}`}>
-                        <Lilek mood="wave" size={64} />
+                        <Wafel mood="wave" size={64} />
                       </div>
                     )}
                   </div>
@@ -96,8 +96,8 @@ export function Home({ onLesson, onSkip, onChest }: Props) {
         )
       })}
       <div className="path-end">
-        <Lilek mood="think" size={80} />
-        <p>Kolejne działy w przygotowaniu. Lilek już pisze!</p>
+        <Wafel mood="think" size={80} />
+        <p>Kolejne działy w przygotowaniu. Wafel już je pilnuje!</p>
       </div>
     </div>
   )

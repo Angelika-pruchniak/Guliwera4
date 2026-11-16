@@ -32,7 +32,7 @@ Lejek: post → **Akademia (darmowa)** → Strategia na 1 stronie 39 zł → Pak
 | `instagram/04-publikacja-i-kalendarz.md` | kalendarz 4 tygodni od 23.11, opisy rolek r4–r7, sposób publikacji, raport |
 | `linkedin/posty-start.md` | 8 postów, plan publikacji, pytania o historie |
 | `narzedzia/` | generatory: `tresci.py` (teksty grafik), `render.js` (PNG), `rolki.py` (MP4), `siatka.py` |
-| `zasoby/` | kopie styl.css, logo i Lilka z brandbooka (gałąź `claude/brandbook`) |
+| `zasoby/` | kopie styl.css i logo z brandbooka (gałąź `claude/brandbook`) oraz Wafel z `brand/wafel` |
 
 ## Jak zmienić tekst na grafice
 
