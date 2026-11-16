@@ -114,7 +114,7 @@ KARUZELE = {
    koniec=KONIEC_AKADEMIA),
 
  'k2-marza-a-narzut': dict(
-   okladka=dict(foto=F09, pigulka='liczby bez stresu', pozycja='45% 20%', kolo='var(--zolty-jasny)',
+   okladka=dict(foto=B, pigulka='liczby bez stresu', pozycja='52% 10%', kolo='var(--zolty-jasny)',
                 tytul='Narzut 50% to nie <span class="zakres">marża 50%</span>', rozmiar=92,
                 lead='Najczęstszy błąd w cenniku małej firmy. Przesuń →'),
    slajdy=[
@@ -133,9 +133,9 @@ KARUZELE = {
    koniec=dict(KONIEC_AKADEMIA, lead='W Akademii są lekcje o kosztach, zysku i progu rentowności. 5 minut dziennie.')),
 
  'k3-trzy-liczby-w-poniedzialek': dict(
-   okladka=dict(foto=F07, pigulka='rytuał na poniedziałek', kolo='var(--liliowy-jasny)',
+   okladka=dict(foto=B, pigulka='rytuał na poniedziałek', kolo='var(--liliowy-jasny)',
                 tytul='3 liczby, które sprawdzam <span class="zakres">co tydzień</span>', rozmiar=92,
-                lead='10 minut przy kawie zamiast nerwów na koniec miesiąca. Przesuń →', pozycja='50% 18%'),
+                lead='10 minut przy kawie zamiast nerwów na koniec miesiąca. Przesuń →', pozycja='52% 10%'),
    slajdy=[
     dict(etykieta='liczba 1', tytul='Gotówka ÷ koszty stałe',
          tekst='Na ile miesięcy wystarczy pieniędzy na koncie, gdyby sprzedaż stanęła?',
@@ -169,6 +169,48 @@ KARUZELE = {
    ],
    koniec=dict(KONIEC_AKADEMIA, reka='zapisz przed premierą',
                lead='Darmowa Akademia: próg rentowności, macierz BCG, priorytety. Krok po kroku.')),
+
+ 'k5-test-gallupa': dict(
+   okladka=dict(foto=B, pigulka='mocne strony', pozycja='52% 10%', kolo='var(--zolty-jasny)',
+                tytul='Jak wygląda <span class="zakres">test&nbsp;Gallupa?</span>', rozmiar=78,
+                lead='CliftonStrengths krok po kroku: co Cię czeka i co z tego masz. Przesuń →'),
+   slajdy=[
+    dict(etykieta='czym jest', tytul='34 talenty, nie 34 szufladki',
+         tekst='Test CliftonStrengths (potocznie „test Gallupa”) pokazuje, w czym naturalnie jesteś mocna lub mocny. Nie mierzy wad.',
+         ramka='Talenty są pogrupowane w 4 obszary: <b>realizacja, wpływ, budowanie relacji i myślenie strategiczne</b>.'),
+    dict(etykieta='jak przebiega', tytul='177 par zdań i 20 sekund na odpowiedź', tlo='t-krem',
+         tekst='Wybierasz, które z dwóch zdań bardziej do Ciebie pasuje i jak mocno. Szybko, bez długiego zastanawiania się.',
+         ramka='Liczy się pierwsza myśl. Właśnie dlatego jest limit czasu.', ramka_kolor='lil'),
+    dict(etykieta='wynik', tytul='Top 5 albo pełna kolejność 34',
+         tekst='Dostajesz raport z opisem Twoich najsilniejszych talentów. Test jest płatny, robi się go online na stronie Gallupa.',
+         ramka='Najwięcej daje rozmowa o wyniku z certyfikowaną osobą albo z zespołem.', ramka_kolor='roz'),
+    dict(etykieta='w małej firmie', tytul='Do czego go używam', tlo='t-krem',
+         tekst='Do podziału zadań. Kiedy wiesz, kto lubi zaczynać, a kto domykać, łatwiej ułożyć pracę bez tarcia.',
+         ramka='Test to nie wyrok. To <b>język</b>, którym zespół może rozmawiać o tym, jak pracuje.', ramka_kolor='brz'),
+   ],
+   koniec=dict(KONIEC_AKADEMIA, reka='znasz swoje top 5?',
+               lead='Napisz w komentarzu swój pierwszy talent. A w Akademii poukładasz resztę: strategię i liczby.')),
+
+ 'k6-test-16personalities': dict(
+   okladka=dict(foto=B, pigulka='typy osobowości', pozycja='52% 10%', kolo='var(--liliowy-jasny)',
+                tytul='Test <span class="zakres">16&nbsp;osobowości:</span> co mówi, a&nbsp;czego nie', rozmiar=74,
+                lead='Popularny, darmowy, kontrowersyjny. Przesuń →'),
+   slajdy=[
+    dict(etykieta='jak przebiega', tytul='Około 10 minut, online, za darmo',
+         tekst='Oceniasz zdania na skali od „zgadzam się” do „nie zgadzam się”. Na końcu dostajesz typ i opis.',
+         ramka='Najlepiej odpowiadać o tym, jak jest, a nie jak chcesz, żeby było.'),
+    dict(etykieta='wynik', tytul='4 litery i dopisek', tlo='t-krem',
+         tekst='Np. INTJ-A. Litery opisują m.in. skąd czerpiesz energię i jak podejmujesz decyzje. Dopisek A albo T: pewność siebie i reakcję na stres.',
+         ramka_kolor='lil', ramka='Każdy typ ma też nazwę, np. Architekt, Rzecznik, Dowódca.'),
+    dict(etykieta='uczciwie', tytul='To nie jest diagnoza',
+         tekst='Test jest inspirowany typologią Junga. Psycholodzy podchodzą do typów ostrożnie: ludzie nie dzielą się na 16 pudełek.',
+         ramka='Traktuj wynik jak lustro do rozmowy, nie jak etykietę na całe życie.', ramka_kolor='roz'),
+    dict(etykieta='w biznesie', tytul='Gdzie się przydaje', tlo='t-krem',
+         tekst='W rozmowie o stylu pracy, w negocjacjach i przy wyborze, które zadania oddać. Lepiej rozumiesz siebie i innych.',
+         ramka='Gallup mówi <b>w czym</b> jesteś mocna lub mocny. 16 osobowości mówi raczej <b>jak</b> działasz.', ramka_kolor='brz'),
+   ],
+   koniec=dict(KONIEC_AKADEMIA, reka='jaki masz typ?',
+               lead='Napisz swoje 4 litery w komentarzu. Odpowiem, co z tego może wynikać w pracy.')),
 }
 
 # Nakładki tekstowe do rolek (przezroczyste PNG 1080×1920; strefy bezpieczne: góra 250 px, dół 340 px)
@@ -246,6 +288,17 @@ POJEDYNCZE = {
   <div style="display:flex;align-items:center;gap:28px;margin-top:40px"><span class="przycisk">Link w bio</span><span class="h2" style="font-size:64px">39 zł</span></div>
   <div style="position:absolute;right:-110px;bottom:110px;width:560px;filter:drop-shadow(0 24px 36px rgba(58,35,64,.22))"><img src="{Z}okladka-strategia-na-1-stronie.png" alt="" style="display:block;width:100%;clip-path:polygon(19.4% 10.9%,76.4% 8%,80.6% 88.6%,23.4% 91.6%)"></div>
   <div class="stopka"><span class="marka"><img src="{Z}znak-g4.svg" alt=""><span>@angelika.pgaszczyk</span></span><span>guliwera4.pl/materialy</span></div>
+</div></div>''',
+ 'p13-forbes-ekspertka': f'''<div class="plotno f-ig45 t-krem">
+<div class="kolo" style="width:720px;height:720px;background:var(--liliowy-jasny);right:-260px;top:-240px"></div>
+<div class="portret" style="position:absolute;right:80px;top:150px;width:340px;height:450px;z-index:2;box-shadow:0 30px 60px rgba(58,35,64,.12)"><img src="{FOTO}{B}" style="object-position:52% 10%"></div>
+<div class="pole">
+  <span class="pigulka p-granat">wyróżnienie</span>
+  <p class="h1" style="margin-top:auto;font-size:70px;max-width:470px">Ekspertka digital<br>marketingu według <span class="zakres">Forbes.pl</span></p>
+  <span class="reka" style="margin-top:24px">dziękuję!</span>
+  <p class="lead" style="margin-top:18px;max-width:24ch">Dziś tę wiedzę przekładam na proste narzędzia dla małych firm.</p>
+  <div style="height:50px"></div>
+  <div class="stopka"><span class="marka"><img src="{Z}znak-g4.svg" alt=""><span>@angelika.pgaszczyk</span></span><span>guliwera4.pl</span></div>
 </div></div>''',
 }
 
