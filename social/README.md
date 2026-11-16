@@ -1,7 +1,7 @@
 # Guliwera 4 · marka osobista na Instagramie i LinkedIn
 
 Właścicielka: Angelika Pruchniak-Gąszczyk. Gałąź robocza: `claude/social-instagram-linkedin`.
-**Zasada: nic nie jest publikowane ani planowane w Metricool bez „OK” Angeliki.**
+**Od 16.11: Instagram prowadzi i publikuje czat „Agent social media: posty FB i LinkedIn” bez akceptacji każdego posta, bez Metricool, z raportem co tydzień. Plan: `instagram/04-publikacja-i-kalendarz.md`.**
 
 ## Plan (pierwsze 6 tygodni)
 
@@ -27,7 +27,9 @@ Lejek: post → **Akademia (darmowa)** → Strategia na 1 stronie 39 zł → Pak
 | `instagram/zdjecia-4x5/` | 3 zdjęcia z prawdziwą twarzą Angeliki, 1080×1350 (tylko kadr) |
 | `instagram/png/posty/` | grafiki pojedyncze (cytat, produkt) |
 | `instagram/png/karuzele/` | 4 karuzele gotowe do wrzucenia (1080×1350) |
-| `instagram/rolki/` | 3 rolki MP4 1080×1920, 15 s, + okładki |
+| `instagram/rolki/v2/` | 7 rolek MP4 1080×1920 (r1–r7) + okładki; v1 w `rolki/` odrzucone |
+| `instagram/wyroznione/` | okładki 6 wyróżnionych relacji (Start, Akademia, Materiały, Kurs, Kulisy, Opinie) |
+| `instagram/04-publikacja-i-kalendarz.md` | kalendarz 4 tygodni od 23.11, opisy rolek r4–r7, sposób publikacji, raport |
 | `linkedin/posty-start.md` | 8 postów, plan publikacji, pytania o historie |
 | `narzedzia/` | generatory: `tresci.py` (teksty grafik), `render.js` (PNG), `rolki.py` (MP4), `siatka.py` |
 | `zasoby/` | kopie styl.css, logo i Lilka z brandbooka (gałąź `claude/brandbook`) |

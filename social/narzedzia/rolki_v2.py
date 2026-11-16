@@ -141,7 +141,7 @@ def napis(ram, tekst, t, y_srodek=1240, hook=False, maly=None):
         d.text((W / 2, yc), etyk, font=fm, fill=ATR, anchor='mm')
 
 
-def plansza(t, tytul, pod):
+def plansza(t, tytul, pod, stopka='Akademia Guliwera · guliwera4.pl'):
     ram = Image.new('RGB', (W, H), KREM)
     d = ImageDraw.Draw(ram)
     d.ellipse((560, -380, 1460, 520), fill=(255, 217, 228))
@@ -155,7 +155,7 @@ def plansza(t, tytul, pod):
     d.text((W / 2, 820), tytul, font=f, fill=ATR, anchor='mm')
     d.rounded_rectangle((260, 980, 820, 1110), 65, fill=(232, 81, 42))
     d.text((W / 2, 1045), pod, font=font('DMSans%5Bopsz,wght%5D.ttf', 'Bold', 52), fill='white', anchor='mm')
-    d.text((W / 2, 1230), 'Akademia Guliwera · guliwera4.pl', font=font('DMSans%5Bopsz,wght%5D.ttf', 'Medium', 40), fill=(122, 101, 128), anchor='mm')
+    d.text((W / 2, 1230), stopka, font=font('DMSans%5Bopsz,wght%5D.ttf', 'Medium', 40), fill=(122, 101, 128), anchor='mm')
     d.text((W / 2, 1330), 'Angelika Pruchniak-Gąszczyk', font=F_MALY, fill=(232, 81, 42), anchor='mm')
     return ram
 
@@ -190,6 +190,42 @@ ROLKI = {
     ('09', 'blisko', 1.0, 'Na start *za darmo.*', {}),
     ('KONIEC', None, 1.5, 'Zacznij za darmo', dict(pod='link w bio')),
  ],
+ 'r4-strategia-na-1-stronie': [
+    ('B', 'blisko', 1.0, 'Strategia firmy na *1 stronie?*', dict(hook=True)),
+    ('09', 'sredni', 1.0, 'Bez 40 slajdów.', {}),
+    ('07', 'sredni', 1.5, 'Dla kogo *jesteśmy?*', dict(maly='1')),
+    ('B', 'szeroki', 1.5, 'Na czym *zarabiamy* najwięcej?', dict(maly='2')),
+    ('09', 'blisko', 1.5, 'Czego *nie robimy?*', dict(maly='3')),
+    ('07', 'blisko', 1.0, 'Jedna kartka. *Jeden kierunek.*', {}),
+    ('KONIEC', None, 1.5, 'Strategia na 1 stronie', dict(pod='link w bio', stopka='Kierunek Zysk · 39 zł · guliwera4.pl')),
+ ],
+ 'r5-narzut-to-nie-marza': [
+    ('07', 'blisko', 1.0, 'Narzut 50% to *nie* marża 50%', dict(hook=True)),
+    ('B', 'sredni', 1.5, '100 zł kosztu + 50% narzutu', {}),
+    ('09', 'sredni', 1.0, '= 150 zł ceny', {}),
+    ('07', 'detal', 1.5, 'Marża? 50 ÷ 150 = *33%*', dict(detal=(720, 1230, 560))),
+    ('B', 'blisko', 1.5, 'Marżę licz *od ceny.*', {}),
+    ('09', 'blisko', 1.0, 'Narzut licz *od kosztu.*', {}),
+    ('KONIEC', None, 1.5, 'Zapisz na później', dict(pod='zapisz')),
+ ],
+ 'r6-trzy-liczby-w-poniedzialek': [
+    ('09', 'blisko', 1.0, '3 liczby na *poniedziałek*', dict(hook=True)),
+    ('B', 'szeroki', 1.0, '10 minut przy kawie.', {}),
+    ('07', 'sredni', 1.5, 'Na ile miesięcy starczy *gotówki?*', dict(maly='1')),
+    ('09', 'szeroki', 1.5, 'Marża z *ostatniego tygodnia*', dict(maly='2')),
+    ('B', 'detal', 1.5, 'Rozmowy w toku = sprzedaż *za miesiąc*', dict(maly='3', detal=(600, 1260, 540))),
+    ('07', 'blisko', 1.0, 'Kierunek, nie *jeden wynik.*', {}),
+    ('KONIEC', None, 1.5, 'Zacznij za darmo', dict(pod='link w bio')),
+ ],
+ 'r7-plan-2027-w-godzine': [
+    ('B', 'blisko', 1.0, 'Plan na 2027 w *godzinę*', dict(hook=True)),
+    ('07', 'sredni', 1.0, 'Nie w styczniu. *Teraz.*', {}),
+    ('09', 'sredni', 1.5, 'Jeden cel na *pierwszy kwartał*', dict(maly='1')),
+    ('B', 'szeroki', 1.5, 'Trzy *priorytety.* Nie dziesięć.', dict(maly='2')),
+    ('07', 'detal', 1.5, 'Jedna liczba, po której *poznasz postęp*', dict(maly='3', detal=(720, 1230, 560))),
+    ('09', 'blisko', 1.0, 'Wszystko na *jednej kartce.*', {}),
+    ('KONIEC', None, 1.5, 'Planer 90 dni', dict(pod='link w bio', stopka='Kierunek Zysk · 59 zł · guliwera4.pl')),
+ ],
 }
 
 
@@ -206,7 +242,7 @@ def renderuj(nazwa, sceny):
         for n in range(int(round(dl * FPS))):
             t = n / FPS
             if k == 'KONIEC':
-                ram = plansza(t, tekst, opt.get('pod', ''))
+                ram = plansza(t, tekst, opt.get('pod', ''), opt.get('stopka', 'Akademia Guliwera · guliwera4.pl'))
             else:
                 ram = klatka(k, plan, t, dl, opt.get('detal'), kier=1 if i % 2 else -1)
                 napis(ram, tekst, t, hook=opt.get('hook', False), maly=opt.get('maly'))
