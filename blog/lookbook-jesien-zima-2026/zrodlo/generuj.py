@@ -9,6 +9,12 @@ REPO = pathlib.Path(__file__).resolve().parents[3]
 FOTO07 = (REPO / "brand/zdjecia-sesja/07-portret-boucle.jpg").as_uri()
 FOTO09 = (REPO / "brand/zdjecia-sesja/09-kanapa-bialy-garnitur.jpg").as_uri()
 LOGO = (REPO / "logo/mark.svg").as_uri()
+PL_DIR = REPO / "blog/lookbook-jesien-zima-2026/plansze"
+PLIKI = [f"stylizacja-{i:02d}.png" for i in range(1, 11)]
+
+# dane plansz (rzecz, marka, skład, cena, link) – generowane przez plansze.py
+import json as _json
+PLANSZE = _json.loads((OUT / "plansze.json").read_text(encoding="utf-8"))
 
 KOL = {"granat": "#1E2A4A", "krem": "#F3E6D3", "ecru": "#EFE4D2", "camel": "#B98A5A", "błękit": "#A9C4E2",
        "burgund": "#7A2836", "biel": "#FFFFFF", "brąz": "#6B4630", "czerń": "#1C1A1F", "perły": "#F4EFE6",
@@ -27,16 +33,23 @@ STYL = [
     ("Weekend", "weekend", [("płaszcz camel", "camel"), ("sweter wełniany", "ecru"), ("proste jeansy", "jeans"), ("mokasyny", "brąz"), ("apaszka", "błękit")], "Ta sama kapsuła, tylko luźniej."),
 ]
 
-KUP = [("Płaszcz camel", "Molton outlet", "499 zł"), ("Granatowa marynarka", "Mohito", "ok. 170 zł"),
+KUP_OLD = [("Płaszcz camel", "Molton outlet", "499 zł"), ("Granatowa marynarka", "Mohito", "ok. 170 zł"),
        ("Bordowa marynarka", "TK Maxx – polowanie", "do 250 zł"), ("Sukienka midi, granat", "Ansin", "399 zł"),
        ("Sweter ecru (merino)", "Wólczanka", "99,99 zł"), ("Sweter wełniany", "Solar", "299 zł"),
        ("Spodnie w kant", "Reserved", "139,99 zł"), ("Spódnica plisowana", "TK Maxx / Half Price", "do 150 zł"),
        ("Czółenka", "Eva Minge", "ok. 189 zł"), ("Kozaki skórzane", "Half Price – polowanie", "do 350 zł"),
        ("Mokasyny skórzane", "Gino Rossi", "ok. 230 zł"), ("Kuferek", "Eva Minge", "ok. 256 zł"),
        ("Perły", "pracownia / TK Maxx", "do 100 zł")]
-MASZ = ["biała koszula", "bluzka satynowa", "granatowy golf", "sweter na weekend", "proste jeansy",
+MASZ_OLD = ["biała koszula", "bluzka satynowa", "granatowy golf", "sweter na weekend", "proste jeansy",
         "czarne spodnie", "trencz", "ciemna sukienka", "botki"]
 
+
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+from katalog import K as _K
+KUP = [(v[2], v[3], v[5]) for v in _K.values() if v[7]]
+_suma = sum(float(v[5].replace("ok. ", "").replace(" zł", "").replace(" ", "").replace(",", ".")) for v in _K.values() if v[7])
+REZERWA = f"{3000 - _suma:,.2f} zł".replace(",", " ").replace(".", ",")
+MASZ = [f"{v[2].lower()} ({v[3].split(',')[0]}, {v[5]})" for v in _K.values() if not v[7]]
 
 def css(page_w, page_h):
     fonts = "".join(f'<link rel="stylesheet" href="{(FONTS / f).as_uri()}">' for f in
@@ -95,27 +108,29 @@ def lookbook():
 <div style="display:flex;justify-content:space-between;font-size:11pt">{pal}</div>
 <p class="c" style="font-size:26pt;margin-top:16mm">Najpierw krój i tkanina,<br>dopiero potem marka.</p>{stop(2)}</div>""")
     n = 3
-    for a in range(0, 10, 2):
-        if a == 6:  # stylizacja 7 ze zdjęciem
-            P.append(f"""<div class="p" style="display:flex;flex-direction:column;gap:8mm">{stylizacja(7, STYL[6], False)}
-<img src="{FOTO09}" style="width:100%;height:120mm;object-fit:cover;object-position:center 30%;border-radius:18px">
-{stylizacja(8, STYL[7], False)}{stop(n)}</div>""")
-        else:
-            P.append(f"""<div class="p" style="display:flex;flex-direction:column;gap:10mm"><div class="kick">Stylizacje</div>
-<div style="flex:1;max-height:118mm">{stylizacja(a+1, STYL[a], True)}</div>
-<div style="flex:1;max-height:118mm">{stylizacja(a+2, STYL[a+1], True)}</div>{stop(n)}</div>""")
+    for a in range(10):  # jedna plansza na stronę + klikalne linki
+        it = PLANSZE[a]["items"]
+        lis = "".join(
+            (f'<li><a href="{x["link"]}" style="color:#1E2A4A">{html.escape(x["nazwa"])}</a>' if x["link"] else f'<li>{html.escape(x["nazwa"])}')
+            + f' – {html.escape(x["marka"])}' + (f' · <b>{html.escape(x["cena"])}</b>' if x["cena"] != "–" else "") + "</li>" for x in it)
+        P.append(f"""<div class="p" style="padding:10mm 16mm"><img src="{(PL_DIR / PLIKI[a]).as_uri()}" style="width:178mm;display:block;margin:0 auto;border-radius:10px">
+<div style="font-size:9pt;margin-top:3mm"><b>Gdzie kupić</b> (kliknij nazwę):<ul style="margin:1mm 0 0 5mm;columns:2;column-gap:8mm">{lis}</ul></div>{stop(n)}</div>""")
         n += 1
+        if a == 6:
+            P.append(f"""<div class="p" style="padding:0"><img src="{FOTO09}" style="width:100%;height:100%;object-fit:cover">
+<div style="position:absolute;left:16mm;bottom:16mm;background:#FFF6EE;border-radius:12px;padding:5mm 7mm;max-width:120mm"><div class="kick">Stylizacja 7 na żywo</div><p class="c" style="font-size:22pt">jasne kolory na rozmowy o liczbach</p></div></div>""")
+            n += 1
     rows = "".join(f"<tr><td>{e}</td><td style='color:#7A6580'>{m}</td><td class='r'>{c}</td></tr>" for e, m, c in KUP)
-    P.append(f"""<div class="p"><div class="kick">Kapsuła</div><h2 style="font-size:30pt;margin:4mm 0 3mm">22 elementy za 3 000 zł</h2>
-<p style="font-size:11.5pt;margin-bottom:5mm">13 rzeczy kupujesz, 9 pewnie już masz w szafie.</p>
+    P.append(f"""<div class="p"><div class="kick">Kapsuła</div><h2 style="font-size:30pt;margin:4mm 0 3mm">Kapsuła za 3 000 zł</h2>
+<p style="font-size:11.5pt;margin-bottom:5mm">Te rzeczy kupujesz w budżecie. Resztę dokupisz z czasem albo masz już w szafie.</p>
 <table style="font-size:10.5pt">{rows}
-<tr><td>Rezerwa: krawcowa i szewc</td><td></td><td class='r'>167 zł</td></tr>
+<tr><td>Rezerwa: krawcowa i szewc</td><td></td><td class='r'>{REZERWA}</td></tr>
 <tr><td style="border:0;padding-top:3mm"><b class="f" style="font-size:14pt">Razem</b></td><td style="border:0"></td><td class='r f' style="border:0;padding-top:3mm;font-size:14pt">3 000 zł</td></tr></table>
-<div class="karta" style="margin-top:6mm;background:#EDE5FB"><b>Masz w szafie (9):</b> {", ".join(MASZ)}.</div>
+<div class="karta" style="margin-top:6mm;background:#EDE5FB"><b>Dokup później lub weź z szafy:</b> {", ".join(MASZ)}.</div>
 <p style="font-size:8.5pt;color:#7A6580;margin-top:4mm">Ceny sprawdzone 16–17.11.2026, mogą się zmienić. Linki do produktów we wpisie na guliwera4.pl.</p>{stop(n)}</div>""")
     n += 1
-    prem = [("Płaszcz ze 100% wełny", "Molton, dyplomatka", "1 149 zł"), ("Czółenka skórzane", "Kazar, SAVRIA", "549 zł"),
-            ("Kuferek ze skóry", "Kazar, INEZ", "949 zł"), ("Kozaki skórzane", "Ryłko", "649,99 zł")]
+    prem = [("Płaszcz ze 100% wełny", "Molton, dyplomatka", "1 149 zł"), ("Bordowa marynarka z wełny", "Ansin, Miss Heritage", "1 900 zł"),
+            ("Kremowy żakiet 100% wełny", "Ansin, Miss Jacket Creme", "1 299 zł"), ("Kuferek ze skóry", "Kazar, ASHA S", "799 zł"), ("Kozaki skórzane", "Ryłko", "649,99 zł")]
     prem_h = "".join(f'<div class="karta" style="margin-bottom:5mm;display:flex;justify-content:space-between;align-items:center"><div><h3 style="font-size:16pt">{a}</h3><div style="color:#7A6580">{b}</div></div><div class="f" style="font-size:18pt">{c}</div></div>' for a, b, c in prem)
     P.append(f"""<div class="p"><div class="kick">Gdy trafi się okazja</div><h2 style="font-size:30pt;margin:4mm 0 10mm">Wersja premium</h2>{prem_h}
 <p class="c" style="font-size:24pt;margin-top:10mm">Inwestuj w to, co nosisz najczęściej:<br>płaszcz, buty, torebka.</p>{stop(n)}</div>""")
@@ -159,11 +174,10 @@ def karuzela():
 <div style="padding:50px 70px;color:#FFF6EE"><div class="kick" style="color:#B9A5E3">Lookbook jesień–zima 2026</div>
 <h1 style="color:#FFF6EE;font-size:78px;margin:18px 0">10 stylizacji do pracy</h1><p style="font-size:34px">+ kapsuła za 3 000 zł <span class="c" style="font-size:44px;color:#FFC84A">→ przesuń</span></p></div></div>""")
     for k, i in enumerate([0, 1, 2, 3, 5, 6]):
-        s = STYL[i]
-        S.append(f'<div class="p" style="display:flex;flex-direction:column;justify-content:center;font-size:40px;--dot:46px"><div style="height:1000px">{stylizacja(i+1, s, True)}</div>{stop(k+2)}</div>')
+        S.append(f'<div class="p" style="padding:0"><img src="{(PL_DIR / PLIKI[i]).as_uri()}" style="width:1080px;height:1350px;display:block"></div>')
     rows = "".join(f"<tr><td>{e}</td><td class='r'>{c}</td></tr>" for e, m, c in KUP)
-    S.append(f"""<div class="p"><div class="kick">Kapsuła</div><h2 style="font-size:58px;margin:10px 0 20px">13 zakupów = 3 000 zł</h2>
-<table style="font-size:27px">{rows}<tr><td>rezerwa: krawcowa, szewc</td><td class='r'>167 zł</td></tr></table>{stop(8)}</div>""")
+    S.append(f"""<div class="p"><div class="kick">Kapsuła</div><h2 style="font-size:58px;margin:10px 0 20px">{len(KUP)} zakupów = 3 000 zł</h2>
+<table style="font-size:27px">{rows}<tr><td>rezerwa: krawcowa, szewc</td><td class='r'>{REZERWA}</td></tr></table>{stop(8)}</div>""")
     S.append(f"""<div class="p"><div class="kick">Zakupy z głową</div><h2 style="font-size:62px;margin:10px 0 40px">Zanim kupisz, sprawdź:</h2>
 <div style="font-size:38px;line-height:1.9">☐ skład: min. 50% wełny<br>☐ szwy i podszewka<br>☐ guziki na nóżce<br>☐ szew ramienia<br>☐ długość rękawa<br>☐ koszt jednego noszenia</div>{stop(9)}</div>""")
     S.append(f"""<div class="p" style="background:#1E2A4A;color:#FFF6EE;display:flex;flex-direction:column;justify-content:center">

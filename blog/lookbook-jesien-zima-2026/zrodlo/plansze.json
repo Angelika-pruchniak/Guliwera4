@@ -1,0 +1,482 @@
+[
+ {
+  "tytul": "Poniedziałek w biurze",
+  "items": [
+   {
+    "rys": "blazer",
+    "kolor": "#1E2A4A",
+    "nazwa": "Granatowa marynarka",
+    "marka": "Mohito, dwurzędowa 706CZ-95X",
+    "sklad": "skład do sprawdzenia",
+    "cena": "99,99 zł",
+    "link": "https://www.mohito.com/pl/pl/dwurzedowa-granatowa-marynarka-706cz-95x",
+    "budzet": true
+   },
+   {
+    "rys": "shirt",
+    "kolor": "#FFFFFF",
+    "nazwa": "Biała koszula",
+    "marka": "Wólczanka DO49WL0152",
+    "sklad": "bawełna",
+    "cena": "249,99 zł",
+    "link": "https://wolczanka.pl/biala-koszula-damska-wolczanka-99",
+    "budzet": false
+   },
+   {
+    "rys": "wide",
+    "kolor": "#D9C3A5",
+    "nazwa": "Beżowe spodnie",
+    "marka": "Mohito, eleganckie 7609X-08X",
+    "sklad": "skład do sprawdzenia",
+    "cena": "ok. 129,99 zł",
+    "link": "https://www.mohito.com/pl/pl/eleganckie-bezowe-spodnie-7609x-08x",
+    "budzet": true
+   },
+   {
+    "rys": "bag",
+    "kolor": "#8A5A3A",
+    "nazwa": "Torebka brązowa",
+    "marka": "Eva Minge R-01 (CCC)",
+    "sklad": "tworzywo syntetyczne",
+    "cena": "379,99 zł",
+    "link": "https://ccc.eu/pl/torby/torby-damskie/torebka-eva-minge-r-01-brazowy",
+    "budzet": true
+   },
+   {
+    "rys": "loafers",
+    "kolor": "#6B4630",
+    "nazwa": "Mokasyny",
+    "marka": "Gino Rossi CEO-LUIGI-03-125AM (CCC)",
+    "sklad": "skóra",
+    "cena": "299,99 zł",
+    "link": "https://ccc.eu/pl/pl/p/mokasyny-gino-rossi-ceo-luigi-03-125am-brazowy-5906751713990",
+    "budzet": true
+   }
+  ]
+ },
+ {
+  "tytul": "Wystąpienie i konferencja",
+  "items": [
+   {
+    "rys": "coat",
+    "kolor": "#B98A5A",
+    "nazwa": "Płaszcz camel",
+    "marka": "Molton, kamelowy płaszcz z kołnierzykiem (outlet)",
+    "sklad": "wełniany – % do sprawdzenia",
+    "cena": "499 zł",
+    "link": "https://molton.pl/pl/products/kamelowy-plaszcz-z-kolnierzykiem-9443.html",
+    "budzet": true
+   },
+   {
+    "rys": "dress",
+    "kolor": "#1E2A4A",
+    "nazwa": "Sukienka midi kopertowa",
+    "marka": "Ansin, granatowa sukienka midi",
+    "sklad": "dzianina",
+    "cena": "399 zł",
+    "link": "https://ansin.pl/sukienka-midi-z-kopertowym-dekoltem-granatowa",
+    "budzet": true
+   },
+   {
+    "rys": "pearls",
+    "kolor": "#F4EFE6",
+    "nazwa": "Naszyjnik z perłą",
+    "marka": "W.Kruk, srebro 925, perła słodkowodna",
+    "sklad": "srebro, perła hodowlana",
+    "cena": "179 zł",
+    "link": "https://wkruk.pl/bizuteria/naszyjniki/naszyjnik-srebrny-z-perla",
+    "budzet": true
+   },
+   {
+    "rys": "pumps",
+    "kolor": "#1C1A1F",
+    "nazwa": "Czółenka STONE",
+    "marka": "Kazar, czarne, obcas 5–8 cm",
+    "sklad": "skóra naturalna",
+    "cena": "549 zł",
+    "link": "https://kazar.com/czarne-skorzane-czolenka-na-niewysokim-obcasie-60772-01-n0.html",
+    "budzet": true
+   }
+  ]
+ },
+ {
+  "tytul": "Spotkanie z klientem",
+  "items": [
+   {
+    "rys": "sweater",
+    "kolor": "#A9C4E2",
+    "nazwa": "Błękitny sweter",
+    "marka": "Wólczanka, gładki z merino i kaszmirem",
+    "sklad": "35% wiskoza, 30% poliamid, 30% merino, 5% kaszmir",
+    "cena": "249,99 zł",
+    "link": "https://wolczanka.pl/niebieski-sweter-damski-w%C3%B3lczanka-37587-1",
+    "budzet": false
+   },
+   {
+    "rys": "skirt",
+    "kolor": "#1E2A4A",
+    "nazwa": "Spódnica plisowana midi",
+    "marka": "Reserved PREMIUM 7026X-59X",
+    "sklad": "gładka tkanina",
+    "cena": "89,99 zł",
+    "link": "https://www.reserved.com/pl/pl/plisowana-spodnica-midi-7026x-59x",
+    "budzet": true
+   },
+   {
+    "rys": "bag",
+    "kolor": "#8A5A3A",
+    "nazwa": "Torebka brązowa",
+    "marka": "Eva Minge R-01 (CCC)",
+    "sklad": "tworzywo syntetyczne",
+    "cena": "379,99 zł",
+    "link": "https://ccc.eu/pl/torby/torby-damskie/torebka-eva-minge-r-01-brazowy",
+    "budzet": true
+   },
+   {
+    "rys": "boots",
+    "kolor": "#6B4630",
+    "nazwa": "Kozaki brązowe",
+    "marka": "Ryłko (Zalando)",
+    "sklad": "skóra",
+    "cena": "649,99 zł",
+    "link": "https://www.zalando.pl/rylko-rylko-kozaki-brown-ry111n0lr-o11.html",
+    "budzet": false
+   }
+  ]
+ },
+ {
+  "tytul": "Kolacja biznesowa",
+  "items": [
+   {
+    "rys": "blazer",
+    "kolor": "#7A2836",
+    "nazwa": "Bordowa marynarka",
+    "marka": "Ansin, Miss Heritage (melanż bordo)",
+    "sklad": "wełna z kaszmirem",
+    "cena": "1 900 zł",
+    "link": "https://ansin.pl/welniana-marynarka-damska-melanzowe-bordo",
+    "budzet": false
+   },
+   {
+    "rys": "blouse",
+    "kolor": "#EFE4D2",
+    "nazwa": "Kremowa koszula z jedwabiem",
+    "marka": "Wólczanka DJ09LB8427",
+    "sklad": "92% jedwab, 8% spandex",
+    "cena": "cena na stronie",
+    "link": "https://wolczanka.pl/biala-koszula-damska-lambert-118",
+    "budzet": false
+   },
+   {
+    "rys": "straight",
+    "kolor": "#1E2A4A",
+    "nazwa": "Granatowe spodnie",
+    "marka": "Reserved, dzianinowe w prążek 662HO-59X",
+    "sklad": "dzianina z domieszką wełny",
+    "cena": "139,99 zł",
+    "link": "https://www.reserved.com/pl/pl/dzianinowe-spodnie-w-prazek-662ho-59x",
+    "budzet": true
+   },
+   {
+    "rys": "pumps",
+    "kolor": "#1C1A1F",
+    "nazwa": "Czółenka STONE",
+    "marka": "Kazar, czarne, obcas 5–8 cm",
+    "sklad": "skóra naturalna",
+    "cena": "549 zł",
+    "link": "https://kazar.com/czarne-skorzane-czolenka-na-niewysokim-obcasie-60772-01-n0.html",
+    "budzet": true
+   }
+  ]
+ },
+ {
+  "tytul": "Dzień przy kamerze",
+  "items": [
+   {
+    "rys": "sweater",
+    "kolor": "#EFE4D2",
+    "nazwa": "Sweter ecru",
+    "marka": "Wólczanka, sweter z wełny merino",
+    "sklad": "wełna merino",
+    "cena": "99,99 zł",
+    "link": "https://wolczanka.pl/bia%C5%82y-sweter-w%C3%B3lczanka-49674-1",
+    "budzet": true
+   },
+   {
+    "rys": "pearls",
+    "kolor": "#F4EFE6",
+    "nazwa": "Naszyjnik z perłą",
+    "marka": "W.Kruk, srebro 925, perła słodkowodna",
+    "sklad": "srebro, perła hodowlana",
+    "cena": "179 zł",
+    "link": "https://wkruk.pl/bizuteria/naszyjniki/naszyjnik-srebrny-z-perla",
+    "budzet": true
+   },
+   {
+    "rys": "straight",
+    "kolor": "#1E2A4A",
+    "nazwa": "Granatowe spodnie",
+    "marka": "Reserved, dzianinowe w prążek 662HO-59X",
+    "sklad": "dzianina z domieszką wełny",
+    "cena": "139,99 zł",
+    "link": "https://www.reserved.com/pl/pl/dzianinowe-spodnie-w-prazek-662ho-59x",
+    "budzet": true
+   },
+   {
+    "rys": "loafers",
+    "kolor": "#6B4630",
+    "nazwa": "Mokasyny",
+    "marka": "Gino Rossi CEO-LUIGI-03-125AM (CCC)",
+    "sklad": "skóra",
+    "cena": "299,99 zł",
+    "link": "https://ccc.eu/pl/pl/p/mokasyny-gino-rossi-ceo-luigi-03-125am-brazowy-5906751713990",
+    "budzet": true
+   }
+  ]
+ },
+ {
+  "tytul": "Szkolenie całodniowe",
+  "items": [
+   {
+    "rys": "boucle",
+    "kolor": "#EFE2CC",
+    "nazwa": "Kremowy żakiet",
+    "marka": "Ansin, Miss Jacket Creme",
+    "sklad": "100% wełna organiczna",
+    "cena": "1 299 zł",
+    "link": "https://ansin.pl/kremowy-zakiet-welniany-damski",
+    "budzet": false
+   },
+   {
+    "rys": "golf",
+    "kolor": "#1E2A4A",
+    "nazwa": "Granatowy golf",
+    "marka": "Wólczanka, golf z merino i kaszmirem",
+    "sklad": "35% wiskoza, 30% poliamid, 30% merino, 5% kaszmir",
+    "cena": "cena na stronie",
+    "link": "https://wolczanka.pl/granatowy-golf-damski-w%C3%B3lczanka-37434-1",
+    "budzet": false
+   },
+   {
+    "rys": "straight",
+    "kolor": "#1E2A4A",
+    "nazwa": "Granatowe spodnie",
+    "marka": "Reserved, dzianinowe w prążek 662HO-59X",
+    "sklad": "dzianina z domieszką wełny",
+    "cena": "139,99 zł",
+    "link": "https://www.reserved.com/pl/pl/dzianinowe-spodnie-w-prazek-662ho-59x",
+    "budzet": true
+   },
+   {
+    "rys": "pumps",
+    "kolor": "#1E2A4A",
+    "nazwa": "Granatowe czółenka STONE",
+    "marka": "Kazar, niski obcas",
+    "sklad": "skóra naturalna",
+    "cena": "ok. 549 zł",
+    "link": "https://kazar.com/granatowe-skorzane-czolenka-na-niskim-obcasie-60772-01-19.html",
+    "budzet": false
+   }
+  ]
+ },
+ {
+  "tytul": "Negocjacje i zarząd",
+  "items": [
+   {
+    "rys": "boucle",
+    "kolor": "#EFE2CC",
+    "nazwa": "Kremowy żakiet",
+    "marka": "Ansin, Miss Jacket Creme",
+    "sklad": "100% wełna organiczna",
+    "cena": "1 299 zł",
+    "link": "https://ansin.pl/kremowy-zakiet-welniany-damski",
+    "budzet": false
+   },
+   {
+    "rys": "blouse",
+    "kolor": "#EFE4D2",
+    "nazwa": "Kremowa koszula z jedwabiem",
+    "marka": "Wólczanka DJ09LB8427",
+    "sklad": "92% jedwab, 8% spandex",
+    "cena": "cena na stronie",
+    "link": "https://wolczanka.pl/biala-koszula-damska-lambert-118",
+    "budzet": false
+   },
+   {
+    "rys": "wide",
+    "kolor": "#D9C3A5",
+    "nazwa": "Beżowe spodnie",
+    "marka": "Mohito, eleganckie 7609X-08X",
+    "sklad": "skład do sprawdzenia",
+    "cena": "ok. 129,99 zł",
+    "link": "https://www.mohito.com/pl/pl/eleganckie-bezowe-spodnie-7609x-08x",
+    "budzet": true
+   },
+   {
+    "rys": "bag",
+    "kolor": "#8A5A3A",
+    "nazwa": "Torebka brązowa",
+    "marka": "Eva Minge R-01 (CCC)",
+    "sklad": "tworzywo syntetyczne",
+    "cena": "379,99 zł",
+    "link": "https://ccc.eu/pl/torby/torby-damskie/torebka-eva-minge-r-01-brazowy",
+    "budzet": true
+   },
+   {
+    "rys": "loafers",
+    "kolor": "#6B4630",
+    "nazwa": "Mokasyny",
+    "marka": "Gino Rossi CEO-LUIGI-03-125AM (CCC)",
+    "sklad": "skóra",
+    "cena": "299,99 zł",
+    "link": "https://ccc.eu/pl/pl/p/mokasyny-gino-rossi-ceo-luigi-03-125am-brazowy-5906751713990",
+    "budzet": true
+   }
+  ]
+ },
+ {
+  "tytul": "Networking po pracy",
+  "items": [
+   {
+    "rys": "coat",
+    "kolor": "#B98A5A",
+    "nazwa": "Płaszcz camel",
+    "marka": "Molton, kamelowy płaszcz z kołnierzykiem (outlet)",
+    "sklad": "wełniany – % do sprawdzenia",
+    "cena": "499 zł",
+    "link": "https://molton.pl/pl/products/kamelowy-plaszcz-z-kolnierzykiem-9443.html",
+    "budzet": true
+   },
+   {
+    "rys": "dress",
+    "kolor": "#1E2A4A",
+    "nazwa": "Sukienka midi kopertowa",
+    "marka": "Ansin, granatowa sukienka midi",
+    "sklad": "dzianina",
+    "cena": "399 zł",
+    "link": "https://ansin.pl/sukienka-midi-z-kopertowym-dekoltem-granatowa",
+    "budzet": true
+   },
+   {
+    "rys": "smallbag",
+    "kolor": "#B98A5A",
+    "nazwa": "Mały kuferek ASHA S",
+    "marka": "Kazar, 23×18 cm",
+    "sklad": "skóra naturalna",
+    "cena": "799 zł",
+    "link": "https://kazar.com/jasnobrazowa-torebka-skorzana-typu-kuferek-90054-01-32.html",
+    "budzet": false
+   },
+   {
+    "rys": "boots",
+    "kolor": "#6B4630",
+    "nazwa": "Kozaki brązowe",
+    "marka": "Ryłko (Zalando)",
+    "sklad": "skóra",
+    "cena": "649,99 zł",
+    "link": "https://www.zalando.pl/rylko-rylko-kozaki-brown-ry111n0lr-o11.html",
+    "budzet": false
+   }
+  ]
+ },
+ {
+  "tytul": "Podróż służbowa",
+  "items": [
+   {
+    "rys": "coat",
+    "kolor": "#B98A5A",
+    "nazwa": "Płaszcz camel",
+    "marka": "Molton, kamelowy płaszcz z kołnierzykiem (outlet)",
+    "sklad": "wełniany – % do sprawdzenia",
+    "cena": "499 zł",
+    "link": "https://molton.pl/pl/products/kamelowy-plaszcz-z-kolnierzykiem-9443.html",
+    "budzet": true
+   },
+   {
+    "rys": "sweater",
+    "kolor": "#C9A27A",
+    "nazwa": "Sweter wełniany",
+    "marka": "Solar, wełniany sweter",
+    "sklad": "100% wełna owcza",
+    "cena": "299 zł",
+    "link": "https://www.solar.com.pl/welniany-sweter-za035978.html",
+    "budzet": false
+   },
+   {
+    "rys": "straight",
+    "kolor": "#1E2A4A",
+    "nazwa": "Granatowe spodnie",
+    "marka": "Reserved, dzianinowe w prążek 662HO-59X",
+    "sklad": "dzianina z domieszką wełny",
+    "cena": "139,99 zł",
+    "link": "https://www.reserved.com/pl/pl/dzianinowe-spodnie-w-prazek-662ho-59x",
+    "budzet": true
+   },
+   {
+    "rys": "loafers",
+    "kolor": "#6B4630",
+    "nazwa": "Mokasyny",
+    "marka": "Gino Rossi CEO-LUIGI-03-125AM (CCC)",
+    "sklad": "skóra",
+    "cena": "299,99 zł",
+    "link": "https://ccc.eu/pl/pl/p/mokasyny-gino-rossi-ceo-luigi-03-125am-brazowy-5906751713990",
+    "budzet": true
+   }
+  ]
+ },
+ {
+  "tytul": "Weekend",
+  "items": [
+   {
+    "rys": "coat",
+    "kolor": "#B98A5A",
+    "nazwa": "Płaszcz camel",
+    "marka": "Molton, kamelowy płaszcz z kołnierzykiem (outlet)",
+    "sklad": "wełniany – % do sprawdzenia",
+    "cena": "499 zł",
+    "link": "https://molton.pl/pl/products/kamelowy-plaszcz-z-kolnierzykiem-9443.html",
+    "budzet": true
+   },
+   {
+    "rys": "sweater",
+    "kolor": "#C9A27A",
+    "nazwa": "Sweter wełniany",
+    "marka": "Solar, wełniany sweter",
+    "sklad": "100% wełna owcza",
+    "cena": "299 zł",
+    "link": "https://www.solar.com.pl/welniany-sweter-za035978.html",
+    "budzet": false
+   },
+   {
+    "rys": "jeans",
+    "kolor": "#5B7393",
+    "nazwa": "Proste jeansy",
+    "marka": "Reserved, straight leg YT188-55J",
+    "sklad": "denim",
+    "cena": "99,99 zł",
+    "link": "https://www.reserved.com/pl/pl/jeansy-straight-leg-yt188-55j",
+    "budzet": false
+   },
+   {
+    "rys": "scarf",
+    "kolor": "#2B3A66",
+    "nazwa": "Apaszka",
+    "marka": "Wólczanka, granatowa",
+    "sklad": "100% jedwab, 50×50 cm",
+    "cena": "149,99 zł",
+    "link": "https://wolczanka.pl/granatowa-chusta-lambert-31404-1",
+    "budzet": false
+   },
+   {
+    "rys": "loafers",
+    "kolor": "#6B4630",
+    "nazwa": "Mokasyny",
+    "marka": "Gino Rossi CEO-LUIGI-03-125AM (CCC)",
+    "sklad": "skóra",
+    "cena": "299,99 zł",
+    "link": "https://ccc.eu/pl/pl/p/mokasyny-gino-rossi-ceo-luigi-03-125am-brazowy-5906751713990",
+    "budzet": true
+   }
+  ]
+ }
+]

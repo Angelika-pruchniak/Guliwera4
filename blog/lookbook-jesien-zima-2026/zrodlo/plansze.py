@@ -149,6 +149,9 @@ STYL = [
 ]
 
 
+from katalog import K, STYL  # realne produkty
+
+
 def fonts():
     return "".join(f'<link rel="stylesheet" href="{(FONTS / f).as_uri()}">' for f in ["fraunces/600.css", "dm-sans/400.css", "dm-sans/600.css", "caveat/600.css"])
 
@@ -163,7 +166,7 @@ def plansza(nr, s):
     sz = min(250, rh - 20)
     parts, arrows = [], []
     for i, key in enumerate(items):
-        kind, col, nazwa, marka, sklad, cena, link = K[key]
+        kind, col, nazwa, marka, sklad, cena, link = K[key][:7]
         left = i % 2 == 0
         r = i // 2
         if n % 2 == 1 and i == n - 1:  # ostatni sam: na środku
@@ -204,5 +207,5 @@ svg{display:block;width:100%;height:100%}</style>"""
 
 OUT.mkdir(parents=True, exist_ok=True)
 (OUT / "plansze.html").write_text("<html><head><meta charset='utf-8'>" + fonts() + CSS + "</head><body>" + "".join(plansza(i + 1, s) for i, s in enumerate(STYL)) + "</body></html>", encoding="utf-8")
-(OUT / "plansze.json").write_text(json.dumps([{"tytul": s[0], "items": [dict(zip(["rys", "kolor", "nazwa", "marka", "sklad", "cena", "link"], K[k])) for k in s[2]]} for s in STYL], ensure_ascii=False, indent=1), encoding="utf-8")
+(OUT / "plansze.json").write_text(json.dumps([{"tytul": s[0], "items": [dict(zip(["rys", "kolor", "nazwa", "marka", "sklad", "cena", "link", "budzet"], K[k])) for k in s[2]]} for s in STYL], ensure_ascii=False, indent=1), encoding="utf-8")
 print("ok")
