@@ -120,7 +120,7 @@ K = {
  "spodnie_gran": ("straight", "#1E2A4A", "Granatowe spodnie", "z szafy", "wełna lub wiskoza", "–", ""),
  "spodnie_czarne": ("straight", "#1C1A1F", "Czarne spodnie", "z szafy", "–", "–", ""),
  "spodnie_dzian": ("straight", "#2B3655", "Spodnie z dzianiny", "z szafy", "dzianina, nie gniecie się", "–", ""),
- "garnitur_m": ("blazer", "#F3E6D3", "Jasny garnitur", "z szafy (zdjęcie 09)", "–", "–", ""),
+ "garnitur_m": ("blazer", "#F3E6D3", "Jasny garnitur", "z szafy", "–", "–", ""),
  "garnitur_s": ("wide", "#F3E6D3", "Spodnie od garnituru", "z szafy", "–", "–", ""),
  "jeans": ("jeans", "#5B7393", "Proste jeansy", "z szafy", "bawełna", "–", ""),
  "spodnica": ("skirt", "#1E2A4A", "Spódnica plisowana midi", "TK Maxx / Half Price", "szukaj: wełna lub gruba krepa", "do 150 zł", ""),
