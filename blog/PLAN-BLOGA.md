@@ -54,7 +54,15 @@ Każdy wpis biznesowy kończy się linkiem do jednego pasującego produktu z /ma
 9. Stopka: data sprawdzenia cen, informacja o linkach partnerskich (jeśli są).
 
 **Wygląd** (Fraunces nagłówki, DM Sans tekst, Caveat wstawki; tło krem, tekst atrament #3A2340, akcenty granat #1E2A4A).
-Szablon wpisu w motywie zgłaszam czatowi „Dostęp do strony” (nie zmieniam motywu sama).
+Szablon wpisu jest gotowy (wtyczka guliwera-strona 1.4, czat „Dostęp do strony”):
+- lista wpisów: https://guliwera4.pl/blog/ (strona 182); „Blog” pojawi się w menu automatycznie po publikacji pierwszego wpisu;
+- nad treścią automatycznie: „← Blog · Kategoria”, tytuł, data, autor, czas czytania i **obrazek wyróżniający** (ustawiać w każdym wpisie, nie powtarzać go w treści);
+- pod treścią automatycznie: granatowy box Akademii i linki poprzedni/następny wpis, więc **nie dodajemy CTA Akademii ręcznie**;
+- klasy do bloków: `.g4-skrot` (ramka „W skrócie”, pierwszy `<strong>` = nagłówek), `.g4-odrecznie` (Caveat, koral), `.g4-cta` (przycisk koral).
+
+## Stan w WordPressie (17.11.2026)
+- Kategorie: Lookbooki (19), Styl i wizerunek (20), Zakupy z głową (21), Biznes i strategia (22), Rozwój i kariera (23).
+- Wpis 184 „Lookbook jesień–zima 2026…” – **szkic**, czeka na OK Angeliki. Pola SEO (tytuł/opis) do wpisania ręcznie: API ich nie zapisuje.
 
 ## Linki partnerskie (jeśli Angelika zdecyduje się na afiliację)
 - Oznaczenie przy samym linku lub tuż nad listą: **„link afiliacyjny: jeśli kupisz, dostanę prowizję, Ty nie płacisz więcej”**.
