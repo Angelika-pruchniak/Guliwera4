@@ -42,20 +42,45 @@ granat · krem/ecru · wielbłądzi (camel) · błękit · burgund + złoto i pe
 | Kuferek camel | Kazar, INEZ (jasnobrązowy) | ✅ 949 zł | skóra naturalna | https://kazar.com/skorzana-brazowa-torebka-z-eleganckim-zapieciem-92074-01-32.html |
 | Kuferek (taniej) | Kazar, ASHA S | ⚠️ 799 zł | skóra, 23×18 cm | https://kazar.com/jasnobrazowa-torebka-skorzana-typu-kuferek-90054-01-32.html |
 | Kozaki brązowe | Ryłko, kozaki skórzane (Zalando) | ⚠️ 649,99 zł | skóra | https://www.zalando.pl/rylko-rylko-kozaki-brown-ry111n0lr-o11.html |
+| Czółenka (budżet) | Eva Minge, czółenka EO-NIKI (brąz) na Modivo | ⚠️ 188,99 zł (regularnie 399,99 zł) | skóra – do potwierdzenia | https://modivo.pl/c/kobiety/obuwie/czolenka/marka:eva_minge |
+| Kuferek (budżet) | Eva Minge, torebki na Modivo / eobuwie | ⚠️ ok. 98–256 zł | sprawdzić: skóra czy ekoskóra | https://modivo.pl/c/kobiety/torby-i-torebki/marka:eva_minge |
+| Granatowa marynarka (budżet) | Mohito, dwurzędowa granatowa | ⚠️ ok. 100–170 zł | sprawdzić skład | 🔍 link ze strony Mohito |
+| Spodnie w kant (budżet) | Reserved, szerokie spodnie z kantem | ⚠️ 119,99–139,99 zł | z wiskozą | https://www.reserved.com/pl/pl/kobieta/spodnie/luzne |
 | Mokasyny | Gino Rossi, mokasyny skórzane | ⚠️ ok. 180–350 zł | model do wybrania | https://www.gino-rossi.com/damskie/polbuty/mokasyny |
-| Granatowy żakiet | 🔍 Simple / Wólczanka / Ansin | – | szukam wełny ≥ 50% | – |
-| Szerokie spodnie w kant | 🔍 Simple / Mohito | – | – | – |
 | Perły, apaszka | 🔍 (biżuteria: polska pracownia lub TK Maxx) | – | – | – |
 
-## Kapsuła: 22 elementy
-**Okrycia (3):** płaszcz camel · płaszcz granatowy · trencz lub płaszcz z kapturem
-**Żakiety (3):** granatowy · kremowy bouclé · bordowy wełniany
-**Góry (6):** biała koszula · jedwabna koszula ecru · sweter ecru merino · sweter błękitny · granatowy golf · sweter weekendowy
-**Doły (4):** szerokie spodnie krem · granatowe spodnie proste · spódnica plisowana granat · jeansy proste
-**Sukienki (2):** granatowa midi · bordowa/ciemna na kolację
-**Buty (4):** czółenka czarne · czółenka płaskie zamsz · kozaki brązowe · mokasyny
-**Dodatki (poza liczbą):** kuferek camel, mała wieczorowa torebka, perły, apaszka, pasek.
-Budżet orientacyjny całości policzę w tabeli z kosztem jednego noszenia (cena ÷ liczba wyjść w sezonie).
+## Kapsuła 22 elementów za 3 000 zł
+Zasada: **13 rzeczy kupujemy, 9 większość z nas ma już w szafie**. Rezerwa 167 zł idzie na krawcową i szewca
+(skrócenie rękawów, podwinięcie spodni, fleki) – to dopasowanie robi „old money”, nie metka.
+
+### Kupujemy (13)
+| # | Element | Propozycja | Cena | Status | Wersja premium (jeśli się trafi okazja) |
+|---|---|---|---|---|---|
+| 1 | Płaszcz camel | Molton outlet, kamelowy płaszcz z kołnierzykiem | 499 zł | ⚠️ | Molton dyplomatka 100% wełna, 1 149 zł ✅ |
+| 2 | Granatowa marynarka | Mohito, dwurzędowa granatowa | ok. 170 zł | ⚠️ | Ansin, Miss Noir / granat 🔍 |
+| 3 | Bordowa marynarka | polowanie w TK Maxx (wełna ≥ 50%) | limit 250 zł | 🎯 | Ansin Miss Heritage (wełna) 🔍 |
+| 4 | Sukienka midi granat | Ansin, sukienka midi z kopertowym dekoltem | 399 zł | ✅ | – |
+| 5 | Sweter ecru | Wólczanka, sweter z wełny merino | 99,99 zł | ✅ | – |
+| 6 | Sweter wełniany (weekend/biuro) | Solar, wełniany sweter | 299 zł | ⚠️ | – |
+| 7 | Szerokie spodnie w kant (beż/krem) | Reserved, szerokie spodnie z kantem | 139,99 zł | ⚠️ | – |
+| 8 | Spódnica plisowana granat midi | polowanie w TK Maxx / Half Price | limit 150 zł | 🎯 | – |
+| 9 | Czółenka na niskim obcasie | Eva Minge (Modivo), czółenka w promocji | ok. 189 zł | ⚠️ | Kazar SAVRIA, 549 zł ✅ |
+| 10 | Kozaki skórzane brązowe | polowanie w Half Price (skóra naturalna) | limit 350 zł | 🎯 | Ryłko (Zalando), 649,99 zł ⚠️ |
+| 11 | Mokasyny skórzane | Gino Rossi (eobuwie, promocja) | ok. 229,99 zł | ⚠️ | – |
+| 12 | Torebka – kuferek | Eva Minge (Modivo/eobuwie) – sprawdzić, czy skóra | ok. 256 zł | ⚠️ | Kazar outlet ok. 419 zł ⚠️ / INEZ 949 zł ✅ |
+| 13 | Perły (sznur lub kolczyki) | słodkowodne, polska pracownia lub TK Maxx | limit 100 zł | 🎯 | – |
+| | **Razem** | | **2 832,97 zł** | | + 167 zł rezerwa = **3 000 zł** |
+
+🎯 = limit ceny na polowanie (konkretny model zależy od dostawy w sklepie; w poradniku pokażę, jak go znaleźć).
+
+### Masz w szafie (9)
+biała koszula · bluzka satynowa/jedwabna · granatowy golf · sweter na weekend · jeansy proste · czarne lub granatowe spodnie proste ·
+trencz lub płaszcz przejściowy · ciemna sukienka na kolację · botki.
+Jeśli czegoś brakuje: biała koszula Wólczanka 249,99 zł ✅ (https://wolczanka.pl/biala-koszula-damska-wolczanka-99).
+
+### Koszt jednego noszenia (przykład do wpisu)
+Płaszcz za 499 zł noszony 4 razy w tygodniu przez 20 tygodni = 80 wyjść → **6,24 zł za wyjście**.
+Sukienka „na jedną okazję” za 299 zł założona 2 razy → **149,50 zł za wyjście**.
 
 ## Jak kupić taniej (zarys sekcji)
 - **TK Maxx:** nowości docierają kilka razy w tygodniu, zwykle wt–czw (każdy sklep ma własny rytm – zapytaj obsługę); dział z markami premium (Gold Label) w wybranych sklepach; zwrot 28 dni z paragonem. Źródła poradnikowe, do potwierdzenia na tkmaxx.pl.
@@ -70,8 +95,8 @@ Budżet orientacyjny całości policzę w tabeli z kosztem jednego noszenia (cen
 4. Angelika na scenie / przy flipcharcie w granatowej sukience (stylizacja 2).
 5. Wieczór: bordowa marynarka, światło ciepłe (stylizacja 4).
 
-## Pytania do Angeliki
-1. „ansin” = **ANSIN** (ansin.pl, polska marka, marynarki i sukienki)? Tak to rozumiem.
-2. **Bytom** ma obecnie tylko linię męską – pomijam czy robimy wątek „męski krój dla kobiet”?
-3. **Eva Minge** – nie znalazłam aktywnego sklepu online marki (tylko rynek wtórny). Pomijam?
-4. Budżet docelowy kapsuły: ok. 3 000 zł czy 5 000–6 000 zł? (od tego zależy wybór płaszcza i torebki).
+## Decyzje Angeliki (17.11.2026)
+1. ANSIN (ansin.pl) – tak.
+2. Bytom – pomijamy.
+3. Eva Minge – bierzemy pod uwagę: obecnie głównie buty i torebki (Modivo, eobuwie), stąd czółenka i kuferek w kapsule.
+4. Budżet kapsuły: 3 000 zł.
