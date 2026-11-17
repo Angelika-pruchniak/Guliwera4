@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 1.3
+ * Version: 1.4
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -30,9 +30,12 @@ function gk_strona_menu() {
 	if ( '//' === $path ) { $path = '/'; }
 	$on = '/';
 	if ( function_exists( 'is_product' ) && ( is_product() || is_cart() || is_checkout() ) ) { $on = '/materialy/'; }
-	foreach ( array( '/materialy/', '/kurs-strategia/', '/aplikacja/', '/o-mnie/', '/kontakt/' ) as $p ) { if ( 0 === strpos( $path, $p ) ) { $on = $p; } }
+	foreach ( array( '/materialy/', '/kurs-strategia/', '/aplikacja/', '/blog/', '/o-mnie/', '/kontakt/' ) as $p ) { if ( 0 === strpos( $path, $p ) ) { $on = $p; } }
+	if ( gk_blog_widok() ) { $on = '/blog/'; }
 	if ( '/' !== $path && '/' === $on && ! ( function_exists( 'is_product' ) && is_product() ) ) { $on = ''; }
-	$items = array( '/' => 'Start', '/materialy/' => 'Materiały', '/kurs-strategia/' => 'Kurs', '/aplikacja/' => 'Akademia', '/o-mnie/' => 'O mnie', '/kontakt/' => 'Kontakt' );
+	$items = array( '/' => 'Start', '/materialy/' => 'Materiały', '/kurs-strategia/' => 'Kurs', '/aplikacja/' => 'Akademia' );
+	if ( gk_blog_jest() ) { $items['/blog/'] = 'Blog'; }
+	$items += array( '/o-mnie/' => 'O mnie', '/kontakt/' => 'Kontakt' );
 	$h = '<ul class="menu">';
 	foreach ( $items as $p => $t ) {
 		$h .= "\n    <li><a" . ( $p === $on ? ' class="on"' : '' ) . ' href="' . esc_url( home_url( $p ) ) . '">' . esc_html( $t ) . '</a></li>';
@@ -129,3 +132,57 @@ add_action( 'init', function () {
 	update_option( 'gk_strona_ver3', '1.3' );
 	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
 }, 22 );
+
+/* ---------- Wersja 1.4: BLOG (lista wpisów /blog/, wpis, kategorie) w wyglądzie Guliwera 4 ---------- */
+function gk_blog_jest() {
+	$c = wp_count_posts( 'post' );
+	return $c && (int) $c->publish > 0;
+}
+function gk_blog_widok() {
+	return is_home() || is_singular( 'post' ) || is_category() || is_tag() || ( is_archive() && 'post' === get_post_type() && ! ( function_exists( 'is_woocommerce' ) && is_woocommerce() ) );
+}
+add_action( 'init', function () {
+	if ( '1.4' === get_option( 'gk_strona_ver4' ) ) { return; }
+	$blog = get_page_by_path( 'blog' );
+	$id   = $blog ? $blog->ID : wp_insert_post( array( 'post_type' => 'page', 'post_status' => 'publish', 'post_title' => 'Blog', 'post_name' => 'blog', 'post_content' => '' ) );
+	if ( $id && ! is_wp_error( $id ) ) {
+		if ( 'page' !== get_option( 'show_on_front' ) ) { update_option( 'show_on_front', 'page' ); update_option( 'page_on_front', 10 ); }
+		update_option( 'page_for_posts', (int) $id );
+		update_option( 'posts_per_page', 9 );
+		flush_rewrite_rules( false );
+	}
+	update_option( 'gk_strona_ver4', '1.4' );
+	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
+}, 23 );
+add_filter( 'template_include', function ( $t ) {
+	if ( gk_blog_widok() && function_exists( 'gk_ss_chrome' ) ) { return __DIR__ . '/blog.php'; }
+	return $t;
+}, 98 );
+add_filter( 'excerpt_length', function ( $n ) { return gk_blog_widok() ? 26 : $n; } );
+add_filter( 'excerpt_more', function ( $m ) { return gk_blog_widok() ? '…' : $m; } );
+
+function gk_blog_css() {
+	return '<style id="gk-blog">
+.gk .bl-hero{padding:clamp(36px,6vw,70px) 0 clamp(20px,3vw,34px);position:relative;overflow:hidden}.gk .bl-hero::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:var(--liliowy-jasny);right:-160px;top:-170px}.gk .bl-hero .wrap{position:relative;z-index:2}
+.gk .bl-hero h1{font-size:clamp(36px,5.4vw,62px);margin-top:8px;max-width:18ch}.gk .bl-lead{font-size:clamp(17px,1.8vw,20px);color:var(--atrament-60);max-width:56ch;margin-top:16px}
+.gk .bl-kat{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;padding:0;list-style:none}.gk .bl-kat a{display:inline-block;padding:8px 16px;border-radius:999px;background:#fff;text-decoration:none;font-weight:700;font-size:14.5px;color:var(--atrament)}.gk .bl-kat a.on,.gk .bl-kat a:hover{background:var(--granat);color:#fff}
+.gk .bl-siatka{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.6vw,28px)}@media(max-width:960px){.gk .bl-siatka{grid-template-columns:1fr 1fr}}@media(max-width:620px){.gk .bl-siatka{grid-template-columns:1fr}}
+.gk .bl-karta{background:#fff;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 14px 36px rgba(58,35,64,.07);text-decoration:none;color:var(--atrament);transition:transform .15s}.gk .bl-karta:hover{transform:translateY(-4px)}
+.gk .bl-karta .fot{aspect-ratio:4/3;background:linear-gradient(160deg,var(--brzoskwinia),var(--roz-jasny) 60%,var(--liliowy-jasny));overflow:hidden}.gk .bl-karta .fot img{width:100%;height:100%;object-fit:cover;display:block}
+.gk .bl-karta .tr{padding:20px 22px 24px;display:flex;flex-direction:column;gap:8px;flex:1}.gk .bl-karta .kat{font-size:12.5px;font-weight:700;letter-spacing:.1em;color:var(--koral-ciemny);text-transform:uppercase}.gk .bl-karta h2{font-size:clamp(20px,2vw,24px);line-height:1.15}.gk .bl-karta p{font-size:15.5px;color:var(--atrament-60);margin:0}.gk .bl-karta .dt{font-size:13.5px;color:var(--atrament-60);margin-top:auto}
+.gk .bl-pag{display:flex;justify-content:center;gap:8px;margin-top:40px;flex-wrap:wrap}.gk .bl-pag a,.gk .bl-pag span{padding:9px 15px;border-radius:999px;background:#fff;text-decoration:none;font-weight:700}.gk .bl-pag .current{background:var(--koral);color:#fff}
+.gk .bl-pusto{background:#fff;border-radius:24px;padding:40px;text-align:center}
+.gk .wpis{max-width:760px;margin:0 auto}.gk .wpis-meta{font-size:14.5px;color:var(--atrament-60);margin-top:14px}.gk .wpis-meta a{color:var(--koral-ciemny);font-weight:700;text-decoration:none}
+.gk .wpis h1{font-size:clamp(34px,5vw,56px);margin-top:10px}.gk .wpis-fot{margin:28px 0 0;border-radius:24px;overflow:hidden}.gk .wpis-fot img{width:100%;height:auto;display:block}
+.gk .wpis-tresc{font-size:18.5px;line-height:1.72;margin-top:30px}.gk .wpis-tresc>*{max-width:720px}.gk .wpis-tresc h2{font-size:clamp(26px,3vw,34px);margin:44px 0 14px}.gk .wpis-tresc h3{font-size:clamp(21px,2.3vw,25px);margin:32px 0 10px}
+.gk .wpis-tresc p{margin:0 0 1.15em}.gk .wpis-tresc ul,.gk .wpis-tresc ol{padding-left:24px;margin:0 0 1.2em}.gk .wpis-tresc li{margin-bottom:6px}.gk .wpis-tresc a{color:var(--koral-ciemny);font-weight:600}.gk .wpis-tresc img{max-width:100%;height:auto;border-radius:18px}
+.gk .wpis-tresc blockquote{margin:28px 0;padding:18px 24px;border-left:4px solid var(--roz);background:#fff;border-radius:0 18px 18px 0;font-family:"Fraunces",serif;font-size:21px}
+.gk .wpis-tresc figure{margin:26px 0}.gk .wpis-tresc figcaption{font-size:14px;color:var(--atrament-60);margin-top:8px;text-align:center}
+.gk .wpis-tresc table{width:100%;border-collapse:collapse;font-size:16px;margin:18px 0}.gk .wpis-tresc th,.gk .wpis-tresc td{padding:10px 12px;border-bottom:1px solid rgba(58,35,64,.1);text-align:left}.gk .wpis-tresc th{background:#fff}
+.gk .g4-skrot{background:var(--krem);border:2px solid var(--liliowy);border-radius:16px;padding:18px 22px;margin:0 0 28px}.gk .g4-skrot>:last-child{margin-bottom:0}.gk .g4-skrot strong:first-child{display:block;font-family:"Fraunces",serif;font-size:20px;margin-bottom:6px}
+.gk .g4-odrecznie{font-family:"Caveat",cursive;color:var(--koral);font-size:1.6rem;line-height:1.25}
+.gk .g4-cta,.gk a.g4-cta,.gk .g4-cta a,.gk .wp-block-button.g4-cta .wp-block-button__link{display:inline-block;background:var(--koral);color:#fff !important;border-radius:999px;padding:14px 26px;font-weight:700;text-decoration:none;font-family:"DM Sans",sans-serif;border:0}.gk .g4-cta:hover,.gk a.g4-cta:hover{background:var(--koral-ciemny)}
+.gk .wpis-cta{margin:46px 0 0;background:var(--granat);color:#fff;border-radius:28px;padding:clamp(24px,4vw,40px)}.gk .wpis-cta h3{color:#fff;font-size:clamp(24px,3vw,32px);margin:6px 0 10px}.gk .wpis-cta p{color:rgba(255,255,255,.9)}.gk .wpis-cta .pisane{color:var(--zolty)}
+.gk .wpis-nav{display:flex;justify-content:space-between;gap:16px;margin-top:34px;flex-wrap:wrap}.gk .wpis-nav a{color:var(--koral-ciemny);font-weight:700;text-decoration:none;max-width:48%}
+</style>';
+}
