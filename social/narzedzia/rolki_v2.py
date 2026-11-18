@@ -14,7 +14,7 @@ import os, subprocess, sys
 from PIL import Image, ImageDraw, ImageFont
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-OUT = os.path.join(REPO, 'social', 'instagram', 'rolki', 'v2')
+OUT = os.path.join(REPO, 'social', 'tiktok', 'rolki') if '--tiktok' in sys.argv else os.path.join(REPO, 'social', 'instagram', 'rolki', 'v2')
 os.makedirs(OUT, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
 KREM, ATR, ZOL, KORAL = (255, 246, 238), (58, 35, 64), (255, 200, 74), (255, 107, 61)
@@ -82,7 +82,14 @@ def klatka(k, plan, t, dl, detal=None, kier=1):
     return im.transform((W, H), Image.AFFINE, (1 / s, 0, cx - W / 2 / s, 0, 1 / s, cy - H / 2 / s), Image.BICUBIC)
 
 
-def zlam(slowa, f, maks=900):
+TIKTOK = '--tiktok' in sys.argv
+MAKS = 760 if TIKTOK else 900
+PRZESUN_X = -50 if TIKTOK else 0
+Y_NAPIS = 1120 if TIKTOK else 1240
+
+
+def zlam(slowa, f, maks=None):
+    maks = maks or MAKS
     linie, akt = [], []
     for s in slowa:
         test = ' '.join(x.strip('*') for x in akt + [s])
@@ -95,7 +102,8 @@ def zlam(slowa, f, maks=900):
     return linie
 
 
-def napis(ram, tekst, t, y_srodek=1240, hook=False, maly=None):
+def napis(ram, tekst, t, y_srodek=None, hook=False, maly=None):
+    y_srodek = y_srodek or Y_NAPIS
     """Napis słowo po słowie (co 0,08 s). *słowo* = żółte podświetlenie. Hook: całość od pierwszej klatki."""
     d = ImageDraw.Draw(ram)
     f = F_HOOK if hook else F_NAPIS
@@ -119,7 +127,7 @@ def napis(ram, tekst, t, y_srodek=1240, hook=False, maly=None):
     for lin in linie:
         tekst_lin = ' '.join(s.strip('*') for s in lin)
         szer = f.getlength(tekst_lin)
-        x0 = (W - szer) / 2
+        x0 = (W - szer) / 2 + PRZESUN_X
         d.rounded_rectangle((x0 - pad_x, y - pad_y + 6, x0 + szer + pad_x, y + lh - 2), 24, fill=KREM)
         x = x0
         for s in lin:
@@ -137,8 +145,9 @@ def napis(ram, tekst, t, y_srodek=1240, hook=False, maly=None):
         etyk = maly.upper() if not maly.isdigit() else maly
         sz = fm.getlength(etyk)
         yc = y_srodek - total // 2 - 62
-        d.rounded_rectangle((W / 2 - sz / 2 - 30, yc - 36, W / 2 + sz / 2 + 30, yc + 36), 36, fill=ZOL)
-        d.text((W / 2, yc), etyk, font=fm, fill=ATR, anchor='mm')
+        xc = W / 2 + PRZESUN_X
+        d.rounded_rectangle((xc - sz / 2 - 30, yc - 36, xc + sz / 2 + 30, yc + 36), 36, fill=ZOL)
+        d.text((xc, yc), etyk, font=fm, fill=ATR, anchor="mm")
 
 
 def plansza(t, tytul, pod):
@@ -190,6 +199,16 @@ ROLKI = {
     ('09', 'blisko', 1.0, 'Na start *za darmo.*', {}),
     ('KONIEC', None, 1.5, 'Zacznij za darmo', dict(pod='link w bio')),
  ],
+ 'r4-plan-na-2027': [
+    ('09', 'blisko', 1.0, 'Nie rób 30 *postanowień.*', dict(hook=True)),
+    ('B', 'sredni', 1.0, 'Zrób jeden plan.', {}),
+    ('07', 'sredni', 1.5, 'Co w 2026 dało *najwięcej?*', dict(maly='1')),
+    ('09', 'szeroki', 1.5, 'Co zabrało najwięcej, a dało *najmniej?*', dict(maly='2')),
+    ('B', 'blisko', 1.5, 'Jeden cel na *pierwszy kwartał.*', dict(maly='3')),
+    ('07', 'detal', 1.0, 'Jedna kartka.', dict(detal=(720, 1230, 560))),
+    ('09', 'blisko', 1.0, 'Jeden *wieczór.*', {}),
+    ('KONIEC', None, 1.5, 'Plan na 2027', dict(pod='link w bio')),
+ ],
 }
 
 
@@ -226,6 +245,6 @@ def renderuj(nazwa, sceny):
 
 
 if __name__ == '__main__':
-    wybrane = sys.argv[1:] or list(ROLKI)
+    wybrane = [a for a in sys.argv[1:] if not a.startswith('--')] or list(ROLKI)
     for n in wybrane:
         renderuj(n, ROLKI[n])

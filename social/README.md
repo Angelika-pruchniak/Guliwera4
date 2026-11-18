@@ -29,6 +29,10 @@ Lejek: post → **Akademia (darmowa)** → Strategia na 1 stronie 39 zł → Pak
 | `instagram/png/karuzele/` | 4 karuzele gotowe do wrzucenia (1080×1350) |
 | `instagram/rolki/` | 3 rolki MP4 1080×1920, 15 s, + okładki |
 | `linkedin/posty-start.md` | 8 postów, plan publikacji, pytania o historie |
+| `kampania-plan-na-2027.md` | kampania grudzień–styczeń: fazy, kalendarz IG/LI/TikTok, opisy |
+| `prezent/` | karta prezentowa A5 (PDF + podgląd) |
+| `tiktok/01-zalozenie-konta.md`, `tiktok/rolki/` | instrukcja TikToka (bez sklepu) i rolki przycięte pod TikToka |
+| `instagram/rolki/v2/` | aktualne rolki (r1–r4); `instagram/rolki/*.mp4` to odrzucona wersja v1 |
 | `narzedzia/` | generatory: `tresci.py` (teksty grafik), `render.js` (PNG), `rolki.py` (MP4), `siatka.py` |
 | `zasoby/` | kopie styl.css, logo i Lilka z brandbooka (gałąź `claude/brandbook`) |
 

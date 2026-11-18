@@ -1,0 +1,54 @@
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><title>Karta prezentowa · Plan na 2027</title>
+<!-- Karta prezentowa A5 (2 strony). PDF: node social/narzedzia/karta-pdf.js -->
+<link rel="stylesheet" href="../zasoby/styl.css">
+<style>
+@page{size:148mm 210mm;margin:0}
+html,body{margin:0;padding:0;background:#fff;display:block}
+.str{position:relative;overflow:hidden;width:148mm;height:210mm;page-break-after:always;font-family:var(--tekst);color:var(--atrament)}
+.kolo{position:absolute;border-radius:50%}
+.przod{background:var(--krem)}
+.srodek{position:absolute;z-index:3;inset:16mm 14mm 14mm 14mm;display:flex;flex-direction:column}
+.reka{font-family:var(--reka);font-weight:600;color:var(--koral-ciemny);font-size:11mm;line-height:1}
+.tyt{font-family:var(--naglowek);font-weight:600;font-size:17mm;line-height:1.02;letter-spacing:-.01em;margin:4mm 0 0}
+.zakres{position:relative;display:inline-block;z-index:1}
+.zakres::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.06em;height:.32em;background:var(--zolty);z-index:-1;border-radius:40% 60% 55% 45%/60% 50% 50% 40%}
+.lead{font-size:4.6mm;line-height:1.45;color:var(--atrament-60);margin:5mm 0 0;max-width:95mm}
+.linia{border-bottom:.35mm solid var(--atrament-60);height:9mm;margin-top:2mm}
+.et{font-size:3mm;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--koral-ciemny);margin-top:6mm}
+.lista{margin:3mm 0 0;padding:0;list-style:none;font-size:4.2mm;line-height:1.5}
+.lista li{display:flex;gap:3mm;align-items:flex-start;margin-top:1.5mm}
+.kw{flex:none;width:4.2mm;height:4.2mm;border:.4mm solid var(--atrament);border-radius:1mm;margin-top:1mm}
+.stopka{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:3.4mm;color:var(--atrament-60)}
+.stopka img{height:9mm}
+.ramka{background:var(--zolty-jasny);border-radius:5mm;padding:4mm 5mm;font-size:3.8mm;line-height:1.45;margin-top:5mm}
+.okl{position:absolute;width:62mm;clip-path:polygon(19.4% 10.9%,76.4% 8%,80.6% 88.6%,23.4% 91.6%);filter:drop-shadow(0 4mm 6mm rgba(58,35,64,.2))}
+</style></head><body>
+<div class="str przod">
+  <div class="kolo" style="width:120mm;height:120mm;background:var(--roz-jasny);right:-45mm;top:-40mm"></div>
+  <div class="kolo" style="width:70mm;height:70mm;background:var(--liliowy-jasny);left:-25mm;bottom:-20mm"></div>
+  <img class="okl" src="../zasoby/okladka-planer-90-dni.png" style="right:-14mm;top:70mm;transform:rotate(-6deg)" alt="">
+  <img class="okl" src="../zasoby/okladka-strategia-na-1-stronie.png" style="right:10mm;top:112mm;transform:rotate(5deg)" alt="">
+  <div class="srodek">
+    <span class="reka">prezent dla Ciebie</span>
+    <p class="tyt">Plan<br>na <span class="zakres">2027</span></p>
+    <p class="lead" style="max-width:62mm">Bo dobry rok zaczyna się od jednej kartki i jednego celu.</p>
+    <div class="stopka"><img src="../zasoby/logo-osobiste.svg" alt="Angelika Pruchniak-Gąszczyk · Guliwera 4"></div>
+  </div>
+</div>
+<div class="str" style="background:#fff">
+  <div class="kolo" style="width:70mm;height:70mm;background:var(--brzoskwinia);right:-30mm;top:-30mm"></div>
+  <div class="srodek">
+    <div class="et" style="margin-top:0">dla</div><div class="linia"></div>
+    <div class="et">od</div><div class="linia"></div>
+    <div class="et">kilka słów</div><div class="linia"></div><div class="linia"></div><div class="linia"></div>
+    <div class="et">w prezencie</div>
+    <ul class="lista">
+      <li><span class="kw"></span><span><b>Strategia na 1 stronie</b> · cel, klient i liczby na jednej kartce</span></li>
+      <li><span class="kw"></span><span><b>Planer 90 dni</b> · pierwszy kwartał krok po kroku</span></li>
+      <li><span class="kw"></span><span><b>Pakiet Kierunek Zysk</b> · komplet materiałów</span></li>
+    </ul>
+    <div class="ramka"><b>Jak zacząć:</b> otwórz plik z maila, wydrukuj albo wypełnij na tablecie. Na rozgrzewkę darmowe lekcje w Akademii Guliwera: <b>guliwera4.pl/aplikacja</b></div>
+    <div class="stopka"><span>guliwera4.pl</span><span>@angelika.pruchniak</span></div>
+  </div>
+</div>
+</body></html>

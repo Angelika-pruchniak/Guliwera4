@@ -169,6 +169,29 @@ KARUZELE = {
    ],
    koniec=dict(KONIEC_AKADEMIA, reka='zapisz przed premierą',
                lead='Darmowa Akademia: próg rentowności, macierz BCG, priorytety. Krok po kroku.')),
+ 'k5-plan-na-2027': dict(
+   okladka=dict(foto=F09, pigulka='plan na 2027', kolo='var(--liliowy-jasny)',
+                tytul='Plan na 2027 w <span class="zakres">5 krokach</span>', rozmiar=96,
+                lead='Bez listy 30 postanowień. Jeden wieczór, jedna kartka. Przesuń →', pozycja='45% 20%'),
+   slajdy=[
+    dict(etykieta='krok 1', tytul='Co w 2026 dało najwięcej?',
+         tekst='Zysku, spokoju, radości. Wypisz 3 rzeczy. To Twoje „gwiazdy” na kolejny rok.',
+         ramka='<b>Np.:</b> stali klienci, jeden produkt, który sprzedaje się sam, poranki bez maili.'),
+    dict(etykieta='krok 2', tytul='Co zabrało najwięcej, a dało najmniej?', tlo='t-krem',
+         tekst='Klienci, projekty, kanały. To kandydaci do listy „w 2027 nie robię”.', ramka_kolor='lil',
+         ramka='Odpuszczenie jednej rzeczy często daje więcej niż dodanie trzech nowych.'),
+    dict(etykieta='krok 3', tytul='Jeden cel na pierwszy kwartał',
+         tekst='Nie na cały rok. 90 dni to dość, żeby coś zbudować, i dość krótko, żeby nie odpuścić.',
+         ramka='Zapisz go jednym zdaniem z liczbą i datą: „Do 31 marca…”.', ramka_kolor='roz'),
+    dict(etykieta='krok 4', tytul='Jedna liczba co tydzień', tlo='t-krem',
+         tekst='Wybierz wskaźnik, który mówi, czy idziesz do celu. Sprawdzaj go zawsze tego samego dnia.',
+         ramka='<b>Np.:</b> marża brutto, liczba rozmów sprzedażowych, gotówka na 3 miesiące kosztów.'),
+    dict(etykieta='krok 5', tytul='Pierwszy krok w styczniu',
+         tekst='Co zrobisz w pierwszym tygodniu? Wpisz to do kalendarza teraz, póki masz motywację.', ramka_kolor='brz',
+         ramka='Wolisz gotowy szablon? <b>Strategia na 1 stronie</b> (39 zł) i <b>Planer 90 dni</b> (59 zł) prowadzą przez te kroki.'),
+   ],
+   koniec=dict(KONIEC_AKADEMIA, reka='zacznij rok z planem',
+               lead='Darmowe lekcje: priorytety, cele, próg rentowności. Kilka minut dziennie.')),
 }
 
 # Nakładki tekstowe do rolek (przezroczyste PNG 1080×1920; strefy bezpieczne: góra 250 px, dół 340 px)
@@ -245,6 +268,17 @@ POJEDYNCZE = {
   <p class="lead" style="margin-top:24px;max-width:15ch;color:var(--atrament)">Szablon i instrukcja. Jeden wieczór i masz plan.</p>
   <div style="display:flex;align-items:center;gap:28px;margin-top:40px"><span class="przycisk">Link w bio</span><span class="h2" style="font-size:64px">39 zł</span></div>
   <div style="position:absolute;right:-110px;bottom:110px;width:560px;filter:drop-shadow(0 24px 36px rgba(58,35,64,.22))"><img src="{Z}okladka-strategia-na-1-stronie.png" alt="" style="display:block;width:100%;clip-path:polygon(19.4% 10.9%,76.4% 8%,80.6% 88.6%,23.4% 91.6%)"></div>
+  <div class="stopka"><span class="marka"><img src="{Z}znak-g4.svg" alt=""><span>@angelika.pruchniak</span></span><span>guliwera4.pl/materialy</span></div>
+</div></div>''',
+ 'p-prezent-last-minute': f'''<div class="plotno f-ig45 t-roz">
+<div class="kolo" style="width:700px;height:700px;background:rgba(255,255,255,.45);right:-260px;top:-240px"></div>
+<div class="pole srodek">
+  <span class="reka">prezent na ostatnią chwilę</span>
+  <p class="h1" style="margin-top:20px;font-size:82px;max-width:11ch">Plan na 2027 <span class="zakres">w prezencie</span></p>
+  <p class="lead" style="margin-top:24px;max-width:14ch;color:var(--atrament)">Dla przedsiębiorczyni w Twoim życiu. Bez kuriera: plik od razu na maila.</p>
+  <div style="display:flex;align-items:center;gap:22px;margin-top:40px"><span class="przycisk">Link w bio</span><span class="h2" style="font-size:50px">od 39 zł</span></div>
+  <div style="position:absolute;right:-70px;bottom:500px;width:430px;transform:rotate(-6deg);filter:drop-shadow(0 24px 36px rgba(58,35,64,.22))"><img src="{Z}okladka-planer-90-dni.png" alt="" style="display:block;width:100%;clip-path:polygon(19.4% 10.9%,76.4% 8%,80.6% 88.6%,23.4% 91.6%)"></div>
+  <div style="position:absolute;right:40px;bottom:130px;width:430px;transform:rotate(5deg);filter:drop-shadow(0 24px 36px rgba(58,35,64,.22))"><img src="{Z}okladka-strategia-na-1-stronie.png" alt="" style="display:block;width:100%;clip-path:polygon(19.4% 10.9%,76.4% 8%,80.6% 88.6%,23.4% 91.6%)"></div>
   <div class="stopka"><span class="marka"><img src="{Z}znak-g4.svg" alt=""><span>@angelika.pruchniak</span></span><span>guliwera4.pl/materialy</span></div>
 </div></div>''',
 }
