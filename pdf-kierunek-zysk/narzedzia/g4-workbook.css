@@ -1,0 +1,168 @@
+/* Guliwera 4 · wspólny styl workbooków „Kierunek Zysk” (wersja 2)
+   Paleta v3 z brandbooka (brand/kolory/kolory.css), fonty: Fraunces / DM Sans / Caveat (SIL OFL 1.1). */
+
+/* ---------- Fonty (lokalnie, osadzane w PDF) ---------- */
+@font-face{font-family:"Fraunces";font-weight:400;src:url(fonts/fraunces-latin-ext-400-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Fraunces";font-weight:400;src:url(fonts/fraunces-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Fraunces";font-weight:600;src:url(fonts/fraunces-latin-ext-600-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Fraunces";font-weight:600;src:url(fonts/fraunces-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Fraunces";font-weight:700;src:url(fonts/fraunces-latin-ext-700-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Fraunces";font-weight:700;src:url(fonts/fraunces-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"DM Sans";font-weight:400;src:url(fonts/dm-sans-latin-ext-400-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"DM Sans";font-weight:400;src:url(fonts/dm-sans-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"DM Sans";font-weight:400;font-style:italic;src:url(fonts/dm-sans-latin-ext-400-italic.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"DM Sans";font-weight:400;font-style:italic;src:url(fonts/dm-sans-latin-400-italic.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"DM Sans";font-weight:500;src:url(fonts/dm-sans-latin-ext-500-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"DM Sans";font-weight:500;src:url(fonts/dm-sans-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"DM Sans";font-weight:700;src:url(fonts/dm-sans-latin-ext-700-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"DM Sans";font-weight:700;src:url(fonts/dm-sans-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Caveat";font-weight:600;src:url(fonts/caveat-latin-ext-600-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Caveat";font-weight:600;src:url(fonts/caveat-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+/* ---------- Tokeny ---------- */
+:root{
+  --krem:#FFF6EE; --koral:#FF6B3D; --koral-ciemny:#E8512A; --roz:#F4799F; --roz-jasny:#FFD9E4;
+  --liliowy:#B9A5E3; --liliowy-jasny:#EDE5FB; --zolty:#FFC84A; --zolty-jasny:#FFEFC7; --brzoskwinia:#FFD8C2;
+  --atrament:#3A2340; --atrament-60:#7A6580; --granat:#1E2A4A; --bialy:#FFFFFF;
+  --linia:#E9DCD3; --serif:"Fraunces",Georgia,serif; --sans:"DM Sans",Arial,sans-serif; --reka:"Caveat",cursive;
+}
+
+@page{size:A4 portrait;margin:0}
+@page land{size:A4 landscape;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--krem)}
+body{font-family:var(--sans);color:var(--atrament);font-size:9.4pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact;counter-reset:strona}
+
+/* ---------- Strony ---------- */
+.page{width:210mm;height:297mm;padding:14mm 14mm 17mm;position:relative;overflow:hidden;break-after:page;background:var(--krem);counter-increment:strona}
+.page.land{page:land;width:297mm;height:210mm;padding:9mm 10mm 11mm}
+.page:last-child{break-after:auto}
+.page .stopka{position:absolute;left:14mm;right:14mm;bottom:8mm;display:flex;justify-content:space-between;font-size:7.4pt;color:var(--atrament-60);border-top:1px solid var(--linia);padding-top:2mm}
+.page.land .stopka{left:10mm;right:10mm;bottom:4.5mm;padding-top:1.4mm}
+.page .stopka .nr::after{content:counter(strona)}
+.page .stopka a{color:var(--atrament-60);text-decoration:none}
+
+/* ---------- Typografia ---------- */
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;color:var(--atrament);margin:0;line-height:1.15;letter-spacing:-.005em}
+h1{font-size:26pt}
+h2{font-size:18pt;margin-bottom:3mm}
+h3{font-size:12pt;margin:4mm 0 1.6mm}
+h4{font-size:10.2pt;margin:0 0 1mm}
+p{margin:0 0 2mm}
+ul,ol{margin:0 0 2mm;padding-left:5mm}
+li{margin:0 0 .8mm}
+strong{font-weight:700}
+.male{font-size:8pt}
+.szary{color:var(--atrament-60)}
+.reka{font-family:var(--reka);font-weight:600;font-size:15pt;color:var(--koral-ciemny);line-height:1}
+.zakres{background:linear-gradient(transparent 62%,var(--zolty) 62%,var(--zolty) 92%,transparent 92%);padding:0 .5mm}
+a{color:var(--koral-ciemny)}
+
+/* Nagłówek rozdziału */
+.etykieta{display:inline-block;font-size:7.4pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--koral-ciemny);margin-bottom:2mm}
+.pigulka{display:inline-block;border-radius:999px;padding:1mm 3.2mm;font-size:7.6pt;font-weight:700;letter-spacing:.04em;background:var(--zolty-jasny);color:var(--atrament)}
+.pigulka.koral{background:var(--koral);color:var(--atrament)}
+.pigulka.lil{background:var(--liliowy-jasny)}
+.pigulka.roz{background:var(--roz-jasny)}
+.pigulka.granat{background:var(--granat);color:#fff}
+.metryczka{display:flex;gap:2mm;flex-wrap:wrap;margin:2mm 0 4mm}
+
+.otwarcie{background:var(--granat);color:#fff;border-radius:6mm;padding:9mm 10mm;position:relative;overflow:hidden;margin-bottom:6mm}
+.otwarcie h1,.otwarcie h2{color:#fff}
+.otwarcie p{color:#E8E6F0;max-width:125mm}
+.otwarcie .etykieta{color:var(--zolty)}
+.otwarcie .kolo{position:absolute;border-radius:50%;background:rgba(255,255,255,.08)}
+
+/* Karty */
+.karta{background:#fff;border-radius:4mm;padding:4mm 4.5mm;box-shadow:0 .4mm 1.6mm rgba(58,35,64,.06)}
+.karta.lil{background:var(--liliowy-jasny);box-shadow:none}
+.karta.zol{background:var(--zolty-jasny);box-shadow:none}
+.karta.roz{background:var(--roz-jasny);box-shadow:none}
+.karta.brz{background:var(--brzoskwinia);box-shadow:none}
+.karta.granat{background:var(--granat);color:#fff;box-shadow:none}
+.karta.granat h3,.karta.granat h4{color:#fff}
+.siatka2{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+.siatka3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4mm}
+
+/* Ramka „uwaga / wskazówka” */
+.ramka{border-left:1.2mm solid var(--zolty);background:var(--zolty-jasny);border-radius:0 3mm 3mm 0;padding:3mm 4mm;margin:3mm 0}
+.ramka.koral{border-left-color:var(--koral);background:#FFE6DC}
+.ramka.lil{border-left-color:var(--liliowy);background:var(--liliowy-jasny)}
+
+/* Kroki z numerami */
+.kroki{list-style:none;padding:0;margin:0;counter-reset:k}
+.kroki li{counter-increment:k;position:relative;padding-left:9mm;margin-bottom:2.6mm}
+.kroki li::before{content:counter(k);position:absolute;left:0;top:-.3mm;width:6mm;height:6mm;border-radius:50%;background:var(--koral);color:var(--atrament);font-weight:700;font-size:8.4pt;display:flex;align-items:center;justify-content:center}
+
+/* Checklista */
+.check{list-style:none;padding:0;margin:0}
+.check li{position:relative;padding-left:7mm;margin-bottom:2mm}
+.cb{position:absolute;left:0;top:.3mm;width:3.8mm;height:3.8mm;border:1.4px solid var(--atrament);border-radius:1mm;background:#fff;display:block}
+.wpisz{display:block;background:#fff;border-radius:2mm;border-bottom:1.2px solid var(--atrament-60);background-image:repeating-linear-gradient(transparent 0,transparent 5.6mm,#EFE3DA 5.6mm,#EFE3DA 5.9mm)}
+
+/* Objaśnienie pola (karta pola kanwy) */
+.pole-opis{background:#fff;border-radius:4mm;padding:2.6mm 3.6mm 2.6mm;margin-bottom:2.4mm;display:grid;grid-template-columns:9mm 1fr;gap:0 3mm;break-inside:avoid}
+.pole-opis .num{grid-row:span 5;width:8mm;height:8mm;border-radius:50%;background:var(--granat);color:#fff;font-family:var(--serif);font-weight:600;font-size:12pt;display:flex;align-items:center;justify-content:center}
+.pole-opis h4{font-size:11pt;margin:.6mm 0 .6mm}
+.pole-opis h4 small{font-family:var(--sans);font-weight:500;font-size:7.4pt;color:var(--atrament-60);letter-spacing:.04em;margin-left:1.5mm}
+.pole-opis .co{margin:0 0 1.3mm;font-size:8.7pt;line-height:1.38}
+.pole-opis .trzy{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:2mm;font-size:7.6pt;line-height:1.32}
+.pole-opis .trzy > div{border-radius:2.4mm;padding:1.6mm 2.2mm}
+.pole-opis .trzy b.t{display:block;font-size:6.9pt;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.8mm}
+.pole-opis .pyt{background:var(--liliowy-jasny)}
+.pole-opis .prz{background:var(--zolty-jasny)}
+.pole-opis .bl{background:#FFE6DC}
+.pole-opis ul{padding-left:3.6mm;margin:0}
+.pole-opis li{margin:0 0 .5mm}
+.pole-opis .skad{font-size:7.2pt;color:var(--atrament-60);margin-top:1mm}
+
+/* Tabele */
+table{border-collapse:collapse;width:100%;font-size:8.6pt}
+th{background:var(--granat);color:#fff;text-align:left;font-weight:700;padding:1.8mm 2.4mm;font-size:7.8pt;letter-spacing:.03em}
+td{padding:1.7mm 2.4mm;border-bottom:1px solid var(--linia);vertical-align:top;background:#fff}
+tr:nth-child(even) td{background:#FFFBF7}
+
+/* ---------- Kanwy (strony poziome) ---------- */
+.kanwa-glowa{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.6mm;gap:6mm}
+.kanwa-glowa h2{font-size:16pt;margin:0}
+.kanwa-glowa .etykieta{margin-bottom:.6mm}
+.kanwa-glowa .meta{display:flex;gap:3mm;font-size:7.8pt;color:var(--atrament-60)}
+.kanwa-glowa .meta > div{display:flex;flex-direction:column;gap:.6mm}
+.kanwa-glowa .meta .wpis{width:42mm;height:6mm;border-bottom:1.2px solid var(--atrament-60);background:#fff;border-radius:1.4mm 1.4mm 0 0}
+.kanwa-glowa .meta .wpis.krotki{width:22mm}
+.kanwa-glowa .meta .wart{font-size:9pt;color:var(--atrament);font-weight:500;height:6mm;display:flex;align-items:flex-end;border-bottom:1.2px solid var(--atrament-60);min-width:22mm;padding-bottom:.6mm}
+
+.komorka{background:#fff;border:1.3px solid var(--atrament);border-radius:3mm;padding:2.2mm 2.8mm;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.komorka .tyt{display:flex;align-items:center;gap:1.8mm;font-family:var(--serif);font-weight:600;font-size:9.4pt;line-height:1.1;margin-bottom:.8mm}
+.komorka .tyt i{font-style:normal;font-family:var(--sans);flex:none;width:5mm;height:5mm;border-radius:50%;background:var(--koral);color:var(--atrament);font-size:7.4pt;font-weight:700;display:flex;align-items:center;justify-content:center}
+.komorka .tyt small{font-family:var(--sans);font-weight:400;font-size:6.6pt;color:var(--atrament-60);margin-left:auto;letter-spacing:.03em}
+.komorka .pod{font-size:7pt;color:var(--atrament-60);line-height:1.3;margin:0 0 1mm}
+.komorka .tresc{font-size:7.9pt;line-height:1.36;color:var(--atrament)}
+.komorka .tresc ul{padding-left:3.4mm;margin:0}
+.komorka .tresc li{margin:0 0 .5mm}
+.komorka .pisz{flex:1;margin-top:.6mm;border-radius:1.6mm;background-image:repeating-linear-gradient(transparent 0,transparent 5.6mm,#EFE3DA 5.6mm,#EFE3DA 5.9mm)}
+.komorka.ciemna{background:var(--granat);border-color:var(--granat);color:#fff}
+.komorka.ciemna .tyt{color:#fff}
+.komorka.ciemna .pod{color:#C9C6D8}
+.komorka.ciemna .tresc{color:#fff}
+.komorka.ciemna .tyt i{background:var(--zolty)}
+.komorka.ciemna .pisz{background-image:repeating-linear-gradient(transparent 0,transparent 5.6mm,rgba(255,255,255,.18) 5.6mm,rgba(255,255,255,.18) 5.9mm)}
+.komorka.lil{background:var(--liliowy-jasny);border-color:var(--liliowy)}
+.komorka.zol{background:var(--zolty-jasny)}
+.komorka.roz{background:var(--roz-jasny)}
+.przyklad .komorka{background:#FFFDF9}
+.przyklad .komorka.ciemna{background:var(--granat)}
+
+/* Pole AcroForm: znacznik dla skryptu (rysuje tylko przestrzeń) */
+.f{display:block}
+
+/* Spis treści */
+.spis a{display:flex;align-items:baseline;gap:2mm;text-decoration:none;color:var(--atrament);padding:2.1mm 0;border-bottom:1px dashed var(--linia)}
+.spis a .n{font-family:var(--serif);font-weight:600;color:var(--koral-ciemny);width:9mm}
+.spis a .t{font-weight:500}
+.spis a .k{flex:1;border-bottom:1px dotted transparent}
+.spis a .s{font-weight:700}
+.spis a.sub{padding-left:9mm;font-size:8.6pt;color:var(--atrament-60)}
+.spis a.sub .t{font-weight:400}
+
+.wafel{position:absolute;width:30mm}
