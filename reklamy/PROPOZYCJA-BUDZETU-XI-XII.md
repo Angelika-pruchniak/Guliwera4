@@ -40,7 +40,7 @@ Rekomendacja: **A na start, test 7 dni (24–30.11 = Black Week), potem decyzja 
 - Rolka „mój planer na Q1 (pokaz kartek)” (19.12) – Pakiet/Planer.
 - Karuzela „5 pytań przed promocją” (26.11) – sprzedaż.
 - Zdjęcie „cześć, tu Angelika” (29.11) – obserwujący.
-- Oznaczanie AI: jeśli kreacja ma fotorealistyczny obraz, wideo lub głos wygenerowane albo zmienione przez AI – etykieta „Informacje o AI” w Menedżerze reklam. Grafiki z Lilkiem (ilustracje) i prawdziwe zdjęcia/nagrania Angeliki – bez etykiety, o ile nie były zmieniane AI.
+- Oznaczanie AI: jeśli kreacja ma fotorealistyczny obraz, wideo lub głos wygenerowane albo zmienione przez AI – etykieta „Informacje o AI” w Menedżerze reklam. Grafiki z Waflem (maskotka Akademii) (ilustracje) i prawdziwe zdjęcia/nagrania Angeliki – bez etykiety, o ile nie były zmieniane AI.
 
 ## Sprzeczność do rozstrzygnięcia
 Kalendarz: tydzień 23.11 „Black Week bez rabatów: strategia zamiast promocji”. Plan reklam (decyzja Angeliki z 8.11): **Pakiet −30%**. Jedno z dwojga trzeba zmienić.
