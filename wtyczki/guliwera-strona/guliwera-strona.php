@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 1.5
+ * Version: 1.6
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -202,3 +202,25 @@ add_action( 'init', function () {
 	update_option( 'gk_strona_ver5', '1.5' );
 	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
 }, 24 );
+
+/* Wersja 1.6: Polityka prywatności – cookies marketingowe (Meta, Google Ads), Mailchimp, newsletter (18.11.2026). */
+add_action( 'init', function () {
+	if ( '1.6' === get_option( 'gk_strona_ver6' ) ) { return; }
+	global $wpdb;
+	$c = (string) $wpdb->get_var( "SELECT post_content FROM {$wpdb->posts} WHERE ID = 3" );
+	if ( $c && false === strpos( $c, 'Meta Platforms Ireland' ) ) {
+		$z = array(
+			'<tr><td>Statystyki i analityka</td>' => '<tr><td>Newsletter i Pakiet startowy</td><td>imię, e-mail, data i adres IP zapisu oraz potwierdzenia, historia otwarć i kliknięć</td><td>wysyłka newslettera, materiałów i powiązanych ofert</td><td>art. 6 ust. 1 lit. a (zgoda, wycofasz ją linkiem w każdym mailu)</td></tr>' . "\n" . '<tr><td>Reklama i mierzenie kampanii</td><td>identyfikatory cookies i urządzenia, informacje o odwiedzonych stronach i zakupach</td><td>wyświetlanie reklam osobom zainteresowanym, mierzenie skuteczności reklam (Meta, Google Ads)</td><td>art. 6 ust. 1 lit. a (zgoda w banerze cookies)</td></tr>' . "\n" . '<tr><td>Statystyki i analityka</td>',
+			'<li><b>Google Ireland Ltd.</b>: Google Tag Manager i Google Analytics (tylko po Twojej zgodzie) oraz czcionki Google Fonts,</li>' => '<li><b>Google Ireland Ltd.</b>: Google Tag Manager, Google Analytics i Google Ads (tylko po Twojej zgodzie) oraz czcionki Google Fonts,</li>' . "\n" . '<li><b>Meta Platforms Ireland Ltd.</b>: Facebook, Instagram, Messenger oraz piksel Meta do mierzenia reklam (piksel tylko po Twojej zgodzie),</li>' . "\n" . '<li><b>Intuit Inc. (Mailchimp)</b>: obsługa listy newslettera dla osób, które się zapisały,</li>',
+			'<p>Część dostawców (Google, Automattic, Stripe)' => '<p>Część dostawców (Google, Meta, Mailchimp, Automattic, Stripe)',
+			'<tr><td><b>Analityczne</b></td>' => '<tr><td><b>Marketingowe</b></td><td>_fbp (Meta), _gcl_au i inne cookies Google Ads</td><td>mierzenie skuteczności reklam i wyświetlanie reklam osobom, które odwiedziły stronę</td><td><b>tylko po Twojej zgodzie</b></td></tr>' . "\n" . '<tr><td><b>Analityczne</b></td>',
+			'Używam ich w trzech grupach:' => 'Używam ich w czterech grupach:',
+			'<li>dane przetwarzane na podstawie zgody: do jej wycofania.</li>' => '<li>newsletter: do wypisania się (link w każdym mailu); dane potwierdzenia zgody do 3 lat po wypisaniu na potrzeby wykazania zgody,</li>' . "\n" . '<li>dane przetwarzane na podstawie zgody: do jej wycofania.</li>',
+			'<p class="data">Obowiązuje od 5 listopada 2026 r.</p>' => '<p class="data">Obowiązuje od 5 listopada 2026 r. · aktualizacja: 18 listopada 2026 r.</p>',
+		);
+		$n = str_replace( array_keys( $z ), array_values( $z ), $c );
+		if ( $n !== $c ) { $wpdb->update( $wpdb->posts, array( 'post_content' => $n, 'post_modified' => current_time( 'mysql' ), 'post_modified_gmt' => current_time( 'mysql', 1 ) ), array( 'ID' => 3 ) ); clean_post_cache( 3 ); }
+	}
+	update_option( 'gk_strona_ver6', '1.6' );
+	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
+}, 25 );
