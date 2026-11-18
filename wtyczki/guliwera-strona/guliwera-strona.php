@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 1.4
+ * Version: 1.5
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -186,3 +186,19 @@ function gk_blog_css() {
 .gk .wpis-nav{display:flex;justify-content:space-between;gap:16px;margin-top:34px;flex-wrap:wrap}.gk .wpis-nav a{color:var(--koral-ciemny);font-weight:700;text-decoration:none;max-width:48%}
 </style>';
 }
+
+/* Wersja 1.5: Regulamin – informacja, że materiały powstają z pomocą AI (prośba Angeliki 18.11.2026). */
+add_action( 'init', function () {
+	if ( '1.5' === get_option( 'gk_strona_ver5' ) ) { return; }
+	global $wpdb;
+	$c = (string) $wpdb->get_var( "SELECT post_content FROM {$wpdb->posts} WHERE ID = 66" );
+	if ( $c && false === strpos( $c, 'sztucznej inteligencji' ) ) {
+		$pkt = '<li>Materiały są przygotowywane przy pomocy narzędzi sztucznej inteligencji (AI). Treści, ćwiczenia i grafiki powstają pod nadzorem autorki, która je opracowuje, sprawdza i odpowiada za ich zawartość. Materiały mają charakter edukacyjny i nie stanowią indywidualnej porady prawnej, podatkowej ani finansowej.</li>';
+		$n = preg_replace( '#(<h2 id="s8">.*?)(</ol>)#s', '$1' . $pkt . '$2', $c, 1, $ile );
+		if ( ! $ile ) { $n = str_replace( '<h2 id="s9">', '<h2 id="s8a">Materiały przygotowywane z pomocą AI</h2><p>' . wp_strip_all_tags( $pkt ) . '</p><h2 id="s9">', $c ); }
+		$n = str_replace( '<p class="data">Obowiązuje od 5 listopada 2026 r.</p>', '<p class="data">Obowiązuje od 5 listopada 2026 r. · aktualizacja: 18 listopada 2026 r.</p>', $n );
+		if ( $n !== $c ) { $wpdb->update( $wpdb->posts, array( 'post_content' => $n, 'post_modified' => current_time( 'mysql' ), 'post_modified_gmt' => current_time( 'mysql', 1 ) ), array( 'ID' => 66 ) ); clean_post_cache( 66 ); }
+	}
+	update_option( 'gk_strona_ver5', '1.5' );
+	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
+}, 24 );
