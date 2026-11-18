@@ -34,7 +34,7 @@ Lejek: post → **Akademia (darmowa)** → Strategia na 1 stronie 39 zł → Pak
 | `tiktok/01-zalozenie-konta.md`, `tiktok/rolki/` | instrukcja TikToka (bez sklepu) i rolki przycięte pod TikToka |
 | `instagram/rolki/v2/` | aktualne rolki (r1–r4); `instagram/rolki/*.mp4` to odrzucona wersja v1 |
 | `narzedzia/` | generatory: `tresci.py` (teksty grafik), `render.js` (PNG), `rolki.py` (MP4), `siatka.py` |
-| `zasoby/` | kopie styl.css, logo i Lilka z brandbooka (gałąź `claude/brandbook`) |
+| `zasoby/` | kopie styl.css i logo z brandbooka (gałąź `claude/brandbook`) oraz Wafel z `brand/wafel` |
 
 ## Jak zmienić tekst na grafice
 
