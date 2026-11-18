@@ -1,0 +1,30 @@
+Temat A: 3 decyzje, które dadzą Ci więcej niż rabat
+Temat B: Black Week bez wyprzedaży? Da się
+Preheader: Zamiast obniżać ceny: wartość, stali klienci i jedna liczba, którą warto policzyć.
+
+BLACK WEEK BEZ WYPRZEDAŻY
+
+*|IF:FNAME|*Cześć, *|FNAME|*!*|ELSE:|*Cześć!*|END:IF|* W tym tygodniu wszyscy obniżają ceny. Zanim zrobisz to samo, policz, ile Cię to kosztuje. Mam dla Ciebie 3 decyzje, które zwykle dają więcej niż rabat.
+
+
+1 · Wpis tygodnia
+Black Friday w małej firmie: jak zarobić, nie obniżając cen
+1. Dodaj wartość zamiast odejmować cenę. Bonus, pakiet albo szybszy termin kosztują Cię mniej niż 20% z każdej sprzedaży.
+2. Napisz do tych, którzy już kupili. 10 ostatnich klientów zna Twoją jakość. Krótki mail z propozycją kolejnego kroku działa lepiej niż reklama dla obcych.
+3. Policz marżę, zanim dasz rabat. Przy marży 40% obniżka o 20% oznacza, że trzeba sprzedać dwa razy więcej, żeby zarobić tyle samo.
+Przeczytaj cały wpis na blogu →
+2 · Ćwiczenie
+Ćwiczenie na 10 minut: rabat czy wartość?
+1. Otwórz Kalkulator zysku z Pakietu startowego i wpisz cenę oraz koszt swojego najlepiej sprzedającego się produktu albo usługi.
+2. W tabeli „Co jeśli zmienisz cenę?” sprawdź, ile więcej musisz sprzedać przy obniżce o 10% i 20%.
+3. Wypisz 3 rzeczy, które możesz dodać zamiast obniżki (bonus, pakiet, termin, konsultacja). Wybierz jedną i zaproponuj ją klientom w tym tygodniu.
+3 · Produkt tygodnia (oferta)
+Strategia na 1 stronie · 39 zł
+Jeśli Black Week pokazał Ci, że brakuje jasnych decyzji: cena, klient, czego nie robisz. Pełny szablon do wypełnienia dla własnej firmy, z instrukcją. Bez rabatu, bo to i tak najtańszy krok do planu na 2027.
+
+Zobacz Strategię na 1 stronie: https://guliwera4.pl/produkt/strategia-na-1-stronie/?utm_source=newsletter&utm_medium=email&utm_campaign=black-week-bez-rabatow-strat
+
+--
+Angelika Pruchniak-Gąszczyk, Guliwera 4 · ul. Guliwera 4, Lublin · NIP 9462713420
+kontakt@guliwera4.pl · https://guliwera4.pl/
+Dostajesz tego maila, bo zapisano ten adres na newsletter Guliwera 4. Wypis: *|UNSUB|*

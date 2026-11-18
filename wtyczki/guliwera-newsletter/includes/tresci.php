@@ -87,7 +87,7 @@ function gk_nl_tresc( $kod, array $k, array $d ) {
 				'po'        => gk_nl_p( 'Zacznij od kalkulatora. To 10 minut i zwykle pierwsze „aha” przy marży.' ),
 				'cta'       => array( 'Pobierz Pakiet startowy', $pakiet ),
 				'pod'       => gk_nl_p( 'Wolisz zacząć od nauki? W Akademii Guliwera czeka lekcja na 5 minut (Wafel już się rozgrzewa): ' . gk_nl_link( ! empty( $d['ma_konto'] ) ? 'Otwórz Akademię' : 'Załóż darmowe konto w Akademii', $akad ) . '.' )
-					. gk_nl_p( 'Co dalej: przez 2 tygodnie dostaniesz ode mnie kilka krótkich maili z jedną lekcją albo narzędziem w każdym, potem newsletter co 2 tygodnie we wtorek rano.', 'color:#7A6580;font-size:15px;' ),
+					. gk_nl_p( 'Co dalej: przez 2 tygodnie dostaniesz ode mnie kilka krótkich maili z jedną lekcją albo narzędziem w każdym. Do tego co czwartek newsletter: wpis tygodnia, ćwiczenie i produkt tygodnia.', 'color:#7A6580;font-size:15px;' ),
 				'tekst_pod' => 'Akademia Guliwera: ' . $akad,
 			);
 			return array( 'Twój Pakiet startowy jest tutaj', $a );
@@ -188,11 +188,11 @@ function gk_nl_tresc( $kod, array $k, array $d ) {
 				? 'Masz za sobą darmowe działy Akademii. Kolejne działy (finanse, metryki, zespół) są w Akademii Pro.'
 				: 'Do końca darmowych działów Akademii zostało Ci ' . (int) $d['darmowe_zostalo'] . ' ' . gk_nl_lekcji( (int) $d['darmowe_zostalo'] ) . '.';
 			$a += array(
-				'preheader' => 'Newsletter co 2 tygodnie we wtorek. Częstotliwość zmienisz jednym kliknięciem.',
+				'preheader' => 'Newsletter co tydzień w czwartek. Częstotliwość zmienisz jednym kliknięciem.',
 				'nadtytul'  => 'Co dalej',
 				'tytul'     => 'Dziękuję za te 2 tygodnie',
 				'akapity'   => array(
-					gk_nl_cz( $k ) . ' Od teraz piszę co 2 tygodnie, we wtorek o 7:30: jeden temat ze strategii, jedno narzędzie, jedna lekcja z Akademii i jedna oferta, zawsze oznaczona.',
+					gk_nl_cz( $k ) . ' Od teraz piszę raz w tygodniu, w czwartek rano: wpis tygodnia z bloga, krótkie ćwiczenie na 10 minut i produkt tygodnia, zawsze oznaczony jako oferta.',
 					$akad_stan,
 					'Chcesz rzadziej? Ustaw „raz w miesiącu” albo „tylko Akademia, bez ofert”.',
 				),
@@ -252,7 +252,7 @@ function gk_nl_tresc( $kod, array $k, array $d ) {
 				'tytul'     => 'Zostawić Ci miejsce w Akademii?',
 				'akapity'   => array(
 					gk_nl_cz( $k ) . ' Nie było Cię w Akademii od 3 tygodni. Rozumiem, kalendarz bywa bezlitosny.',
-					'Masz 3 opcje: wracasz na lekcję, zostajesz tylko przy newsletterze co 2 tygodnie albo ' . gk_nl_link( 'wybierasz „raz w miesiącu”', add_query_arg( 'gk_nl_pref', $k['token'], home_url( '/' ) ) ) . '.',
+					'Masz 3 opcje: wracasz na lekcję, zostajesz tylko przy czwartkowym newsletterze albo ' . gk_nl_link( 'wybierasz „raz w miesiącu”', add_query_arg( 'gk_nl_pref', $k['token'], home_url( '/' ) ) ) . '.',
 				),
 				'cta'       => array( 'Wracam do lekcji', $akad ),
 			);

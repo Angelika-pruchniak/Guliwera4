@@ -2,11 +2,11 @@
 /**
  * Plugin Name: Guliwera – newsletter
  * Description: Newsletter Guliwera 4: zapis z darmowym Pakietem startowym (formularz i rejestracja w Akademii), potwierdzenie zapisu (double opt-in), seria powitalna i maile wyzwalane nauką w Akademii i zakupami, wypis jednym kliknięciem, preferencje i synchronizacja z Mailchimpem (wydania). Wymaga wtyczki „Guliwera – maile”. Wysyłka rusza dopiero po włączeniu w Ustawienia → Newsletter Guliwera.
- * Version: 1.0
+ * Version: 1.1
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'GK_NL_WERSJA', '1.0' );
+define( 'GK_NL_WERSJA', '1.1' );
 define( 'GK_NL_NADAWCA', 'kontakt@guliwera4.pl' );
 define( 'GK_NL_LIMIT_RUN', 40 );   // maili na jedno uruchomienie harmonogramu
 define( 'GK_NL_PRODUKTY', array( 'pakiet' => 67, 'strategia' => 69, 'planer' => 70 ) );
@@ -24,6 +24,7 @@ function gk_nl_opcje() {
 		'nadawca'   => 'Angelika z Guliwera 4',
 		'plik_kalk' => '', 'plik_strat' => '', 'plik_przeg' => '',
 		'sekret'    => '',
+		'pod_wpisami' => 1,
 	) );
 }
 function gk_nl_aktywny() { $o = gk_nl_opcje(); return ! empty( $o['aktywny'] ) && function_exists( 'gk_ml_layout' ); }
@@ -488,7 +489,7 @@ add_shortcode( 'gk_newsletter', function () {
 	<label for="gk-nl-imie">Imię <small>(opcjonalnie)</small></label><input id="gk-nl-imie" name="imie" type="text" autocomplete="given-name" maxlength="60">
 	<label for="gk-nl-email">E-mail</label><input id="gk-nl-email" name="email" type="email" autocomplete="email" required>
 	<input name="www" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
-	<label class="gk-nl-zg"><input id="gk-nl-zgoda" name="zgoda" type="checkbox" value="1"> Chcę dostać Pakiet startowy i newsletter Guliwera 4 (co 2 tygodnie: strategia, narzędzia, lekcje z Akademii i oferty). Wypiszę się jednym kliknięciem. Szczegóły: <a href="<?php echo esc_url( home_url( '/polityka-prywatnosci/' ) ); ?>">polityka prywatności</a>.</label>
+	<label class="gk-nl-zg"><input id="gk-nl-zgoda" name="zgoda" type="checkbox" value="1"> Chcę dostać Pakiet startowy i newsletter Guliwera 4 (co czwartek: wpis tygodnia, ćwiczenie i produkt tygodnia). Wypiszę się jednym kliknięciem. Szczegóły: <a href="<?php echo esc_url( home_url( '/polityka-prywatnosci/' ) ); ?>">polityka prywatności</a>.</label>
 	<button type="submit">Wyślij mi Pakiet startowy</button>
 	<p class="gk-nl-kom" role="status" aria-live="polite"></p>
 </form>
@@ -498,10 +499,23 @@ add_shortcode( 'gk_newsletter', function () {
 	return ob_get_clean();
 } );
 
+// Ramka z formularzem pod wpisami na blogu i na stronie /aplikacja/ (Akademia).
+add_filter( 'the_content', function ( $html ) {
+	$o = gk_nl_opcje();
+	if ( empty( $o['pod_wpisami'] ) || ! gk_nl_aktywny() || ! in_the_loop() || ! is_main_query() ) { return $html; }
+	if ( ! is_singular( 'post' ) && ! is_page( 'aplikacja' ) ) { return $html; }
+	if ( false !== strpos( $html, 'id="gk-nl"' ) || has_shortcode( get_post_field( 'post_content', get_the_ID() ), 'gk_newsletter' ) ) { return $html; }
+	return $html . '<aside class="gk-nl-ramka" style="background:#FFF6EE;border:2px solid #FFD9E4;border-radius:24px;padding:28px 26px;margin:40px 0;font-family:\'DM Sans\',Arial,sans-serif;color:#3A2340">'
+		. '<p style="margin:0 0 4px;font-family:Caveat,cursive;font-size:24px;color:#E8512A">za darmo, od ręki</p>'
+		. '<h2 style="margin:0 0 10px;font-family:Fraunces,Georgia,serif;font-size:28px;line-height:1.15">Pakiet startowy Kierunek Zysk</h2>'
+		. '<p style="margin:0 0 16px;font-size:16.5px;line-height:1.6">Kalkulator zysku, przykład strategii na 1 stronie i przegląd miesiąca w 15 minut. Do tego co czwartek newsletter: wpis tygodnia, ćwiczenie na 10 minut i produkt tygodnia.</p>'
+		. do_shortcode( '[gk_newsletter]' ) . '</aside>';
+}, 20 );
+
 // Rejestracja konta (Moje konto): niezaznaczone pole zgody.
 add_action( 'woocommerce_register_form', function () {
 	if ( ! gk_nl_aktywny() ) { return; }
-	echo '<p class="form-row" style="font-size:14px;line-height:1.5"><label style="display:flex;gap:8px;align-items:flex-start;font-weight:400"><input type="checkbox" name="gk_nl_zgoda" value="1" style="margin-top:4px;accent-color:#E8512A"> <span>Wyślij mi darmowy <b>Pakiet startowy Kierunek Zysk</b> i newsletter co 2 tygodnie (strategia, narzędzia, lekcje z Akademii i oferty). Wypiszę się jednym kliknięciem.</span></label></p>';
+	echo '<p class="form-row" style="font-size:14px;line-height:1.5"><label style="display:flex;gap:8px;align-items:flex-start;font-weight:400"><input type="checkbox" name="gk_nl_zgoda" value="1" style="margin-top:4px;accent-color:#E8512A"> <span>Wyślij mi darmowy <b>Pakiet startowy Kierunek Zysk</b> i newsletter co czwartek (wpis tygodnia, ćwiczenie i produkt tygodnia). Wypiszę się jednym kliknięciem.</span></label></p>';
 }, 25 );
 add_action( 'woocommerce_created_customer', function ( $uid ) {
 	if ( empty( $_POST['gk_nl_zgoda'] ) ) { return; } // phpcs:ignore WordPress.Security.NonceVerification -- formularz WooCommerce ma własny nonce
@@ -549,7 +563,7 @@ add_action( 'template_redirect', function () {
 	if ( $t = $g( 'gk_nl_pref' ) ) {
 		$k = gk_nl_kontakt( 'token', $t );
 		if ( ! $k ) { gk_nl_strona( 'Nie znaleziono zapisu', '<p>Ten link jest nieprawidłowy.</p>' ); }
-		$opcje = array( 'wszystko' => 'Co 2 tygodnie (jak teraz)', 'miesiecznie' => 'Raz w miesiącu', 'tylko_akademia' => 'Tylko Akademia: lekcje i przypomnienia, bez ofert' );
+		$opcje = array( 'wszystko' => 'Co tydzień w czwartek (jak teraz)', 'miesiecznie' => 'Raz w miesiącu', 'tylko_akademia' => 'Tylko Akademia: lekcje i przypomnienia, bez ofert' );
 		$info  = '';
 		if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['pref'] ) && isset( $opcje[ $_POST['pref'] ] ) ) { // phpcs:ignore
 			$k['pref'] = sanitize_key( $_POST['pref'] ); // phpcs:ignore
@@ -617,6 +631,7 @@ add_action( 'admin_post_gk_nl_zapisz', function () {
 	foreach ( array( 'plik_kalk', 'plik_strat', 'plik_przeg' ) as $f ) { $o[ $f ] = esc_url_raw( (string) ( $p[ $f ] ?? '' ) ); }
 	$o['nadawca'] = sanitize_text_field( (string) ( $p['nadawca'] ?? $o['nadawca'] ) );
 	$o['aktywny'] = empty( $p['aktywny'] ) ? 0 : 1;
+	$o['pod_wpisami'] = empty( $p['pod_wpisami'] ) ? 0 : 1;
 	if ( ! empty( $p['lista'] ) ) { $o['lista'] = sanitize_text_field( $p['lista'] ); }
 	update_option( 'gk_nl_opcje', $o );
 	$msg = 'zapisano';
@@ -669,6 +684,7 @@ function gk_nl_panel() {
 	wp_nonce_field( 'gk_nl_zapisz' );
 	echo '<input type="hidden" name="action" value="gk_nl_zapisz"><table class="form-table" role="presentation">';
 	echo '<tr><th>Wysyłka</th><td><label><input type="checkbox" name="aktywny" value="1"' . checked( $o['aktywny'], 1, false ) . '> <b>Newsletter włączony</b>: formularz i pole przy rejestracji są widoczne, wychodzą potwierdzenia, seria powitalna i maile wyzwalane.</label><p class="description">Wyłączony: nic się nie wysyła (poza testami do Ciebie), a formularz pokazuje „Zapisy ruszą wkrótce”.</p></td></tr>';
+	echo '<tr><th>Formularz</th><td><label><input type="checkbox" name="pod_wpisami" value="1"' . checked( $o['pod_wpisami'], 1, false ) . '> Pokazuj ramkę „Pakiet startowy za darmo” z formularzem pod każdym wpisem na blogu i na stronie Aplikacja (/aplikacja/).</label><p class="description">Wszędzie indziej: wstaw blok Krótki kod z <code>[gk_newsletter]</code>.</p></td></tr>';
 	$maska = $o['api'] ? '••••••••••••' . substr( $o['api'], -8 ) : '';
 	echo '<tr><th><label for="gk-api">Klucz API Mailchimp</label></th><td><input id="gk-api" name="api" type="password" class="regular-text" autocomplete="off" placeholder="' . esc_attr( $maska ? $maska : 'wklej klucz z Mailchimpa' ) . '"> ' . ( $o['api'] ? '<label><input type="checkbox" name="usun_api" value="1"> usuń klucz</label>' : '' ) . '<p class="description">Mailchimp → profil → Account &amp; billing → Extras → API keys → Create A Key. Zostaw puste, żeby nie zmieniać.</p></td></tr>';
 	if ( $o['api'] ) {
