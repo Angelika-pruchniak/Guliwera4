@@ -47,5 +47,5 @@ Kalendarz: tydzień 23.11 „Black Week bez rabatów: strategia zamiast promocji
 
 ## Warunki przed startem (blokują uruchomienie)
 1. Identyfikator piksela Meta + tagi w GTM-KK3LPNV6 (GA4, Google Ads, Meta) – czekam na G-…, ID piksela, etykietę konwersji Google Ads.
-2. Polityka prywatności: cookies marketingowe, Meta, Google Ads, Mailchimp (strona 3 – w porozumieniu z czatem „Dostęp do strony”).
+2. ✅ Polityka prywatności zaktualizowana 18.11 (czat „Dostęp do strony”): reklama i mierzenie kampanii (zgoda), Meta, Google Ads, Mailchimp, cookies marketingowe.
 3. Przy promocji: cena 207,90 zł i „Najniższa cena od początku sprzedaży (4.11.2026): 297 zł” na stronie Pakietu.
