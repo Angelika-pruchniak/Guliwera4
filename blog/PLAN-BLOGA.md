@@ -76,3 +76,17 @@ Szablon wpisu jest gotowy (wtyczka guliwera-strona 1.4, czat „Dostęp do stron
 1. Wpis na blogu (WordPress, szkic).
 2. Lookbook w Canvie (A4 pionowo, 14–16 stron) → eksport PDF (lead magnet za zapis na newsletter).
 3. Karuzela na Instagram (1080×1350, 10 slajdów) z tego samego projektu.
+
+## Lookbook „The Modern Classic Edit” – stan (18.11.2026)
+- WordPress: wpis 184 (szkic), tytuł „The Modern Classic Edit: lookbook jesień–zima 2026/2027”, okładka media 209, grafiki AI 209–214.
+- Źródło wpisu: `blog/lookbook-jesien-zima-2026/wpis-modern-classic.html`; grafiki: `blog/lookbook-jesien-zima-2026/grafiki/`.
+- Starsza wersja (10 plansz z ilustracjami, PDF, karuzela) zostaje w repo jako materiał pomocniczy.
+
+### Do dopracowania
+- [ ] Konkretne modele zamiast linków do kategorii: marynarka w kratę (Mohito), długi płaszcz (Molton), golf kobaltowy.
+- [ ] Ceny „na stronie” (golf Wólczanka, botki brązowe Ryłko) – uzupełnić po sprawdzeniu w sklepach.
+- [ ] Nowe grafiki AI (Canva) z 3 stylizacjami z realnych produktów + podpisy ze strzałkami – po zgodzie Angeliki na pisanie promptów.
+- [ ] PDF i karuzela Instagram z nowych grafik.
+- [ ] SEO (tytuł, opis) wpisać ręcznie w panelu Yoast.
+- [ ] Usunąć z biblioteki mediów nieużywane plansze (media 186–196, 198–207), jeśli Angelika zgodzi się.
+- [ ] Publikacja dopiero po „OK” Angeliki.
