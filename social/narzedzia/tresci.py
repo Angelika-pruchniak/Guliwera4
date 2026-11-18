@@ -83,7 +83,7 @@ def koniec(e, nr, razem):
   <p class="lead" style="margin-top:28px;max-width:24ch">{e['lead']}</p>
   <span class="przycisk" style="margin-top:46px">{e['przycisk']}</span>
   <p class="tekst" style="margin-top:22px;font-size:30px;color:rgba(255,246,238,.8)">{e.get('pod','link w bio · guliwera4.pl/aplikacja')}</p>
-  <img src="{Z}wafel-macha.svg" alt="" style="position:absolute;right:-10px;bottom:120px;width:270px">
+  {'' if e.get('bez_maskotki') else f'<img src="{Z}wafel-macha.svg" alt="" style="position:absolute;right:-10px;bottom:120px;width:270px">'}
   {stopka(nr, razem, jasna=True)}
 </div></div>'''
 
@@ -197,6 +197,53 @@ KARUZELE = {
    ],
    koniec=dict(KONIEC_AKADEMIA, reka='zacznij rok z planem',
                lead='Darmowe lekcje: priorytety, cele, próg rentowności. Kilka minut dziennie.')),
+ 'k6-5-pytan-przed-promocja': dict(
+   okladka=dict(foto=B, pigulka='black week bez rabatów', kolo='var(--zolty-jasny)',
+                tytul='5 pytań przed <span class="zakres">promocją</span>', rozmiar=92,
+                lead='Zanim dasz rabat, policz, ile naprawdę zostaje. Przesuń →', pozycja='52% 10%'),
+   slajdy=[
+    dict(etykieta='pytanie 1', tytul='Ile zostaje mi po rabacie?',
+         tekst='Policz zysk na jednej sztuce przed rabatem i po nim.',
+         ramka='Cena 100 zł, koszt 60 zł: zostaje <b>40 zł</b>. Rabat 20%: cena 80 zł, zostaje <b>20 zł</b>. Połowa zysku znika.'),
+    dict(etykieta='pytanie 2', tytul='Ile muszę sprzedać więcej?', tlo='t-krem',
+         tekst='W tym przykładzie, żeby zarobić tyle samo, musisz sprzedać dwa razy więcej.', ramka_kolor='lil',
+         ramka='Zysk przed rabatem ÷ zysk po rabacie = ile razy więcej sprzedaży potrzebujesz.'),
+    dict(etykieta='pytanie 3', tytul='Kogo przyciągnę?',
+         tekst='Nowych klientów czy tych, którzy i tak by kupili?', ramka_kolor='roz',
+         ramka='Jeśli głównie stałych, oddajesz im pieniądze, które i tak by zapłacili.'),
+    dict(etykieta='pytanie 4', tytul='Co będzie po promocji?', tlo='t-krem',
+         tekst='Klienci wrócą po pełnej cenie, czy nauczą się czekać na następny rabat?'),
+    dict(etykieta='pytanie 5', tytul='Co zamiast rabatu?',
+         tekst='Bonus, pakiet, darmowa dostawa, wcześniejszy dostęp. Wartość rośnie, cena zostaje.', ramka_kolor='brz',
+         ramka='<b>Np.:</b> do zakupu dodaj szablon albo krótką konsultację.'),
+   ],
+   koniec=dict(reka='strategia zamiast promocji', tytul='Policz to na 1 stronie', bez_maskotki=True,
+               lead='Strategia na 1 stronie: cel, liczby i decyzje na jednej kartce.',
+               przycisk='Strategia na 1 stronie · 39 zł', pod='link w bio · guliwera4.pl/materialy')),
+
+ 'k7-podsumowanie-roku': dict(
+   okladka=dict(foto='brand/zdjecia-angelika/wyroznienie-2023.jpg', pigulka='podsumowanie roku', kolo='var(--roz-jasny)',
+                tytul='Podsumuj rok <span class="zakres">krok po kroku</span>', rozmiar=94,
+                lead='Doceń, co się udało, zanim zaczniesz planować. Przesuń →', pozycja='50% 20%'),
+   slajdy=[
+    dict(etykieta='krok 1', tytul='Zbierz fakty',
+         tekst='Przejrzyj kalendarz, maile i konto. Wypisz 10 rzeczy, które wydarzyły się w tym roku.',
+         ramka='Nie oceniaj jeszcze. Najpierw lista.'),
+    dict(etykieta='krok 2', tytul='Doceń wygrane', tlo='t-krem',
+         tekst='Co się udało? Także małe rzeczy: decyzja, nowy klient, odwaga.', ramka_kolor='roz',
+         ramka='Napisz 3 rzeczy, z których jesteś dumna.'),
+    dict(etykieta='krok 3', tytul='Spójrz na liczby',
+         tekst='Przychód, zysk, gotówka, najlepszy produkt. Porównaj z poprzednim rokiem.', ramka_kolor='lil',
+         ramka='Zysk i gotówka to dwie różne rzeczy. Sprawdź obie.'),
+    dict(etykieta='krok 4', tytul='Co odpuszczasz?', tlo='t-krem',
+         tekst='Co zabrało najwięcej, a dało najmniej? To pierwsza pozycja na liście „w 2027 nie robię”.'),
+    dict(etykieta='krok 5', tytul='Jedno zdanie na 2027',
+         tekst='Zapisz kierunek jednym zdaniem. Szczegóły zaplanujesz w styczniu.', ramka_kolor='brz',
+         ramka='<b>Np.:</b> „W 2027 zarabiam więcej na mniejszej liczbie projektów.”'),
+   ],
+   koniec=dict(reka='cały proces w jednym pliku', tytul='Podsumowanie roku w PDF', bez_maskotki=True,
+               lead='Pytania, tabele i miejsce na liczby. Jeden wieczór i rok jest domknięty.',
+               przycisk='Podsumowanie roku · 99 zł', pod='link w bio · guliwera4.pl/materialy')),
 }
 
 # Nakładki tekstowe do rolek (przezroczyste PNG 1080×1920; strefy bezpieczne: góra 250 px, dół 340 px)
@@ -269,6 +316,7 @@ def zdjecie_w_ramce(foto, reka, podpis, tlo='t-krem', kolo='var(--roz-jasny)', s
 
 
 POJEDYNCZE = {
+ 'p48-refleksja-grudniowa': zdjecie_w_ramce(F09, 'grudzień to dobry moment,', 'żeby się zatrzymać', tlo='t-krem', kolo='var(--liliowy-jasny)', pozycja='50% 12%'),
  'p07-zdjecie-rozowy': zdjecie_w_ramce(ROZ, 'najdroższe słowo w firmie?', '„Przy okazji”', pozycja='50% 10%'),
  'p-wyroznienie': zdjecie_w_ramce(WYROZN, '2023 → teraz', 'Jestem Kobietą i Sięgam po Więcej', tlo='t-zol', kolo='var(--brzoskwinia)', szer=760, wys=800, pozycja='50% 30%'),
  'p04-cytat-etat': f'''<div class="plotno f-ig45 t-krem">

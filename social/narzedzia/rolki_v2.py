@@ -43,6 +43,8 @@ ZDJ = {
     'ROZ':    dict(p='brand/zdjecia-angelika/rozowy-garnitur.jpg', twarz=(330, 165), karta=600),
     'CZERW':  dict(p='brand/zdjecia-angelika/czerwona-sukienka.jpg', twarz=(165, 85), karta=520),
     'CZARNA': dict(p='brand/zdjecia-angelika/czarna-bluzka-laptop.jpg', twarz=(115, 95), karta=480),
+    'WYROZN': dict(p='brand/zdjecia-angelika/wyroznienie-2023-teraz.jpg', twarz=(300, 200), karta=640),
+    'W2023':  dict(p='brand/zdjecia-angelika/wyroznienie-2023.jpg', twarz=(170, 150), karta=420),
 }
 _cache = {}
 
@@ -237,6 +239,57 @@ ROLKI = {
     ('07', 'detal', 1.0, 'Jedna kartka.', dict(detal=(720, 1230, 560))),
     ('09', 'blisko', 1.0, 'Jeden *wieczór.*', {}),
     ('KONIEC', None, 1.5, 'Plan na 2027', dict(pod='link w bio')),
+ ],
+ 'r5-rabat-policz': [
+    ('B', 'blisko', 1.0, 'Zanim dasz *rabat…*', dict(hook=True)),
+    ('ROZ', 'karta', 1.0, '…policz to.', {}),
+    ('07', 'sredni', 1.5, 'Cena 100 zł, koszt 60 zł. Zostaje *40 zł.*', dict(maly='krok 1')),
+    ('CZERW', 'karta', 1.5, 'Rabat 20%: cena 80 zł. Zostaje *20 zł.*', dict(maly='krok 2')),
+    ('09', 'blisko', 1.5, 'Żeby zarobić tyle samo, sprzedajesz *2× więcej.*', dict(maly='krok 3')),
+    ('CZARNA', 'karta', 1.0, 'Opłaca się? *Policz.*', {}),
+    ('KONIEC', None, 1.5, 'Policz przed rabatem', dict(pod='link w bio')),
+ ],
+ 'r6-3-pytania-przed-black-friday': [
+    ('09', 'blisko', 1.0, 'Black Friday? *Stop.*', dict(hook=True)),
+    ('CZARNA', 'karta', 1.0, '3 pytania przed promocją:', {}),
+    ('B', 'sredni', 1.5, 'Ile *zostaje* mi po rabacie?', dict(maly='1')),
+    ('ROZ', 'karta', 1.5, 'Przyciągnę nowych czy *tych, co i tak kupią?*', dict(maly='2')),
+    ('07', 'blisko', 1.5, 'Co zamiast rabatu: *bonus* albo pakiet?', dict(maly='3')),
+    ('KONIEC', None, 1.5, 'Strategia zamiast promocji', dict(pod='link w bio')),
+ ],
+ 'r7-3-rzeczy-ktore-sie-udaly': [
+    ('07', 'blisko', 1.0, 'Napisz *3 rzeczy,*', dict(hook=True)),
+    ('W2023', 'karta', 1.0, 'które Ci się w 2026 *udały.*', {}),
+    ('B', 'sredni', 1.5, 'Nie tylko w liczbach.', {}),
+    ('ROZ', 'karta', 1.5, 'Klient, decyzja, *odwaga.*', {}),
+    ('09', 'blisko', 1.5, 'To więcej, *niż myślisz.*', {}),
+    ('KONIEC', None, 1.5, 'Napisz w komentarzu', dict(pod='Twoje 3 rzeczy')),
+ ],
+ 'r8-3-pytania-przed-2027': [
+    ('B', 'blisko', 1.0, '3 pytania przed *2027*', dict(hook=True)),
+    ('CZERW', 'karta', 1.5, 'Co dało mi *najwięcej?*', dict(maly='1')),
+    ('09', 'sredni', 1.5, 'Co zabrało najwięcej, a dało *najmniej?*', dict(maly='2')),
+    ('CZARNA', 'karta', 1.5, 'Co jedno *zmienię* od stycznia?', dict(maly='3')),
+    ('07', 'blisko', 1.0, 'Zapisz *odpowiedzi.*', {}),
+    ('KONIEC', None, 1.5, 'Plan na 2027', dict(pod='link w bio')),
+ ],
+ 'r9-moje-2026-w-10-sekund': [
+    ('WYROZN', 'karta', 1.2, 'Moje 2026 w *10 sekund*', dict(hook=True)),
+    ('B', 'blisko', 1.0, 'Nowa strona *guliwera4.pl*', {}),
+    ('ROZ', 'karta', 1.0, 'Pierwsze produkty *cyfrowe*', {}),
+    ('07', 'sredni', 1.0, 'Akademia: lekcje *za darmo*', {}),
+    ('CZERW', 'karta', 1.0, 'Etat + marka + *dom*', {}),
+    ('09', 'blisko', 1.0, 'Mniej perfekcji, *więcej odwagi*', {}),
+    ('CZARNA', 'karta', 1.0, 'A Twoje *2026?*', {}),
+    ('KONIEC', None, 1.3, 'Dziękuję za ten rok', dict(pod='obserwuj')),
+ ],
+ 'r10-mikolajki-dla-przedsiebiorczyni': [
+    ('ROZ', 'karta', 1.0, 'Mikołajki dla *przedsiębiorczyni*', dict(hook=True)),
+    ('B', 'blisko', 1.0, 'Prezent, który *pracuje cały rok:*', {}),
+    ('CZARNA', 'karta', 1.5, 'Plan na 2027 na *jednej kartce*', {}),
+    ('09', 'sredni', 1.5, 'Plik od razu na maila. *Bez kuriera.*', {}),
+    ('07', 'blisko', 1.0, 'Dla niej. Albo *dla siebie.*', {}),
+    ('KONIEC', None, 1.5, 'Prezent od 39 zł', dict(pod='link w bio')),
  ],
 }
 
