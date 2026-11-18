@@ -14,6 +14,11 @@ FOTO = '../../../'  # ścieżki zdjęć względem katalogu repozytorium
 B = 'logo/angelika-portret-bialy.jpg'
 F07 = 'brand/zdjecia-sesja/07-portret-boucle.jpg'
 F09 = 'brand/zdjecia-sesja/09-kanapa-bialy-garnitur.jpg'
+# Prawdziwe zdjęcia przesłane przez Angelikę (niska rozdzielczość: tylko małe kadry / ramki, do podmiany na oryginały)
+ROZ = 'brand/zdjecia-angelika/rozowy-garnitur.jpg'
+CZARNA = 'brand/zdjecia-angelika/czarna-bluzka-laptop.jpg'
+CZERW = 'brand/zdjecia-angelika/czerwona-sukienka.jpg'
+WYROZN = 'brand/zdjecia-angelika/wyroznienie-2023-teraz.jpg'
 F08 = 'brand/zdjecia-sesja/08-rozowy-garnitur-paryskie-biuro.jpg'
 F01_DETAL = 'brand/zdjecia-sesja/01-biurko-granat.jpg#980,0,1565,1005'  # biurko, laptop, tulipany – bez twarzy
 Z = '../../zasoby/'
@@ -91,7 +96,7 @@ KONIEC_AKADEMIA = dict(
 
 KARUZELE = {
  'k1-strategia-na-1-stronie': dict(
-   okladka=dict(foto=B, pigulka='zapisz na poniedziałek', pozycja='52% 10%',
+   okladka=dict(foto=ROZ, pigulka='zapisz na poniedziałek', pozycja='55% 8%',
                 tytul='Strategia firmy na <span class="zakres">1 stronie</span>',
                 lead='5 pytań, które porządkują więcej niż 40 slajdów. Przesuń →'),
    slajdy=[
@@ -153,9 +158,9 @@ KARUZELE = {
    koniec=KONIEC_AKADEMIA),
 
  'k4-nowy-produkt-6-pytan': dict(
-   okladka=dict(foto=B, pigulka='zanim wydasz budżet', kolo='var(--brzoskwinia)',
+   okladka=dict(foto=CZERW, pigulka='zanim wydasz budżet', kolo='var(--brzoskwinia)',
                 tytul='Nowy produkt? <span class="zakres">6 pytań</span> przed premierą', rozmiar=90,
-                lead='Wprowadzałam produkty na rynek. Te pytania oszczędzają najwięcej. Przesuń →', pozycja='52% 10%'),
+                lead='Wprowadzałam produkty na rynek. Te pytania oszczędzają najwięcej. Przesuń →', pozycja='50% 12%'),
    slajdy=[
     dict(etykieta='pytanie 1', tytul='Kto kupi jako pierwszy?', tekst='Wypisz 10 konkretnych osób albo firm. Nie potrafisz? To sygnał, że rynek jest jeszcze mglisty.'),
     dict(etykieta='pytanie 2', tytul='Jaki problem znika?', tlo='t-krem', tekst='Jedno zdanie językiem klienta, nie językiem funkcji.',
@@ -170,9 +175,9 @@ KARUZELE = {
    koniec=dict(KONIEC_AKADEMIA, reka='zapisz przed premierą',
                lead='Darmowa Akademia: próg rentowności, macierz BCG, priorytety. Krok po kroku.')),
  'k5-plan-na-2027': dict(
-   okladka=dict(foto=F09, pigulka='plan na 2027', kolo='var(--liliowy-jasny)',
+   okladka=dict(foto=CZARNA, pigulka='plan na 2027', kolo='var(--liliowy-jasny)',
                 tytul='Plan na 2027 w <span class="zakres">5 krokach</span>', rozmiar=96,
-                lead='Bez listy 30 postanowień. Jeden wieczór, jedna kartka. Przesuń →', pozycja='45% 20%'),
+                lead='Bez listy 30 postanowień. Jeden wieczór, jedna kartka. Przesuń →', pozycja='50% 15%'),
    slajdy=[
     dict(etykieta='krok 1', tytul='Co w 2026 dało najwięcej?',
          tekst='Zysku, spokoju, radości. Wypisz 3 rzeczy. To Twoje „gwiazdy” na kolejny rok.',
@@ -250,7 +255,22 @@ def zapisz(nazwa, body, tytul):
         f.write(HEAD.replace('{t}', html.escape(tytul)) + body + FOOT)
 
 
+def zdjecie_w_ramce(foto, reka, podpis, tlo='t-krem', kolo='var(--roz-jasny)', szer=640, wys=820, pozycja='50% 15%'):
+    return f'''<div class="plotno f-ig45 {tlo}">
+<div class="kolo" style="width:760px;height:760px;background:{kolo};right:-300px;top:-260px"></div>
+<div class="kolo" style="width:420px;height:420px;background:var(--liliowy-jasny);left:-180px;bottom:80px"></div>
+<div style="position:absolute;left:50%;top:110px;transform:translateX(-50%) rotate(-2deg);width:{szer}px;height:{wys}px;background:#fff;padding:22px 22px 0;border-radius:18px;box-shadow:0 30px 60px rgba(58,35,64,.16);z-index:2">
+<div style="width:100%;height:calc(100% - 22px);overflow:hidden;border-radius:10px"><img src="{FOTO}{foto}" style="width:100%;height:100%;object-fit:cover;object-position:{pozycja};display:block"></div></div>
+<div class="pole" style="--mt:980px">
+  <span class="reka" style="text-align:center;align-self:center;font-size:60px">{reka}</span>
+  <p class="lead" style="text-align:center;align-self:center;margin-top:10px;font-size:34px">{podpis}</p>
+  <div class="stopka"><span class="marka"><img src="{Z}znak-g4.svg" alt=""><span>@angelika.pruchniak</span></span><span>guliwera4.pl</span></div>
+</div></div>'''
+
+
 POJEDYNCZE = {
+ 'p07-zdjecie-rozowy': zdjecie_w_ramce(ROZ, 'najdroższe słowo w firmie?', '„Przy okazji”', pozycja='50% 10%'),
+ 'p-wyroznienie': zdjecie_w_ramce(WYROZN, '2023 → teraz', 'Jestem Kobietą i Sięgam po Więcej', tlo='t-zol', kolo='var(--brzoskwinia)', szer=760, wys=800, pozycja='50% 30%'),
  'p04-cytat-etat': f'''<div class="plotno f-ig45 t-krem">
 <div class="kolo" style="width:620px;height:620px;background:var(--roz-jasny);right:-220px;top:-200px"></div>
 <div class="kolo" style="width:360px;height:360px;background:var(--liliowy-jasny);left:-140px;bottom:120px"></div>

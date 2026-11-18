@@ -6,7 +6,7 @@ Podgląd siatki: `social/instagram/podglad-siatki.jpg`. Pliki:
 - zdjęcia 4:5: `social/instagram/zdjecia-4x5/` (tylko 3 zdjęcia z Twoją prawdziwą twarzą: portret w jasnym garniturze, 07, 09)
 - grafiki pojedyncze: `social/instagram/png/posty/`
 
-**Zasada zdjęć (od 9.11):** twarz pokazujemy tylko na prawdziwym zdjęciu `logo/angelika-portret-bialy.jpg` oraz na 07 i 09. Zdjęć 05 i 10 nie używamy (inna twarz). 01 i 08 wyłącznie jako kadr klimatyczny w rolkach (detal biurka, mała sylwetka). 02, 03, 04, 06 nie używamy. Gdy doślesz poprawione zdjęcia, podmienię je w jednym miejscu (`social/narzedzia/tresci.py`).
+**Zasada zdjęć (od 18.11):** w każdym poście inne zdjęcie. Twarz pokazujemy na prawdziwych zdjęciach: portret w jasnym garniturze, różowy garnitur, czarna bluzka z laptopem, czerwona sukienka, wyróżnienie (`brand/zdjecia-angelika/`) oraz na 07 i 09. Zdjęć 05 i 10 nie używamy (inna twarz). 01 i 08 wyłącznie jako kadr klimatyczny w rolkach (detal biurka, mała sylwetka). 02, 03, 04, 06 nie używamy. Gdy doślesz poprawione zdjęcia, podmienię je w jednym miejscu (`social/narzedzia/tresci.py`).
 - karuzele: `social/instagram/png/karuzele/` (wrzucasz slajdy w kolejności 01, 02, …)
 - rolki: `social/instagram/rolki/*.mp4` + okładki `*-okladka.jpg`
 
@@ -14,8 +14,8 @@ Podgląd siatki: `social/instagram/podglad-siatki.jpg`. Pliki:
 
 | | | |
 |---|---|---|
-| 12 · zdjęcie 09 (kanapa) | 11 · karuzela „Nowy produkt” | 10 · grafika produktu „Strategia na 1 stronie” |
-| 9 · rolka „Etat + marka” | 8 · karuzela „3 liczby” | 7 · zdjęcie: portret w jasnym garniturze (prawdziwe) |
+| 12 · wyróżnienie 2023 → teraz (post dodatkowy na dole) | 11 · karuzela „Nowy produkt” | 10 · grafika produktu „Strategia na 1 stronie” |
+| 9 · rolka „Etat + marka” | 8 · karuzela „3 liczby” | 7 · różowy garnitur w ramce |
 | 6 · rolka „3 pytania” | 5 · karuzela „Narzut ≠ marża” | 4 · grafika-cytat „stałe bloki” |
 | 3 · rolka „Zacznij za darmo” | 2 · karuzela „Strategia na 1 stronie” | 1 · zdjęcie (portret) – przypiąć |
 
@@ -147,7 +147,7 @@ Zapisz na moment, kiedy znowu ktoś zaproponuje „szybki projekt”.
 #priorytety #zarządzanieczasem #strategia #decyzje #małafirma
 ```
 
-### Post 7 · zdjęcie `zdjecia-4x5/angelika-portret-bialy.jpg` (prawdziwe zdjęcie)
+### Post 7 · grafika `png/posty/p07-zdjecie-rozowy.png` (różowy garnitur w ramce)
 ```
 Najdroższe słowo w małej firmie? „Przy okazji”.
 
@@ -262,3 +262,19 @@ Strategia: #strategiabiznesowa #strategiafirmy #planowanie #priorytety #decyzje 
 Liczby: #finansewfirmie #liczbywbiznesie #marża #cennik #cashflow #progrentowności
 Produkty: #produktycyfrowe #wprowadzanieproduktu #kierunekzysk #akademiaguliwera
 Życie: #mamaprzedsiębiorczyni #etatiwłasnybiznes #organizacjaczasu
+
+### Post dodatkowy · grafika `png/posty/p-wyroznienie.png` (wyróżnienie 2023 → teraz)
+```
+2023: wyróżnienie „Jestem Kobietą i Sięgam po Więcej”.
+Teraz: [UZUPEŁNIJ – co się zmieniło od tamtej pory, np. kategoria, którą dostałaś teraz]
+
+[UZUPEŁNIJ: 2–3 zdania – co wtedy robiłaś, co dziś robisz inaczej]
+
+Najważniejsza lekcja z tych lat: [UZUPEŁNIJ]
+
+Dziękuję [UZUPEŁNIJ: komu – organizatorom, rodzinie, zespołowi] 🌹
+
+A Ty? Z czego jesteś dumna w tym roku? Napisz – zbiorę Wasze odpowiedzi w relacji.
+
+#jestemkobietąisięgampowięcej #kobietywbiznesie #przedsiębiorczość #markaosobista
+```

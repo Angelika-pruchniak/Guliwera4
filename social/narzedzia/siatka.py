@@ -10,9 +10,9 @@ POSTY = [
     ('zdjecia-4x5/07-portret-boucle.jpg', ''), ('png/karuzele/k1-strategia-na-1-stronie-01.png', 'karuzela'),
     ('rolki/r3-zacznij-za-darmo-okladka.jpg', 'rolka'), ('png/posty/p04-cytat-etat.png', 'cytat'),
     ('png/karuzele/k2-marza-a-narzut-01.png', 'karuzela'), ('rolki/r1-trzy-pytania-okladka.jpg', 'rolka'),
-    ('zdjecia-4x5/angelika-portret-bialy.jpg', ''), ('png/karuzele/k3-trzy-liczby-w-poniedzialek-01.png', 'karuzela'),
+    ('png/posty/p07-zdjecie-rozowy.png', 'zdjęcie'), ('png/karuzele/k3-trzy-liczby-w-poniedzialek-01.png', 'karuzela'),
     ('rolki/r2-etat-i-wlasna-marka-okladka.jpg', 'rolka'), ('png/posty/p10-produkt-strategia.png', 'produkt'),
-    ('png/karuzele/k4-nowy-produkt-6-pytan-01.png', 'karuzela'), ('zdjecia-4x5/09-kanapa-bialy-garnitur.jpg', ''),
+    ('png/karuzele/k4-nowy-produkt-6-pytan-01.png', 'karuzela'), ('png/posty/p-wyroznienie.png', 'zdjęcie'),
 ]
 TW, TH, GAP = 360, 480, 4
 font = ImageFont.truetype(os.path.expanduser('~/.fonts/DMSans%5Bopsz,wght%5D.ttf'), 22)

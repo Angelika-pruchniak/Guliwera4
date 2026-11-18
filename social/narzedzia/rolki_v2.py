@@ -39,6 +39,10 @@ ZDJ = {
     'B':   dict(p='logo/angelika-portret-bialy.jpg', twarz=(575, 250)),
     '07':  dict(p='brand/zdjecia-sesja/07-portret-boucle.jpg', twarz=(432, 470)),
     '09':  dict(p='brand/zdjecia-sesja/09-kanapa-bialy-garnitur.jpg', twarz=(575, 268)),
+    # zdjęcia od Angeliki w niskiej rozdzielczości: tylko plan 'karta' (zdjęcie w ramce, bez mocnego powiększania)
+    'ROZ':    dict(p='brand/zdjecia-angelika/rozowy-garnitur.jpg', twarz=(330, 165), karta=600),
+    'CZERW':  dict(p='brand/zdjecia-angelika/czerwona-sukienka.jpg', twarz=(165, 85), karta=520),
+    'CZARNA': dict(p='brand/zdjecia-angelika/czarna-bluzka-laptop.jpg', twarz=(115, 95), karta=480),
 }
 _cache = {}
 
@@ -66,7 +70,32 @@ def kadr(k, plan, detal=None):
     return cx, cy, szer
 
 
+def karta(k, t, dl, kier=1):
+    """Zdjęcie w białej ramce na kremowym tle, z najazdem i lekkim obrotem (ostre także dla małych plików)."""
+    ram = Image.new('RGB', (W, H), KREM)
+    d = ImageDraw.Draw(ram)
+    d.ellipse((520, -300, 1400, 580), fill=(255, 217, 228) if kier > 0 else (237, 229, 251))
+    d.ellipse((-300, 1300, 380, 1980), fill=(255, 239, 199))
+    im = zdjecie(k); sw, sh = im.size
+    e = min(1.0, t / 0.2)
+    z = (1.0 + 0.10 * (1 - e) ** 3) * (1.0 + 0.03 * t / dl)
+    szer = ZDJ[k]['karta'] * z
+    wys = min(szer * sh / sw, 780 * z)
+    foto = im.resize((int(szer), int(szer * sh / sw)), Image.LANCZOS).crop((0, 0, int(szer), int(wys)))
+    rama = Image.new('RGB', (foto.size[0] + 36, foto.size[1] + 36), 'white')
+    rama.paste(foto, (18, 18))
+    rama = rama.convert('RGBA').rotate(-2.5 * kier, resample=Image.BICUBIC, expand=True)
+    cien = Image.new('RGBA', rama.size, (58, 35, 64, 0))
+    cien.putalpha(rama.getchannel('A').point(lambda v: int(v * 0.18)))
+    x = int(W / 2 - rama.size[0] / 2 + PRZESUN_X); y = int(200 + (1 - e) * 30)
+    ram = ram.convert('RGBA')
+    ram.alpha_composite(cien, (x + 10, y + 24)); ram.alpha_composite(rama, (x, y))
+    return ram.convert('RGB')
+
+
 def klatka(k, plan, t, dl, detal=None, kier=1):
+    if plan == 'karta':
+        return karta(k, t, dl, kier)
     cx, cy, szer = kadr(k, plan, detal)
     # punch-in: 1.12 → 1.0 w 0,2 s (ease-out), potem dryf 1.0 → 1.035
     if t < 0.2:
@@ -102,7 +131,7 @@ def zlam(slowa, f, maks=None):
     return linie
 
 
-def napis(ram, tekst, t, y_srodek=None, hook=False, maly=None):
+def napis(ram, tekst, t, y_srodek=None, hook=False, maly=None, box=KREM):
     y_srodek = y_srodek or Y_NAPIS
     """Napis słowo po słowie (co 0,08 s). *słowo* = żółte podświetlenie. Hook: całość od pierwszej klatki."""
     d = ImageDraw.Draw(ram)
@@ -128,7 +157,7 @@ def napis(ram, tekst, t, y_srodek=None, hook=False, maly=None):
         tekst_lin = ' '.join(s.strip('*') for s in lin)
         szer = f.getlength(tekst_lin)
         x0 = (W - szer) / 2 + PRZESUN_X
-        d.rounded_rectangle((x0 - pad_x, y - pad_y + 6, x0 + szer + pad_x, y + lh - 2), 24, fill=KREM)
+        d.rounded_rectangle((x0 - pad_x, y - pad_y + 6, x0 + szer + pad_x, y + lh - 2), 24, fill=box)
         x = x0
         for s in lin:
             czysty = s.strip('*')
@@ -175,7 +204,7 @@ ROLKI = {
     ('B', 'blisko', 1.0, 'Zanim powiesz *„tak”*', dict(hook=True)),
     ('09', 'sredni', 1.0, 'nowemu projektowi…', {}),
     ('07', 'szeroki', 1.5, 'Czy to przybliża mnie do *celu?*', dict(maly='pytanie 1')),
-    ('B', 'sredni', 1.5, 'Co *przestanę* robić, żeby to zmieścić?', dict(maly='pytanie 2')),
+    ('ROZ', 'karta', 1.5, 'Co *przestanę* robić, żeby to zmieścić?', dict(maly='pytanie 2')),
     ('09', 'blisko', 1.5, 'Ile to zarobi i *kiedy?*', dict(maly='pytanie 3')),
     ('07', 'detal', 1.0, 'Odpowiedź „nic” na pytanie 2…', dict(detal=(720, 1230, 560))),
     ('B', 'blisko', 1.0, '…oznacza *sen.*', {}),
@@ -183,27 +212,27 @@ ROLKI = {
  ],
  'r2-etat-i-wlasna-marka': [
     ('09', 'blisko', 1.0, 'Etat + *własna marka*', dict(hook=True)),
-    ('B', 'szeroki', 1.0, 'Co mi naprawdę pomaga?', {}),
+    ('CZERW', 'karta', 1.0, 'Co mi naprawdę pomaga?', {}),
     ('07', 'sredni', 1.5, 'Jeden cel na kwartał. *Nie dziesięć.*', dict(maly='1')),
-    ('09', 'szeroki', 1.5, 'Stałe *bloki* w kalendarzu', dict(maly='2')),
+    ('ROZ', 'karta', 1.5, 'Stałe *bloki* w kalendarzu', dict(maly='2')),
     ('B', 'detal', 1.5, 'Produkty cyfrowe zamiast *godzin*', dict(maly='3', detal=(600, 1260, 540))),
     ('07', 'blisko', 1.0, 'A co pomaga *Tobie?*', {}),
     ('KONIEC', None, 1.5, 'Napisz w komentarzu', dict(pod='Twoja rada')),
  ],
  'r3-zacznij-za-darmo': [
     ('07', 'blisko', 1.0, 'Liczby w firmie *stresują?*', dict(hook=True)),
-    ('B', 'sredni', 1.0, 'To nie Twoja wina.', {}),
+    ('CZARNA', 'karta', 1.0, 'To nie Twoja wina.', {}),
     ('09', 'sredni', 1.0, 'Nikt ich nie tłumaczy *po ludzku.*', {}),
     ('07', 'detal', 1.5, 'Krótkie lekcje *w telefonie*', dict(detal=(720, 1230, 560))),
     ('B', 'blisko', 1.5, 'Zysk, marża, *próg rentowności*', {}),
-    ('09', 'blisko', 1.0, 'Na start *za darmo.*', {}),
+    ('ROZ', 'karta', 1.0, 'Na start *za darmo.*', {}),
     ('KONIEC', None, 1.5, 'Zacznij za darmo', dict(pod='link w bio')),
  ],
  'r4-plan-na-2027': [
     ('09', 'blisko', 1.0, 'Nie rób 30 *postanowień.*', dict(hook=True)),
-    ('B', 'sredni', 1.0, 'Zrób jeden plan.', {}),
+    ('CZARNA', 'karta', 1.0, 'Zrób jeden plan.', {}),
     ('07', 'sredni', 1.5, 'Co w 2026 dało *najwięcej?*', dict(maly='1')),
-    ('09', 'szeroki', 1.5, 'Co zabrało najwięcej, a dało *najmniej?*', dict(maly='2')),
+    ('CZERW', 'karta', 1.5, 'Co zabrało najwięcej, a dało *najmniej?*', dict(maly='2')),
     ('B', 'blisko', 1.5, 'Jeden cel na *pierwszy kwartał.*', dict(maly='3')),
     ('07', 'detal', 1.0, 'Jedna kartka.', dict(detal=(720, 1230, 560))),
     ('09', 'blisko', 1.0, 'Jeden *wieczór.*', {}),
@@ -228,7 +257,7 @@ def renderuj(nazwa, sceny):
                 ram = plansza(t, tekst, opt.get('pod', ''))
             else:
                 ram = klatka(k, plan, t, dl, opt.get('detal'), kier=1 if i % 2 else -1)
-                napis(ram, tekst, t, hook=opt.get('hook', False), maly=opt.get('maly'))
+                napis(ram, tekst, t, hook=opt.get('hook', False), maly=opt.get('maly'), box=(255, 255, 255) if plan == 'karta' else KREM)
             # flesz przy cięciu na scenę z numerem (2 klatki) – akcent rytmu
             if opt.get('maly') and n < 2:
                 ram = Image.blend(ram, Image.new('RGB', (W, H), 'white'), 0.35 if n == 0 else 0.15)
