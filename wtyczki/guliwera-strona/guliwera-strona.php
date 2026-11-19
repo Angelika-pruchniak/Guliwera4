@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 1.6
+ * Version: 1.7
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -224,3 +224,38 @@ add_action( 'init', function () {
 	update_option( 'gk_strona_ver6', '1.6' );
 	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
 }, 25 );
+
+/* Wersja 1.7: Wafel zamiast Lilka w całej treści strony (decyzja Angeliki 16.11, prośba 19.11) + raport. */
+add_action( 'init', function () {
+	if ( '1.7' === get_option( 'gk_strona_ver7' ) ) { return; }
+	update_option( 'gk_strona_ver7', '1.7' );
+	global $wpdb;
+	$svg   = (string) @file_get_contents( __DIR__ . '/wafel.svg' );
+	$png   = home_url( '/wp-content/uploads/2026/11/wafel-macha.png' );
+	$slowa = array( 'Lilkiem' => 'Waflem', 'Lilkowi' => 'Waflowi', 'Lilka' => 'Wafla', 'Lilku' => 'Waflu', 'Lilek' => 'Wafel' );
+	$raport = array();
+	$ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_type NOT IN ('revision','attachment') AND post_status IN ('publish','draft','private','future','pending') AND ( post_content LIKE '%Lil%' OR post_title LIKE '%Lil%' OR post_excerpt LIKE '%Lil%' )" );
+	foreach ( $ids as $id ) {
+		$row = $wpdb->get_row( $wpdb->prepare( "SELECT post_content, post_title, post_excerpt, post_type FROM {$wpdb->posts} WHERE ID = %d", $id ) );
+		$c = $row->post_content; $t = $row->post_title; $e = $row->post_excerpt;
+		if ( ! preg_match( '/Lil(ek|ka|kiem|kowi|ku)\b|lilek[-_.a-z0-9]*\.(png|svg|jpe?g|webp)/iu', $c . $t . $e ) ) { continue; }
+		if ( $svg ) { $c = preg_replace( '#<svg class="lilek"[^>]*>.*?</svg>#s', $svg, $c ); }
+		$c = str_replace( 'Cześć! Jestem Lilek. Mały, ale łebski.', 'Cześć! Jestem Wafel. Pomogę Ci w nauce!', $c );
+		$c = preg_replace( '#(https?://[^"\'\s)]*?)lilek[-_a-z0-9]*\.(png|svg|jpe?g|webp)#i', $png, $c );
+		foreach ( $slowa as $a => $b ) {
+			$c = preg_replace( '/\b' . $a . '\b/u', $b, $c ); $t = preg_replace( '/\b' . $a . '\b/u', $b, $t ); $e = preg_replace( '/\b' . $a . '\b/u', $b, $e );
+		}
+		$wpdb->update( $wpdb->posts, array( 'post_content' => $c, 'post_title' => $t, 'post_excerpt' => $e ), array( 'ID' => $id ) );
+		clean_post_cache( $id );
+		$raport[] = $row->post_type . ' ' . $id . ' (' . $t . '): podmienione';
+	}
+	$media = $wpdb->get_results( "SELECT ID, post_title, guid FROM {$wpdb->posts} WHERE post_type = 'attachment' AND ( guid LIKE '%lilek%' OR post_title LIKE '%Lilek%' OR post_title LIKE '%lilek%' )" );
+	foreach ( $media as $m ) { $raport[] = 'MEDIUM ' . $m->ID . ' (' . $m->post_title . ') ' . $m->guid . ' – do usunięcia/zastąpienia'; }
+	$meta = $wpdb->get_results( "SELECT post_id, meta_key FROM {$wpdb->postmeta} WHERE meta_value LIKE '%Lilek%' OR meta_value LIKE '%lilek.%' LIMIT 50" );
+	foreach ( $meta as $m ) { $raport[] = 'META post ' . $m->post_id . ' klucz ' . $m->meta_key . ' – zawiera Lilka (np. Yoast/og:image)'; }
+	$opt = $wpdb->get_col( "SELECT option_name FROM {$wpdb->options} WHERE option_value LIKE '%Lilek%' AND option_name NOT LIKE '\\_%' LIMIT 30" );
+	foreach ( $opt as $o ) { $raport[] = 'OPCJA ' . $o . ' – zawiera Lilka'; }
+	update_option( 'gk_raport_lilek', $raport, false );
+	wp_insert_post( array( 'post_type' => 'page', 'post_status' => 'draft', 'post_title' => 'Raport Lilek → Wafel', 'post_content' => '<!-- wp:html --><pre>' . esc_html( implode( "\n", $raport ? $raport : array( 'Nie znaleziono Lilka.' ) ) ) . '</pre><!-- /wp:html -->' ) );
+	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
+}, 26 );
