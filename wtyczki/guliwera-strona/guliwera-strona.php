@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 1.8
+ * Version: 1.9
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -283,3 +283,21 @@ add_filter( 'wpseo_frontend_presentation', function ( $p ) {
 add_filter( 'wpseo_twitter_image', function ( $u ) {
 	return ( is_string( $u ) && false !== strpos( $u, 'angelika-pruchniak-gaszczyk-portret' ) ) ? home_url( '/wp-content/uploads/2026/11/angelika-pruchniak-gaszczyk-jasny-garnitur-819x1024.jpg' ) : $u;
 }, 99 );
+
+/* Wersja 1.9: czyszczenie pamięci podręcznej (W3 Total Cache + WP-Optimize) przy zmianach wpisów i obrazków wyróżniających. */
+function gk_strona_wyczysc_cache() {
+	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
+	if ( function_exists( 'wpo_cache_flush' ) ) { wpo_cache_flush(); }
+	if ( class_exists( 'WP_Optimize_Cache_Commands' ) ) { try { ( new WP_Optimize_Cache_Commands() )->purge_page_cache(); } catch ( \Throwable $e ) {} }
+	if ( function_exists( 'wp_cache_flush' ) ) { wp_cache_flush(); }
+}
+add_action( 'save_post_post', function ( $id ) { if ( ! wp_is_post_revision( $id ) ) { gk_strona_wyczysc_cache(); } }, 99 );
+add_action( 'transition_post_status', function ( $new, $old, $post ) { if ( 'post' === $post->post_type && $new !== $old ) { gk_strona_wyczysc_cache(); } }, 99, 3 );
+foreach ( array( 'added_post_meta', 'updated_post_meta', 'deleted_post_meta' ) as $h ) {
+	add_action( $h, function ( $mid, $pid, $key ) { if ( '_thumbnail_id' === $key ) { gk_strona_wyczysc_cache(); } }, 99, 3 );
+}
+add_action( 'init', function () {
+	if ( '1.9' === get_option( 'gk_strona_ver9' ) ) { return; }
+	update_option( 'gk_strona_ver9', '1.9' );
+	gk_strona_wyczysc_cache();
+}, 27 );
