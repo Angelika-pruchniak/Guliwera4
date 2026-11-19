@@ -89,4 +89,4 @@ Szablon wpisu jest gotowy (wtyczka guliwera-strona 1.4, czat „Dostęp do stron
 - [ ] PDF i karuzela Instagram z nowych grafik.
 - [ ] SEO (tytuł, opis) wpisać ręcznie w panelu Yoast.
 - [ ] Usunąć z biblioteki mediów nieużywane plansze (media 186–196, 198–207), jeśli Angelika zgodzi się.
-- [ ] Publikacja dopiero po „OK” Angeliki.
+- [x] Opublikowano 19.11.2026 (decyzja Angeliki z 18.11: publikacja automatyczna, 1 wpis tygodniowo; zadanie cykliczne wt 10:17).
