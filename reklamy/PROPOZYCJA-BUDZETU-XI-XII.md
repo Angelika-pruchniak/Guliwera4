@@ -49,3 +49,19 @@ Kalendarz: tydzień 23.11 „Black Week bez rabatów: strategia zamiast promocji
 1. Identyfikator piksela Meta + tagi w GTM-KK3LPNV6 (GA4, Google Ads, Meta) – czekam na G-…, ID piksela, etykietę konwersji Google Ads.
 2. ✅ Polityka prywatności zaktualizowana 18.11 (czat „Dostęp do strony”): reklama i mierzenie kampanii (zgoda), Meta, Google Ads, Mailchimp, cookies marketingowe.
 3. Przy promocji: cena 207,90 zł i „Najniższa cena od początku sprzedaży (4.11.2026): 297 zł” na stronie Pakietu.
+
+## AKTUALIZACJA 19.11: budżet maks. 800 zł/mies. (decyzja Angeliki) – ostateczny podział do akceptacji
+| Kampania (Meta) | Cel / optymalizacja | Dziennie | Grudzień (31 dni) | Test 24–30.11 |
+|---|---|---|---|---|
+| Sprzedaż: Strategia na 1 stronie 39 zł (+ Pakiet), remarketing w tej samej kampanii (Advantage+) | Purchase | 15 zł | 465 zł | 105 zł |
+| Obserwujący IG/FB: najlepsze rolki z twarzą Angeliki | aktywność → odwiedziny profilu / obserwowanie | 10 zł | 310 zł | 70 zł |
+| Google Ads | – (wstrzymane do stycznia) | 0 zł | 0 zł | 0 zł |
+| **Razem** | | **25 zł** | **775 zł** | **175 zł** |
+
+Twarde limity (żeby nie przekroczyć 800 zł):
+1. Meta → Ustawienia płatności → **Limit wydatków konta**: 175 zł na test, od 1.12 podniesiony o 800 zł (limit jest narastający, podnosimy co miesiąc).
+2. Budżety dzienne kampanii jak w tabeli (Meta może w pojedynczy dzień wydać do 75% więcej, ale tygodniowo nie więcej niż 7 × budżet dzienny – limit konta to ostateczny bezpiecznik).
+3. Google Ads: brak aktywnych kampanii = 0 zł.
+
+Szacunek do 31.12: 7–14 sprzedaży z reklam, 95–250 obserwujących. Cel 100 PDF / 1000 obserwujących wymaga działań organicznych z kalendarza.
+Black Week: do decyzji Angeliki reklamy bez rabatu (cena 39 zł / 297 zł).
