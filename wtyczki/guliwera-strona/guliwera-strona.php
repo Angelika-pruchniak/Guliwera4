@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 1.7
+ * Version: 1.8
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -259,3 +259,27 @@ add_action( 'init', function () {
 	wp_insert_post( array( 'post_type' => 'page', 'post_status' => 'draft', 'post_title' => 'Raport Lilek → Wafel', 'post_content' => '<!-- wp:html --><pre>' . esc_html( implode( "\n", $raport ? $raport : array( 'Nie znaleziono Lilka.' ) ) ) . '</pre><!-- /wp:html -->' ) );
 	if ( function_exists( 'w3tc_flush_all' ) ) { w3tc_flush_all(); }
 }, 26 );
+
+/* Wersja 1.8: obrazki do udostępnień (og:image) – wpis z obrazkiem wyróżniającym pokazuje tylko jego; portret domyślny = jasny garnitur. */
+add_filter( 'wpseo_frontend_presentation', function ( $p ) {
+	if ( ! is_object( $p ) ) { return $p; }
+	try {
+		$imgs = $p->open_graph_images;
+		if ( ! is_array( $imgs ) ) { return $p; }
+		$stary = 'angelika-pruchniak-gaszczyk-portret';
+		$nowy  = home_url( '/wp-content/uploads/2026/11/angelika-pruchniak-gaszczyk-jasny-garnitur-819x1024.jpg' );
+		if ( is_singular() && has_post_thumbnail() ) {
+			$imgs = array_filter( $imgs, function ( $i ) use ( $stary ) { return ! ( isset( $i['url'] ) && false !== strpos( $i['url'], $stary ) ); } );
+		}
+		$out = array();
+		foreach ( $imgs as $k => $i ) {
+			if ( isset( $i['url'] ) && false !== strpos( $i['url'], $stary ) ) { $i['url'] = $nowy; $i['width'] = 819; $i['height'] = 1024; $k = $nowy; }
+			$out[ $k ] = $i;
+		}
+		$p->open_graph_images = $out;
+	} catch ( \Throwable $e ) {}
+	return $p;
+}, 99 );
+add_filter( 'wpseo_twitter_image', function ( $u ) {
+	return ( is_string( $u ) && false !== strpos( $u, 'angelika-pruchniak-gaszczyk-portret' ) ) ? home_url( '/wp-content/uploads/2026/11/angelika-pruchniak-gaszczyk-jasny-garnitur-819x1024.jpg' ) : $u;
+}, 99 );
