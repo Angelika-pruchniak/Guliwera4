@@ -43,8 +43,8 @@ ZDJ = {
     'ROZ':    dict(p='brand/zdjecia-angelika/rozowy-garnitur.jpg', twarz=(330, 165), karta=600),
     'CZERW':  dict(p='brand/zdjecia-angelika/czerwona-sukienka.jpg', twarz=(165, 85), karta=520),
     'CZARNA': dict(p='brand/zdjecia-angelika/czarna-bluzka-laptop.jpg', twarz=(115, 95), karta=480),
-    'WYROZN': dict(p='brand/zdjecia-angelika/wyroznienie-2023-teraz.jpg', twarz=(300, 200), karta=640),
-    'W2023':  dict(p='brand/zdjecia-angelika/wyroznienie-2023.jpg', twarz=(170, 150), karta=420),
+    'WYROZN': dict(p='brand/zdjecia-angelika/wyroznienie-2023-teraz-popr.jpg', twarz=(600, 400), karta=640),
+    'W2023':  dict(p='brand/zdjecia-angelika/wyroznienie-2023-popr.jpg', twarz=(340, 300), karta=420),
 }
 _cache = {}
 

@@ -18,7 +18,7 @@ F09 = 'brand/zdjecia-sesja/09-kanapa-bialy-garnitur.jpg'
 ROZ = 'brand/zdjecia-angelika/rozowy-garnitur.jpg'
 CZARNA = 'brand/zdjecia-angelika/czarna-bluzka-laptop.jpg'
 CZERW = 'brand/zdjecia-angelika/czerwona-sukienka.jpg'
-WYROZN = 'brand/zdjecia-angelika/wyroznienie-2023-teraz.jpg'
+WYROZN = 'brand/zdjecia-angelika/wyroznienie-2023-teraz-popr.jpg'
 F08 = 'brand/zdjecia-sesja/08-rozowy-garnitur-paryskie-biuro.jpg'
 F01_DETAL = 'brand/zdjecia-sesja/01-biurko-granat.jpg#980,0,1565,1005'  # biurko, laptop, tulipany – bez twarzy
 Z = '../../zasoby/'
@@ -222,9 +222,9 @@ KARUZELE = {
                przycisk='Strategia na 1 stronie · 39 zł', pod='link w bio · guliwera4.pl/materialy')),
 
  'k7-podsumowanie-roku': dict(
-   okladka=dict(foto='brand/zdjecia-angelika/wyroznienie-2023.jpg', pigulka='podsumowanie roku', kolo='var(--roz-jasny)',
+   okladka=dict(foto='brand/zdjecia-angelika/wyroznienie-2023-popr.jpg', pigulka='podsumowanie roku', kolo='var(--roz-jasny)',
                 tytul='Podsumuj rok <span class="zakres">krok po kroku</span>', rozmiar=94,
-                lead='Doceń, co się udało, zanim zaczniesz planować. Przesuń →', pozycja='50% 20%'),
+                lead='Doceń, co się udało, zanim zaczniesz planować. Przesuń →', pozycja='50% 0%'),
    slajdy=[
     dict(etykieta='krok 1', tytul='Zbierz fakty',
          tekst='Przejrzyj kalendarz, maile i konto. Wypisz 10 rzeczy, które wydarzyły się w tym roku.',
