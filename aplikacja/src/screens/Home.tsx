@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { flatLessons, units } from '../content'
 import { InstallCard } from '../components/InstallCard'
-import { Lilek } from '../components/Lilek'
+import { Wafel } from '../components/Wafel'
 import { Progress, Star } from '../components/ui'
 import { fx } from '../fx'
-import { chestReady, currentLesson, dayKey, lessonStatus, unitReached, useStore } from '../store'
+import { DARMOWE_DZIALY } from '../konto'
+import { chestReady, currentLesson, dayDiff, dayKey, lessonStatus, unitReached, useStore } from '../store'
 
 const OFFSETS = [0, 52, 78, 52, 0, -52, -78, -52]
 
@@ -12,13 +13,32 @@ type Props = {
   onLesson: (flatIndex: number) => void
   onSkip: (unitIndex: number) => void
   onChest: (unitIndex: number) => void
+  pro?: boolean
 }
 
-export function Home({ onLesson, onSkip, onChest }: Props) {
+export function Home({ onLesson, onSkip, onChest, pro = false }: Props) {
   const s = useStore()
   const cur = currentLesson(s)
   const curRef = useRef<HTMLDivElement>(null)
   const todayXp = s.xpByDay[dayKey()] ?? 0
+  const goalDone = todayXp >= s.dailyGoal
+  // Dni bez nauki: od 2 dni przerwy Wafel leży i czeka na użytkownika.
+  const gap = s.lastDay ? dayDiff(s.lastDay, dayKey()) : 0
+  const missed = !goalDone && gap >= 2
+  // Bezczynność na ekranie: po 45 s Wafel czeka, po 2 min drzemie; dotyk lub przewinięcie go budzi.
+  const [idle, setIdle] = useState<'happy' | 'wait' | 'sleep'>('happy')
+  useEffect(() => {
+    let t1 = 0, t2 = 0
+    const arm = () => {
+      clearTimeout(t1); clearTimeout(t2); setIdle('happy')
+      t1 = window.setTimeout(() => setIdle('wait'), 45_000)
+      t2 = window.setTimeout(() => setIdle('sleep'), 120_000)
+    }
+    arm()
+    const ev = ['pointerdown', 'scroll', 'keydown'] as const
+    ev.forEach((e) => window.addEventListener(e, arm, { passive: true }))
+    return () => { clearTimeout(t1); clearTimeout(t2); ev.forEach((e) => window.removeEventListener(e, arm)) }
+  }, [])
 
   useEffect(() => {
     curRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
@@ -28,9 +48,9 @@ export function Home({ onLesson, onSkip, onChest }: Props) {
     <div className="home">
       <InstallCard />
       <div className="goal-card">
-        <Lilek mood={todayXp >= s.dailyGoal ? 'cheer' : 'happy'} size={54} />
+        <Wafel mood={goalDone ? 'cheer' : missed ? 'wait' : idle} size={54} />
         <div className="goal-text">
-          <b>{todayXp >= s.dailyGoal ? 'Cel dnia zrobiony!' : `Cel dnia: ${todayXp}/${s.dailyGoal} XP`}</b>
+          <b>{goalDone ? 'Cel dnia zrobiony!' : missed ? `Wafel czekał na Ciebie ${gap} dni! Cel dnia: ${todayXp}/${s.dailyGoal} XP` : `Cel dnia: ${todayXp}/${s.dailyGoal} XP`}</b>
           <Progress value={todayXp / s.dailyGoal} color="var(--yellow)" />
         </div>
       </div>
@@ -42,7 +62,7 @@ export function Home({ onLesson, onSkip, onChest }: Props) {
           <section key={u.id} className="unit">
             <div className={`unit-banner c-${u.color}`}>
               <div>
-                <div className="unit-no">Dział {ui + 1}</div>
+                <div className="unit-no">Dział {ui + 1}{!pro && ui >= DARMOWE_DZIALY && <span className="unit-pro">PRO</span>}</div>
                 <h2>{u.title}</h2>
                 <div className="unit-sub">{u.subtitle}</div>
               </div>
@@ -75,7 +95,7 @@ export function Home({ onLesson, onSkip, onChest }: Props) {
                     )}
                     {isCur && (
                       <div className={`node-mascot ${OFFSETS[l.flatIndex % OFFSETS.length] > 0 ? 'left' : ''}`}>
-                        <Lilek mood="wave" size={64} />
+                        <Wafel mood="wave" size={64} />
                       </div>
                     )}
                   </div>
@@ -96,8 +116,8 @@ export function Home({ onLesson, onSkip, onChest }: Props) {
         )
       })}
       <div className="path-end">
-        <Lilek mood="think" size={80} />
-        <p>Kolejne działy w przygotowaniu. Lilek już pisze!</p>
+        <Wafel mood="think" size={80} />
+        <p>Kolejne działy w przygotowaniu. Wafel już je pilnuje!</p>
       </div>
     </div>
   )

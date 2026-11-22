@@ -54,15 +54,11 @@ button:disabled { cursor: default; }
 .card p { margin: 0; }
 
 /* ── maskotka ── */
-.lilek { display: block; overflow: visible; }
-.lilek-eyes { animation: blink 4.5s infinite; transform-origin: 60px 67px; }
-@keyframes blink { 0%, 94%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
-.lilek-wave .lilek-arm-r { animation: wave 1.2s ease-in-out infinite; transform-origin: 96px 80px; }
-@keyframes wave { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-120deg) translate(4px, -6px); } }
-.lilek-arms-up { animation: arms .5s ease-in-out infinite alternate; transform-origin: 60px 80px; }
-@keyframes arms { to { transform: translateY(-3px); } }
-.lilek-think .lilek-arm-r { transform: rotate(-60deg) translate(-6px, 4px); transform-origin: 96px 80px; }
-.lilek-sad { animation: shake .5s; }
+.wafel { display: block; flex: none; }
+.wafel svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.wafel-wave svg, .wafel-think svg { animation: tilt 2.4s ease-in-out infinite; transform-origin: 50% 90%; }
+@keyframes tilt { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-4deg); } }
+.wafel-sad { animation: shake .5s; }
 .bounce { animation: bounce 2s ease-in-out infinite; }
 .jump { animation: jump .9s ease-in-out infinite; }
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
@@ -257,3 +253,29 @@ button:disabled { cursor: default; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition: none !important; }
 }
+
+/* Rabat w sklepie */
+.rabat { border-color: var(--coral); }
+.rabat-proc { background: linear-gradient(100deg, #FF6B3D, #F4799F 55%, #B9A5E3); color: #fff; border-radius: 999px; padding: 2px 12px; font-size: 18px; }
+.rabat-wiersz { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; }
+.kupon { background: #FFEFC7; border: 2px dashed #FFC84A; border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.kupon-kod { font-size: 20px; letter-spacing: .06em; word-break: break-all; }
+.kupon .row { flex-wrap: wrap; }
+.rabat .progress { flex: none; }
+
+/* Akademia Pro */
+.pro-card { border-color: var(--lilac); }
+.pro-badge { background: var(--lilac); color: #fff; border-radius: 999px; padding: 2px 10px; font-size: 13px; }
+.pro-lista { margin: 0; padding-left: 20px; font-size: 14.5px; display: grid; gap: 4px; }
+.pro-zakup { display: flex; flex-direction: column; gap: 10px; }
+.kod-form { display: flex; gap: 8px; flex-wrap: wrap; }
+.kod-form input { flex: 1; min-width: 160px; border: 2px solid var(--line); border-radius: 12px; padding: 8px 12px; font: inherit; }
+.unit-pro { display: inline-block; margin-left: 8px; background: rgba(255,255,255,.9); color: #3A2340; border-radius: 999px; padding: 1px 9px; font-size: 12px; font-weight: 700; vertical-align: middle; }
+.cert-wrap { min-height: 100vh; padding: 24px 16px; display: flex; flex-direction: column; align-items: center; gap: 16px; background: #FFF6EE; }
+.cert { background: #fff; border: 6px double #E8512A; border-radius: 18px; max-width: 720px; width: 100%; padding: 32px 24px; text-align: center; }
+.cert h1 { font-size: 34px; margin: 4px 0 12px; }
+.cert h2 { font-size: 28px; margin: 6px 0 12px; color: #E8512A; }
+.cert-nad { text-transform: uppercase; letter-spacing: .14em; font-weight: 700; color: #7A6580; margin: 8px 0 0; }
+.cert-data { color: #7A6580; font-size: 14px; margin-top: 18px; }
+@media print { .cert-akcje { display: none; } .cert-wrap { background: #fff; } }
+.pro-zakup a.btn { text-decoration: none; text-align: center; }

@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import { flatLessons, pick, quickExercises, units, type Item } from './content'
-import { Lilek } from './components/Lilek'
+import { Wafel } from './components/Wafel'
 import { Coin, Confetti, Flame, Heart } from './components/ui'
 import { fx } from './fx'
+import { dzialZablokowany, jestPro, useRabat, wyslijKolejke, zglosAktywnosc, zglosLekcje } from './konto'
+import { ProZakup } from './components/ProCard'
+import { Certyfikat } from './screens/Certyfikat'
 import { Home } from './screens/Home'
 import { Onboarding } from './screens/Onboarding'
 import { Placement } from './screens/Placement'
@@ -24,14 +27,19 @@ type View =
   | { name: 'test'; unit: number; items: Item[] }
   | { name: 'result'; rewards: Rewards; accuracy: number | null; seconds: number | null; title: string; heading?: string }
   | { name: 'info'; mood: 'sad' | 'cheer'; title: string; text: string }
+  | { name: 'cert' }
 
 export default function App() {
   const s = useStore()
   const [tab, setTab] = useState<Tab>('path')
   const [view, setView] = useState<View>({ name: 'tabs' })
   const [noHearts, setNoHearts] = useState(false)
+  const [proModal, setProModal] = useState(false)
+  const { status: rab } = useRabat()
+  const pro = jestPro(rab)
 
   useEffect(() => {
+    void wyslijKolejke()
     const t = setInterval(tickHearts, 20_000)
     return () => clearInterval(t)
   }, [])
@@ -53,7 +61,7 @@ export default function App() {
             setView({
               name: 'result', rewards, accuracy: null, seconds: null, heading: 'Poziom sprawdzony!',
               title: u === 0
-                ? 'Zaczynamy od podstaw: dział 1, „Język pieniędzy”. Lilek poprowadzi Cię krok po kroku.'
+                ? 'Zaczynamy od podstaw: dział 1, „Język pieniędzy”. Wafel poprowadzi Cię krok po kroku.'
                 : `Twój start: dział ${u + 1}, „${units[u].title}”. Działy 1–${u} masz odblokowane, możesz do nich wracać.`,
             })
           }}
@@ -71,6 +79,7 @@ export default function App() {
           onDone={(r) => {
             if (r.aborted) return home()
             const rewards = completeLesson(l.id, r)
+            zglosLekcje(l.id)
             setView({ name: 'result', rewards, accuracy: accuracy(r), seconds: r.seconds, title: l.title })
           }}
         />
@@ -85,6 +94,7 @@ export default function App() {
           onExit={home}
           onDone={(r) => {
             const rewards = completeReview(r)
+            zglosAktywnosc()
             setView({ name: 'result', rewards, accuracy: accuracy(r), seconds: r.seconds, heading: 'Powtórka zrobiona!', title: 'Pamięć odświeżona. W nagrodę +1 serce.' })
           }}
         />
@@ -106,13 +116,15 @@ export default function App() {
           }}
         />
       )
+    case 'cert':
+      return <Certyfikat onClose={home} />
     case 'result':
       return <Result {...view} onContinue={home} />
     case 'info':
       return (
         <div className="result">
           {view.mood === 'cheer' && <Confetti />}
-          <Lilek mood={view.mood} size={140} className={view.mood === 'cheer' ? 'jump' : ''} />
+          <Wafel mood={view.mood} size={140} className={view.mood === 'cheer' ? 'jump' : ''} />
           <h1>{view.title}</h1>
           <p className="lead">{view.text}</p>
           <button className="btn big result-btn" onClick={home}>Dalej</button>
@@ -121,17 +133,19 @@ export default function App() {
   }
 
   const startLesson = (flat: number) => {
-    if (s.hearts <= 0) return setNoHearts(true)
+    if (dzialZablokowany(rab, flatLessons[flat].unitIndex)) { fx('tap'); return setProModal(true) }
+    if (!pro && s.hearts <= 0) return setNoHearts(true)
     setView({ name: 'lesson', flat })
   }
   const startSkip = (u: number) => {
+    if (dzialZablokowany(rab, u)) { fx('tap'); return setProModal(true) }
     const pool = units.slice(s.skipTo, u).flatMap((_, i) => quickExercises(s.skipTo + i))
     setView({ name: 'test', unit: u, items: pick(pool, 8) })
   }
   const chest = (u: number) => {
     const amount = openChest(u)
     fx('coin')
-    setView({ name: 'info', mood: 'cheer', title: `+${amount} monet!`, text: `Skrzynia działu „${units[u].title}” otwarta. Wydaj monety w sklepiku Lilka.` })
+    setView({ name: 'info', mood: 'cheer', title: `+${amount} monet!`, text: `Skrzynia działu „${units[u].title}” otwarta. Wydaj monety w sklepiku Wafla.` })
   }
 
   const streak = visibleStreak(s)
@@ -141,12 +155,12 @@ export default function App() {
         <span className="stat" title="Seria dni"><Flame off={!didToday(s)} /> {streak}</span>
         <span className="brand">Akademia <i>Guliwera</i></span>
         <span className="stat" title="Monety"><Coin /> {s.coins}</span>
-        <span className="stat" title="Serca"><Heart off={s.hearts === 0} /> {s.hearts}</span>
+        <span className="stat" title="Serca"><Heart off={!pro && s.hearts === 0} /> {pro ? '∞' : s.hearts}</span>
       </header>
       <main className="content">
-        {tab === 'path' && <Home onLesson={startLesson} onSkip={startSkip} onChest={chest} />}
+        {tab === 'path' && <Home onLesson={startLesson} onSkip={startSkip} onChest={chest} pro={pro} />}
         {tab === 'practice' && <Practice onStart={() => setView({ name: 'review', items: practiceItems(s) })} />}
-        {tab === 'profile' && <Profile />}
+        {tab === 'profile' && <Profile onCert={() => setView({ name: 'cert' })} />}
       </main>
       <nav className="bottomnav">
         {([['path', 'Ścieżka'], ['practice', 'Powtórki'], ['profile', 'Profil']] as const).map(([id, label]) => (
@@ -155,10 +169,20 @@ export default function App() {
           </button>
         ))}
       </nav>
+      {proModal && (
+        <div className="modal-bg" onClick={() => setProModal(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <Wafel mood="think" size={90} />
+            <h3>Ten dział jest w Akademii Pro</h3>
+            <ProZakup compact />
+            <button className="btn ghost" onClick={() => setProModal(false)}>Może później</button>
+          </div>
+        </div>
+      )}
       {noHearts && (
         <div className="modal-bg" onClick={() => setNoHearts(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <Lilek mood="sleep" size={90} />
+            <Wafel mood="sleep" size={90} />
             <h3>Brak serc</h3>
             <p>Jedno serce wraca co 30 minut. Zrób powtórkę (+1 serce) albo uzupełnij zapas.</p>
             <button className="btn big" disabled={s.coins < PRICE_HEARTS} onClick={() => { if (buyHearts()) { fx('coin'); setNoHearts(false) } }}>
