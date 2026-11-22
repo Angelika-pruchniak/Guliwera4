@@ -109,3 +109,15 @@ Przy każdej obniżce: najniższa cena z 30 dni przed obniżką (Omnibus).
 **Kryteria zmiany kursu:** jeśli po 2 tygodniach kliknięcia < 40/tydz., przechodzimy na więcej grup i krótsze posty
 z jednym narzędziem. Jeśli 30.11 jest mniej niż 25 zakupów łącznie, przesuwamy siły na kanały 1 i 2 (wiadomości i firmy) i proponujemy test reklamy
 (za zgodą Angeliki). Jeśli 14.12 jest mniej niż 50, cel realnie spada do ok. 70 i mówimy to wprost.
+
+## 7. Linki do postów (na żywo od 22.11, dopisuj UTM)
+
+| Produkt | Strona produktu | Zakup od razu |
+|---|---|---|
+| Zestaw Plan 2027 – 79 zł | https://guliwera4.pl/produkt/zestaw-plan-2027/ | https://guliwera4.pl/zamowienie/?add-to-cart=237 |
+| Licencja dla zespołu do 10 osób – 590 zł | https://guliwera4.pl/produkt/zestaw-plan-2027-licencja-zespol/ | https://guliwera4.pl/zamowienie/?add-to-cart=238 |
+| Pakiet Kierunek Zysk – 297 zł (24–30.11 z bonusem: sesja Q&A „Plan 2027” 13.12) | https://guliwera4.pl/produkt/kierunek-zysk-pakiet/ | https://guliwera4.pl/zamowienie/?add-to-cart=67 |
+| Strategia na 1 stronie – 39 zł | https://guliwera4.pl/produkt/strategia-na-1-stronie/ | https://guliwera4.pl/zamowienie/?add-to-cart=69 |
+
+Przykład: `https://guliwera4.pl/produkt/zestaw-plan-2027/?utm_source=linkedin&utm_medium=social&utm_campaign=plan2027&utm_content=post-2411`.
+Na stronie: 24–30.11 pasek i opis bonusu Black Friday przy Pakiecie, od 1.12 pasek promuje Zestaw Plan 2027.
