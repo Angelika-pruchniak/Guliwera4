@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 2.0
+ * Version: 2.1
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -406,3 +406,74 @@ add_action( 'init', function () {
 	}
 	gk_strona_wyczysc_cache();
 }, 28 );
+
+/* Wersja 2.1: prywatny raport statystyk (Akademia + sprzedaż), bez danych osobowych, odświeżany co godzinę. */
+function gk_raport_dane() {
+	global $wpdb;
+	$tz   = new DateTimeZone( 'Europe/Warsaw' );
+	$dzis = new DateTime( 'now', $tz );
+	$d7   = ( clone $dzis )->modify( '-6 days' )->format( 'Y-m-d' );
+	$d30  = ( clone $dzis )->modify( '-29 days' )->format( 'Y-m-d' );
+	$r = array( 'wygenerowano' => $dzis->format( 'Y-m-d H:i' ) );
+	// Akademia
+	$wiersze = $wpdb->get_col( "SELECT meta_value FROM {$wpdb->usermeta} WHERE meta_key = 'gk_ak_postep'" );
+	$uz = 0; $lekcje = 0; $akt7 = 0; $akt30 = 0; $dni_suma = 0; $roz = array( '0' => 0, '1-2' => 0, '3-9' => 0, '10+' => 0 ); $lekcje7 = 0;
+	foreach ( $wiersze as $w ) {
+		$p = maybe_unserialize( $w );
+		if ( ! is_array( $p ) ) { continue; }
+		$uz++;
+		$l = isset( $p['lekcje'] ) && is_array( $p['lekcje'] ) ? $p['lekcje'] : array();
+		$d = isset( $p['dni'] ) && is_array( $p['dni'] ) ? $p['dni'] : array();
+		$n = count( $l ); $lekcje += $n; $dni_suma += count( $d );
+		foreach ( $l as $data ) { if ( is_string( $data ) && $data >= $d7 ) { $lekcje7++; } }
+		if ( array_filter( $d, function ( $x ) use ( $d7 ) { return $x >= $d7; } ) ) { $akt7++; }
+		if ( array_filter( $d, function ( $x ) use ( $d30 ) { return $x >= $d30; } ) ) { $akt30++; }
+		$roz[ 0 === $n ? '0' : ( $n <= 2 ? '1-2' : ( $n <= 9 ? '3-9' : '10+' ) ) ]++;
+	}
+	$konta = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->users}" );
+	$nowe7 = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->users} WHERE user_registered >= %s", $d7 . ' 00:00:00' ) );
+	$nowe30 = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->users} WHERE user_registered >= %s", $d30 . ' 00:00:00' ) );
+	$r['akademia'] = array(
+		'konta_na_stronie' => $konta, 'nowe_konta_7_dni' => $nowe7, 'nowe_konta_30_dni' => $nowe30,
+		'osoby_ktore_zaczely_akademie' => $uz, 'aktywne_7_dni' => $akt7, 'aktywne_30_dni' => $akt30,
+		'ukonczone_lekcje_razem' => $lekcje, 'ukonczone_lekcje_7_dni' => $lekcje7,
+		'dni_nauki_razem' => $dni_suma, 'srednio_lekcji_na_osobe' => $uz ? round( $lekcje / $uz, 1 ) : 0,
+		'szacowany_czas_nauki_min' => $lekcje * 5, 'rozklad_lekcji_na_osobe' => $roz,
+		'zgody_na_maile' => (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->usermeta} WHERE meta_key = 'gk_ak_zgoda' AND meta_value <> ''" ),
+	);
+	// Sprzedaż
+	if ( function_exists( 'wc_get_orders' ) ) {
+		$sprzedaz = array( 'zamowienia_platne' => 0, 'przychod_zl' => 0, 'od_17_11' => 0, 'ostatnie_7_dni' => 0, 'produkty' => array() );
+		$ord = wc_get_orders( array( 'status' => array( 'processing', 'completed' ), 'limit' => -1, 'date_created' => '>=' . strtotime( '2026-11-01' ) ) );
+		foreach ( $ord as $o ) {
+			$sprzedaz['zamowienia_platne']++;
+			$sprzedaz['przychod_zl'] += (float) $o->get_total();
+			$dt = $o->get_date_created() ? $o->get_date_created()->date_i18n( 'Y-m-d' ) : '';
+			if ( $dt >= '2026-11-17' ) { $sprzedaz['od_17_11']++; }
+			if ( $dt >= $d7 ) { $sprzedaz['ostatnie_7_dni']++; }
+			foreach ( $o->get_items() as $it ) {
+				$nz = $it->get_name();
+				if ( ! isset( $sprzedaz['produkty'][ $nz ] ) ) { $sprzedaz['produkty'][ $nz ] = 0; }
+				$sprzedaz['produkty'][ $nz ] += (int) $it->get_quantity();
+			}
+		}
+		$sprzedaz['sztuki_razem'] = array_sum( $sprzedaz['produkty'] );
+		$sprzedaz['uwaga'] = 'Liczone od 1.11.2026, statusy „w realizacji” i „zrealizowane”. Zawiera zamówienia testowe Angeliki, jeśli zostały opłacone.';
+		$r['sprzedaz'] = $sprzedaz;
+	}
+	return $r;
+}
+add_action( 'init', function () {
+	if ( get_transient( 'gk_raport_swiezy' ) ) { return; }
+	set_transient( 'gk_raport_swiezy', 1, HOUR_IN_SECONDS );
+	$json = wp_json_encode( gk_raport_dane(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE );
+	$id   = (int) get_option( 'gk_raport_strona' );
+	$tresc = '<!-- wp:html --><pre>' . esc_html( $json ) . '</pre><!-- /wp:html -->';
+	if ( $id && get_post( $id ) ) {
+		wp_update_post( array( 'ID' => $id, 'post_content' => $tresc ) );
+	} else {
+		$id = wp_insert_post( array( 'post_type' => 'page', 'post_status' => 'private', 'post_title' => 'Raport statystyk Guliwera 4 (prywatny)', 'post_name' => 'raport-statystyk', 'post_content' => $tresc ) );
+		update_option( 'gk_raport_strona', (int) $id );
+	}
+}, 40 );
+add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', function ( $ids ) { $r = (int) get_option( 'gk_raport_strona' ); return $r ? array_merge( (array) $ids, array( $r ) ) : $ids; } );
