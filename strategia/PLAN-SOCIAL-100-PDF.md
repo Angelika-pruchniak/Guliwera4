@@ -36,9 +36,9 @@ Dlatego cel dzielimy na kanały, w których konwersja jest wyższa niż na zimne
 15–21.12: 25 · 22–31.12: 10.
 
 **Warunki konieczne (bez nich nie ruszamy kanałów 2, 5 i 6):**
-1. **Zakup testowy działa** (Stripe: karta, BLIK, P24) – Angelika, w tym tygodniu. Bez tego żadnej sprzedaży nie będzie.
+1. ✅ Zakup działa – Angelika zrobiła zamówienia testowe (22.11).
 2. Produkt „Zestaw Plan 2027” 79 zł i **licencja zespołowa** (np. 10 osób, 590 zł, faktura). Dziś wtyczka pozwala kupić PDF tylko raz w koszyku,
-   więc firmy nie kupią kilku sztuk (czat „Dostęp do strony”, po akceptacji Angeliki).
+   więc firmy nie kupią kilku sztuk (czat „Dostęp do strony”; zaakceptowane przez Angelikę 22.11).
 3. Kody rabatowe dla partnerów (WooCommerce → Marketing → Kupony) i linki UTM.
 4. Mail po zakupie z prośbą o opinię (dowód społeczny do postów od 8.12).
 
@@ -50,7 +50,9 @@ Dlatego cel dzielimy na kanały, w których konwersja jest wyższa niż na zimne
    - posty o szkoleniu „AI i sprzedaż w małej firmie” (19.11 LI, 17.11 FB, 1.12 FB) oraz KFS/BUR (12.11 LI, 16.11 FB)
      → wycofać albo zamienić wezwanie: zamiast „napisz AI, prześlę program szkolenia” dać link do Zestawu Plan 2027 / Strategii na 1 stronie;
    - **Black Friday:** posty 25 i 27.11 mówią „bonus zamiast rabatu”. Oferta musi to powtarzać: zamiast −30% na Pakiet
-     → **Pakiet 297 zł + Planer 90 dni i Strategia na 1 stronie gratis** (lub darmowa 30-minutowa sesja Q&A w sobotę).
+     → **Pakiet 297 zł + bonus: miejsce na grupowej sesji online „Plan 2027 – Q&A” (sobota 13.12, 90 min)**.
+     Pakiet zawiera już Strategię na 1 stronie i Planer 90 dni, więc nie mogą być gratisem. Sesja mieści się w sobotach Angeliki.
+     Decyzje 22.11: bonus zamiast rabatu – zaakceptowany; płatności sprawdzone przez Angelikę (zamówienia testowe poprawne).
      Inaczej marka mówi jedno, a robi drugie. ❓ decyzja Angeliki.
 3. **Każdy post ma jeden cel i jeden link z UTM**, np.
    `guliwera4.pl/produkt/strategia-na-1-stronie/?utm_source=linkedin&utm_medium=social&utm_campaign=plan2027&utm_content=post-1711`
@@ -82,7 +84,7 @@ albo Strategia na 1 stronie za 39 zł.
 | Tydzień | Temat | Przykładowe posty i działania |
 |---|---|---|
 | 17–23.11 | Rozgrzewka + sieć | „3 pytania, zanim zaplanujesz 2027”; start wiadomości 1:1 (50 osób); 3 propozycje partnerstw |
-| 24–30.11 | Black Friday po swojemu | bonus zamiast rabatu (spójnie z postami): Pakiet + Zestaw Plan 2027 gratis; ankieta; kolejne 50 wiadomości |
+| 24–30.11 | Black Friday po swojemu | bonus zamiast rabatu (spójnie z postami): Pakiet + sesja Q&A „Plan 2027” 13.12 w bonusie; ankieta; kolejne 50 wiadomości |
 | 1–7.12 | Premiera Zestawu Plan 2027 | „12 dni do planu na 2027” (fragment kanwy w poście, pełna w PDF); maile do 10 firm: licencja jako prezent dla zespołu |
 | 8–14.12 | Dowód + prezenty | zdjęcia wypełnionej kanwy (fikcyjna firma), pierwsze opinie, „prezent dla zespołu do 18.12”; ostatnie 50 wiadomości |
 | 15–21.12 | Domknięcie | Planer 90 dni na I kwartał; „ostatni tydzień przed świętami: 1 godzina na plan”; przypomnienie do osób, które kliknęły |
