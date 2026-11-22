@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 1.9
+ * Version: 2.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -53,7 +53,7 @@ function gk_strona_filtr( $html ) {
 		return $h;
 	}, $html, 1 );
 	// Pasek nad nagłówkiem: CTA nr 1.
-	$html = preg_replace( '#<div class="pasek">.*?</div>#s', '<div class="pasek">Zacznij za darmo: 5 minut dziennie strategii w Akademii Guliwera. <a href="' . $home . '/aplikacja/">Sprawdź →</a></div>', $html, 1 );
+	$html = preg_replace( '#<div class="pasek">.*?</div>#s', gk_strona_pasek(), $html, 1 );
 	// Lokalizacja i Usługi B2B są teraz w Kontakcie.
 	$html = str_replace( array( '>Usługi i cennik</a>', '>Usługi B2B</a>', '>usługi B2B</a>' ), array( '>Dla firm</a>', '>Dla firm</a>', '>Dla firm</a>' ), $html );
 	$html = str_replace( array( $home . '/lokalizacja/', $home . '/uslugi/' ), array( $home . '/kontakt/#lokalizacja', $home . '/kontakt/#dla-firm' ), $html );
@@ -301,3 +301,108 @@ add_action( 'init', function () {
 	update_option( 'gk_strona_ver9', '1.9' );
 	gk_strona_wyczysc_cache();
 }, 27 );
+
+/* ---------- Wersja 2.0: Zestaw Plan 2027 (79 zł), licencja zespołowa (590 zł), Black Friday z bonusem (decyzje Angeliki 22.11) ---------- */
+function gk_strona_teraz() { return new DateTime( 'now', new DateTimeZone( 'Europe/Warsaw' ) ); }
+function gk_strona_bf() {
+	$t = gk_strona_teraz()->format( 'Y-m-d' );
+	return $t >= '2026-11-24' && $t <= '2026-11-30';
+}
+function gk_strona_pasek() {
+	$home = untrailingslashit( home_url() );
+	if ( gk_strona_bf() ) {
+		return '<div class="pasek">Black Friday bez rabatów: do 30.11 Pakiet Kierunek Zysk + sobotnia sesja Q&amp;A „Plan 2027” w bonusie. <a href="' . $home . '/produkt/kierunek-zysk-pakiet/">Zobacz pakiet →</a></div>';
+	}
+	$z = (int) get_option( 'gk_zestaw_id' );
+	if ( $z && 'publish' === get_post_status( $z ) && gk_strona_teraz()->format( 'Y-m-d' ) <= '2026-12-31' ) {
+		return '<div class="pasek">Plan na 2027 w godzinę: Zestaw Plan 2027 – strategia na 1 stronie + plan na 90 dni za 79 zł. <a href="' . esc_url( get_permalink( $z ) ) . '">Zobacz zestaw →</a></div>';
+	}
+	return '<div class="pasek">Zacznij za darmo: 5 minut dziennie strategii w Akademii Guliwera. <a href="' . $home . '/aplikacja/">Sprawdź →</a></div>';
+}
+/* Bonus Black Friday na stronie Pakietu (24–30.11). */
+add_filter( 'woocommerce_product_get_short_description', function ( $d, $product ) {
+	if ( 67 === (int) $product->get_id() && gk_strona_bf() && ! is_admin() ) {
+		$d = '<strong>Black Friday bez rabatów (do 30.11):</strong> kupując Pakiet, dostajesz w bonusie miejsce na grupowej sesji online „Plan 2027 – Q&amp;A” (sobota 13.12, 90 min). Link do sesji wyślę mailem. ' . $d;
+	}
+	return $d;
+}, 10, 2 );
+
+function gk_strona_kopiuj_pliki( $ids ) {
+	$out = array();
+	foreach ( $ids as $id ) {
+		$src = wc_get_product( $id );
+		if ( ! $src ) { continue; }
+		foreach ( $src->get_downloads() as $d ) {
+			$n = new WC_Product_Download();
+			$n->set_id( wp_generate_uuid4() );
+			$n->set_name( $d->get_name() );
+			$n->set_file( $d->get_file() );
+			$out[ $n->get_id() ] = $n;
+		}
+	}
+	return $out;
+}
+function gk_strona_utworz_produkt( $opcja, $dane ) {
+	$id = (int) get_option( $opcja );
+	if ( $id && get_post( $id ) ) { return $id; }
+	$p = new WC_Product_Simple();
+	$p->set_name( $dane['nazwa'] );
+	$p->set_slug( $dane['slug'] );
+	$p->set_status( 'publish' );
+	$p->set_regular_price( $dane['cena'] );
+	$p->set_virtual( true );
+	$p->set_downloadable( true );
+	$p->set_downloads( gk_strona_kopiuj_pliki( array( 69, 70 ) ) );
+	$p->set_download_limit( 5 );
+	$p->set_download_expiry( 30 );
+	$p->set_sold_individually( true );
+	$p->set_category_ids( array( 18 ) );
+	if ( get_post( 124 ) ) { $p->set_image_id( 124 ); }
+	$p->set_short_description( $dane['krotki'] );
+	$p->set_description( $dane['opis'] );
+	$id = $p->save();
+	update_option( $opcja, $id );
+	return $id;
+}
+add_action( 'init', function () {
+	if ( '2.0' === get_option( 'gk_strona_ver20' ) || ! function_exists( 'wc_get_product' ) ) { return; }
+	update_option( 'gk_strona_ver20', '2.0' );
+	$zestaw = gk_strona_utworz_produkt( 'gk_zestaw_id', array(
+		'nazwa'  => 'Zestaw Plan 2027: Strategia na 1 stronie + Planer 90 dni',
+		'slug'   => 'zestaw-plan-2027',
+		'cena'   => '79',
+		'krotki' => 'Plan na 2027 w godzinę: cel, wybory i wskaźniki na jednej stronie + plan na pierwsze 90 dni. Dwa PDF-y razem za 79 zł (osobno 98 zł). Pobierasz od razu po płatności.',
+		'opis'   => '<p><strong>Zestaw Plan 2027</strong> to dwa narzędzia, które razem dają gotowy plan na nowy rok:</p><ul><li><strong>Strategia na 1 stronie</strong> (kanwa + wypełniony przykład): cel, wybory i wskaźniki Twojej firmy na jednej kartce.</li><li><strong>Planer 90 dni</strong>: 3 priorytety, mapa 13 tygodni i tablica wyników na pierwszy kwartał 2027.</li></ul><h3>Jak z niego korzystać</h3><ol><li>W godzinę wypełniasz Strategię na 1 stronie.</li><li>Z niej wybierasz 3 priorytety na pierwsze 90 dni i rozpisujesz je w Planerze.</li><li>Co tydzień sprawdzasz tablicę wyników (10 minut).</li></ol><p>Format: PDF do druku A4 i do wypełniania na tablecie. Osobno te materiały kosztują 98 zł, w zestawie 79 zł.</p><p><em>Materiał przygotowany z pomocą narzędzi AI, opracowany i sprawdzony przez autorkę.</em></p>',
+	) );
+	$lic = gk_strona_utworz_produkt( 'gk_zestaw_lic_id', array(
+		'nazwa'  => 'Zestaw Plan 2027 – licencja dla zespołu do 10 osób',
+		'slug'   => 'zestaw-plan-2027-licencja-zespol',
+		'cena'   => '590',
+		'krotki' => 'Prezent dla zespołu na 2027: Zestaw Plan 2027 (Strategia na 1 stronie + Planer 90 dni) z prawem do użytku przez 10 osób w jednej firmie. Faktura na firmę.',
+		'opis'   => '<p><strong>Licencja zespołowa</strong> na Zestaw Plan 2027 – dobry prezent świąteczny dla managerów i zespołu.</p><ul><li>Prawo do korzystania z materiałów przez <strong>maksymalnie 10 osób w jednej firmie</strong> (kopiowanie i drukowanie na potrzeby wewnętrzne tej firmy).</li><li>W zestawie: Strategia na 1 stronie (kanwa + przykład) i Planer 90 dni.</li><li>Faktura VAT/rachunek na firmę – dane do faktury podajesz w zamówieniu.</li></ul><p>Licencja nie obejmuje udostępniania poza firmą ani wykorzystywania materiałów w szkoleniach dla innych podmiotów. Potrzebujesz licencji dla większego zespołu? <a href="/kontakt/#dla-firm">Napisz</a>.</p><p><em>Materiał przygotowany z pomocą narzędzi AI, opracowany i sprawdzony przez autorkę.</em></p>',
+	) );
+	global $wpdb;
+	$zl = get_permalink( $zestaw ); $ll = get_permalink( $lic );
+	// Strona główna: krok 2 = Zestaw Plan 2027, drugi przycisk w hero.
+	$c = (string) $wpdb->get_var( "SELECT post_content FROM {$wpdb->posts} WHERE ID = 10" );
+	if ( $c && false === strpos( $c, 'Zestaw Plan 2027' ) ) {
+		$k2 = '<div class="stopien"><span class="krok">KROK 2 · NA START</span><h3>Zestaw Plan 2027</h3><div class="cena">79 zł <small style="font-size:15px;color:var(--atrament-60);font-family:\'DM Sans\',sans-serif;font-weight:500">zamiast 98 zł</small></div><p>Plan na 2027 w godzinę: cel, wybory i wskaźniki na 1 stronie + plan na pierwsze 90 dni.</p><a class="btn" href="' . esc_url( home_url( '/zamowienie/?add-to-cart=' . $zestaw ) ) . '">Kup i pobierz</a><a href="' . esc_url( home_url( '/produkt/strategia-na-1-stronie/' ) ) . '" style="font-size:14.5px;font-weight:700;color:var(--koral-ciemny);text-decoration:none">albo sama Strategia na 1 stronie · 39 zł →</a></div>';
+		$c = preg_replace( '#<div class="stopien"><span class="krok">KROK 2 · NA START</span>.*?</a></div>#s', $k2, $c, 1 );
+		$c = str_replace( 'href="https://guliwera4.pl/produkt/strategia-na-1-stronie/">Strategia na 1 stronie · 39 zł</a>', 'href="' . esc_url( $zl ) . '">Zestaw Plan 2027 · 79 zł</a>', $c );
+		$wpdb->update( $wpdb->posts, array( 'post_content' => $c ), array( 'ID' => 10 ) ); clean_post_cache( 10 );
+	}
+	// Materiały: baner Zestawu na górze (przed sekcją pakietu).
+	$c = (string) $wpdb->get_var( "SELECT post_content FROM {$wpdb->posts} WHERE ID = 74" );
+	if ( $c && false === strpos( $c, 'id="zestaw-2027"' ) ) {
+		$ban = '<section id="zestaw-2027" style="padding:clamp(20px,3vw,30px) 0 0"><div class="wrap"><div style="background:var(--granat);color:#fff;border-radius:28px;padding:clamp(22px,3.4vw,40px);display:grid;grid-template-columns:1.4fr .6fr;gap:22px;align-items:center"><div><span class="pisane" style="color:var(--zolty)">produkt grudnia</span><h2 style="color:#fff;font-size:clamp(26px,3.6vw,40px);margin-top:6px">Zestaw Plan 2027</h2><p style="color:rgba(255,255,255,.9);margin-top:10px;max-width:52ch">Plan na 2027 w godzinę: cel, wybory i wskaźniki na 1 stronie + plan na pierwsze 90 dni. Strategia na 1 stronie i Planer 90 dni razem.</p></div><div style="text-align:center"><div style="font-family:Fraunces,serif;font-weight:700;font-size:clamp(40px,5vw,56px);color:var(--zolty);line-height:1">79 zł</div><div style="font-size:14px;color:rgba(255,255,255,.8);margin:6px 0 14px">zamiast 98 zł osobno</div><a class="btn btn-biel" href="' . esc_url( home_url( '/zamowienie/?add-to-cart=' . $zestaw ) ) . '">Kup i pobierz</a><div style="margin-top:10px"><a href="' . esc_url( $ll ) . '" style="color:#fff;font-size:14px;font-weight:700">Licencja dla zespołu (10 osób) · 590 zł →</a></div></div></div></div></section>' . "\n";
+		$n = preg_replace( '#(<section class="sekcja" id="pakiet")#', $ban . '$1', $c, 1, $ile );
+		if ( $ile ) { $wpdb->update( $wpdb->posts, array( 'post_content' => $n ), array( 'ID' => 74 ) ); clean_post_cache( 74 ); }
+	}
+	// Kontakt, „Dla firm”: link do licencji.
+	$c = (string) $wpdb->get_var( "SELECT post_content FROM {$wpdb->posts} WHERE ID = 60" );
+	if ( $c && false === strpos( $c, 'Prezent dla zespołu na 2027' ) ) {
+		$n = preg_replace( '#(<h3>Licencja dla zespołu</h3>.*?)<div class="c">wycena na zapytanie</div>#s', '$1<div class="c"><a href="' . esc_url( $ll ) . '" style="color:var(--koral-ciemny);text-decoration:none">Prezent dla zespołu na 2027 · 590 zł →</a></div>', $c, 1 );
+		$wpdb->update( $wpdb->posts, array( 'post_content' => $n ), array( 'ID' => 60 ) ); clean_post_cache( 60 );
+	}
+	gk_strona_wyczysc_cache();
+}, 28 );
