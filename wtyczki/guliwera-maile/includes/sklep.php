@@ -65,8 +65,28 @@ function gk_ml_nip_poprawny( $nip ) {
 	return ( $s % 11 ) === (int) $nip[9];
 }
 
+define( 'GK_ML_PAKIET', 67 );
+define( 'GK_ML_LICENCJA', 238 ); // Zestaw Plan 2027 – licencja dla zespołu (faktura na firmę)
+
+/** Licencja zespołowa w koszyku (formularz zamówienia). */
+function gk_ml_koszyk_ma( $pid ) {
+	if ( ! function_exists( 'WC' ) || ! WC()->cart ) { return false; }
+	foreach ( WC()->cart->get_cart() as $poz ) { if ( (int) $poz['product_id'] === (int) $pid ) { return true; } }
+	return false;
+}
+
 // Dane do faktury: wymagane po zaznaczeniu „Chcę fakturę”, NIP z poprawną sumą kontrolną.
+// Licencja zespołowa: faktura na firmę obowiązkowa (dane + NIP).
 add_action( 'woocommerce_blocks_validate_location_order_fields', function ( $errors, $fields ) {
+	if ( gk_ml_koszyk_ma( GK_ML_LICENCJA ) ) {
+		if ( empty( $fields[ GK_ML_POLE_FAKTURA ] ) ) {
+			$errors->add( 'gk_licencja_faktura', 'Licencja zespołowa jest sprzedawana na fakturę firmową: zaznacz „Chcę fakturę” i podaj dane firmy oraz NIP.' );
+			return;
+		}
+		if ( '' === trim( (string) ( $fields[ GK_ML_POLE_NIP ] ?? '' ) ) ) {
+			$errors->add( 'gk_licencja_nip', 'Podaj NIP firmy: licencja zespołowa jest sprzedawana na fakturę firmową.' );
+		}
+	}
 	if ( empty( $fields[ GK_ML_POLE_FAKTURA ] ) ) { return; }
 	if ( mb_strlen( trim( (string) ( $fields[ GK_ML_POLE_DANE ] ?? '' ) ) ) < 5 ) {
 		$errors->add( 'gk_faktura_dane', 'Podaj nazwę (albo imię i nazwisko) i adres do faktury.' );
@@ -103,6 +123,116 @@ add_action( 'woocommerce_admin_order_data_after_billing_address', function ( $or
 	}
 } );
 
+/* ─────────────────────────── Black Friday 2026: bonus sesja ─────────────────────────── */
+/** Pakiet (ID 67) w zamówieniu złożonym 24–30.11.2026 (czas polski), opłaconym. */
+function gk_ml_bf_uprawnione( $order ) {
+	if ( ! $order instanceof WC_Order ) { return false; }
+	if ( $order->get_meta( '_gk_bf_sesja' ) ) { return true; }
+	$ma = false;
+	foreach ( $order->get_items() as $it ) { if ( (int) $it->get_product_id() === GK_ML_PAKIET ) { $ma = true; } }
+	$dt = $order->get_date_created();
+	if ( ! $ma || ! $dt ) { return false; }
+	$tz  = new DateTimeZone( 'Europe/Warsaw' );
+	$od  = ( new DateTimeImmutable( '2026-11-24 00:00:00', $tz ) )->getTimestamp();
+	$do  = ( new DateTimeImmutable( '2026-12-01 00:00:00', $tz ) )->getTimestamp();
+	$ts  = $dt->getTimestamp();
+	return $ts >= $od && $ts < $do && $order->is_paid();
+}
+
+// Po opłaceniu zapamiętujemy uprawnienie (lista do wysyłki linku 11–12.12).
+foreach ( array( 'woocommerce_order_status_processing', 'woocommerce_order_status_completed' ) as $gk_h ) {
+	add_action( $gk_h, function ( $order_id ) {
+		$o = wc_get_order( $order_id );
+		if ( $o && ! $o->get_meta( '_gk_bf_sesja' ) && gk_ml_bf_uprawnione( $o ) ) {
+			$o->update_meta_data( '_gk_bf_sesja', time() );
+			$o->add_order_note( 'Bonus Black Friday: miejsce na sesji „' . GK_ML_SESJA_NAZWA . '” 13.12.' );
+			$o->save();
+		}
+	}, 5 );
+}
+
+/** Uprawnione zamówienia (opłacone, bez pełnego zwrotu). */
+function gk_ml_bf_lista() {
+	if ( ! function_exists( 'wc_get_orders' ) ) { return array(); }
+	$ord = wc_get_orders( array( 'limit' => -1, 'status' => array( 'processing', 'completed' ), 'date_created' => '2026-11-23...2026-12-01' ) );
+	return array_values( array_filter( $ord, function ( $o ) { return gk_ml_bf_uprawnione( $o ) && $o->get_total_refunded() < $o->get_total(); } ) );
+}
+
+// Panel: Narzędzia → Sesja Plan 2027 (wysyłka linku do sesji, tylko ręcznie).
+add_action( 'admin_menu', function () {
+	add_management_page( 'Sesja Plan 2027', 'Sesja Plan 2027', 'manage_woocommerce', 'gk-sesja-2027', 'gk_ml_sesja_panel' );
+} );
+
+function gk_ml_sesja_opcje() { return wp_parse_args( (array) get_option( 'gk_ml_sesja', array() ), array( 'link' => '', 'godzina' => '10:00', 'uwagi' => '' ) ); }
+
+function gk_ml_sesja_dane( $o, $s ) {
+	return array( 'imie' => $o ? $o->get_billing_first_name() : wp_get_current_user()->first_name, 'numer' => $o ? $o->get_order_number() : '', 'godzina' => $s['godzina'], 'link' => $s['link'], 'uwagi' => $s['uwagi'] );
+}
+
+add_action( 'admin_post_gk_sesja', function () {
+	if ( ! current_user_can( 'manage_woocommerce' ) ) { wp_die( 'Brak uprawnień' ); }
+	check_admin_referer( 'gk_sesja' );
+	$p = wp_unslash( $_POST );
+	$s = array(
+		'link'    => esc_url_raw( (string) ( $p['link'] ?? '' ) ),
+		'godzina' => preg_match( '/^([01]\d|2[0-3]):[0-5]\d$/', (string) ( $p['godzina'] ?? '' ) ) ? $p['godzina'] : '10:00',
+		'uwagi'   => sanitize_textarea_field( (string) ( $p['uwagi'] ?? '' ) ),
+	);
+	update_option( 'gk_ml_sesja', $s, false );
+	$m = 'zapisano';
+	if ( ! empty( $p['test'] ) || ! empty( $p['wyslij'] ) ) {
+		if ( ! $s['link'] ) { $m = 'brak_linku'; }
+		elseif ( ! empty( $p['test'] ) ) {
+			list( $t, $a ) = gk_ml_mail_sesja( gk_ml_sesja_dane( null, $s ) );
+			$m = gk_ml_wyslij( wp_get_current_user()->user_email, '[TEST] ' . $t, $a ) ? 'test_ok' : 'blad';
+		} elseif ( empty( $p['potwierdzam'] ) ) {
+			$m = 'potwierdz';
+		} else {
+			$n = 0;
+			foreach ( gk_ml_bf_lista() as $o ) {
+				if ( $o->get_meta( '_gk_bf_sesja_wyslano' ) && empty( $p['ponownie'] ) ) { continue; }
+				list( $t, $a ) = gk_ml_mail_sesja( gk_ml_sesja_dane( $o, $s ) );
+				if ( gk_ml_wyslij( $o->get_billing_email(), $t, $a ) ) {
+					$o->update_meta_data( '_gk_bf_sesja_wyslano', time() );
+					$o->add_order_note( 'Wysłano link do sesji „' . GK_ML_SESJA_NAZWA . '”.' );
+					$o->save();
+					$n++;
+				}
+			}
+			$m = 'wyslano_' . $n;
+		}
+	}
+	wp_safe_redirect( admin_url( 'tools.php?page=gk-sesja-2027&m=' . $m ) );
+	exit;
+} );
+
+function gk_ml_sesja_panel() {
+	$s     = gk_ml_sesja_opcje();
+	$lista = gk_ml_bf_lista();
+	$nowe  = count( array_filter( $lista, function ( $o ) { return ! $o->get_meta( '_gk_bf_sesja_wyslano' ); } ) );
+	$m     = isset( $_GET['m'] ) ? sanitize_key( $_GET['m'] ) : ''; // phpcs:ignore
+	$kom   = array( 'zapisano' => 'Zapisano.', 'brak_linku' => 'Wpisz link do sesji.', 'test_ok' => 'Wysłano test na Twój adres.', 'blad' => 'Nie udało się wysłać.', 'potwierdz' => 'Zaznacz potwierdzenie wysyłki.' );
+	echo '<div class="wrap"><h1>Sesja „' . esc_html( GK_ML_SESJA_NAZWA ) . '” · 13.12.2026</h1>';
+	if ( 0 === strpos( $m, 'wyslano_' ) ) { echo '<div class="notice notice-success"><p>Wysłano maile: ' . (int) substr( $m, 8 ) . '.</p></div>'; }
+	elseif ( isset( $kom[ $m ] ) ) { echo '<div class="notice notice-info"><p>' . esc_html( $kom[ $m ] ) . '</p></div>'; }
+	echo '<p>Bonus Black Friday: Pakiet Kierunek Zysk kupiony 24–30.11.2026 (opłacony, bez pełnego zwrotu). Uprawnione zamówienia: <b>' . count( $lista ) . '</b>, w tym bez wysłanego linku: <b>' . (int) $nowe . '</b>. Link wyślij 11–12.12.</p>';
+	echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '">';
+	wp_nonce_field( 'gk_sesja' );
+	echo '<input type="hidden" name="action" value="gk_sesja"><table class="form-table" role="presentation">';
+	echo '<tr><th><label for="gk-s-link">Link do sesji</label></th><td><input id="gk-s-link" name="link" type="url" class="large-text" value="' . esc_attr( $s['link'] ) . '" placeholder="https://meet.google.com/…"></td></tr>';
+	echo '<tr><th><label for="gk-s-godz">Godzina startu (13.12)</label></th><td><input id="gk-s-godz" name="godzina" type="time" value="' . esc_attr( $s['godzina'] ) . '"> <span class="description">Sesja trwa 90 minut.</span></td></tr>';
+	echo '<tr><th><label for="gk-s-uw">Dodatkowa informacja (opcjonalnie)</label></th><td><textarea id="gk-s-uw" name="uwagi" rows="3" class="large-text">' . esc_textarea( $s['uwagi'] ) . '</textarea></td></tr></table>';
+	echo '<p><button class="button" name="zapisz" value="1">Zapisz</button> <button class="button" name="test" value="1">Wyślij test na mój adres</button></p>';
+	echo '<hr><p><label><input type="checkbox" name="potwierdzam" value="1"> Potwierdzam wysyłkę linku do ' . (int) $nowe . ' osób, które go jeszcze nie dostały</label><br><label><input type="checkbox" name="ponownie" value="1"> Wyślij też do osób, które już dostały link (np. po zmianie linku)</label></p>';
+	echo '<p><button class="button button-primary" name="wyslij" value="1">Wyślij link uczestnikom</button></p></form>';
+	echo '<h2>Uczestnicy</h2><table class="widefat striped"><thead><tr><th>Zamówienie</th><th>Imię i nazwisko</th><th>E-mail</th><th>Link wysłany</th></tr></thead><tbody>';
+	foreach ( $lista as $o ) {
+		$w = (int) $o->get_meta( '_gk_bf_sesja_wyslano' );
+		echo '<tr><td><a href="' . esc_url( $o->get_edit_order_url() ) . '">nr ' . esc_html( $o->get_order_number() ) . '</a></td><td>' . esc_html( $o->get_formatted_billing_full_name() ) . '</td><td>' . esc_html( $o->get_billing_email() ) . '</td><td>' . ( $w ? esc_html( wp_date( 'j.m.Y H:i', $w ) ) : '–' ) . '</td></tr>';
+	}
+	echo '</tbody></table></div>';
+}
+
 /* ─────────────────────────── Dane zamówienia do maili ─────────────────────────── */
 function gk_ml_kwota( $html ) { return gk_ml_bez_html( $html ); }
 
@@ -133,7 +263,7 @@ function gk_ml_dane_wc( $order ) {
 
 	$konto = $order->get_customer_id() > 0;
 	$ids   = array();
-	foreach ( $order->get_items() as $it ) { $ids[] = $it->get_product_id(); }
+	foreach ( $order->get_items() as $it ) { $ids[] = (int) $it->get_product_id(); }
 	$ponownie = 1 === count( $ids ) ? home_url( '/zamowienie/?add-to-cart=' . (int) $ids[0] ) : home_url( '/materialy/' );
 
 	$instr = '';
@@ -167,6 +297,8 @@ function gk_ml_dane_wc( $order ) {
 		'kupon'           => implode( ', ', $order->get_coupon_codes() ),
 		'notatka_klienta' => $order->get_customer_note(),
 		'instrukcje'      => $instr,
+		'bonus_sesja'     => gk_ml_bf_uprawnione( $order ),
+		'licencja'        => in_array( GK_ML_LICENCJA, $ids, true ),
 	);
 }
 

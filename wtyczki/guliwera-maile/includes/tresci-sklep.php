@@ -132,7 +132,9 @@ function gk_ml_informacje( array $d, $z_faktura = true, $o_plikach = true ) {
 	$li  = array();
 	if ( $z_faktura ) { $li[] = gk_ml_faktura_klient( $d ); }
 	if ( $o_plikach ) {
-	$li[] = 'Licencja: z materiałów możesz korzystać na własne potrzeby i w jednej firmie. Prosimy, nie udostępniaj plików innym osobom.';
+	$li[] = ! empty( $d['licencja'] )
+		? 'Licencja zespołowa: z Zestawu Plan 2027 może korzystać do 10 osób w Twojej firmie (kopiowanie i drukowanie na potrzeby wewnętrzne). Prosimy, nie udostępniaj plików poza firmą.'
+		: 'Licencja: z materiałów możesz korzystać na własne potrzeby i w jednej firmie. Prosimy, nie udostępniaj plików innym osobom.';
 	$li[] = 'Plik się nie otwiera albo link wygasł? Odpisz na tego maila, a bezpłatnie wyślemy nowy (odpowiadamy w ciągu 14 dni, zwykle tego samego dnia).';
 	}
 	$li[] = 'Zasady zakupu: <a href="' . gk_ml_esc( home_url( '/regulamin/' ) ) . '" style="color:#E8512A;">Regulamin sklepu</a>.';
@@ -147,7 +149,7 @@ function gk_ml_informacje_tekst( array $d, $z_faktura = true, $o_plikach = true 
 	$t = "DOBRZE WIEDZIEĆ\n";
 	if ( $z_faktura ) { $t .= '- ' . gk_ml_bez_html( gk_ml_faktura_klient( $d ) ) . "\n"; }
 	if ( $o_plikach ) {
-		$t .= "- Licencja: z materiałów możesz korzystać na własne potrzeby i w jednej firmie. Prosimy, nie udostępniaj plików innym osobom.\n";
+		$t .= ! empty( $d['licencja'] ) ? "- Licencja zespołowa: do 10 osób w Twojej firmie, bez udostępniania poza firmę.\n" : "- Licencja: z materiałów możesz korzystać na własne potrzeby i w jednej firmie. Prosimy, nie udostępniaj plików innym osobom.\n";
 		$t .= "- Plik się nie otwiera albo link wygasł? Odpisz na tego maila, a bezpłatnie wyślemy nowy.\n";
 	}
 	$t .= '- Regulamin sklepu: ' . home_url( '/regulamin/' ) . "\n";
@@ -223,22 +225,24 @@ function gk_ml_mail_zamowienie( $typ, array $d, array $x = array() ) {
 					gk_ml_witaj( $d ) . ' Płatność za zamówienie nr <b>' . gk_ml_esc( $n ) . '</b> dotarła. Dziękujemy, że korzystasz z materiałów Kierunek Zysk.',
 				),
 			);
+			$bonus  = gk_ml_bonus_sesja( $d );
+			$bonusT = gk_ml_bonus_sesja_tekst( $d );
 			if ( $sa_pliki ) {
 				$a['akapity'][] = 'Pobierz ' . ( $wiele ? 'pliki' : 'plik' ) . ' na komputer albo telefon i zapisz w swoim folderze. Każdy link ma limit pobrań i termin ważności, podane przy pliku.';
 				$a['po']        = gk_ml_pliki( $d );
 				$a['cta']       = gk_ml_cta_pliki( $d );
-				$a['pod']       = gk_ml_akapit( gk_ml_gdzie_pliki( $d ), 14.5 )
+				$a['pod']       = $bonus . gk_ml_akapit( gk_ml_gdzie_pliki( $d ), 14.5 )
 					. gk_ml_ramka( '<b>Jak zacząć?</b><br>PDF otworzysz w przeglądarce albo w darmowym Adobe Acrobat Reader. Pola do uzupełniania wypełnisz na komputerze, możesz też wydrukować arkusze. Plik ZIP rozpakujesz dwuklikiem.', '#FFF6EE' )
 					. gk_ml_naglowek( 'Podsumowanie' ) . gk_ml_tabela( $d ) . gk_ml_zgoda( $d ) . gk_ml_informacje( $d );
 				$a['tekst_po']  = gk_ml_pliki_tekst( $d );
-				$a['tekst_pod'] = gk_ml_bez_html( gk_ml_gdzie_pliki( $d ) ) . "\n\n" . gk_ml_tabela_tekst( $d ) . "\n" . gk_ml_zgoda_tekst( $d ) . "\n" . gk_ml_informacje_tekst( $d );
+				$a['tekst_pod'] = $bonusT . gk_ml_bez_html( gk_ml_gdzie_pliki( $d ) ) . "\n\n" . gk_ml_tabela_tekst( $d ) . "\n" . gk_ml_zgoda_tekst( $d ) . "\n" . gk_ml_informacje_tekst( $d );
 			} else {
 				$a['akapity'][] = 'Szczegóły zamówienia znajdziesz poniżej i na stronie zamówienia.';
 				$a['po']        = gk_ml_tabela( $d );
 				$a['cta']       = array( 'Zobacz zamówienie', $d['url_zamowienia'] );
-				$a['pod']       = gk_ml_zgoda( $d ) . gk_ml_informacje( $d );
+				$a['pod']       = $bonus . gk_ml_zgoda( $d ) . gk_ml_informacje( $d );
 				$a['tekst_po']  = gk_ml_tabela_tekst( $d );
-				$a['tekst_pod'] = gk_ml_zgoda_tekst( $d ) . "\n" . gk_ml_informacje_tekst( $d );
+				$a['tekst_pod'] = $bonusT . gk_ml_zgoda_tekst( $d ) . "\n" . gk_ml_informacje_tekst( $d );
 			}
 			break;
 
@@ -361,6 +365,56 @@ function gk_ml_skrot( $s, $max ) {
 	return mb_strlen( $s ) > $max ? mb_substr( $s, 0, $max - 1 ) . '…' : $s;
 }
 
+/* ─────────────────────────── Black Friday 2026: bonus sesja „Plan 2027 – Q&A” ─────────────────────────── */
+if ( ! defined( 'GK_ML_SESJA_NAZWA' ) ) {
+	define( 'GK_ML_SESJA_NAZWA', 'Plan 2027 – Q&A' );
+	define( 'GK_ML_SESJA_DZIEN', '2026-12-13' );
+	define( 'GK_ML_SESJA_DATA_TXT', 'sobota 13.12.2026, 90 minut, online' );
+}
+
+function gk_ml_bonus_sesja( array $d ) {
+	if ( empty( $d['bonus_sesja'] ) ) { return ''; }
+	return gk_ml_ramka( '🎁 <b>Twój bonus Black Friday: miejsce na sesji online „' . gk_ml_esc( GK_ML_SESJA_NAZWA ) . '”</b><br>'
+		. gk_ml_esc( ucfirst( GK_ML_SESJA_DATA_TXT ) ) . '. Grupowa sesja pytań i odpowiedzi: jak zamienić materiały z Pakietu w plan na 2027.<br>'
+		. 'Link do sesji i godzinę wyślemy mailem <b>11–12 grudnia</b>. Nic nie musisz robić, miejsce jest już Twoje.', '#FFEFC7' );
+}
+
+function gk_ml_bonus_sesja_tekst( array $d ) {
+	if ( empty( $d['bonus_sesja'] ) ) { return ''; }
+	return 'TWÓJ BONUS BLACK FRIDAY: miejsce na sesji online „' . GK_ML_SESJA_NAZWA . '” (' . GK_ML_SESJA_DATA_TXT . "). Link i godzinę wyślemy mailem 11–12 grudnia.\n\n";
+}
+
+/**
+ * Mail z linkiem do sesji (wysyłany z panelu Narzędzia → Sesja Plan 2027, 11–12.12).
+ * $s: imie, numer, godzina (HH:MM), link, uwagi
+ */
+function gk_ml_mail_sesja( array $s ) {
+	$od  = new DateTimeImmutable( GK_ML_SESJA_DZIEN . ' ' . $s['godzina'] . ':00', new DateTimeZone( 'Europe/Warsaw' ) );
+	$do  = $od->modify( '+90 minutes' );
+	$kal = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' . rawurlencode( GK_ML_SESJA_NAZWA . ' (Guliwera 4)' )
+		. '&dates=' . $od->format( 'Ymd\THis' ) . '/' . $do->format( 'Ymd\THis' ) . '&ctz=Europe/Warsaw&details=' . rawurlencode( 'Link do sesji: ' . $s['link'] );
+	$kiedy = 'Sobota 13 grudnia 2026, ' . $od->format( 'H:i' ) . '–' . $do->format( 'H:i' ) . ' (czas polski)';
+	$a = array(
+		'preheader'   => 'Sobota 13.12, ' . $od->format( 'H:i' ) . '. Link, plan i co przygotować.',
+		'nadtytul'    => 'Bonus do Pakietu Kierunek Zysk',
+		'tytul'       => 'Do zobaczenia w sobotę!',
+		'akapity'     => array(
+			( $s['imie'] ? 'Cześć, ' . gk_ml_esc( $s['imie'] ) . '!' : 'Cześć!' ) . ' Oto link do sesji online „' . gk_ml_esc( GK_ML_SESJA_NAZWA ) . '”, Twojego bonusu za zakup Pakietu Kierunek Zysk w Black Friday' . ( $s['numer'] ? ' (zamówienie nr ' . gk_ml_esc( $s['numer'] ) . ')' : '' ) . '.',
+		),
+		'po'          => gk_ml_ramka( '<b>Kiedy:</b> ' . gk_ml_esc( $kiedy ) . '<br><b>Gdzie:</b> online, link poniżej (działa w przeglądarce)<br><b>Ile:</b> 90 minut, grupowa sesja pytań i odpowiedzi', '#EDE5FB' )
+			. gk_ml_naglowek( 'Jak się przygotować (10 minut)' )
+			. gk_ml_akapit( '1. Wypełnij choć jedno pole Strategii na 1 stronie, najlepiej „czego NIE robimy”.<br>2. Zapisz 1–2 pytania o swój plan na 2027. Możesz je też wysłać wcześniej, odpowiadając na ten mail.<br>3. Miej pod ręką pliki z Pakietu (Moje konto → Pliki albo mail z zamówienia).' )
+			. ( $s['uwagi'] ? gk_ml_akapit( nl2br( gk_ml_esc( $s['uwagi'] ) ) ) : '' ),
+		'cta'         => array( 'Dołącz do sesji', $s['link'] ),
+		'cta2'        => array( 'Dodaj do kalendarza Google', $kal ),
+		'uwaga'       => 'Nie możesz być na żywo? Odpisz na ten mail, a podpowiem, jak skorzystać z materiałów z sesji. Link jest tylko dla Ciebie, prosimy go nie udostępniać.',
+		'uwaga_ikona' => '📅',
+		'powod'       => 'Dostajesz tę wiadomość, bo kupiono Pakiet Kierunek Zysk w Black Friday 2026 z bonusem: sesją „' . GK_ML_SESJA_NAZWA . '”.',
+		'tekst_po'    => 'KIEDY: ' . $kiedy . "\nLINK: " . $s['link'] . "\nKALENDARZ: " . $kal . "\n",
+	);
+	return array( 'Link do sesji „Plan 2027 – Q&A”, sobota 13.12', $a );
+}
+
 /* ─────────────────────────── Akademia: kupon ─────────────────────────── */
 /**
  * $k: kod, procent, wazne_do (znacznik czasu), imie, url, produkty [[nazwa, cena, cena_po]]
@@ -415,6 +469,8 @@ function gk_ml_mail_admin( $typ, array $d, array $x = array() ) {
 		'Zgoda na natychmiastowe dostarczenie' => $d['zgoda'] ? 'TAK, ' . gk_ml_data( $d['zgoda'] ) : 'BRAK: klient zachowuje prawo odstąpienia (14 dni)',
 	);
 	if ( ! empty( $d['kupon'] ) ) { $rows['Kupon'] = $d['kupon']; }
+	if ( ! empty( $d['bonus_sesja'] ) ) { $rows['Bonus Black Friday'] = 'miejsce na sesji „' . GK_ML_SESJA_NAZWA . '” (' . GK_ML_SESJA_DATA_TXT . '). Link wyślesz w Narzędzia → Sesja Plan 2027.'; }
+	if ( ! empty( $d['licencja'] ) && empty( $d['faktura'] ) ) { $rows['Licencja zespołowa'] = 'BRAK danych do faktury: poproś klienta o nazwę firmy, adres i NIP'; }
 	if ( ! empty( $d['notatka_klienta'] ) ) { $rows['Uwagi klienta'] = $d['notatka_klienta']; }
 
 	$akapity = array();

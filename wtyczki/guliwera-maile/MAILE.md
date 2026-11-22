@@ -39,6 +39,11 @@ Lokalnie: `php narzedzia/podglad-maili.php KATALOG` (HTML, TXT, spis tematów).
 **Uwaga:** szablony działają, gdy w WooCommerce jest wyłączony nowy „edytor maili blokowych”
 (WooCommerce → Ustawienia → E-maile). Prośba o opinię (`customer_review_request`) jest wyłączona: to marketing (sekcja B).
 
+## Black Friday 2026 i nowe produkty (wersja 1.2)
+- Pakiet (ID 67) kupiony 24–30.11.2026 (czas polski), opłacony: mail z plikami ma ramkę „Twój bonus Black Friday: sesja „Plan 2027 – Q&A” (sobota 13.12, 90 min)”, zamówienie dostaje meta `_gk_bf_sesja` i notatkę, mail do administratora ma wiersz „Bonus Black Friday”.
+- Link do sesji: Narzędzia → Sesja Plan 2027 (link, godzina, test na swój adres, wysyłka do uprawnionych po zaznaczeniu potwierdzenia; meta `_gk_bf_sesja_wyslano` chroni przed podwójną wysyłką). Mail ma przycisk „Dołącz do sesji” i „Dodaj do kalendarza Google”.
+- Licencja zespołowa (ID 238): w zamówieniu wymagane „Chcę fakturę” + NIP; mail z plikami opisuje licencję do 10 osób w firmie; mail do administratora ostrzega, gdy brak danych do faktury.
+
 ## Zastosowane dobre praktyki
 - **Jeden cel, jeden przycisk**: duży przycisk (min. 44 px wysokości), a pod nim link zapasowy.
 - **Konkretny temat do ~50 znaków i preheader**, czyli zdanie widoczne w skrzynce obok tematu.

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – maile
  * Description: Wszystkie maile systemowe w wyglądzie Guliwera 4: konto (powitanie, reset i zmiana hasła, nowe logowanie, zmiana e-maila), zamówienia (czeka na płatność, płatność przyjęta, pliki do pobrania, nieudane, anulowane, zwrot, wiadomość, odstąpienie), kupon z Akademii i powiadomienia dla administratora. Dodaje do zamówienia zgodę na natychmiastowe dostarczenie plików i dane do faktury. Zostaw włączoną.
- * Version: 1.1
+ * Version: 1.2
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 

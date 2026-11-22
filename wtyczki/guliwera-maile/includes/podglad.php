@@ -64,6 +64,10 @@ function gk_ml_podglad_lista() {
 	$dodaj( 'pliki', 'Zamówienie', 'Oto Twój PDF (zamówienie zrealizowane, 1 plik, konto)', gk_ml_mail_zamowienie( 'pliki', gk_ml_przyklad( 'jeden' ) ) );
 	$dodaj( 'pliki_pakiet', 'Zamówienie', 'Oto Twój PDF: pakiet ZIP z kuponem i fakturą', gk_ml_mail_zamowienie( 'pliki', gk_ml_przyklad( 'pakiet' ) ) );
 	$dodaj( 'pliki_gosc', 'Zamówienie', 'Oto Twoje pliki: 2 pliki, zakup bez konta', gk_ml_mail_zamowienie( 'pliki', gk_ml_przyklad( 'gosc' ) ) );
+	$bf = gk_ml_przyklad( 'pakiet' );
+	$bf['bonus_sesja'] = true;
+	$dodaj( 'pliki_bf', 'Zamówienie', 'Oto Twój pakiet + bonus Black Friday (sesja 13.12)', gk_ml_mail_zamowienie( 'pliki', $bf ) );
+	$dodaj( 'sesja', 'Zamówienie', 'Link do sesji „Plan 2027 – Q&A” (wysyłany ręcznie 11–12.12)', gk_ml_mail_sesja( array( 'imie' => 'Ola', 'numer' => '1042', 'godzina' => '10:00', 'link' => 'https://meet.google.com/abc-defg-hij', 'uwagi' => '' ) ) );
 	$dodaj( 'oplacone', 'Zamówienie', 'Płatność przyjęta (processing)', gk_ml_mail_zamowienie( 'oplacone', gk_ml_przyklad( 'jeden' ) ) );
 	$dodaj( 'nieudane', 'Zamówienie', 'Płatność nieudana', gk_ml_mail_zamowienie( 'nieudane', gk_ml_przyklad( 'czeka' ) ) );
 	$dodaj( 'anulowane', 'Zamówienie', 'Zamówienie anulowane', gk_ml_mail_zamowienie( 'anulowane', gk_ml_przyklad( 'czeka' ) ) );
@@ -79,7 +83,7 @@ function gk_ml_podglad_lista() {
 		'produkty' => array( array( 'Kierunek Zysk: Przewodnik', '147,00 zł', '114,66 zł' ), array( 'Kierunek Zysk: Planer 90 dni', '59,00 zł', '46,02 zł' ), array( 'Kierunek Zysk: Pakiet', '297,00 zł', '231,66 zł' ) ),
 	) ) );
 
-	$dodaj( 'admin_nowe', 'Administrator', 'Nowe zamówienie (z fakturą)', gk_ml_mail_admin( 'admin_nowe', gk_ml_przyklad( 'pakiet' ) ) );
+	$dodaj( 'admin_nowe', 'Administrator', 'Nowe zamówienie (z fakturą i bonusem Black Friday)', gk_ml_mail_admin( 'admin_nowe', $bf ) );
 	$dodaj( 'admin_nieudane', 'Administrator', 'Nieudane zamówienie', gk_ml_mail_admin( 'admin_nieudane', gk_ml_przyklad( 'czeka' ) ) );
 	$dodaj( 'admin_anulowane', 'Administrator', 'Anulowane zamówienie', gk_ml_mail_admin( 'admin_anulowane', gk_ml_przyklad( 'czeka' ) ) );
 	$brak_zgody = gk_ml_przyklad( 'jeden' );
