@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 2.1
+ * Version: 2.2
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -477,3 +477,63 @@ add_action( 'init', function () {
 	}
 }, 40 );
 add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', function ( $ids ) { $r = (int) get_option( 'gk_raport_strona' ); return $r ? array_merge( (array) $ids, array( $r ) ) : $ids; } );
+
+/* Wersja 2.2: nowy Wafel G4 (22.11.2026). Animowany „Pomagier” pod /g4/G4-pomagier.html, podmiana starego wektorowego Wafla w całej treści, archiwizacja starych mediów, raport. */
+add_action( 'plugins_loaded', function () {
+	$path = (string) wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '', PHP_URL_PATH );
+	if ( '/g4/G4-pomagier.html' !== $path ) { return; }
+	$f = __DIR__ . '/g4/G4-pomagier.html';
+	if ( ! is_file( $f ) ) { return; }
+	foreach ( array( 'DONOTCACHEPAGE', 'DONOTMINIFY' ) as $c ) { if ( ! defined( $c ) ) { define( $c, true ); } }
+	while ( ob_get_level() > 0 ) { ob_end_clean(); }
+	status_header( 200 );
+	header( 'Content-Type: text/html; charset=utf-8' );
+	header( 'Cache-Control: public, max-age=86400' );
+	header( 'X-Content-Type-Options: nosniff' );
+	header( 'Content-Length: ' . filesize( $f ) );
+	readfile( $f );
+	exit;
+}, 0 );
+
+function gk_strona_wafel_g4_ramka() {
+	return '<iframe class="lilek wafel wafel-g4" src="/g4/G4-pomagier.html?widok=pies" title="Wafel, maskotka Guliwera 4" allow="autoplay" loading="lazy" style="border:0;display:block;margin:0 auto;width:min(340px,80%);aspect-ratio:344/347;height:auto;background:transparent"></iframe>';
+}
+
+add_action( 'init', function () {
+	if ( '2.2' === get_option( 'gk_strona_ver22' ) ) { return; }
+	update_option( 'gk_strona_ver22', '2.2' );
+	global $wpdb;
+	$g4     = plugins_url( 'g4/', __FILE__ );
+	$ramka  = gk_strona_wafel_g4_ramka();
+	$raport = array( 'Podmiana Wafla na Wafla G4 – ' . current_time( 'mysql' ) );
+	$ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_type NOT IN ('revision','attachment') AND post_status IN ('publish','draft','private','future','pending') AND ( post_content LIKE '%class=\"lilek%' OR post_content LIKE '%/uploads/%wafel%' OR post_content LIKE '%Mały, ale łebski%' )" );
+	foreach ( $ids as $id ) {
+		$row = $wpdb->get_row( $wpdb->prepare( "SELECT post_content, post_title, post_type FROM {$wpdb->posts} WHERE ID = %d", $id ) );
+		$c = $row->post_content; $n = $c; $co = array();
+		$n = preg_replace( '#<svg class="lilek[^"]*"[^>]*>.*?</svg>#s', $ramka, $n, -1, $k ); if ( $k ) { $co[] = $k . '× rysunek → animowany Wafel G4'; }
+		$n = preg_replace_callback( '#https?://[^"\'\s)]*?/uploads/[^"\'\s)]*?wafel-([a-z]+)(?:-\d+x\d+)?\.(?:png|svg|jpe?g|webp)#i', function ( $m ) use ( $g4 ) {
+			$poza = in_array( strtolower( $m[1] ), array( 'radosc', 'brawo' ), true ) ? strtolower( $m[1] ) : 'macha';
+			return $g4 . 'wafel-' . $poza . '.webp';
+		}, $n, -1, $k ); if ( $k ) { $co[] = $k . '× obrazek → poza G4'; }
+		$n = str_replace( 'Cześć! Jestem Wafel. Pomogę Ci w nauce!', 'Hau! Jestem Wafel, pomagier Guliwera 4. Pomogę Ci w nauce!', $n );
+		if ( $n !== $c ) {
+			$wpdb->update( $wpdb->posts, array( 'post_content' => $n ), array( 'ID' => $id ) );
+			clean_post_cache( $id );
+			$raport[] = $row->post_type . ' ' . $id . ' (' . $row->post_title . '): ' . implode( ', ', $co );
+		}
+	}
+	// Meta (np. obrazek do udostępnień, Elementor) ze starym Waflem – tylko zgłoszenie w raporcie.
+	foreach ( $wpdb->get_results( "SELECT post_id, meta_key FROM {$wpdb->postmeta} WHERE meta_value LIKE '%/uploads/%wafel-%' LIMIT 50" ) as $m ) {
+		$raport[] = 'META post ' . $m->post_id . ' klucz ' . $m->meta_key . ' – odwołanie do starego Wafla';
+	}
+	// Archiwizacja starych mediów Wafla (plik zostaje, żeby nic się nie zepsuło; zmienia się tytuł i opis).
+	foreach ( $wpdb->get_results( "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type = 'attachment' AND ( guid LIKE '%/wafel-%' OR post_title LIKE '%wafel%' ) AND post_title NOT LIKE 'ARCHIWUM%'" ) as $m ) {
+		$wpdb->update( $wpdb->posts, array( 'post_title' => 'ARCHIWUM – stary Wafel (' . $m->post_title . ')', 'post_content' => 'Nieaktualna grafika. Obowiązuje Wafel G4 (brand/wafel-g4).' ), array( 'ID' => $m->ID ) );
+		update_post_meta( $m->ID, '_wp_attachment_image_alt', 'Archiwalny Wafel (nieużywany)' );
+		clean_post_cache( $m->ID );
+		$raport[] = 'MEDIUM ' . $m->ID . ' (' . $m->post_title . '): zarchiwizowane';
+	}
+	update_option( 'gk_raport_wafel_g4', $raport, false );
+	wp_insert_post( array( 'post_type' => 'page', 'post_status' => 'draft', 'post_title' => 'Raport Wafel G4', 'post_content' => '<!-- wp:html --><pre>' . esc_html( implode( "\n", $raport ) ) . '</pre><!-- /wp:html -->' ) );
+	gk_strona_wyczysc_cache();
+}, 29 );

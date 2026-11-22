@@ -2,7 +2,7 @@
 
 Aplikacja (PWA) do nauki języka biznesu dla młodych managerów. Autorskie lekcje Guliwera 4.
 Krótkie codzienne lekcje, seria dni, XP, poziomy, serca, monety, skrzynie, odznaki i powtórki.
-Maskotka: **Wafel**, owczarek australijski Guliwera 4 (liliowy merle, koralowa bandana z „4”). Źródło: `brand/wafel/`.
+Maskotka: **Wafel**, owczarek australijski Guliwera 4 (blue merle, koralowa bandana „G4”). Źródło: `brand/wafel-g4/`.
 
 ## Uruchomienie
 ```bash
@@ -16,7 +16,7 @@ npm run build    # wersja produkcyjna w dist/ (statyczne pliki, dowolny hosting)
 - `src/content/kurs.ts`: **cała treść kursu** (8 działów, 24 lekcje). W pytaniach `c(...)` i `fill(...)` pierwsza opcja jest poprawna, a aplikacja tasuje kolejność.
 - `src/store.ts`: zasady gry: XP, poziomy, seria, serca (1 co 30 min), monety, odznaki, powtórki (1/3/7/14/30 dni).
 - `src/fx.ts`: dźwięki (syntezowane w przeglądarce, bez plików) i wibracje.
-- `src/components/Wafel.tsx`: maskotka (6 min: happy, cheer, sad, think, wave, sleep); grafiki w `wafelSvg.ts`, odświeżanie: `node aplikacja/generuj-wafla-svg.cjs`.
+- `src/components/Wafel.tsx`: maskotka (7 min: happy, cheer, sad = zmartwiony przy błędzie, think, wave, sleep = drzemka po 2 min bezczynności, wait = czeka po 45 s bezczynności lub 2+ dniach przerwy); grafiki `public/wafel/*.webp` z `brand/wafel-g4/pozy/`.
 - `src/screens/`: ekrany (powitanie, test poziomujący, ścieżka, lekcja, wynik, powtórki, profil).
 
 ## Typy ćwiczeń

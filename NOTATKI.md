@@ -14,9 +14,7 @@ E-mail na stronie: kontakt@guliwera4.pl
 - Zdjęcie: `zdjecia/angelika-portret.jpg`. Tylko kadr i wyostrzenie, bez zmiany rysów twarzy (wyraźna prośba).
 
 ## Maskotka: Wafel (zasada obowiązująca wszystkie czaty)
-- **Jedyna maskotka marki to Wafel**: owczarek australijski Angeliki, który przyjmuje klientów Guliwera 4.
-  Liliowy merle + granat, biała strzałka na głowie, brązowe oko po liliowej stronie i niebieskie po granatowej,
-  koralowe policzki, koralowa bandana z „4”. Pliki i opis póz: `brand/wafel/` (SVG, PNG, generator).
+- Maskotka **Wafel** (od 22.11.2026): realistyczny owczarek australijski blue merle z koralową bandaną „G4”. Pliki: `brand/wafel-g4/` (pozy, ikona, animowany `G4-pomagier.html`, na stronie `/g4/G4-pomagier.html`). Stary wektorowy Wafel: `brand/archiwum/` (nie używać).
 - **Lilek jest wycofany (decyzja Angeliki, 16.11.2026).** Nie używać go w żadnych materiałach. Tam, gdzie był,
   zamienić na Wafla (mapa nastrojów: happy→siedzi, cheer→radosc, sad→smutny, think→mysli, wave→macha, sleep→spi).
 - Gałęzie, które jeszcze mają Lilka: przy najbliższej pracy zrebazować na `main` i podmienić (`Lilek.tsx` już nie istnieje,
