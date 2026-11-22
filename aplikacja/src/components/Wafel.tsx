@@ -1,17 +1,28 @@
-import { WAFEL_SVG } from './wafelSvg'
+export type Mood = 'happy' | 'cheer' | 'sad' | 'think' | 'wave' | 'sleep' | 'wait'
 
-export type Mood = 'happy' | 'cheer' | 'sad' | 'think' | 'wave' | 'sleep'
+const ALT: Record<Mood, string> = {
+  happy: 'Wafel się cieszy',
+  cheer: 'Wafel bije brawo',
+  sad: 'Wafel jest zmartwiony',
+  wait: 'Wafel leży i czeka na Ciebie',
+  think: 'Wafel się zastanawia',
+  wave: 'Wafel macha łapą',
+  sleep: 'Wafel się nudzi i drzemie',
+}
 
-/** Wafel – maskotka Guliwera 4 i Akademii: owczarek australijski (liliowy merle, koralowa bandana z „4”). */
+/** Wafel – maskotka Guliwera 4 i Akademii: owczarek australijski z bandaną G4 (grafiki: brand/wafel-g4). */
 export function Wafel({ mood = 'happy', size = 120, className = '' }: { mood?: Mood; size?: number; className?: string }) {
   return (
-    <div
-      className={`wafel wafel-${mood} ${className}`}
-      style={{ width: size, height: size * 1.125 }}
-      role="img"
-      aria-label="Wafel, maskotka Akademii"
-      dangerouslySetInnerHTML={{ __html: WAFEL_SVG[mood] }}
-    />
+    <div className={`wafel wafel-${mood} ${className}`} style={{ width: size, height: size }}>
+      <img
+        src={`${import.meta.env.BASE_URL}wafel/${mood}.webp`}
+        alt={ALT[mood]}
+        width={size}
+        height={size}
+        style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', borderRadius: '18%' }}
+        draggable={false}
+      />
+    </div>
   )
 }
 
