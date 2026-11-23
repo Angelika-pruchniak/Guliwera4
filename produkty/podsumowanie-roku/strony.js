@@ -1,12 +1,12 @@
 // Treść zeszytu „Pochwal się! Podsumowanie roku 2026”. Każda funkcja = jedna strona A4.
 // Pola: data-pole (tekst, wielowierszowe gdy data-multi), data-check (kratka). buduj.js zamienia je na pola formularza PDF.
 const fs = require('fs'), path = require('path');
-const { wafel } = require('../../brand/wafel/generuj-wafla.js');
 
 const ROK = 2026, NOWY = 2027;
 const TYTUL = 'Pochwal się!';
 const logo = fs.readFileSync(path.join(__dirname, 'zasoby/logo-poziome.svg'), 'utf8').replace(/ width="\d+" height="\d+"/, '');
-const pies = (n, w) => `<div class="wafel" style="width:${w}">${wafel(n).replace(/ width="400" height="\d+"/, '')}</div>`;
+// Wafel G4 (brand/wafel-g4 na main): pozy z wyciętym tłem w zasoby/wafel-g4/ (narzedzia/wytnij-tlo-wafla.py)
+const pies = (n, w) => `<div class="wafel" style="width:${w}"><img src="../zasoby/wafel-g4/${n}.png" alt="Wafel" style="width:100%;display:block"></div>`;
 
 // --- pomocnicze ---
 const ln = (id, n, lh = '8mm') => `<div class="pole linie" data-pole="${id}" data-multi style="height:calc(${n} * ${lh});--lh:${lh}"></div>`;
@@ -40,7 +40,7 @@ strony.push(() => S('okladka', `
     <div style="font-family:Fraunces,serif;font-size:21pt;font-weight:600;color:var(--gr);line-height:1.15;max-width:150mm">Podsumowanie roku ${ROK}.<br>Przypomnij sobie, co Ci się udało, i&nbsp;wejdź w&nbsp;${NOWY} z&nbsp;energią.</div>
     <div class="reka" style="color:var(--koral-c);font-size:24pt;margin-top:6mm;transform:rotate(-3deg);display:inline-block">rok ${ROK}: zrobione ✓</div>
   </div>
-  <div style="position:absolute;right:6mm;bottom:20mm">${pies('macha', '112mm')}</div>
+  <div style="position:absolute;right:6mm;bottom:20mm">${pies('radosc', '100mm')}</div>
   <div style="position:absolute;left:18mm;bottom:14mm;font-size:8.5pt;color:var(--gr);max-width:85mm">
     <b>Z Waflem</b>, owczarkiem australijskim Guliwera 4, który przyjmuje klientów i ocenia każdy sukces merdaniem.
   </div>`, { bezRamki: true }));
@@ -67,7 +67,7 @@ strony.push(() => S('', `
       <p><b>2. Najpierw zyski.</b> O tym, co nie wyszło, też porozmawiamy, ale dopiero w części 2. Taka kolejność jest celowa.</p>
       <p><b>3. Nie ma złych odpowiedzi.</b> Ten zeszyt czytasz tylko Ty (i&nbsp;ewentualnie pies).</p>
       <div style="display:flex;gap:4mm;align-items:flex-end;margin-top:4mm">
-        ${pies('mruga', '34mm')}
+        ${pies('macha', '34mm')}
         <div class="dymek" style="flex:1">Hau! Jestem Wafel. Będę tu pilnować, żeby nikt nie umniejszał swoich sukcesów.</div>
       </div>
     </div>
@@ -138,7 +138,7 @@ const dzial = (klasa, nr, tytul, opis, nastroj) => () => S(`${klasa} dzial`, `
   </div>
   <div class="pies">${pies(nastroj, '100%')}</div>`, { bezRamki: true });
 
-strony.push(dzial('zyski', '1', 'Co Ci się udało', 'Zaczynamy od najprzyjemniejszego. Zbierzesz dowody, że ten rok był pełniejszy, niż się wydaje w&nbsp;grudniowym zmęczeniu. Nie oceniaj, tylko notuj.', 'radosc'));
+strony.push(dzial('zyski', '1', 'Co Ci się udało', 'Zaczynamy od najprzyjemniejszego. Zbierzesz dowody, że ten rok był pełniejszy, niż się wydaje w&nbsp;grudniowym zmęczeniu. Nie oceniaj, tylko notuj.', 'brawo'));
 
 // 5. ROK W PIGUŁCE
 strony.push(() => S('zyski', `
@@ -194,7 +194,7 @@ strony.push(() => S('zyski', `
         </ul>
       </div>
       <div style="display:flex;gap:3mm;align-items:flex-end">
-        <div class="dymek" style="flex:1">Wafel liczy na łapach do czterech. Ty licz dalej.</div>${pies('macha', '30mm')}
+        <div class="dymek" style="flex:1">Wafel liczy na łapach do czterech. Ty licz dalej.</div>${pies('zastanawia', '28mm')}
       </div>
     </div>
   </div>`));
@@ -314,7 +314,7 @@ strony.push(() => S('zyski', `
     <p style="margin:6mm 0 0;font-size:11pt;max-width:130mm">oraz wiele mniejszych zwycięstw, które się liczą, nawet jeśli nikt nie dał za nie medalu. <b>Do teraz.</b></p>
     <div style="display:flex;justify-content:space-between;align-items:flex-end;width:100%;margin-top:auto">
       <div style="width:55mm;text-align:left">${wr('dyp_data')}<div class="mala">data</div></div>
-      ${pies('siedzi', '50mm')}
+      ${pies('spokojny', '46mm')}
       <div style="width:55mm;text-align:center">${lapa}<div style="border-top:.25mm solid var(--linia)" class="mala">Wafel, Komisja ds. Merdania</div></div>
     </div>
   </div>
@@ -403,7 +403,7 @@ strony.push(() => S('lekcje', `
     <div class="karta"><span class="etyk">Co powiedział(a)bym sobie 1 stycznia ${ROK}?</span>${ln('lek_list', 6)}</div>
   </div>
   <div style="display:flex;gap:4mm;align-items:flex-end;margin-top:4mm">
-    ${pies('siedzi', '28mm')}
+    ${pies('mysli', '28mm')}
     <div class="dymek" style="flex:1">Najlepsza lekcja Wafla z ${ROK}: kanapa jest wygodniejsza, gdy się na nią zasłuży. Twoja na pewno jest mądrzejsza.</div>
   </div>`));
 
@@ -425,7 +425,7 @@ strony.push(() => S('lekcje', `
   </div>`));
 
 // 22. ROZDZIAŁ 3
-strony.push(dzial('energia', '3', `Z czym wchodzisz w ${NOWY}`, 'Masz dowody sukcesów i lekcje w kieszeni. Teraz zamieniamy je na energię: mocne strony, słowo roku i trzy zamiary, które naprawdę da się zrealizować.', 'mruga'));
+strony.push(dzial('energia', '3', `Z czym wchodzisz w ${NOWY}`, 'Masz dowody sukcesów i lekcje w kieszeni. Teraz zamieniamy je na energię: mocne strony, słowo roku i trzy zamiary, które naprawdę da się zrealizować.', 'radosc'));
 
 // 23. MOCNE STRONY
 strony.push(() => S('energia', `
@@ -543,7 +543,7 @@ strony.push(() => S('energia', `
     </div>
     <div style="display:flex;flex-direction:column;align-items:center">
       <div class="dymek" style="margin-bottom:2mm">Pochwal się w sieci z <b>#PochwalSię${ROK}</b>. Wafel lubi czytać dobre wiadomości.</div>
-      ${pies('macha', '48mm')}
+      ${pies('spi', '56mm')}
     </div>
   </div>`));
 
@@ -557,12 +557,12 @@ strony.push(() => S('', `
       <h3 style="font-size:17pt;margin:3mm 0 2mm;color:#fff">Zestaw Plan ${NOWY}</h3>
       <p style="margin:0;font-size:10pt">Strategia na 1 stronie + Planer 90 dni. Zamieniasz zamiary z tego zeszytu w&nbsp;kierunek, priorytety i&nbsp;plan na pierwszy kwartał. Kolejność jest prosta: <b>najpierw pochwal się ${ROK}, potem zaplanuj ${NOWY}</b>.</p>
     </div>
-    <div style="text-align:center;font-size:8.5pt">guliwera4.pl/materialy</div>
+    <div style="text-align:center;font-size:8.5pt">guliwera4.pl/produkt/<br>zestaw-plan-2027</div>
   </div>
   <div class="siatka k3" style="margin-top:4mm">
     <div class="karta" style="background:var(--lil-j)"><span class="etyk" style="color:#6E58A8">Za darmo</span><h3>Akademia Guliwera</h3><p class="mala" style="color:var(--atr)">Krótkie codzienne lekcje strategii i zarządzania w aplikacji na telefon. Seria dni, punkty, poziomy.</p><b style="font-size:8.5pt">guliwera4.pl/aplikacja</b></div>
-    <div class="karta" style="background:var(--brzo)"><span class="etyk" style="color:var(--koral-c)">Kanwa + przykład</span><h3>Strategia na 1 stronie</h3><p class="mala" style="color:var(--atr)">Cała strategia firmy lub kariery na jednej kartce. Dla tych, którzy lubią konkret.</p><b style="font-size:8.5pt">guliwera4.pl/materialy</b></div>
-    <div class="karta" style="background:var(--roz-j)"><span class="etyk" style="color:#B2365F">7 materiałów</span><h3>Pakiet Kierunek Zysk</h3><p class="mala" style="color:var(--atr)">Przewodnik, planer, skrypty sprzedażowe, audyt i dziennik decyzji dla małych firm.</p><b style="font-size:8.5pt">guliwera4.pl/materialy</b></div>
+    <div class="karta" style="background:var(--brzo)"><span class="etyk" style="color:var(--koral-c)">Kanwa + przykład</span><h3>Strategia na 1 stronie</h3><p class="mala" style="color:var(--atr)">Cała strategia firmy lub kariery na jednej kartce. Dla tych, którzy lubią konkret.</p><b style="font-size:8.5pt">guliwera4.pl/produkt/strategia-na-1-stronie</b></div>
+    <div class="karta" style="background:var(--roz-j)"><span class="etyk" style="color:#B2365F">7 materiałów</span><h3>Pakiet Kierunek Zysk</h3><p class="mala" style="color:var(--atr)">Przewodnik, planer, skrypty sprzedażowe, audyt i dziennik decyzji dla małych firm.</p><b style="font-size:8.5pt">guliwera4.pl/produkt/kierunek-zysk-pakiet</b></div>
   </div>
   <div class="karta akc" style="margin-top:4mm;background:var(--zol-j);display:flex;gap:5mm;align-items:center">
     <div style="flex:1"><span class="etyk" style="color:#B07A00">Kurs wideo</span><h3>Strategia w 6 tygodni</h3><p style="margin:0;font-size:9.5pt">Sześć tygodni, w których krok po kroku budujesz strategię, którą da się wdrożyć w małej firmie albo w swoim zespole. Z liczbami i z dobrym humorem.</p></div>
@@ -573,7 +573,7 @@ strony.push(() => S('', `
       <p style="margin:0 0 1mm"><b>Dziękuję, że spędzasz ten czas z Guliwera 4.</b> Napisz mi, z czego jesteś w tym roku najbardziej zadowolona albo zadowolony. Czytam wszystkie wiadomości (Wafel część z nich też).</p>
       <p class="mala" style="margin:0">Angelika Pruchniak-Gąszczyk · kontakt@guliwera4.pl</p>
     </div>
-    ${pies('mruga', '34mm')}
+    ${pies('macha', '34mm')}
   </div>`));
 
 // 30. NOTATKI + KOLOFON

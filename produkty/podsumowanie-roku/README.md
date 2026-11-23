@@ -2,7 +2,7 @@
 
 Zeszyt ćwiczeń A4, 30 stron, do druku i do wypełniania na tablecie (304 pola formularza PDF).
 Trzy części: **Zyski** (co Ci się udało) → **Lekcje** (czego nauczył Cię rok) → **Energia** (z czym wchodzisz w 2027).
-Maskotka: **Wafel** (`brand/wafel/`), owczarek australijski Guliwera 4.
+Maskotka: **Wafel G4** (`brand/wafel-g4/` na main); pozy z wyciętym tłem w `zasoby/wafel-g4/` (`narzedzia/wytnij-tlo-wafla.py`).
 
 W publicznym repozytorium są tylko źródła i podgląd 3 stron. **Gotowego PDF-u tu nie ma** (`dist/` jest w `.gitignore`).
 
@@ -13,7 +13,7 @@ W publicznym repozytorium są tylko źródła i podgląd 3 stron. **Gotowego PDF
 | `strony.js` | Treść wszystkich 30 stron (HTML generowany z funkcji, jedna funkcja = jedna strona) |
 | `styl.css` | Wygląd stron: paleta i fonty marki, karty, linie do pisania |
 | `buduj.js` | HTML → PDF (Playwright) → pola formularza (pdf-lib, font DM Sans z polskimi znakami) |
-| `../../brand/wafel/` | Wafel, oficjalna maskotka marki (wspólny generator SVG/PNG) |
+| `zasoby/wafel-g4/` | Pozy Wafla G4 z przezroczystym tłem (źródło: `brand/wafel-g4/pozy/`) |
 | `okladka/` | Okładka do sklepu 1200×1200 w stylu okładek „Kierunek Zysk” |
 | `podglad/` | Podgląd stron 1, 8 i 15 (PNG) |
 | `SKLEP.md` | Szkic opisu sprzedażowego do WooCommerce |

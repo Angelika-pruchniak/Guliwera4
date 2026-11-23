@@ -2,7 +2,7 @@
 // node okladka/generuj.js
 const path = require('path');
 const { chromium } = require('playwright');
-const { wafel } = require('../../../brand/wafel/generuj-wafla.js');
+const wafelG4 = 'data:image/png;base64,' + require('fs').readFileSync(path.join(__dirname, '../zasoby/wafel-g4/radosc.png')).toString('base64');
 const F = path.join(__dirname, '../fonty');
 const u = n => `url(data:font/ttf;base64,${require('fs').readFileSync(path.join(F, n)).toString('base64')})`;
 const css = `
@@ -20,14 +20,14 @@ const css = `
 b{display:block;font-family:"Fraunces",serif;font-weight:600;color:#1E2A4A;font-size:27px;line-height:1;position:relative}
 .s{font-size:9.5px;color:#1E2A4A;margin-top:6px;line-height:1.3;position:relative}
 .r{font-family:Caveat,cursive;font-weight:700;color:#E8512A;font-size:14px;transform:rotate(-4deg);display:inline-block;margin-top:6px}
-.pies{position:absolute;right:-4px;bottom:30px;width:112px}.pies svg{width:100%;height:auto;display:block}
+.pies{position:absolute;right:-4px;bottom:30px;width:112px}
 .d{z-index:2;background:linear-gradient(transparent,rgba(242,191,197,.0));position:absolute;left:9%;right:9%;bottom:12px;border-top:1px solid rgba(30,42,74,.25);padding-top:5px;font-size:7.5px;color:#1E2A4A;display:flex;justify-content:space-between}`;
 (async () => {
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 400, height: 400 }, deviceScaleFactor: 3 });
   await p.setContent(`<style>${css}</style><div class="kw"><div class="okl">
     <span class="m">PODSUMOWANIE ROKU</span><div><span class="tag">ZESZYT · 30 STRON · NA TABLET</span></div>
     <b>Pochwal się!</b><div class="s">Przypomnij sobie, co Ci się udało w&nbsp;2026</div><div class="r">rok 2026: zrobione ✓</div>
-    <div class="pies">${wafel('macha').replace(/ width="400" height="\d+"/, '')}</div>
+    <div class="pies"><img src="${wafelG4}" alt="" style="width:100%;display:block"></div>
     <div class="d"><span>guliwera4.pl</span><span>z Waflem</span></div></div></div>`, { waitUntil: 'load' });
   await p.evaluate(() => document.fonts.ready);
   await p.screenshot({ path: path.join(__dirname, 'pochwal-sie-podsumowanie-roku.png') });

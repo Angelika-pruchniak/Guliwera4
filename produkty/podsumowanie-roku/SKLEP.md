@@ -4,7 +4,7 @@
 - **Cena:** 99 zł
 - **Typ:** wirtualny, do pobrania; plik w chronionym katalogu jak pozostałe produkty Kierunek Zysk; limit 1 sztuka w koszyku
 - **Okładka:** `okladka/pochwal-sie-podsumowanie-roku.png`
-- **Pakiet (osobny produkt):** „Pochwal się 2026 + Zestaw Plan 2027”, 149 zł zamiast 178 zł (gdy Zestaw Plan 2027 będzie w sklepie)
+- **Pakiet (osobny produkt):** „Pochwal się 2026 + Zestaw Plan 2027”, 149 zł zamiast 178 zł (Zestaw Plan 2027 jest w sklepie od 22.11: /produkt/zestaw-plan-2027/)
 
 ## Krótki opis
 
