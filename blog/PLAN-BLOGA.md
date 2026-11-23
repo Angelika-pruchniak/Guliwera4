@@ -91,7 +91,9 @@ Szablon wpisu jest gotowy (wtyczka guliwera-strona 1.4, czat „Dostęp do stron
 - [ ] Usunąć z biblioteki mediów nieużywane plansze (media 186–196, 198–207), jeśli Angelika zgodzi się.
 - [x] Opublikowano 19.11.2026 (decyzja Angeliki z 18.11: publikacja automatyczna, 1 wpis tygodniowo; zadanie cykliczne wt 10:17).
 
-## Wpis 24.11.2026 – wytyczne (od czatu marketingowego, 23.11)
+## Wpis 24.11.2026 – ZREALIZOWANY 23.11 (Black Friday, post 272). Zadanie 24.11 bierze następny temat z blog/OPUBLIKOWANE.md
+
+### Wytyczne Black Friday (archiwum, od czatu marketingowego, 23.11)
 - Temat: „Black Friday w małej firmie: jak zarobić, nie obniżając cen”.
 - Fraza kluczowa Yoast: **„black friday mała firma”** (tytuł SEO i meta opis celują w nią; ruch na blogu w tyg. 16–22.11: 2 wyświetlenia).
 - Linki obowiązkowe:
