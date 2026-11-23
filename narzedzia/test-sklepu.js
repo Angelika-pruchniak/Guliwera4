@@ -12,7 +12,9 @@ const { chromium } = require('playwright');
   }
   await idz('/materialy/');
   const produkty = [...new Set(await p.$$eval('a[href*="/produkt/"]', a => a.map(x => x.pathname)))];
-  for (const u of produkty) { const r = await idz(u); const h = await p.locator('h1').first().textContent().catch(() => ''); if (r.status() !== 200 || /horyzoncie/.test(h)) blad(u + ' produkt niedostępny (' + r.status() + ', ' + h + ')'); }
+  for (const u of produkty) { const r = await idz(u); const h = await p.locator('h1').first().textContent().catch(() => ''); if (r.status() !== 200 || /horyzoncie/.test(h)) blad(u + ' produkt niedostępny (' + r.status() + ', ' + h + ')');
+    const okl = await p.evaluate(() => { const e = document.querySelector('.gk-prod-okl .okl'); if (!e) return 'brak'; const c = getComputedStyle(e); return (c.backgroundImage !== 'none' || c.backgroundColor !== 'rgba(0, 0, 0, 0)') && e.offsetHeight > 150 ? 'ok' : 'bez stylu'; });
+    if (okl !== 'ok') blad(u + ' okładka PDF: ' + okl); }
   await idz('/zamowienie/?add-to-cart=69'); await idz('/zamowienie/?add-to-cart=69');
   const t = await p.locator('body').innerText();
   if (t.includes('Nie ma dostępnych metod płatności')) blad('Zamówienie: brak metod płatności');
