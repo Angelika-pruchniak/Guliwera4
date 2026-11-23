@@ -10,6 +10,9 @@ const { chromium } = require('playwright');
     if (r.status() !== 200) blad(u + ' status ' + r.status());
     if (t.includes('Wielkie rzeczy są na horyzoncie')) blad(u + ' pokazuje stronę „Wkrótce”');
   }
+  await idz('/blog/');
+  const bezFot = await p.$$eval('.bl-karta .fot', f => f.filter(x => !x.querySelector('img')).length);
+  if (bezFot) blad('Blog: ' + bezFot + ' kart wpisów bez zdjęcia');
   await idz('/materialy/');
   const produkty = [...new Set(await p.$$eval('a[href*="/produkt/"]', a => a.map(x => x.pathname)))];
   for (const u of produkty) { const r = await idz(u); const h = await p.locator('h1').first().textContent().catch(() => ''); if (r.status() !== 200 || /horyzoncie/.test(h)) blad(u + ' produkt niedostępny (' + r.status() + ', ' + h + ')');
