@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 2.4
+ * Version: 2.5
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -631,3 +631,11 @@ add_action( 'template_redirect', function () {
 	if ( empty( $_GET['gk_kontrola'] ) || ! current_user_can( 'manage_woocommerce' ) ) { return; }
 	wp_send_json( gk_kontrola_zapisz() );
 } );
+
+/* Wersja 2.5 (23.11): zdjęcia na kartach bloga – Jetpack „Opcje treści” nie może ukrywać obrazków wyróżniających. */
+add_action( 'init', function () {
+	if ( '2.5' === get_option( 'gk_strona_ver25' ) ) { return; }
+	update_option( 'gk_strona_ver25', '2.5' );
+	foreach ( array( 'jetpack_content_featured_images_archive', 'jetpack_content_featured_images_post', 'jetpack_content_featured_images_page' ) as $m ) { set_theme_mod( $m, 1 ); }
+	gk_strona_wyczysc_cache();
+}, 31 );
