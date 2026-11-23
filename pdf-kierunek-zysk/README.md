@@ -33,6 +33,7 @@ Fonty: [Fraunces](https://fonts.google.com/specimen/Fraunces), [DM Sans](https:/
 - Checklista końcowa, rytm przeglądów, „co dalej”, słowniczek, źródła i licencje.
 - 61 pól do wypełnienia w PDF, fonty marki osadzone, dopisek o AI na stronie redakcyjnej.
 - Liczby przykładu zgodne z przewodnikiem i Kalkulatorem Zysku.
+- Maskotka: Wafel G4 (`brand/wafel-g4/pozy/`, pozy „myśli” i „brawo”), zgodnie z decyzją z 22.11.2026. Wektorowy Wafel z archiwum nie jest używany.
 - Szablon kanwy modelu biznesowego jest adaptacją „The Business Model Canvas” (Strategyzer AG, CC BY-SA 3.0).
 
 ![Okładka](podglady/strategia-v2-okladka.png)

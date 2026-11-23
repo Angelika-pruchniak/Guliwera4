@@ -10,9 +10,9 @@ const [src, out] = process.argv.slice(2);
   await page.evaluate(() => document.fonts.ready);
   // Wafel: SVG wstawiany inline, żeby cyfra „4” na bandanie używała osadzonego kroju Fraunces
   const svgs = {};
-  for (const s of await page.$$eval('img.wafel', els => els.map(e => e.getAttribute('src'))))
+  for (const s of await page.$$eval('img.wafel', els => els.map(e => e.getAttribute('src')).filter(s => s.endsWith('.svg'))))
     svgs[s] = fs.readFileSync(path.resolve(__dirname, '../src', s), 'utf8');
-  await page.evaluate(svgs => document.querySelectorAll('img.wafel').forEach(img => {
+  await page.evaluate(svgs => document.querySelectorAll('img.wafel[src$=".svg"]').forEach(img => {
     const d = document.createElement('div'); d.className = 'wafel'; d.setAttribute('style', img.getAttribute('style'));
     d.innerHTML = svgs[img.getAttribute('src')]; const s = d.querySelector('svg'); s.removeAttribute('width'); s.removeAttribute('height');
     s.style.width = '100%'; s.style.height = 'auto'; img.replaceWith(d); }), svgs);
