@@ -13,6 +13,13 @@ E-mail na stronie: kontakt@guliwera4.pl
 - Logo i favicon: folder `logo/` (ikona-512.png, logo-poziome.png, mark.svg, avatar i baner LinkedIn).
 - Zdjęcie: `zdjecia/angelika-portret.jpg`. Tylko kadr i wyostrzenie, bez zmiany rysów twarzy (wyraźna prośba).
 
+## Maskotka: Wafel (zasada obowiązująca wszystkie czaty)
+- Maskotka **Wafel** (od 22.11.2026): realistyczny owczarek australijski blue merle z koralową bandaną „G4”. Pliki: `brand/wafel-g4/` (pozy, ikona, animowany `G4-pomagier.html`, na stronie `/g4/G4-pomagier.html`). Stary wektorowy Wafel: `brand/archiwum/` (nie używać).
+- **Lilek jest wycofany (decyzja Angeliki, 16.11.2026).** Nie używać go w żadnych materiałach. Tam, gdzie był,
+  zamienić na Wafla (mapa nastrojów: happy→siedzi, cheer→radosc, sad→smutny, think→mysli, wave→macha, sleep→spi).
+- Gałęzie, które jeszcze mają Lilka: przy najbliższej pracy zrebazować na `main` i podmienić (`Lilek.tsx` już nie istnieje,
+  import: `import { Wafel, Speech } from './components/Wafel'`).
+
 ## Strona (WordPress + Jetpack, site ID 258438467)
 - Strony: 10 Strona główna, 32 Usługi, 6 O mnie, 52 Lokalizacja, 60 Kontakt (formularz Jetpack), 74 Materiały.
   Treść to bloki `wp:html` z szablonem `elementor_canvas` (bez Elementora, żeby uniknąć starego cache).
@@ -37,6 +44,14 @@ E-mail na stronie: kontakt@guliwera4.pl
   - PDF tylko raz w koszyku.
 - Instalacja wtyczek: ZIP z GitHub raw tego repozytorium (adres z hashem commita), bo bezpośredni upload jest blokowany.
 
+## SEO
+- Wtyczka `guliwera-seo` (dane strukturalne, FAQ, llms.txt, robots dla AI, pola Yoast przez API). Plan i zadania: `SEO.md`.
+
+## Poczta ze strony
+- Hosting, domena i poczta: nazwa.pl (serwer IP 85.128.212.180, MX = guliwera4.pl, SPF „mx a”).
+- Wygląd i treść maili systemowych: wtyczka `guliwera-maile` (opis w `wtyczki/guliwera-maile/MAILE.md`).
+- Wysyłka maili z WordPressa: wtyczka WP Mail SMTP, nadawca kontakt@guliwera4.pl („Force From”). Hasło jest tylko w panelu WordPressa.
+
 ## Do zrobienia
 - [ ] Angelika: połączyć konto Stripe (WooCommerce → Ustawienia → Płatności → Stripe) i włączyć Kartę, BLIK, Przelewy24. Potem zakup testowy.
 - [ ] Angelika: w Tag Managerze dodać „Tag Google” z identyfikatorem GA4 (G-…) i opublikować kontener.
@@ -48,8 +63,12 @@ E-mail na stronie: kontakt@guliwera4.pl
   - PDF „budżet marketingowy”.
 
 ## Aplikacja Akademia Guliwera (gałąź `claude/aplikacja-lekcje`)
-- Kod: `aplikacja/` (React + Vite, PWA). Treść lekcji: `aplikacja/src/content/kurs.ts`. Maskotka: Lilek.
-- Na stronie: wtyczka `guliwera-akademia` (wersja 1.1, aktywna) serwuje aplikację pod https://guliwera4.pl/akademia/.
+- Kod: `aplikacja/` (React + Vite, PWA). Treść lekcji: `aplikacja/src/content/kurs.ts`. Maskotka: Wafel (`aplikacja/src/components/Wafel.tsx`).
+- Na stronie: wtyczka `guliwera-akademia` (wersja 1.3, aktywna) serwuje aplikację pod https://guliwera4.pl/akademia/.
+  - Akademia tylko dla zalogowanych (Moje konto: logowanie i rejestracja, rejestrację wymusza wtyczka; logowanie Google przez wtyczkę Nextend Social Login, do skonfigurowania).
+  - Wyróżniony przycisk „🎓 Akademia · nowość” w menu każdej podstrony (dodaje go wtyczka).
+  - Rabaty na PDF-y za regularną naukę: zasady w `aplikacja/RABATY.md`.
+  - Zgoda na maile z aplikacji: meta użytkownika `gk_ak_zgoda` (data zgody), do mailingu.
   Aktualizacja: `aplikacja/pakuj-wtyczke.sh` → commit `wtyczki/guliwera-akademia.zip` → wgrać ZIP z GitHub raw (hash commita, overwrite).
 - Strona 112 „Aplikacja” (https://guliwera4.pl/aplikacja/): opis, instrukcja instalacji, kod QR. W menu pozostałych stron jeszcze nie ma linku.
 - Sklepy: Google Play przez TWA (PWABuilder), wymaga konta Google Play Console i pliku /.well-known/assetlinks.json; App Store wymaga konta Apple Developer i Maca.
@@ -58,3 +77,12 @@ E-mail na stronie: kontakt@guliwera4.pl
 Aplikacja do nauki dla młodych managerów: krótkie codzienne lekcje, seria dni, punkty, poziomy.
 Wiedza z publicznie opisanych frameworków strategii i zarządzania (np. macierz BCG, 7S, MECE, piramida Minto).
 Oryginalna marka Guliwera 4, bez logo i materiałów chronionych prawem autorskim.
+
+## Mapa prac nad guliwera4.pl
+Wszystkie czaty o stronie mają w Claude tag **guliwera4.pl**.
+- „Dostęp do strony”: budowa strony WordPress, sklep, wtyczki.
+- „Aplikacja do nauki dla młodych managerów (Guliwera 4)”: pierwsza wersja Akademii (zarchiwizowany).
+- „Aplikacja Akademia Guliwera – nauka dla młodych managerów”: Akademia v2, logowanie, rabaty, przycisk na stronie.
+- „Agent social media: posty FB i LinkedIn”: posty do social mediów.
+- „Mailing i newsletter Guliwera 4”: maile techniczne (zamówienia, PDF, płatności) i marketingowe, kalendarz wysyłek.
+- „Akademia Guliwera w Google Play i App Store”: publikacja aplikacji w sklepach.

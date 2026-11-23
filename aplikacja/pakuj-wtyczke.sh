@@ -3,6 +3,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 npm run build
+npx vite-node scripts/lekcje.ts
 OUT="${1:-../wtyczki}"
 TMP="$(mktemp -d)"
 cp -r ../wtyczki/guliwera-akademia "$TMP/"
