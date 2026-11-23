@@ -1,10 +1,7 @@
 import { useSyncExternalStore } from 'react'
 import { flatLessons, units } from './content'
 
-export const MAX_HEARTS = 5
-export const HEART_REGEN_MS = 30 * 60 * 1000
 export const PRICE_FREEZE = 50
-export const PRICE_HEARTS = 30
 const SRS_DAYS = [0, 1, 3, 7, 14, 30]
 
 export type State = {
@@ -32,7 +29,7 @@ export type State = {
 
 const fresh = (): State => ({
   v: 1, name: '', onboarded: false, dailyGoal: 20,
-  xp: 0, coins: 40, hearts: MAX_HEARTS, heartsAt: Date.now(),
+  xp: 0, coins: 40, hearts: 5, heartsAt: Date.now(),
   streak: 0, longestStreak: 0, lastDay: null, freezes: 0, xpByDay: {},
   done: {}, perfect: 0, skipTo: 0, chests: {}, srs: {}, badges: [],
   settings: { sound: true, vibrate: true },
@@ -48,7 +45,7 @@ function load(): State {
   return fresh()
 }
 
-let state: State = regen(load())
+let state: State = load()
 const listeners = new Set<() => void>()
 
 function save() {
@@ -64,6 +61,7 @@ export function update(fn: (s: State) => void) {
 }
 
 export const getState = () => state
+export function subscribe(l: () => void) { listeners.add(l); return () => { listeners.delete(l) } }
 export function useStore(): State {
   return useSyncExternalStore((l) => { listeners.add(l); return () => listeners.delete(l) }, () => state)
 }
@@ -78,29 +76,7 @@ export function dayDiff(a: string, b: string) {
 }
 const addDays = (n: number) => { const d = new Date(); d.setDate(d.getDate() + n); return dayKey(d) }
 
-// ───── serca ─────
-function regen(s: State): State {
-  if (s.hearts >= MAX_HEARTS) return { ...s, heartsAt: Date.now() }
-  const gained = Math.floor((Date.now() - s.heartsAt) / HEART_REGEN_MS)
-  if (gained <= 0) return s
-  const hearts = Math.min(MAX_HEARTS, s.hearts + gained)
-  return { ...s, hearts, heartsAt: hearts >= MAX_HEARTS ? Date.now() : s.heartsAt + gained * HEART_REGEN_MS }
-}
-export function tickHearts() {
-  const n = regen(state)
-  if (n !== state && n.hearts !== state.hearts) update((s) => { s.hearts = n.hearts; s.heartsAt = n.heartsAt })
-}
-export function loseHeart() {
-  update((s) => {
-    if (s.hearts >= MAX_HEARTS) s.heartsAt = Date.now()
-    s.hearts = Math.max(0, s.hearts - 1)
-  })
-}
-export function buyHearts(): boolean {
-  if (state.coins < PRICE_HEARTS) return false
-  update((s) => { s.coins -= PRICE_HEARTS; s.hearts = MAX_HEARTS; s.heartsAt = Date.now() })
-  return true
-}
+// Serc (limitu błędów) nie ma: błędne pytanie wraca na koniec lekcji, aż je opanujesz.
 export function buyFreeze(): boolean {
   if (state.coins < PRICE_FREEZE || state.freezes >= 2) return false
   update((s) => { s.coins -= PRICE_FREEZE; s.freezes += 1 })
@@ -246,7 +222,6 @@ export function completeReview(sum: Summary): Rewards {
   let r!: Rewards
   update((s) => {
     updateSrs(s, sum)
-    s.hearts = Math.min(MAX_HEARTS, s.hearts + 1)
     r = finish(s, 5 + (sum.exerciseIds.length - sum.firstTryWrong.length), 3)
   })
   return r
@@ -273,6 +248,59 @@ export function openChest(u: number): number {
 export function dueReviewIds(s: State): string[] {
   const t = dayKey()
   return Object.entries(s.srs).filter(([, v]) => v.due <= t).sort((a, b) => a[1].box - b[1].box).map(([id]) => id)
+}
+
+// ───── zapis na koncie (synchronizacja między urządzeniami) ─────
+/** Fragment stanu zapisywany na koncie guliwera4.pl (bez ustawień urządzenia). */
+export type Remote = Partial<Pick<State, 'name' | 'onboarded' | 'dailyGoal' | 'xp' | 'coins' | 'streak' | 'longestStreak' |
+  'lastDay' | 'freezes' | 'xpByDay' | 'done' | 'perfect' | 'skipTo' | 'chests' | 'srs' | 'badges'>>
+
+export function toRemote(s: State): Remote {
+  const od = addDays(-60)
+  const xpByDay = Object.fromEntries(Object.entries(s.xpByDay).filter(([d]) => d >= od))
+  const { name, onboarded, dailyGoal, xp, coins, streak, longestStreak, lastDay, freezes, done, perfect, skipTo, chests, srs, badges } = s
+  return { name, onboarded, dailyGoal, xp, coins, streak, longestStreak, lastDay, freezes, xpByDay, done, perfect, skipTo, chests, srs, badges }
+}
+
+const num = (v: unknown) => (typeof v === 'number' && isFinite(v) ? v : 0)
+const obj = <T,>(v: unknown): Record<string, T> => (v && typeof v === 'object' && !Array.isArray(v) ? v as Record<string, T> : {})
+
+/**
+ * Łączy stan z konta z lokalnym tak, żeby nic nie przepadło: ukończone lekcje to suma obu,
+ * liczniki biorą wartość większą, a seria dni pochodzi z urządzenia, które uczyło się ostatnio.
+ * Zwraca true, gdy coś się zmieniło.
+ */
+export function mergeRemote(r: Remote | null | undefined): boolean {
+  if (!r || typeof r !== 'object') return false
+  const s = structuredClone(state)
+  {
+    const done = obj<number>(r.done)
+    for (const [id, n] of Object.entries(done)) s.done[id] = Math.max(s.done[id] ?? 0, num(n))
+    for (const [d, x] of Object.entries(obj<number>(r.xpByDay))) s.xpByDay[d] = Math.max(s.xpByDay[d] ?? 0, num(x))
+    for (const [id, v] of Object.entries(obj<boolean>(r.chests))) if (v) s.chests[id] = true
+    for (const [id, v] of Object.entries(obj<{ box: number; due: string }>(r.srs))) {
+      const cur = s.srs[id]
+      if (v && typeof v.due === 'string' && (!cur || v.box > cur.box)) s.srs[id] = { box: num(v.box), due: v.due }
+    }
+    if (Array.isArray(r.badges)) for (const b of r.badges) if (typeof b === 'string' && !s.badges.includes(b)) s.badges.push(b)
+    s.xp = Math.max(s.xp, num(r.xp))
+    s.perfect = Math.max(s.perfect, num(r.perfect))
+    s.skipTo = Math.max(s.skipTo, num(r.skipTo))
+    s.longestStreak = Math.max(s.longestStreak, num(r.longestStreak))
+    if (typeof r.lastDay === 'string' && (!s.lastDay || r.lastDay > s.lastDay)) {
+      s.lastDay = r.lastDay; s.streak = num(r.streak); s.coins = Math.max(s.coins, num(r.coins)); s.freezes = num(r.freezes)
+    }
+    if (r.onboarded || Object.keys(done).length) {
+      if (!s.onboarded) { s.dailyGoal = num(r.dailyGoal) || s.dailyGoal }
+      s.onboarded = true
+    }
+    if (!s.name && typeof r.name === 'string') s.name = r.name.slice(0, 30)
+  }
+  if (JSON.stringify(toRemote(s)) === JSON.stringify(toRemote(state))) return false
+  state = s
+  save()
+  listeners.forEach((l) => l())
+  return true
 }
 
 export function resetAll() {

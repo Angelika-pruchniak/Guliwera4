@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { flatLessons } from './content'
 import {
-  completeLesson, currentLesson, dayDiff, getState, lessonStatus, levelOf, loseHeart, passTest,
+  completeLesson, currentLesson, mergeRemote, toRemote, dayDiff, getState, lessonStatus, levelOf, passTest,
   resetAll, update, visibleStreak,
 } from './store'
 
@@ -61,9 +61,22 @@ describe('logika gry', () => {
     expect(s1.badges).toContain('placed')
   })
 
-  it('serca spadają, ale nie poniżej zera', () => {
-    for (let i = 0; i < 8; i++) loseHeart()
-    expect(getState().hearts).toBe(0)
+  it('błędy w lekcji nie blokują zaliczenia (brak serc)', () => {
+    const r = completeLesson('u1l1', { ...sum, firstTryWrong: ['a', 'b', 'c', 'd', 'e', 'f'] })
+    expect(r.xp).toBeGreaterThan(0)
+    expect(lessonStatus(getState(), 1)).toBe('open')
+  })
+
+  it('postęp z konta łączy się z lokalnym i nic nie przepada', () => {
+    completeLesson('u1l1', sum)
+    const changed = mergeRemote({ onboarded: true, done: { u1l1: 1, u1l2: 2 }, xp: 5, lastDay: '2000-01-01', streak: 9 })
+    const s = getState()
+    expect(changed).toBe(true)
+    expect(s.done).toEqual({ u1l1: 1, u1l2: 2 })
+    expect(s.xp).toBeGreaterThan(5) // większa wartość zostaje
+    expect(s.streak).toBe(1) // seria z urządzenia, które uczyło się później
+    expect(s.onboarded).toBe(true)
+    expect(mergeRemote(toRemote(s))).toBe(false)
   })
 
   it('lekcja bez błędów daje bonus XP', () => {

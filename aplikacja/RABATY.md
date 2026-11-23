@@ -45,4 +45,4 @@ Pełne 30% wymaga co najmniej 8 dni na lekcje (limit 3 dziennie) i 14 aktywnych 
 
 ## Ograniczenia
 - Odpowiedzi do quizów są w aplikacji, więc „ukończenie lekcji” to deklaracja przeglądarki. Ochronę dają limit 3 lekcji dziennie, liczenie dni zegarem serwera, kupon przypisany do e-maila i maksimum 30%.
-- Postęp w samej aplikacji (XP, serca, monety) nadal jest zapisany w telefonie. Konto przechowuje tylko to, co jest potrzebne do rabatu, oraz zgodę na maile.
+- Postęp w samej aplikacji (XP, ukończone lekcje, seria, monety) zapisuje się też na koncie (meta `gk_ak_stan`, REST `POST akademia/v1/stan`), więc po zalogowaniu na innym urządzeniu nauka idzie dalej. Rabat liczy się nadal wyłącznie z danych serwera (`gk_ak_postep`).

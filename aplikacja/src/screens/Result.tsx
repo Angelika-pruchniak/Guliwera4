@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Wafel } from '../components/Wafel'
-import { Coin, Confetti, Flame, Star } from '../components/ui'
+import { Coin, Confetti, Paw, Star } from '../components/ui'
 import { fx } from '../fx'
 import { BADGES, type Rewards } from '../store'
 
@@ -46,12 +46,12 @@ export function Result({ rewards, accuracy, seconds, title, heading, onContinue 
       )}
       {p === 'streak' && (
         <>
-          <div className="big-flame"><Flame size={140} /></div>
+          <div className="big-flame"><Wafel mood="cheer" size={140} className="jump" /></div>
           <h1 className="streak-num">{rewards.streak}</h1>
-          <p className="lead">{rewards.streak === 1 ? 'Pierwszy dzień serii! Wróć jutro, żeby ją podtrzymać.' : `dni z rzędu! Wafel merda z wrażenia.`}</p>
+          <p className="lead">{rewards.streak === 1 ? 'Pierwszy dzień nauki z Waflem! Wróć jutro na kolejny spacer.' : `dni nauki z rzędu! Wafel merda ogonem z wrażenia.`}</p>
           <div className="week">
             {Array.from({ length: 7 }, (_, d) => (
-              <span key={d} className={d < Math.min(rewards.streak, 7) ? 'on' : ''}><Flame size={22} off={d >= Math.min(rewards.streak, 7)} /></span>
+              <span key={d} className={d < Math.min(rewards.streak, 7) ? 'on' : ''}><Paw size={22} off={d >= Math.min(rewards.streak, 7)} /></span>
             ))}
           </div>
         </>

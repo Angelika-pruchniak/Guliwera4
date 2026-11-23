@@ -64,11 +64,15 @@ E-mail na stronie: kontakt@guliwera4.pl
 
 ## Aplikacja Akademia Guliwera (gałąź `claude/aplikacja-lekcje`)
 - Kod: `aplikacja/` (React + Vite, PWA). Treść lekcji: `aplikacja/src/content/kurs.ts`. Maskotka: Wafel (`aplikacja/src/components/Wafel.tsx`).
-- Na stronie: wtyczka `guliwera-akademia` (wersja 1.3, aktywna) serwuje aplikację pod https://guliwera4.pl/akademia/.
+- Na stronie: wtyczka `guliwera-akademia` (wersja 1.5, aktywna) serwuje aplikację pod https://guliwera4.pl/akademia/.
   - Akademia tylko dla zalogowanych (Moje konto: logowanie i rejestracja, rejestrację wymusza wtyczka; logowanie Google przez wtyczkę Nextend Social Login, do skonfigurowania).
   - Wyróżniony przycisk „🎓 Akademia · nowość” w menu każdej podstrony (dodaje go wtyczka).
   - Rabaty na PDF-y za regularną naukę: zasady w `aplikacja/RABATY.md`.
   - Zgoda na maile z aplikacji: meta użytkownika `gk_ak_zgoda` (data zgody), do mailingu.
+  - 1.5 (23.11.2026): bez serc (błąd nie blokuje lekcji; wcześniej po 5 błędach lekcja przepadała i trzeba było ją powtarzać),
+    postęp nauki na koncie (`gk_ak_stan`, REST `stan`), nowa ścieżka „Trasa Wafla” zamiast zygzaka kółek (etapy jak bilety,
+    przystanki z pieczątką „zaliczone”, „Paczka od Wafla” zamiast skrzyni, łapka zamiast płomienia serii, płaskie przyciski).
+    Zasada: nie wracać do rozwiązań kojarzonych z Duolingo (zygzak kółek, serca, płomień, skrzynie, przyciski 3D).
   Aktualizacja: `aplikacja/pakuj-wtyczke.sh` → commit `wtyczki/guliwera-akademia.zip` → wgrać ZIP z GitHub raw (hash commita, overwrite).
 - Strona 112 „Aplikacja” (https://guliwera4.pl/aplikacja/): opis, instrukcja instalacji, kod QR. W menu pozostałych stron jeszcze nie ma linku.
 - Sklepy: Google Play przez TWA (PWABuilder), wymaga konta Google Play Console i pliku /.well-known/assetlinks.json; App Store wymaga konta Apple Developer i Maca.

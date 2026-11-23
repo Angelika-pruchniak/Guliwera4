@@ -2,10 +2,8 @@ import { useRef, useState } from 'react'
 import { isExercise, type Item, type TeachCard } from '../content'
 import { ExerciseCard } from '../components/ExerciseCard'
 import { Wafel, Speech } from '../components/Wafel'
-import { Heart, Progress } from '../components/ui'
+import { Progress } from '../components/ui'
 import { fx } from '../fx'
-import { buyHearts, loseHeart, PRICE_HEARTS, useStore } from '../store'
-import { getRabat, jestPro } from '../konto'
 
 export type SessionMode = 'lesson' | 'review' | 'test'
 export type SessionResult = {
@@ -28,14 +26,12 @@ type Props = {
 }
 
 export function Session({ title, items, mode, maxMistakes = 2, onExit, onDone }: Props) {
-  const s = useStore()
   const [queue, setQueue] = useState<Item[]>(items)
   const [pos, setPos] = useState(0)
   const [doneIds, setDoneIds] = useState<string[]>([])
   const [combo, setCombo] = useState(0)
   const [toast, setToast] = useState<string | null>(null)
   const [confirmExit, setConfirmExit] = useState(false)
-  const [noHearts, setNoHearts] = useState(false)
   const stats = useRef({ firstTryWrong: new Set<string>(), mistakes: 0, maxCombo: 0, start: Date.now(), lastOk: false })
 
   const total = new Set(items.map((i) => i.id)).size
@@ -62,7 +58,6 @@ export function Session({ title, items, mode, maxMistakes = 2, onExit, onDone }:
       st.mistakes++
       if (!doneIds.includes(item.id)) st.firstTryWrong.add(item.id)
       setCombo(0)
-      if (mode === 'lesson' && !jestPro(getRabat())) loseHeart()
       return
     }
     const c = combo + 1
@@ -92,7 +87,6 @@ export function Session({ title, items, mode, maxMistakes = 2, onExit, onDone }:
     st.lastOk = false
 
     if (mode === 'test' && st.mistakes > maxMistakes) return finish()
-    if (mode === 'lesson' && !jestPro(getRabat()) && s.hearts <= 0) { setNoHearts(true); return }
     if (pos + 1 >= nextQueue.length) return finish()
     setPos(pos + 1)
   }
@@ -104,7 +98,7 @@ export function Session({ title, items, mode, maxMistakes = 2, onExit, onDone }:
         <button className="icon-btn" aria-label="Zamknij" onClick={() => setConfirmExit(true)}>✕</button>
         <Progress value={progress} color={combo >= 3 ? 'var(--yellow)' : 'var(--coral)'} />
         {mode === 'lesson' ? (
-          <span className="stat"><Heart off={s.hearts === 0} /> {s.hearts}</span>
+          <span className="stat small">{Math.min(doneIds.length, total)}/{total}</span>
         ) : mode === 'test' ? (
           <span className="stat small">{Math.max(0, maxMistakes - stats.current.mistakes + 1)} szans</span>
         ) : <span className="stat small">Powtórka</span>}
@@ -125,23 +119,9 @@ export function Session({ title, items, mode, maxMistakes = 2, onExit, onDone }:
           <div className="modal">
             <Wafel mood="sad" size={90} />
             <h3>Już uciekasz?</h3>
-            <p>Jeśli wyjdziesz teraz, postęp tej lekcji przepadnie.</p>
+            <p>Jeśli wyjdziesz teraz, tę lekcję zaczniesz od początku. Błędy nic nie kosztują: pytania wracają, aż je opanujesz.</p>
             <button className="btn big" onClick={() => setConfirmExit(false)}>Zostaję!</button>
             <button className="btn ghost" onClick={onExit}>Zakończ</button>
-          </div>
-        </div>
-      )}
-      {noHearts && (
-        <div className="modal-bg">
-          <div className="modal">
-            <Wafel mood="sleep" size={90} />
-            <h3>Skończyły się serca</h3>
-            <p>Serca odnawiają się same: jedno co 30 minut. Możesz też zrobić powtórkę (+1 serce) albo kupić pełen zapas.</p>
-            <button className="btn big" disabled={s.coins < PRICE_HEARTS}
-              onClick={() => { if (buyHearts()) { fx('coin'); setNoHearts(false); if (pos + 1 < queue.length) setPos(pos + 1); else finish() } }}>
-              Uzupełnij za {PRICE_HEARTS} monet
-            </button>
-            <button className="btn ghost" onClick={() => finish(true)}>Zakończ lekcję</button>
           </div>
         </div>
       )}

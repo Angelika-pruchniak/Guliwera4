@@ -3,10 +3,10 @@ import { Wafel } from '../components/Wafel'
 import { RabatCard } from '../components/RabatCard'
 import { ProCard } from '../components/ProCard'
 import { konto } from '../konto'
-import { Coin, Flame, Heart, Progress, Snow, Star } from '../components/ui'
+import { Coin, Paw, Progress, Snow, Star } from '../components/ui'
 import { fx } from '../fx'
 import {
-  BADGES, buyFreeze, buyHearts, dayKey, levelOf, MAX_HEARTS, PRICE_FREEZE, PRICE_HEARTS,
+  BADGES, buyFreeze, dayKey, levelOf, PRICE_FREEZE,
   resetAll, update, useStore, visibleStreak,
 } from '../store'
 
@@ -36,7 +36,7 @@ export function Profile({ onCert }: { onCert: () => void }) {
       </div>
 
       <div className="tiles">
-        <div className="tile t-peach"><span>Seria</span><b><Flame size={18} /> {visibleStreak(s)}</b></div>
+        <div className="tile t-peach"><span>Dni z rzędu</span><b><Paw size={18} /> {visibleStreak(s)}</b></div>
         <div className="tile t-yellow"><span>Razem XP</span><b>{s.xp}</b></div>
         <div className="tile t-lilac"><span>Najdłuższa seria</span><b>{s.longestStreak}</b></div>
         <div className="tile t-pink"><span>Lekcje</span><b>{Object.keys(s.done).length}</b></div>
@@ -63,15 +63,9 @@ export function Profile({ onCert }: { onCert: () => void }) {
         <h3>Sklepik Wafla <span className="coins"><Coin size={18} /> {s.coins}</span></h3>
         <div className="shop-row">
           <Snow size={30} />
-          <div><b>Zamrożenie serii</b><div className="muted small">Ratuje serię, gdy opuścisz dzień. Masz: {s.freezes}/2</div></div>
+          <div><b>Dzień wolny dla Wafla</b><div className="muted small">Ratuje serię dni, gdy opuścisz dzień nauki. Masz: {s.freezes}/2</div></div>
           <button className="btn small" disabled={s.coins < PRICE_FREEZE || s.freezes >= 2}
             onClick={() => buyFreeze() && fx('coin')}><Coin size={14} /> {PRICE_FREEZE}</button>
-        </div>
-        <div className="shop-row">
-          <Heart size={30} />
-          <div><b>Pełne serca</b><div className="muted small">Masz {s.hearts}/{MAX_HEARTS}</div></div>
-          <button className="btn small" disabled={s.coins < PRICE_HEARTS || s.hearts >= MAX_HEARTS}
-            onClick={() => buyHearts() && fx('coin')}><Coin size={14} /> {PRICE_HEARTS}</button>
         </div>
       </div>
 
@@ -120,7 +114,7 @@ export function Profile({ onCert }: { onCert: () => void }) {
       <div className="card about">
         <h3>O aplikacji</h3>
         <p>Akademia Guliwera to autorskie lekcje <b>Guliwera 4</b> („strategia, produkty cyfrowe i dobry humor”). Zakres działów odpowiada typowym przedmiotom studiów ekonomicznych i menedżerskich: mikro- i makroekonomii, podstawom finansów, rachunkowości oraz zarządzaniu strategicznemu.</p>
-        <p className="muted small">Nazwy modeli (np. macierz BCG, model 7S, 5 sił Portera) opisują ogólnie znane koncepcje. Aplikacja nie jest powiązana z Boston Consulting Group, McKinsey &amp; Company ani żadną uczelnią. Treści mają charakter edukacyjny i nie są poradą finansową. Postęp w aplikacji jest zapisany na tym urządzeniu, a ukończone lekcje i aktywne dni (do rabatu) na Twoim koncie guliwera4.pl.</p>
+        <p className="muted small">Nazwy modeli (np. macierz BCG, model 7S, 5 sił Portera) opisują ogólnie znane koncepcje. Aplikacja nie jest powiązana z Boston Consulting Group, McKinsey &amp; Company ani żadną uczelnią. Treści mają charakter edukacyjny i nie są poradą finansową. Postęp nauki zapisuje się na Twoim koncie guliwera4.pl, więc po zalogowaniu na innym telefonie czy komputerze kontynuujesz od tego samego miejsca.</p>
         <p className="muted small">guliwera4.pl</p>
       </div>
     </div>

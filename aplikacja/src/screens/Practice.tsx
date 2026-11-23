@@ -1,6 +1,5 @@
 import { exerciseById, flatLessons, isExercise, pick, type Exercise } from '../content'
 import { Wafel, Speech } from '../components/Wafel'
-import { Heart } from '../components/ui'
 import { currentLesson, dueReviewIds, useStore } from '../store'
 
 export function practiceItems(s: ReturnType<typeof useStore>) {
@@ -26,14 +25,14 @@ export function Practice({ onStart }: { onStart: () => void }) {
             : 'Wszystko świeże! Możesz zrobić trening z losowych pytań.'} />
           <div className="card">
             <h3>Jak to działa?</h3>
-            <p>Pytania wracają po 1, 3, 7, 14 i 30 dniach. Te z błędem wracają szybciej. Powtórka nie zabiera serc, a za jej ukończenie dostajesz <b>+1 <Heart size={16} /></b>.</p>
+            <p>Pytania wracają po 1, 3, 7, 14 i 30 dniach. Te z błędem wracają szybciej. Za każdą powtórkę dostajesz XP i monety.</p>
           </div>
           <button className="btn big" onClick={onStart}>{due > 0 ? 'Zacznij powtórkę' : 'Trening losowy'}</button>
         </>
       ) : (
         <div className="center">
           <Wafel mood="sleep" size={120} />
-          <p>Tu pojawią się powtórki po Twojej pierwszej lekcji. Na razie możesz potrenować pytania z najbliższej lekcji (bez utraty serc).</p>
+          <p>Tu pojawią się powtórki po Twojej pierwszej lekcji. Na razie możesz potrenować pytania z najbliższej lekcji.</p>
           <button className="btn big" onClick={onStart}>Trening na rozgrzewkę</button>
         </div>
       )}

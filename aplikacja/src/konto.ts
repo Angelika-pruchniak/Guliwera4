@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react'
+import { getState, mergeRemote, subscribe, toRemote, type Remote } from './store'
 
 // Konto na guliwera4.pl. Wtyczka WordPress wstrzykuje window.GK_AK do index.html,
 // gdy użytkownik jest zalogowany. Postęp do rabatu liczy serwer (nie da się go podbić w przeglądarce).
@@ -24,6 +25,8 @@ export type StatusRabatu = {
   proUrl: string | null
   proCena: number
   darmoweDzialy: number
+  /** Postęp nauki zapisany na koncie (do kontynuacji na innym urządzeniu). */
+  stan?: Remote | null
 }
 
 export const konto: Cfg | null = typeof window === 'undefined' ? null : (window as unknown as { GK_AK?: Cfg }).GK_AK ?? null
@@ -34,6 +37,7 @@ const listeners = new Set<() => void>()
 const emit = () => listeners.forEach((l) => l())
 let snapshot: { status: StatusRabatu | null; blad: string | null } = { status, blad }
 function set(s: StatusRabatu | null, b: string | null) {
+  if (s && s !== status) przyjmijStan(s)
   status = s
   blad = b
   snapshot = { status: s, blad: b }
@@ -56,6 +60,43 @@ async function call(path: string, body?: unknown): Promise<StatusRabatu> {
   const data = await r.json().catch(() => ({}))
   if (!r.ok) throw new Error((data as { message?: string }).message || `Błąd ${r.status}`)
   return data as StatusRabatu
+}
+
+// ───── postęp nauki na koncie ─────
+// Po pierwszym wczytaniu statusu łączymy postęp z konta z lokalnym, a potem każdą zmianę
+// (ukończona lekcja, powtórka, monety) odkładamy na konto z krótkim opóźnieniem.
+let stanGotowy = false
+let wysylkaStanu = 0
+let ostatniWyslany = ''
+function przyjmijStan(s: StatusRabatu) {
+  if (!('stan' in s)) return
+  mergeRemote(s.stan ?? null)
+  const wasReady = stanGotowy
+  stanGotowy = true
+  if (!wasReady) zaplanujStan(0)
+}
+function zaplanujStan(ms = 1500) {
+  if (!konto || !stanGotowy) return
+  clearTimeout(wysylkaStanu)
+  wysylkaStanu = window.setTimeout(() => { void wyslijStan() }, ms)
+}
+let wysyla = false
+async function wyslijStan() {
+  if (wysyla || JSON.stringify(toRemote(getState())) === ostatniWyslany) return
+  wysyla = true
+  try {
+    // Najpierw dociągamy to, co inne urządzenie mogło zapisać w międzyczasie, potem zapisujemy sumę.
+    set(await call('status'), null)
+    const teraz = JSON.stringify(toRemote(getState()))
+    if (teraz !== ostatniWyslany) {
+      set(await call('stan', { stan: JSON.parse(teraz) }), null)
+      ostatniWyslany = teraz
+    }
+  } catch { zaplanujStan(30_000) } finally { wysyla = false }
+}
+if (konto && typeof window !== 'undefined') {
+  subscribe(() => zaplanujStan())
+  window.addEventListener('pagehide', () => { if (stanGotowy) void wyslijStan() })
 }
 
 // Kolejka zdarzeń: gdy nie ma sieci, wyślemy je później.

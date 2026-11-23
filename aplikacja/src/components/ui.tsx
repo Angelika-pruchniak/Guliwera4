@@ -8,6 +8,33 @@ export function Flame({ size = 22, off = false }: { size?: number; off?: boolean
     </svg>
   )
 }
+/** Ślad łapy Wafla: znak serii dni („spacery z rzędu”). */
+export function Paw({ size = 22, off = false }: { size?: number; off?: boolean }) {
+  const c = off ? '#CFC4D2' : '#FF6B3D'
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden fill={c}>
+      <ellipse cx="12" cy="16" rx="5.2" ry="4.4" />
+      <ellipse cx="5.2" cy="10.4" rx="2.2" ry="2.8" transform="rotate(-18 5.2 10.4)" />
+      <ellipse cx="9.4" cy="6.2" rx="2.2" ry="2.9" transform="rotate(-6 9.4 6.2)" />
+      <ellipse cx="14.6" cy="6.2" rx="2.2" ry="2.9" transform="rotate(6 14.6 6.2)" />
+      <ellipse cx="18.8" cy="10.4" rx="2.2" ry="2.8" transform="rotate(18 18.8 10.4)" />
+    </svg>
+  )
+}
+/** Paczka od Wafla (nagroda na końcu etapu): karton przewiązany koralową bandaną z „4”. */
+export function Parcel({ size = 34, open = false }: { size?: number; open?: boolean }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden>
+      <rect x="5" y="15" width="30" height="21" rx="3" fill="#E9C9A6" />
+      {open
+        ? <path d="M5 15 L1 8 H17 L20 15Z M35 15 L39 8 H23 L20 15Z" fill="#F3DCC2" />
+        : <rect x="3" y="10" width="34" height="7" rx="2" fill="#F3DCC2" />}
+      <rect x="17" y={open ? 15 : 10} width="6" height={open ? 21 : 26} fill="#FF6B3D" />
+      <circle cx="20" cy="25" r="4.2" fill="#1E2A4A" />
+      <text x="20" y="27.6" textAnchor="middle" fontSize="7" fontWeight="700" fill="#fff" fontFamily="DM Sans, sans-serif">4</text>
+    </svg>
+  )
+}
 export function Heart({ size = 22, off = false }: { size?: number; off?: boolean }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>

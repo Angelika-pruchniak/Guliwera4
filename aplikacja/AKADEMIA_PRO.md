@@ -3,7 +3,7 @@
 - **Za darmo:** działy 1–2 (`GK_AK_DARMOWE_DZIALY` we wtyczce, `DARMOWE_DZIALY` w `src/konto.ts`).
 - **Pro:**
   - wszystkie działy;
-  - serca bez limitu;
+  - powtórki ze wszystkich działów;
   - certyfikat ukończenia (Profil → Akademia Pro → „Pobierz certyfikat”, po ukończeniu wszystkich lekcji).
 - **Cena:** 249 zł jednorazowo za 12 miesięcy (`GK_AK_PRO_CENA`, `GK_AK_PRO_DNI`).
 - **Produkt w sklepie:**

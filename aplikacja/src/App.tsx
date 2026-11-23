@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { flatLessons, pick, quickExercises, units, type Item } from './content'
 import { Wafel } from './components/Wafel'
-import { Coin, Confetti, Flame, Heart } from './components/ui'
+import { Coin, Confetti, Paw } from './components/ui'
 import { fx } from './fx'
-import { dzialZablokowany, jestPro, useRabat, wyslijKolejke, zglosAktywnosc, zglosLekcje } from './konto'
+import { dzialZablokowany, jestPro, konto, useRabat, wyslijKolejke, zglosAktywnosc, zglosLekcje } from './konto'
 import { ProZakup } from './components/ProCard'
 import { Certyfikat } from './screens/Certyfikat'
 import { Home } from './screens/Home'
@@ -14,8 +14,8 @@ import { Profile } from './screens/Profile'
 import { Result } from './screens/Result'
 import { Session, type SessionResult } from './screens/Session'
 import {
-  buyHearts, completeLesson, completeReview, didToday, openChest, passTest, PRICE_HEARTS,
-  tickHearts, useStore, visibleStreak, type Rewards,
+  completeLesson, completeReview, didToday, openChest, passTest,
+  useStore, visibleStreak, type Rewards,
 } from './store'
 
 type Tab = 'path' | 'practice' | 'profile'
@@ -33,20 +33,28 @@ export default function App() {
   const s = useStore()
   const [tab, setTab] = useState<Tab>('path')
   const [view, setView] = useState<View>({ name: 'tabs' })
-  const [noHearts, setNoHearts] = useState(false)
   const [proModal, setProModal] = useState(false)
   const { status: rab } = useRabat()
   const pro = jestPro(rab)
+  // Zalogowany, ale ten telefon jeszcze nie zna postępu: chwilę czekamy na konto, zamiast od razu pokazywać powitanie.
+  const [czekaNaKonto, setCzekaNaKonto] = useState(() => !!konto && !s.onboarded)
+  useEffect(() => {
+    if (!czekaNaKonto) return
+    if (rab) { setCzekaNaKonto(false); return }
+    const t = setTimeout(() => setCzekaNaKonto(false), 4000)
+    return () => clearTimeout(t)
+  }, [czekaNaKonto, rab])
 
   useEffect(() => {
     void wyslijKolejke()
-    const t = setInterval(tickHearts, 20_000)
-    return () => clearInterval(t)
   }, [])
 
   const home = () => { setView({ name: 'tabs' }); setTab('path') }
   const accuracy = (r: SessionResult) => (r.total ? (r.total - r.firstTryWrong.length) / r.total : 1)
 
+  if (!s.onboarded && czekaNaKonto) {
+    return <div className="result"><Wafel mood="think" size={120} className="bounce" /><p className="lead">Wafel szuka Twojego postępu…</p></div>
+  }
   if (!s.onboarded) {
     return <Onboarding onFinish={(m) => setView(m === 'test' ? { name: 'placement' } : { name: 'tabs' })} />
   }
@@ -95,7 +103,7 @@ export default function App() {
           onDone={(r) => {
             const rewards = completeReview(r)
             zglosAktywnosc()
-            setView({ name: 'result', rewards, accuracy: accuracy(r), seconds: r.seconds, heading: 'Powtórka zrobiona!', title: 'Pamięć odświeżona. W nagrodę +1 serce.' })
+            setView({ name: 'result', rewards, accuracy: accuracy(r), seconds: r.seconds, heading: 'Powtórka zrobiona!', title: 'Pamięć odświeżona. Wafel przybija piątkę łapą.' })
           }}
         />
       )
@@ -134,7 +142,6 @@ export default function App() {
 
   const startLesson = (flat: number) => {
     if (dzialZablokowany(rab, flatLessons[flat].unitIndex)) { fx('tap'); return setProModal(true) }
-    if (!pro && s.hearts <= 0) return setNoHearts(true)
     setView({ name: 'lesson', flat })
   }
   const startSkip = (u: number) => {
@@ -145,17 +152,16 @@ export default function App() {
   const chest = (u: number) => {
     const amount = openChest(u)
     fx('coin')
-    setView({ name: 'info', mood: 'cheer', title: `+${amount} monet!`, text: `Skrzynia działu „${units[u].title}” otwarta. Wydaj monety w sklepiku Wafla.` })
+    setView({ name: 'info', mood: 'cheer', title: `+${amount} monet!`, text: `Paczka od Wafla za etap „${units[u].title}” otwarta. Monety wydasz w sklepiku Wafla.` })
   }
 
   const streak = visibleStreak(s)
   return (
     <div className="app">
       <header className="topbar">
-        <span className="stat" title="Seria dni"><Flame off={!didToday(s)} /> {streak}</span>
+        <span className="stat" title="Dni nauki z rzędu"><Paw off={!didToday(s)} /> {streak}</span>
         <span className="brand">Akademia <i>Guliwera</i></span>
         <span className="stat" title="Monety"><Coin /> {s.coins}</span>
-        <span className="stat" title="Serca"><Heart off={!pro && s.hearts === 0} /> {pro ? '∞' : s.hearts}</span>
       </header>
       <main className="content">
         {tab === 'path' && <Home onLesson={startLesson} onSkip={startSkip} onChest={chest} pro={pro} />}
@@ -176,19 +182,6 @@ export default function App() {
             <h3>Ten dział jest w Akademii Pro</h3>
             <ProZakup compact />
             <button className="btn ghost" onClick={() => setProModal(false)}>Może później</button>
-          </div>
-        </div>
-      )}
-      {noHearts && (
-        <div className="modal-bg" onClick={() => setNoHearts(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <Wafel mood="sleep" size={90} />
-            <h3>Brak serc</h3>
-            <p>Jedno serce wraca co 30 minut. Zrób powtórkę (+1 serce) albo uzupełnij zapas.</p>
-            <button className="btn big" disabled={s.coins < PRICE_HEARTS} onClick={() => { if (buyHearts()) { fx('coin'); setNoHearts(false) } }}>
-              Uzupełnij za {PRICE_HEARTS} monet
-            </button>
-            <button className="btn ghost" onClick={() => { setNoHearts(false); setTab('practice') }}>Idę na powtórkę</button>
           </div>
         </div>
       )}

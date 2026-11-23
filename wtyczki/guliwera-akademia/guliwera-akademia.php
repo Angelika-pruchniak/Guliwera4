@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – Akademia (aplikacja)
  * Description: Udostępnia aplikację Akademia Guliwera pod adresem guliwera4.pl/akademia/ (tylko dla zalogowanych), liczy postęp na serwerze, daje rabaty na PDF-y za regularną naukę i dodaje wyróżniony przycisk „Akademia” w menu strony. Zostaw włączoną.
- * Version: 1.4.2
+ * Version: 1.5
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -26,7 +26,7 @@ define( 'GK_AK_KUPON_WAZNY_DNI', 7 );
 // Produkty „Kierunek Zysk” (PDF-y), na które działa rabat.
 define( 'GK_AK_PRODUKTY', '67,68,69,70,71,72,73' );
 
-/* Akademia Pro: działy 1–2 za darmo, reszta (oraz serca bez limitu i certyfikat) w Pro. */
+/* Akademia Pro: działy 1–2 za darmo, reszta (i certyfikat) w Pro. */
 define( 'GK_AK_DARMOWE_DZIALY', 2 );
 define( 'GK_AK_PRO_CENA', '249' );
 define( 'GK_AK_PRO_DNI', 365 );
@@ -70,6 +70,14 @@ function gk_ak_daj_pro( $uid, $do ) {
 	update_user_meta( $uid, 'gk_ak_pro_do', max( gk_ak_pro_do( $uid ), (int) $do ) );
 }
 
+/** Postęp nauki z aplikacji (XP, ukończone lekcje, seria…), żeby można było kontynuować na innym urządzeniu. */
+function gk_ak_stan( $uid ) {
+	$raw = get_user_meta( $uid, 'gk_ak_stan', true );
+	if ( ! is_string( $raw ) || '' === $raw ) { return null; }
+	$stan = json_decode( $raw ); // obiekty zostają obiektami ({} zamiast [])
+	return is_object( $stan ) ? $stan : null;
+}
+
 function gk_ak_status( $uid ) {
 	$p      = gk_ak_postep( $uid );
 	$od     = wp_date( 'Y-m-d', time() - ( GK_AK_OKNO_DNI - 1 ) * DAY_IN_SECONDS );
@@ -103,6 +111,7 @@ function gk_ak_status( $uid ) {
 		'proUrl'       => gk_ak_pro_produkt() && function_exists( 'wc_get_checkout_url' ) ? add_query_arg( 'add-to-cart', gk_ak_pro_produkt(), wc_get_checkout_url() ) : null,
 		'proCena'      => (int) GK_AK_PRO_CENA,
 		'darmoweDzialy' => GK_AK_DARMOWE_DZIALY,
+		'stan'          => gk_ak_stan( $uid ),
 	);
 }
 
@@ -118,6 +127,23 @@ add_action( 'rest_api_init', function () {
 		'methods'             => 'POST',
 		'permission_callback' => $zalogowany,
 		'callback'            => 'gk_ak_rest_lekcja',
+	) );
+	register_rest_route( 'akademia/v1', '/stan', array(
+		'methods'             => 'POST',
+		'permission_callback' => $zalogowany,
+		'callback'            => function ( WP_REST_Request $r ) {
+			$uid  = get_current_user_id();
+			$body = json_decode( $r->get_body() );
+			if ( ! is_object( $body ) || ! isset( $body->stan ) || ! is_object( $body->stan ) ) {
+				return new WP_Error( 'gk_ak_stan', 'Nieprawidłowe dane postępu.', array( 'status' => 400 ) );
+			}
+			$json = wp_json_encode( $body->stan );
+			if ( ! $json || strlen( $json ) > 60000 ) {
+				return new WP_Error( 'gk_ak_stan', 'Za duże dane postępu.', array( 'status' => 413 ) );
+			}
+			update_user_meta( $uid, 'gk_ak_stan', wp_slash( $json ) );
+			return gk_ak_status( $uid );
+		},
 	) );
 	register_rest_route( 'akademia/v1', '/aktywnosc', array(
 		'methods'             => 'POST',
@@ -264,8 +290,8 @@ add_action( 'init', function () {
 	$p->set_virtual( true );
 	$p->set_sold_individually( true );
 	$p->set_catalog_visibility( 'hidden' );
-	$p->set_short_description( 'Pełny dostęp do wszystkich działów Akademii Guliwera na 12 miesięcy: lekcje ze strategii, finansów i prowadzenia zespołu, serca bez limitu i certyfikat ukończenia. Płatność jednorazowa, bez abonamentu.' );
-	$p->set_description( 'Akademia Guliwera Pro to roczny dostęp do aplikacji z codziennymi lekcjami dla młodych managerów (guliwera4.pl/akademia/). Działy 1–2 są darmowe; Pro odblokowuje wszystkie pozostałe działy i nowe lekcje dodawane w trakcie roku, usuwa limit serc i daje certyfikat ukończenia kursu. Dostęp aktywuje się automatycznie po opłaceniu zamówienia na koncie, którym logujesz się do Akademii.' );
+	$p->set_short_description( 'Pełny dostęp do wszystkich działów Akademii Guliwera na 12 miesięcy: lekcje ze strategii, finansów i prowadzenia zespołu, powtórki ze wszystkich działów i certyfikat ukończenia. Płatność jednorazowa, bez abonamentu.' );
+	$p->set_description( 'Akademia Guliwera Pro to roczny dostęp do aplikacji z codziennymi lekcjami dla młodych managerów (guliwera4.pl/akademia/). Działy 1–2 są darmowe; Pro odblokowuje wszystkie pozostałe działy i nowe lekcje dodawane w trakcie roku oraz daje certyfikat ukończenia kursu. Dostęp aktywuje się automatycznie po opłaceniu zamówienia na koncie, którym logujesz się do Akademii.' );
 	$p->set_status( 'publish' );
 	update_option( 'gk_ak_pro_produkt', $p->save(), false );
 }, 30 );

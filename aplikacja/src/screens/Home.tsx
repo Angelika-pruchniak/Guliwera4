@@ -1,13 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { flatLessons, units } from '../content'
+import { flatLessons, isExercise, units } from '../content'
 import { InstallCard } from '../components/InstallCard'
 import { Wafel } from '../components/Wafel'
-import { Progress, Star } from '../components/ui'
+import { Parcel, Paw, Progress } from '../components/ui'
 import { fx } from '../fx'
 import { DARMOWE_DZIALY } from '../konto'
 import { chestReady, currentLesson, dayDiff, dayKey, lessonStatus, unitReached, useStore } from '../store'
-
-const OFFSETS = [0, 52, 78, 52, 0, -52, -78, -52]
 
 type Props = {
   onLesson: (flatIndex: number) => void
@@ -16,10 +14,14 @@ type Props = {
   pro?: boolean
 }
 
+/**
+ * Trasa Wafla: każdy dział to etap spaceru, każda lekcja to przystanek (karta) na prostej trasie
+ * ze śladami łap. Zaliczone lekcje dostają pieczątkę, na końcu etapu czeka paczka od Wafla.
+ */
 export function Home({ onLesson, onSkip, onChest, pro = false }: Props) {
   const s = useStore()
   const cur = currentLesson(s)
-  const curRef = useRef<HTMLDivElement>(null)
+  const curRef = useRef<HTMLLIElement>(null)
   const todayXp = s.xpByDay[dayKey()] ?? 0
   const goalDone = todayXp >= s.dailyGoal
   // Dni bez nauki: od 2 dni przerwy Wafel leży i czeka na użytkownika.
@@ -44,96 +46,87 @@ export function Home({ onLesson, onSkip, onChest, pro = false }: Props) {
     curRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
   }, [])
 
+  const doneCount = flatLessons.filter((l) => s.done[l.id]).length
+
   return (
     <div className="home">
       <InstallCard />
       <div className="goal-card">
-        <Wafel mood={goalDone ? 'cheer' : missed ? 'wait' : idle} size={54} />
+        <Wafel mood={goalDone ? 'cheer' : missed ? 'wait' : idle} size={58} />
         <div className="goal-text">
-          <b>{goalDone ? 'Cel dnia zrobiony!' : missed ? `Wafel czekał na Ciebie ${gap} dni! Cel dnia: ${todayXp}/${s.dailyGoal} XP` : `Cel dnia: ${todayXp}/${s.dailyGoal} XP`}</b>
-          <Progress value={todayXp / s.dailyGoal} color="var(--yellow)" />
+          <span className="hand">{goalDone ? 'Hau! Cel dnia zrobiony' : missed ? `Wafel czekał ${gap} dni` : 'Dzisiejszy spacer z Waflem'}</span>
+          <b>{todayXp}/{s.dailyGoal} XP · {doneCount}/{flatLessons.length} lekcji</b>
+          <Progress value={todayXp / s.dailyGoal} color="var(--coral)" />
         </div>
       </div>
 
       {units.map((u, ui) => {
         const reached = unitReached(s, ui)
         const lessons = flatLessons.filter((l) => l.unitIndex === ui)
+        const ukonczone = lessons.filter((l) => s.done[l.id]).length
+        const paczka = chestReady(s, ui)
+        const otwarta = !!s.chests[u.id]
         return (
-          <section key={u.id} className="unit">
-            <div className={`unit-banner c-${u.color}`}>
-              <div>
-                <div className="unit-no">Dział {ui + 1}{!pro && ui >= DARMOWE_DZIALY && <span className="unit-pro">PRO</span>}</div>
-                <h2>{u.title}</h2>
-                <div className="unit-sub">{u.subtitle}</div>
+          <section key={u.id} className={`etap c-${u.color}`}>
+            <header className="etap-head">
+              <div className="etap-nr">
+                <span>Etap</span>
+                <b>{ui + 1}</b>
+              </div>
+              <div className="etap-txt">
+                <h2>{u.title}{!pro && ui >= DARMOWE_DZIALY && <span className="unit-pro">PRO</span>}</h2>
+                <div className="etap-sub">{u.subtitle}</div>
+                <div className="etap-licznik">{ukonczone}/{lessons.length} przystanków</div>
               </div>
               {!reached && (
                 <button className="btn small light" onClick={() => { fx('tap'); onSkip(ui) }}>Przeskocz</button>
               )}
-            </div>
-            <div className="path">
+            </header>
+
+            <ol className="trasa">
               {lessons.map((l, i) => {
                 const st = lessonStatus(s, l.flatIndex)
                 const isCur = l.flatIndex === cur
                 const times = s.done[l.id] ?? 0
+                const zadan = l.items.filter(isExercise).length
                 return (
-                  <div key={l.id} className="node-wrap" style={{ transform: `translateX(${OFFSETS[(l.flatIndex) % OFFSETS.length]}px)` }}
-                    ref={isCur ? curRef : undefined}>
-                    {isCur && <div className="start-bubble">START</div>}
-                    <button
-                      className={`node ${st} c-${u.color} ${isCur ? 'current' : ''}`}
-                      disabled={st === 'locked'}
-                      aria-label={`${l.title}${st === 'locked' ? ' (zablokowana)' : ''}`}
-                      onClick={() => { fx('tap'); onLesson(l.flatIndex) }}
-                    >
-                      {st === 'locked' ? '🔒' : st === 'done' ? '✓' : i + 1}
+                  <li key={l.id} ref={isCur ? curRef : undefined}
+                    className={`przystanek ${st} ${isCur ? 'teraz' : ''}`}>
+                    <div className="slad" aria-hidden>
+                      {isCur ? <Wafel mood="wave" size={46} /> : st === 'done' ? <span className="slad-ok">✓</span> : st === 'locked' ? <span className="slad-lock" /> : <Paw size={20} />}
+                    </div>
+                    <button className="karta" disabled={st === 'locked'}
+                      aria-label={`Lekcja ${i + 1}: ${l.title}${st === 'locked' ? ' (zablokowana)' : ''}`}
+                      onClick={() => { fx('tap'); onLesson(l.flatIndex) }}>
+                      <span className="karta-nr">Lekcja {i + 1}</span>
+                      <span className="karta-tytul">{l.title}</span>
+                      <span className="karta-meta">{st === 'locked' ? 'Najpierw poprzedni przystanek' : `${zadan} zadań · ok. ${Math.max(3, Math.round(zadan * 0.7))} min`}</span>
+                      {isCur && <span className="karta-cta">{times > 0 ? 'Powtórz' : 'Ruszamy z Waflem'} →</span>}
+                      {st === 'done' && !isCur && (
+                        <span className="pieczatka" aria-label={`Zaliczona ${times} raz${times > 1 ? 'y' : ''}`}>
+                          zaliczone{times > 1 ? ` ×${times}` : ''}
+                        </span>
+                      )}
                     </button>
-                    <div className="node-title">{l.title}</div>
-                    {times > 0 && (
-                      <div className="node-stars">
-                        {[1, 2, 3].map((n) => <Star key={n} size={14} off={times < n} />)}
-                      </div>
-                    )}
-                    {isCur && (
-                      <div className={`node-mascot ${OFFSETS[l.flatIndex % OFFSETS.length] > 0 ? 'left' : ''}`}>
-                        <Wafel mood="wave" size={64} />
-                      </div>
-                    )}
-                  </div>
+                  </li>
                 )
               })}
-              <div className="node-wrap" style={{ transform: `translateX(${OFFSETS[(lessons[lessons.length - 1].flatIndex + 1) % OFFSETS.length]}px)` }}>
-                <button
-                  className={`chest ${chestReady(s, ui) ? 'ready' : s.chests[u.id] ? 'open' : ''}`}
-                  disabled={!chestReady(s, ui)}
-                  aria-label="Skrzynia z monetami"
-                  onClick={() => onChest(ui)}
-                >
-                  <ChestIcon open={!!s.chests[u.id]} />
+              <li className={`przystanek paczka ${paczka ? 'gotowa' : otwarta ? 'otwarta' : ''}`}>
+                <div className="slad" aria-hidden><Parcel size={34} open={otwarta} /></div>
+                <button className="karta" disabled={!paczka} onClick={() => onChest(ui)}>
+                  <span className="karta-nr">Meta etapu</span>
+                  <span className="karta-tytul">Paczka od Wafla</span>
+                  <span className="karta-meta">{otwarta ? 'Otwarta. Smacznego!' : paczka ? 'Gotowa! Dotknij, żeby otworzyć' : 'Ukończ wszystkie przystanki etapu'}</span>
                 </button>
-              </div>
-            </div>
+              </li>
+            </ol>
           </section>
         )
       })}
       <div className="path-end">
         <Wafel mood="think" size={80} />
-        <p>Kolejne działy w przygotowaniu. Wafel już je pilnuje!</p>
+        <p>Kolejne etapy w przygotowaniu. Wafel już węszy za nowymi tematami!</p>
       </div>
     </div>
-  )
-}
-
-function ChestIcon({ open }: { open: boolean }) {
-  return (
-    <svg width="54" height="46" viewBox="0 0 54 46" aria-hidden>
-      <rect x="4" y="18" width="46" height="26" rx="5" fill="#E8A92E" />
-      <rect x="4" y="18" width="46" height="8" fill="#C9861A" />
-      {open ? (
-        <path d="M4 18 L10 4 H44 L50 18Z" fill="#FFC84A" />
-      ) : (
-        <path d="M4 20 Q27 2 50 20 Z" fill="#FFC84A" />
-      )}
-      <rect x="23" y="20" width="8" height="10" rx="2" fill="#1E2A4A" />
-    </svg>
   )
 }

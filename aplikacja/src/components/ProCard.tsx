@@ -5,7 +5,7 @@ import { useStore } from '../store'
 
 export const PRO_KORZYSCI = [
   'wszystkie działy (od 3. wzwyż) i nowe lekcje dodawane w ciągu roku',
-  'serca bez limitu: ucz się, ile chcesz',
+  'powtórki ze wszystkich działów',
   'certyfikat ukończenia Akademii Guliwera',
 ]
 
