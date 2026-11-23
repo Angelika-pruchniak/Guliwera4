@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 2.5
+ * Version: 2.6
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -475,7 +475,7 @@ add_action( 'init', function () {
 		$id = wp_insert_post( array( 'post_type' => 'page', 'post_status' => 'private', 'post_title' => 'Raport statystyk Guliwera 4 (prywatny)', 'post_name' => 'raport-statystyk', 'post_content' => $tresc ) );
 		update_option( 'gk_raport_strona', (int) $id );
 	}
-}, 40 );
+}, 99 );
 add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', function ( $ids ) { $r = (int) get_option( 'gk_raport_strona' ); return $r ? array_merge( (array) $ids, array( $r ) ) : $ids; } );
 
 /* Wersja 2.2: nowy Wafel G4 (22.11.2026). Animowany „Pomagier” pod /g4/G4-pomagier.html, podmiana starego wektorowego Wafla w całej treści, archiwizacja starych mediów, raport. */
@@ -604,7 +604,7 @@ function gk_kontrola_sklepu( $napraw = true ) {
 function gk_kontrola_zapisz() {
 	$w = gk_kontrola_sklepu( true );
 	update_option( 'gk_kontrola_sklepu', $w, false );
-	$tresc = '<!-- wp:html --><pre>' . esc_html( wp_json_encode( $w, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ) ) . '</pre><!-- /wp:html -->';
+	$tresc = '<!-- wp:html --><pre>' . esc_html( wp_json_encode( array( 'kontrola' => $w, 'test_pobrania_pdf' => get_option( 'gk_test_pobrania', 'jeszcze nie wykonano' ) ), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ) ) . '</pre><!-- /wp:html -->';
 	$id = (int) get_option( 'gk_kontrola_strona' );
 	if ( ! $id || ! get_post( $id ) ) {
 		$id = wp_insert_post( array( 'post_type' => 'page', 'post_status' => 'private', 'post_title' => 'Kontrola sklepu (automat)', 'post_name' => 'kontrola-sklepu', 'post_content' => $tresc ) );
@@ -639,3 +639,58 @@ add_action( 'init', function () {
 	foreach ( array( 'jetpack_content_featured_images_archive', 'jetpack_content_featured_images_post', 'jetpack_content_featured_images_page' ) as $m ) { set_theme_mod( $m, 1 ); }
 	gk_strona_wyczysc_cache();
 }, 31 );
+
+/* Wersja 2.6 (23.11): test pobrania PDF po zakupie – raz na dobę serwer otwiera prawdziwe linki do pobrania
+   z ostatniego opłaconego zamówienia (jak klient z maila), sprawdza, czy przychodzi PDF, i przywraca licznik pobrań. */
+function gk_test_pobrania() {
+	global $wpdb;
+	$tab = $wpdb->prefix . 'woocommerce_downloadable_product_permissions';
+	$wynik = array( 'sprawdzono' => current_time( 'mysql' ), 'pliki' => array(), 'bledy' => array() );
+	$wynik['metoda_pobierania'] = get_option( 'woocommerce_file_download_method' );
+	$wynik['dostep_wymaga_logowania'] = get_option( 'woocommerce_downloads_require_login' );
+	$wynik['dostep_po_oplaceniu'] = get_option( 'woocommerce_downloads_grant_access_after_payment' );
+	$zam = wc_get_orders( array( 'status' => array( 'completed', 'processing' ), 'limit' => 10, 'orderby' => 'date', 'order' => 'DESC' ) );
+	$o = null;
+	foreach ( $zam as $z ) { if ( $z->has_downloadable_item() ) { $o = $z; break; } }
+	if ( ! $o ) { $wynik['bledy'][] = 'Brak opłaconego zamówienia z plikiem do testu'; return $wynik; }
+	$wynik['zamowienie'] = $o->get_order_number() . ' z ' . ( $o->get_date_created() ? $o->get_date_created()->date_i18n( 'Y-m-d' ) : '?' ) . ', status ' . $o->get_status();
+	foreach ( $o->get_items() as $it ) {
+		foreach ( $it->get_item_downloads() as $d ) {
+			$przed = $wpdb->get_row( $wpdb->prepare( "SELECT permission_id, downloads_remaining, download_count, access_expires FROM $tab WHERE order_id = %d AND download_id = %s AND product_id = %d", $o->get_id(), $d['id'], $it->get_variation_id() ? $it->get_variation_id() : $it->get_product_id() ) );
+			$r = wp_remote_get( $d['download_url'], array( 'timeout' => 45, 'redirection' => 3, 'sslverify' => false, 'limit_response_size' => 4096, 'headers' => array( 'Cache-Control' => 'no-cache' ) ) );
+			$f = array( 'plik' => $d['name'], 'produkt' => $it->get_name() );
+			if ( is_wp_error( $r ) ) { $f['wynik'] = 'błąd połączenia: ' . $r->get_error_message(); }
+			else {
+				$kod = wp_remote_retrieve_response_code( $r ); $body = wp_remote_retrieve_body( $r );
+				$f['http'] = $kod; $f['typ'] = wp_remote_retrieve_header( $r, 'content-type' ); $f['nazwa_pliku'] = wp_remote_retrieve_header( $r, 'content-disposition' );
+				$f['pdf'] = 0 === strpos( $body, '%PDF' ) ? 'TAK' : 'NIE';
+				$f['wynik'] = ( 200 === $kod && 'TAK' === $f['pdf'] ) ? 'OK – klient dostaje PDF' : 'BŁĄD – zamiast PDF: ' . mb_substr( wp_strip_all_tags( $body ), 0, 160 );
+			}
+			if ( $przed ) {
+				$f['limit_pozostalo'] = null === $przed->downloads_remaining || '' === $przed->downloads_remaining ? 'bez limitu' : $przed->downloads_remaining;
+				$f['wygasa'] = $przed->access_expires ? $przed->access_expires : 'nigdy';
+				// Przywrócenie licznika – test nie zużywa pobrań klienta.
+				$wpdb->update( $tab, array( 'downloads_remaining' => $przed->downloads_remaining, 'download_count' => $przed->download_count ), array( 'permission_id' => $przed->permission_id ) );
+				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wc_download_log WHERE permission_id = %d AND timestamp >= %s", $przed->permission_id, gmdate( 'Y-m-d H:i:s', time() - 120 ) ) );
+			} else { $f['uprawnienie'] = 'BRAK uprawnienia w bazie'; }
+			if ( 0 !== strpos( $f['wynik'], 'OK' ) ) { $wynik['bledy'][] = $f['plik'] . ': ' . $f['wynik']; }
+			$wynik['pliki'][] = $f;
+		}
+	}
+	if ( ! $wynik['pliki'] ) { $wynik['bledy'][] = 'Zamówienie nie ma linków do pobrania'; }
+	return $wynik;
+}
+add_action( 'shutdown', function () {
+	if ( wp_doing_ajax() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || isset( $_GET['download_file'] ) || get_transient( 'gk_test_pobrania_swiezy' ) ) { return; }
+	set_transient( 'gk_test_pobrania_swiezy', 1, DAY_IN_SECONDS );
+	if ( function_exists( 'fastcgi_finish_request' ) ) { fastcgi_finish_request(); } // odwiedzający nie czeka na test
+	$w = gk_test_pobrania();
+	update_option( 'gk_test_pobrania', $w, false );
+	$id = (int) get_option( 'gk_kontrola_strona' );
+	if ( $id && get_post( $id ) ) {
+		$k = get_option( 'gk_kontrola_sklepu', array() );
+		$tresc = '<!-- wp:html --><pre>' . esc_html( wp_json_encode( array( 'kontrola' => $k, 'test_pobrania_pdf' => $w ), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ) ) . '</pre><!-- /wp:html -->';
+		wp_update_post( array( 'ID' => $id, 'post_content' => $tresc ) );
+	}
+	if ( $w['bledy'] ) { wp_mail( get_option( 'admin_email' ), '[Guliwera 4] BŁĄD pobierania PDF po zakupie', "Test pobrania PDF:\n- " . implode( "\n- ", $w['bledy'] ) ); }
+}, 99 );
