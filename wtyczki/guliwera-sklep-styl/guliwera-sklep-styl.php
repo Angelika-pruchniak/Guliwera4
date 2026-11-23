@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – wygląd sklepu
  * Description: Strony produktów, koszyk, zamówienie i konto klienta w kolorach i układzie strony guliwera4.pl (nagłówek, menu i stopka jak na pozostałych podstronach). Zostaw włączoną.
- * Version: 1.2
+ * Version: 1.3
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -54,11 +54,16 @@ function gk_ss_chrome() {
 
 /** Okładka produktu (.okl) taka sama jak na stronie Materiały. */
 function gk_ss_cover( $id ) {
+	// Zestaw Plan 2027 i licencja zespołowa: własna okładka (nie ma ich w siatce okładek na stronie Materiały).
+	$zestawy = array( (int) get_option( 'gk_zestaw_id' ) => 'ZESTAW · 2 PDF', (int) get_option( 'gk_zestaw_lic_id' ) => 'LICENCJA · 10 OSÓB' );
+	if ( $id && isset( $zestawy[ $id ] ) ) {
+		return '<div class="okl v3"><span class="m">KIERUNEK ZYSK</span><div class="t"><span class="tag">' . esc_html( $zestawy[ $id ] ) . '</span><b>Zestaw Plan 2027</b><span class="pod">Strategia na 1 stronie + Planer 90 dni</span></div><div class="d"><span>guliwera4.pl</span><span>Plan na 2027</span></div></div>';
+	}
 	$c = (string) get_post_field( 'post_content', GK_SS_MAT_PAGE );
 	$p = strpos( $c, 'add-to-cart=' . $id . '"' );
 	if ( false !== $p ) {
 		$s = strrpos( substr( $c, 0, $p ), '<div class="okl' );
-		if ( false !== $s ) {
+		if ( false !== $s && $p - $s < 2500 ) {
 			$d = strpos( $c, '<div class="d">', $s );
 			$e = ( false !== $d ) ? strpos( $c, '</div></div>', $d ) : false;
 			if ( false !== $e ) { return substr( $c, $s, $e + 12 - $s ); }
@@ -90,6 +95,27 @@ function gk_ss_css() {
 @media(max-width:860px){.gk .gk-prod-siatka{grid-template-columns:1fr}}
 .gk .gk-prod-okl{max-width:380px;width:100%;margin:0 auto;transform:rotate(-3deg);filter:drop-shadow(0 26px 40px rgba(58,35,64,.22))}
 .gk .gk-prod-okl .okl{width:100%}
+.gk .okl{aspect-ratio:210/297;border-radius:10px;overflow:hidden;position:relative;background:linear-gradient(160deg,#F8B68C 0%,#FDDCC6 48%,#F2BFC5 100%);padding:9% 9% 8%;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box}
+.gk .okl::before{content:"";position:absolute;width:75%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.28);right:-22%;top:-12%}
+.gk .okl::after{content:"";position:absolute;width:45%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.18);left:-14%;bottom:-6%}
+.gk .okl .m{font-size:9px;font-weight:700;letter-spacing:.14em;color:var(--granat);position:relative;z-index:1}
+.gk .okl .m::before{content:"● "}
+.gk .okl .t{position:relative;z-index:1}
+.gk .okl .tag{display:inline-block;background:var(--granat);color:#fff;font-size:8px;font-weight:700;letter-spacing:.08em;padding:3px 8px;border-radius:999px;margin-bottom:10px}
+.gk .okl b{display:block;font-family:"Inter","DM Sans",sans-serif;font-weight:800;color:var(--granat);font-size:clamp(17px,2.2vw,24px);line-height:1.05;letter-spacing:-.02em}
+.gk .okl .pod{display:block;margin-top:8px;font-size:11px;font-weight:600;color:var(--granat);opacity:.85}
+.gk .okl .d{position:relative;z-index:1;border-top:1px solid rgba(30,42,74,.25);padding-top:6px;font-size:8px;color:var(--granat);display:flex;justify-content:space-between}
+.gk .okl.v2{background:linear-gradient(160deg,#FDDCC6 0%,#FBE6E7 55%,#F2BFC5 100%)}
+.gk .okl.v3{background:var(--granat)}
+.gk .okl.v3 .m,.gk .okl.v3 b,.gk .okl.v3 .d,.gk .okl.v3 .pod{color:#fff}
+.gk .okl.v3 .tag{background:#F8B68C;color:var(--granat)}
+.gk .okl.v3 .d{border-top-color:rgba(255,255,255,.3)}
+.gk .okl.v3::before{background:rgba(248,182,140,.18)}
+.gk .gk-prod-okl .okl .m{font-size:12px}
+.gk .gk-prod-okl .okl .tag{font-size:11px;padding:5px 12px}
+.gk .gk-prod-okl .okl b{font-size:clamp(24px,3vw,34px)}
+.gk .gk-prod-okl .okl .pod{font-size:14px}
+.gk .gk-prod-okl .okl .d{font-size:11px}
 @media(max-width:860px){.gk .gk-prod-okl{max-width:260px}}
 .gk .gk-prod h1{font-size:clamp(34px,5vw,58px);margin:8px 0 14px;max-width:18ch}
 .gk .gk-typ{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.1em;background:#fff;color:var(--koral-ciemny);padding:6px 14px;border-radius:999px}
