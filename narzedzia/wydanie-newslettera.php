@@ -26,13 +26,14 @@ $p   = function ( $h ) { return '<p style="margin:0 0 14px;font-family:Arial,Hel
 
 $po  = $sek( '1 · Wpis tygodnia', $w['wpis']['tytul'] );
 foreach ( $w['wpis']['tresc'] as $t ) { $po .= $p( $t ); }
-$po .= $p( '<a href="' . gk_ml_esc( $utm( $w['wpis']['url'] ) ) . '" style="color:#E8512A;font-weight:bold;">Przeczytaj cały wpis na blogu →</a>' );
+if ( $w['produkt']['url'] !== $w['wpis']['url'] ) { $po .= $p( '<a href="' . gk_ml_esc( $utm( $w['wpis']['url'] ) ) . '" style="color:#E8512A;font-weight:bold;">Przeczytaj cały wpis na blogu →</a>' ); }
 $po .= $sek( '2 · Ćwiczenie', $w['cwiczenie']['tytul'] );
 $c   = '';
 foreach ( $w['cwiczenie']['kroki'] as $i => $k ) { $c .= '<b>' . ( $i + 1 ) . '.</b> ' . $k . '<br>'; }
 $po .= gk_ml_ramka( $c, '#EDE5FB' );
 $po .= $sek( '3 · Produkt tygodnia (oferta)', $w['produkt']['nazwa'] . ' · ' . $w['produkt']['cena'] );
 $po .= $p( $w['produkt']['opis'] );
+if ( $w['produkt']['url'] === $w['wpis']['url'] ) { $po .= $sek( 'Cały wpis tygodnia', $w['wpis']['tytul'] ); }
 
 $a = array(
 	'preheader'   => $w['preheader'],

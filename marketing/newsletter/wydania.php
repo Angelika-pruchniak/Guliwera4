@@ -6,7 +6,7 @@
  */
 return array(
 	'2026-11-26' => array(
-		'kampania'  => 'black-week-bez-rabatow-strat',
+		'kampania'  => 'black-week-bez-rabatow',
 		'temat_a'   => '3 decyzje, które dadzą Ci więcej niż rabat',
 		'temat_b'   => 'Black Week bez wyprzedaży? Da się',
 		'preheader' => 'Zamiast obniżać ceny: wartość, stali klienci i jedna liczba, którą warto policzyć.',
@@ -30,11 +30,11 @@ return array(
 			),
 		),
 		'produkt'   => array(
-			'nazwa' => 'Strategia na 1 stronie',
-			'cena'  => '39 zł',
-			'opis'  => 'Jeśli Black Week pokazał Ci, że brakuje jasnych decyzji: cena, klient, czego nie robisz. Pełny szablon do wypełnienia dla własnej firmy, z instrukcją. Bez rabatu, bo to i tak najtańszy krok do planu na 2027.',
-			'cta'   => 'Zobacz Strategię na 1 stronie',
-			'url'   => 'https://guliwera4.pl/produkt/strategia-na-1-stronie/',
+			'nazwa' => 'Pakiet Kierunek Zysk + sesja Q&A w bonusie',
+			'cena'  => '297 zł',
+			'opis'  => 'Sama stosuję to, o czym piszę: zamiast rabatu dokładam wartość. Kto do 30.11 kupi Pakiet Kierunek Zysk, dostaje miejsce na grupowej sesji online „Plan 2027 – Q&A” (sobota 13.12, 90 minut). Cena bez zmian. <a href="https://guliwera4.pl/produkt/kierunek-zysk-pakiet/?utm_source=newsletter&utm_medium=email&utm_campaign=black-week-bez-rabatow" style="color:#E8512A;font-weight:bold;">Zobacz Pakiet i bonus →</a>',
+			'cta'   => 'Przeczytaj cały wpis',
+			'url'   => 'https://guliwera4.pl/blog/', // główny przycisk = wpis z 24.11 (podmienić adres po publikacji)
 		),
 		'ps'        => 'Odpisz jednym zdaniem: obniżasz ceny w tym tygodniu czy nie? Najciekawsze odpowiedzi (anonimowo) pokażę w kolejnym wydaniu.',
 	),
