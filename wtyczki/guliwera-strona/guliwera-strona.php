@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 2.2
+ * Version: 2.3
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -537,3 +537,12 @@ add_action( 'init', function () {
 	wp_insert_post( array( 'post_type' => 'page', 'post_status' => 'draft', 'post_title' => 'Raport Wafel G4', 'post_content' => '<!-- wp:html --><pre>' . esc_html( implode( "\n", $raport ) ) . '</pre><!-- /wp:html -->' ) );
 	gk_strona_wyczysc_cache();
 }, 29 );
+
+/* Wersja 2.3 (23.11): sklep zawsze dostępny – wyłączenie trybu „Wkrótce” (Coming soon) WooCommerce, który zasłaniał koszyk i zamówienie. */
+add_filter( 'woocommerce_coming_soon_exclude', '__return_true', 99 );
+add_action( 'init', function () {
+	foreach ( array( 'woocommerce_coming_soon' => 'no', 'woocommerce_store_pages_only' => 'no' ) as $k => $v ) {
+		if ( get_option( $k ) !== $v ) { update_option( $k, $v ); $zm = true; }
+	}
+	if ( ! empty( $zm ) ) { gk_strona_wyczysc_cache(); }
+}, 1 );
