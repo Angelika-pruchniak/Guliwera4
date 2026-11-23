@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 2.3
+ * Version: 2.4
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -546,3 +546,88 @@ add_action( 'init', function () {
 	}
 	if ( ! empty( $zm ) ) { gk_strona_wyczysc_cache(); }
 }, 1 );
+
+/* Wersja 2.4 (23.11): automatyczna kontrola sklepu co godzinę + samonaprawa + mail do Angeliki przy błędzie.
+   Wynik: prywatna strona „Kontrola sklepu” (slug kontrola-sklepu), czytana też przez zaplanowanego agenta. */
+function gk_kontrola_sklepu( $napraw = true ) {
+	global $wpdb;
+	$b = array(); $ok = array(); $naprawy = array();
+	if ( ! function_exists( 'WC' ) ) { return array( 'status' => 'BŁĄD', 'bledy' => array( 'WooCommerce nieaktywny' ) ); }
+	// 1. Tryb „Wkrótce”.
+	foreach ( array( 'woocommerce_coming_soon', 'woocommerce_store_pages_only' ) as $k ) {
+		if ( 'yes' === get_option( $k ) ) {
+			if ( $napraw ) { update_option( $k, 'no' ); $naprawy[] = "Wyłączono $k"; } else { $b[] = "Włączony tryb Wkrótce ($k)"; }
+		}
+	}
+	// 2. Strony sklepu.
+	foreach ( array( 'cart' => 'Koszyk', 'checkout' => 'Zamówienie', 'myaccount' => 'Moje konto' ) as $k => $n ) {
+		$id = wc_get_page_id( $k );
+		if ( $id <= 0 || 'publish' !== get_post_status( $id ) ) { $b[] = "Strona $n nieopublikowana lub nieustawiona"; } else { $ok[] = "Strona $n OK"; }
+	}
+	// 3. Płatności.
+	$wl = array();
+	foreach ( WC()->payment_gateways()->payment_gateways() as $g ) { if ( 'yes' === $g->enabled ) { $wl[] = $g->id; } }
+	if ( ! $wl ) { $b[] = 'Brak włączonych metod płatności'; } else { $ok[] = 'Płatności: ' . implode( ', ', $wl ); }
+	$st = get_option( 'woocommerce_stripe_settings', array() );
+	if ( is_array( $st ) && isset( $st['testmode'] ) && 'yes' === $st['testmode'] ) { $b[] = 'Stripe w trybie testowym – klienci nie zapłacą naprawdę'; }
+	if ( 'PLN' !== get_woocommerce_currency() ) { $b[] = 'Waluta sklepu inna niż PLN'; }
+	// 4. Produkty i pliki PDF.
+	$up = wp_upload_dir();
+	foreach ( wc_get_products( array( 'status' => 'publish', 'limit' => -1 ) ) as $pr ) {
+		$n = $pr->get_id() . ' ' . $pr->get_name();
+		if ( ! $pr->is_purchasable() || '' === $pr->get_price() ) { $b[] = "Produktu nie da się kupić: $n"; continue; }
+		if ( ! $pr->is_downloadable() ) { continue; }
+		$dl = $pr->get_downloads();
+		if ( ! $dl ) { $b[] = "Produkt bez pliku do pobrania: $n"; continue; }
+		foreach ( $dl as $d ) {
+			$f = $d->get_file();
+			$sciezka = 0 === strpos( $f, $up['baseurl'] ) ? $up['basedir'] . substr( $f, strlen( $up['baseurl'] ) ) : ( 0 === strpos( $f, '/' ) && file_exists( $f ) ? $f : '' );
+			if ( '' !== $sciezka && ! file_exists( $sciezka ) ) { $b[] = "Brak pliku na serwerze: $n → " . basename( $f ); }
+			elseif ( '' !== $sciezka && filesize( $sciezka ) < 1024 ) { $b[] = "Plik podejrzanie mały: $n → " . basename( $f ); }
+		}
+	}
+	// 5. Opłacone zamówienia z 14 dni: czy klient ma uprawnienia do pobrania (samonaprawa).
+	$tab = $wpdb->prefix . 'woocommerce_downloadable_product_permissions';
+	foreach ( wc_get_orders( array( 'status' => array( 'processing', 'completed' ), 'limit' => 50, 'date_created' => '>' . ( time() - 14 * DAY_IN_SECONDS ) ) ) as $o ) {
+		if ( ! $o->has_downloadable_item() ) { continue; }
+		$ile = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $tab WHERE order_id = %d", $o->get_id() ) );
+		if ( 0 === $ile ) {
+			if ( $napraw ) { wc_downloadable_product_permissions( $o->get_id(), true ); $naprawy[] = 'Nadano dostęp do plików w zamówieniu ' . $o->get_order_number(); }
+			else { $b[] = 'Zamówienie ' . $o->get_order_number() . ' bez dostępu do plików'; }
+		}
+	}
+	// 6. Zamówienia nieudane / zawieszone w płatności (24 h) – sygnał, że płatność nie działa.
+	$nieudane = wc_get_orders( array( 'status' => array( 'failed', 'pending' ), 'limit' => 20, 'date_created' => '>' . ( time() - DAY_IN_SECONDS ), 'return' => 'ids' ) );
+	if ( count( $nieudane ) >= 2 ) { $b[] = count( $nieudane ) . ' nieudane/niedokończone płatności w ostatnich 24 h – sprawdź Stripe'; }
+	return array( 'status' => $b ? 'BŁĄD' : 'OK', 'sprawdzono' => current_time( 'mysql' ), 'bledy' => $b, 'naprawiono' => $naprawy, 'ok' => $ok );
+}
+function gk_kontrola_zapisz() {
+	$w = gk_kontrola_sklepu( true );
+	update_option( 'gk_kontrola_sklepu', $w, false );
+	$tresc = '<!-- wp:html --><pre>' . esc_html( wp_json_encode( $w, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ) ) . '</pre><!-- /wp:html -->';
+	$id = (int) get_option( 'gk_kontrola_strona' );
+	if ( ! $id || ! get_post( $id ) ) {
+		$id = wp_insert_post( array( 'post_type' => 'page', 'post_status' => 'private', 'post_title' => 'Kontrola sklepu (automat)', 'post_name' => 'kontrola-sklepu', 'post_content' => $tresc ) );
+		update_option( 'gk_kontrola_strona', $id, false );
+	} else {
+		wp_update_post( array( 'ID' => $id, 'post_content' => $tresc ) );
+	}
+	if ( ( $w['bledy'] || $w['naprawiono'] ) && ! get_transient( 'gk_kontrola_mail' ) ) {
+		set_transient( 'gk_kontrola_mail', 1, 6 * HOUR_IN_SECONDS );
+		wp_mail( get_option( 'admin_email' ), '[Guliwera 4] Kontrola sklepu: ' . $w['status'],
+			"Automatyczna kontrola sklepu guliwera4.pl\n\nBłędy:\n- " . implode( "\n- ", $w['bledy'] ? $w['bledy'] : array( 'brak' ) ) .
+			"\n\nNaprawione automatycznie:\n- " . implode( "\n- ", $w['naprawiono'] ? $w['naprawiono'] : array( 'nic' ) ) . "\n" );
+	}
+	if ( $w['naprawiono'] ) { gk_strona_wyczysc_cache(); }
+	return $w;
+}
+add_action( 'init', function () {
+	if ( get_transient( 'gk_kontrola_swieza' ) ) { return; }
+	set_transient( 'gk_kontrola_swieza', 1, HOUR_IN_SECONDS );
+	gk_kontrola_zapisz();
+}, 30 );
+/* Kontrola na żądanie dla administratora: /?gk_kontrola=1 */
+add_action( 'template_redirect', function () {
+	if ( empty( $_GET['gk_kontrola'] ) || ! current_user_can( 'manage_woocommerce' ) ) { return; }
+	wp_send_json( gk_kontrola_zapisz() );
+} );
