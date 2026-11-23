@@ -90,3 +90,11 @@ Szablon wpisu jest gotowy (wtyczka guliwera-strona 1.4, czat „Dostęp do stron
 - [ ] SEO (tytuł, opis) wpisać ręcznie w panelu Yoast.
 - [ ] Usunąć z biblioteki mediów nieużywane plansze (media 186–196, 198–207), jeśli Angelika zgodzi się.
 - [x] Opublikowano 19.11.2026 (decyzja Angeliki z 18.11: publikacja automatyczna, 1 wpis tygodniowo; zadanie cykliczne wt 10:17).
+
+## Wpis 24.11.2026 – wytyczne (od czatu marketingowego, 23.11)
+- Temat: „Black Friday w małej firmie: jak zarobić, nie obniżając cen”.
+- Fraza kluczowa Yoast: **„black friday mała firma”** (tytuł SEO i meta opis celują w nią; ruch na blogu w tyg. 16–22.11: 2 wyświetlenia).
+- Linki obowiązkowe:
+  - Akademia: https://guliwera4.pl/aplikacja/?utm_source=blog&utm_medium=wpis&utm_campaign=black-week-bez-rabatow
+  - „Strategia na 1 stronie” – strona produktu w sklepie (/produkt/…) z utm_source=blog&utm_medium=wpis&utm_campaign=black-week-bez-rabatow.
+- Maskotka, jeśli występuje: nowy Wafel G4 (/wp-content/plugins/guliwera-strona/g4/wafel-{macha,radosc,brawo}.webp).
