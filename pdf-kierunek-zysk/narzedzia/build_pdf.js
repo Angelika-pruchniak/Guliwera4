@@ -17,6 +17,14 @@ const [src, out] = process.argv.slice(2);
     d.innerHTML = svgs[img.getAttribute('src')]; const s = d.querySelector('svg'); s.removeAttribute('width'); s.removeAttribute('height');
     s.style.width = '100%'; s.style.height = 'auto'; img.replaceWith(d); }), svgs);
   await page.evaluate(() => document.fonts.ready);
+  // Spis treści: numery stron liczone z układu (kotwica → strona)
+  await page.evaluate(() => {
+    const pages = [...document.querySelectorAll('section.page')];
+    document.querySelectorAll('.spis a[href^="#"]').forEach(a => {
+      const cel = document.querySelector(a.getAttribute('href')); const s = a.querySelector('.s');
+      if (cel && s) s.textContent = pages.indexOf(cel.closest('section.page')) + 1;
+    });
+  });
   const info = await page.evaluate(() => {
     const pages = [...document.querySelectorAll('section.page')];
     const fields = [], problems = [];
@@ -37,12 +45,14 @@ const [src, out] = process.argv.slice(2);
           dark: !!el.closest('.ciemna') });
       });
     });
-    return { fields, problems, pages: pages.length };
+    const kotwice = {}; document.querySelectorAll('[id]').forEach(el => { const pg = el.closest('section.page'); if (pg) kotwice[el.id] = pages.indexOf(pg) + 1; });
+    return { fields, problems, pages: pages.length, kotwice };
   });
   const outPath = path.resolve(__dirname, '../PDF', out);
   await page.pdf({ path: outPath, preferCSSPageSize: true, printBackground: true, outline: true, tagged: true });
   fs.writeFileSync(outPath.replace(/\.pdf$/, '.pola.json'), JSON.stringify(info.fields, null, 1));
   console.log(`OK ${out}: ${info.pages} stron, ${info.fields.length} pól`);
   info.problems.forEach(p => console.log('UWAGA', p));
+  if (process.env.KOTWICE) console.log(JSON.stringify(info.kotwice));
   await browser.close();
 })();
