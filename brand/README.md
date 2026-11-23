@@ -16,11 +16,12 @@ Pytania i akceptacja nowych elementów: kontakt@guliwera4.pl
 | `kolory/` | `kolory.css`, `kolory.json`, `guliwera4-paleta.ase` (Adobe), `kolory.gpl` (GIMP, Inkscape, Krita), `kontrasty.md` | Wgranie palety do programu |
 | `szablony/` | 25 szablonów HTML do edycji + `png/` (podgląd w dokładnym wymiarze) + `png/siatka/` (podgląd z siatką) | Social media, reklamy, prezentacje, okładka PDF |
 | `szablony/email/` | Podpis e-mail do skopiowania | Gmail, Outlook |
-| `lilek/` | Maskotka Lilek w 6 nastrojach (SVG + PNG 800 px) | Tylko Akademia i darmowe treści |
+| `wafel-g4/` | Maskotka Wafel G4: 8 póz (PNG na kremowym tle), ikona 512 px, animowany pomagier (README w folderze) | Tylko Akademia i darmowe treści; na kolorowym tle w kremowym kole |
+| `archiwum/` | Wycofane maskotki (Lilek, płaski Wafel) | Nie używać |
 | `okladki/` | Wizualizacje okładek „Kierunek Zysk” 1200 × 1200 | Sklep, posty produktowe |
 | `zdjecia/` | Portret Angeliki w jasnym garniturze | Bez zmian rysów twarzy, bez filtrów |
 | `zdjecia-sesja/` | 10 zdjęć z sesji (opisy w README folderu) | Posty, story, LinkedIn, prezentacje |
-| `narzedzia/` | Skrypty generujące logo, paletę, Lilka, PNG i PDF | Tylko gdy zmieniasz źródła |
+| `narzedzia/` | Skrypty generujące logo, paletę, PNG i PDF | Tylko gdy zmieniasz źródła |
 
 ## Szybki start: grafika do social media
 
@@ -62,7 +63,7 @@ Pytania i akceptacja nowych elementów: kontakt@guliwera4.pl
 5. Jedno żółte podkreślenie „zakres” na grafikę.
 6. Koła pastelowe, przycięte krawędzią. Przyciski i plakietki jako pigułki. Cienie tylko miękkie.
 7. Zdjęcia jasne, naturalne światło. Portret Angeliki bez zmian rysów twarzy i bez filtrów.
-8. Lilek tylko przy Akademii i darmowych treściach.
+8. Wafel G4 tylko przy Akademii i darmowych treściach, z plików z `wafel-g4/`; nie zmieniamy jego wyglądu.
 9. Bez obietnic dochodu, bez nazw firm, z którymi pracowała Angelika, bez danych klientów.
 10. Przed oddaniem przejdź checklistę z rozdziału 9 brandbooka i oddaj plik źródłowy razem z PNG/PDF.
 
@@ -73,8 +74,7 @@ pip install fonttools
 # fonty TTF z Google Fonts (Fraunces opsz 9/72/144 w odmianach 700/600, DM Sans 400) w katalogu $FONTY
 FONTY=/sciezka/do/ttf python3 brand/narzedzia/generuj-logo.py   # logo SVG (tekst na krzywych)
 python3 brand/narzedzia/paleta.py                              # pliki kolorów + tabela kontrastów
-node brand/narzedzia/generuj-lilka.js                          # Lilek SVG
-node brand/narzedzia/eksport-logo.js                           # PNG logo, favicony, Lilek PNG
+node brand/narzedzia/eksport-logo.js                           # PNG logo i favicony
 node brand/narzedzia/eksport-szablonow.js                      # PNG szablonów
 (cd brand && ./narzedzia/przygotuj-obrazy-brandbooka.sh)       # obrazy do brandbooka (ImageMagick)
 node brand/narzedzia/brandbook-pdf.js                          # PDF brandbooka

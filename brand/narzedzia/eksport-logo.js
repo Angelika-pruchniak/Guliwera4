@@ -1,4 +1,4 @@
-// SVG → PNG (logo, favicony, awatary, Lilek). Uruchom: node brand/narzedzia/eksport-logo.js
+// SVG → PNG (logo, favicony, awatary). Uruchom: node brand/narzedzia/eksport-logo.js
 const { chromium } = require('playwright'); const fs = require('fs'); const path = require('path');
 const B = path.join(__dirname, '..'); const SVG = path.join(B, 'logo', 'svg');
 const zadania = [
@@ -13,7 +13,6 @@ const zadania = [
   ['awatar.svg', 'logo/png/awatar-400.png', 400], ['awatar.svg', 'logo/png/awatar-1080.png', 1080], ['awatar-granat.svg', 'logo/png/awatar-granat-1080.png', 1080],
   ...[16, 32, 48, 180, 192, 512].map(s => ['ikona.svg', `logo/favicon/favicon-${s}.png`, s]),
 ];
-for (const f of fs.readdirSync(path.join(B, 'lilek')).filter(f => f.endsWith('.svg'))) zadania.push(['../../lilek/' + f, 'lilek/' + f.replace('.svg', '-800.png'), 800]);
 (async () => {
   const b = await chromium.launch(); const p = await b.newPage();
   for (const [src, out, w] of zadania) {

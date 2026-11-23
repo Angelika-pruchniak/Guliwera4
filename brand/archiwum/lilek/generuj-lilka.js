@@ -21,7 +21,7 @@ function lilek(mood) {
   if (mood === 'sad') s += `<path d="M84 74q3 5 0 8q-3-3 0-8z" fill="#B9A5E3"/>`;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 132" width="600" height="660" role="img" aria-label="Lilek, maskotka Akademii Guliwera"><title>Lilek</title>${s}</svg>\n`;
 }
-const out = path.join(__dirname, '..', 'lilek');
+const out = path.join(__dirname);
 const N = { happy: 'zadowolony', cheer: 'radosc', wave: 'macha', think: 'mysli', sad: 'smutny', sleep: 'spi' };
 for (const [m, n] of Object.entries(N)) fs.writeFileSync(path.join(out, `lilek-${n}.svg`), lilek(m));
 console.log('Lilek OK');

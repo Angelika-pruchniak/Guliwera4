@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Kopiuje i zmniejsza obrazy do brand/brandbook/img (wymaga ImageMagick). Uruchom z katalogu brand/.
 set -e; I=brandbook/img; rm -rf $I; mkdir -p $I/szablony $I/siatka
-cp logo/svg/*.svg lilek/*.svg $I/
+cp logo/svg/*.svg $I/
+mkdir -p $I/wafel; for f in wafel-g4/pozy/*.png; do convert $f -resize 320x320 -quality 84 $I/wafel/$(basename $f .png).jpg; done
 convert zdjecia/angelika-portret-bialy.jpg -resize 760x -quality 82 $I/portret.jpg
 for f in kierunek-zysk-przewodnik strategia-na-1-stronie audyt-i-bank-40-testow planer-90-dni; do convert okladki/$f.png -resize 520x -quality 84 $I/okl-$f.jpg; done
 for f in szablony/png/*.png; do n=$(basename $f .png); convert $f -resize '720x720>' -quality 84 $I/szablony/$n.jpg; done

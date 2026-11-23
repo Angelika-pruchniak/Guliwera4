@@ -7,6 +7,6 @@ const { chromium } = require('playwright'); const path = require('path');
   await p.waitForTimeout(800);
   await p.pdf({ path: path.join(__dirname, '..', 'brandbook', 'guliwera4-brandbook.pdf'), format: 'A4', printBackground: true, preferCSSPageSize: true,
     displayHeaderFooter: true, headerTemplate: '<span></span>',
-    footerTemplate: '<div style="font-size:7pt;color:#7A6580;width:100%;padding:0 12mm;display:flex;justify-content:space-between;font-family:Arial"><span>Brandbook Guliwera 4 · v1.0</span><span class="pageNumber"></span></div>' });
+    footerTemplate: '<div style="font-size:7pt;color:#7A6580;width:100%;padding:0 12mm;display:flex;justify-content:space-between;font-family:Arial"><span>Brandbook Guliwera 4 · v1.1</span><span class="pageNumber"></span></div>' });
   await b.close(); console.log('PDF OK');
 })();
