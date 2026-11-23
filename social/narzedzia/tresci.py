@@ -83,7 +83,7 @@ def koniec(e, nr, razem):
   <p class="lead" style="margin-top:28px;max-width:24ch">{e['lead']}</p>
   <span class="przycisk" style="margin-top:46px">{e['przycisk']}</span>
   <p class="tekst" style="margin-top:22px;font-size:30px;color:rgba(255,246,238,.8)">{e.get('pod','link w bio · guliwera4.pl/aplikacja')}</p>
-  {'' if e.get('bez_maskotki') else f'<img src="{Z}wafel-macha.svg" alt="" style="position:absolute;right:-10px;bottom:120px;width:270px">'}
+  {'' if e.get('bez_maskotki') else f'<div style="position:absolute;right:0;bottom:120px;width:300px;height:300px;border-radius:50%;overflow:hidden;background:#FBF1EA;box-shadow:0 18px 40px rgba(0,0,0,.25)"><img src="{Z}wafel-g4-macha.png" alt="Wafel G4" style="width:112%;margin:-2% 0 0 -6%;display:block"></div>'}
   {stopka(nr, razem, jasna=True)}
 </div></div>'''
 
@@ -264,7 +264,7 @@ def nakladka(tekst, styl='dol', maly=''):
 <span class="przycisk" style="margin-top:56px;font-size:42px">link w bio</span>
 <img src="{Z}logo-osobiste.svg" style="margin-top:120px;width:760px" alt="">
 </div>
-<img src="{Z}wafel-macha.svg" style="position:absolute;right:70px;bottom:380px;width:300px;z-index:3" alt=""></div>'''
+<div style="position:absolute;right:70px;bottom:380px;width:320px;height:320px;border-radius:50%;overflow:hidden;background:#FBF1EA;z-index:3"><img src="{Z}wafel-g4-macha.png" alt="Wafel G4" style="width:112%;margin:-2% 0 0 -6%;display:block"></div></div>'''
     return f'''<div class="plotno f-story" style="background:transparent">
 <div style="position:absolute;left:80px;right:80px;bottom:400px;z-index:3">
 {f'<span class="pigulka p-zolta" style="margin-bottom:18px;font-size:30px">{maly}</span>' if maly else ''}

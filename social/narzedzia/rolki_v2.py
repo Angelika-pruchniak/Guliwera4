@@ -181,7 +181,7 @@ def napis(ram, tekst, t, y_srodek=None, hook=False, maly=None, box=KREM):
         d.text((xc, yc), etyk, font=fm, fill=ATR, anchor="mm")
 
 
-def plansza(t, tytul, pod):
+def plansza(t, tytul, pod, wafel=False):
     ram = Image.new('RGB', (W, H), KREM)
     d = ImageDraw.Draw(ram)
     d.ellipse((560, -380, 1460, 520), fill=(255, 217, 228))
@@ -197,6 +197,11 @@ def plansza(t, tytul, pod):
     d.text((W / 2, 1045), pod, font=font('DMSans%5Bopsz,wght%5D.ttf', 'Bold', 52), fill='white', anchor='mm')
     d.text((W / 2, 1230), 'Akademia Guliwera · guliwera4.pl', font=font('DMSans%5Bopsz,wght%5D.ttf', 'Medium', 40), fill=(122, 101, 128), anchor='mm')
     d.text((W / 2, 1330), 'Angelika Pruchniak-Gąszczyk', font=F_MALY, fill=(232, 81, 42), anchor='mm')
+    if wafel:  # Wafel G4 (tylko treści o Akademii), w kremowym kole
+        pies = Image.open(os.path.join(REPO, 'social', 'zasoby', 'wafel-g4-macha.png')).convert('RGB').resize((320, 320), Image.LANCZOS)
+        maska = Image.new('L', (320, 320), 0)
+        ImageDraw.Draw(maska).ellipse((0, 0, 320, 320), fill=255)
+        ram.paste(pies, (W // 2 - 160 + PRZESUN_X, 330), maska)
     return ram
 
 
@@ -228,7 +233,7 @@ ROLKI = {
     ('07', 'detal', 1.5, 'Krótkie lekcje *w telefonie*', dict(detal=(720, 1230, 560))),
     ('B', 'blisko', 1.5, 'Zysk, marża, *próg rentowności*', {}),
     ('ROZ', 'karta', 1.0, 'Na start *za darmo.*', {}),
-    ('KONIEC', None, 1.5, 'Zacznij za darmo', dict(pod='link w bio')),
+    ('KONIEC', None, 1.5, 'Zacznij za darmo', dict(pod='link w bio', wafel=True)),
  ],
  'r4-plan-na-2027': [
     ('09', 'blisko', 1.0, 'Nie rób 30 *postanowień.*', dict(hook=True)),
@@ -307,7 +312,7 @@ def renderuj(nazwa, sceny):
         for n in range(int(round(dl * FPS))):
             t = n / FPS
             if k == 'KONIEC':
-                ram = plansza(t, tekst, opt.get('pod', ''))
+                ram = plansza(t, tekst, opt.get('pod', ''), opt.get('wafel', False))
             else:
                 ram = klatka(k, plan, t, dl, opt.get('detal'), kier=1 if i % 2 else -1)
                 napis(ram, tekst, t, hook=opt.get('hook', False), maly=opt.get('maly'), box=(255, 255, 255) if plan == 'karta' else KREM)
