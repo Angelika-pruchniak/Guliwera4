@@ -21,6 +21,7 @@ function add_query_arg( $a, $b = null, $c = null ) {
 	return $url . ( strpos( $url, '?' ) === false ? '?' : '&' ) . http_build_query( $q );
 }
 require dirname( __DIR__ ) . '/wtyczki/guliwera-maile/guliwera-maile.php';
+function gk_pw_obrazek( $p ) { return 'file://' . dirname( __DIR__ ) . '/wtyczki/guliwera-powiadomienia/assets/wafel-' . $p . '.png'; } // obrazki z gałęzi claude/akademia-powiadomienia
 require dirname( __DIR__ ) . '/wtyczki/guliwera-newsletter/guliwera-newsletter.php';
 $out = $argv[1] ?? __DIR__ . '/podglad-nl';
 @mkdir( $out, 0777, true );

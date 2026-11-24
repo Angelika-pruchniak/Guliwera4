@@ -2,11 +2,11 @@
 /**
  * Plugin Name: Guliwera – newsletter
  * Description: Newsletter Guliwera 4: zapis z darmowym Pakietem startowym (formularz i rejestracja w Akademii), potwierdzenie zapisu (double opt-in), seria powitalna i maile wyzwalane nauką w Akademii i zakupami, wypis jednym kliknięciem, preferencje i synchronizacja z Mailchimpem (wydania). Wymaga wtyczki „Guliwera – maile”. Wysyłka rusza dopiero po włączeniu w Ustawienia → Newsletter Guliwera.
- * Version: 1.1
+ * Version: 1.2
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'GK_NL_WERSJA', '1.1' );
+define( 'GK_NL_WERSJA', '1.2' );
 define( 'GK_NL_NADAWCA', 'kontakt@guliwera4.pl' );
 define( 'GK_NL_LIMIT_RUN', 40 );   // maili na jedno uruchomienie harmonogramu
 define( 'GK_NL_PRODUKTY', array( 'pakiet' => 67, 'strategia' => 69, 'planer' => 70 ) );
@@ -335,6 +335,7 @@ function gk_nl_wyzwalacze( $limit ) {
 		$ost  = $p['dni'] ? max( $p['dni'] ) : '';
 		$przerwa = $ost ? (int) floor( ( strtotime( wp_date( 'Y-m-d' ) ) - strtotime( $ost ) ) / DAY_IN_SECONDS ) : 0;
 		$w_serii = (int) $k['seria_next'] > 0;
+		$push    = function_exists( 'gk_pw_ma_push' ) && gk_pw_ma_push( (int) $k['user_id'] );
 		$kup = ! empty( $p['kupon'] ) ? $p['kupon'] : null;
 		if ( $kup && ! isset( $w[ 'Z5_' . $kup['kod'] ] ) ) {
 			$do = (int) $kup['data'] + 7 * DAY_IN_SECONDS - time();
@@ -343,10 +344,12 @@ function gk_nl_wyzwalacze( $limit ) {
 		if ( ! $kod && ! $w_serii ) {
 			if ( $d['darmowe_ok'] && ! $d['pro'] && ! isset( $w['Z1'] ) ) { $kod = 'Z1'; }
 			elseif ( isset( $w['Z1'] ) && ! isset( $w['Z1b'] ) && ! $d['pro'] && $w['Z1'] < time() - 3 * DAY_IN_SECONDS ) { $kod = 'Z1b'; }
+			// Gratulacje i przypomnienia mailem tylko jako zapas: z powiadomieniami na telefonie robi to Wafel w powiadomieniu.
+			elseif ( $push ) { $kod = ''; }
 			elseif ( $d['seria'] >= 30 && ! isset( $w['Z2_30'] ) ) { $kod = 'Z2_30'; }
 			elseif ( $d['seria'] >= 7 && ! isset( $w['Z2_7'] ) ) { $kod = 'Z2_7'; }
-			elseif ( $d['lekcje'] > 0 && $przerwa >= 21 && ( ! isset( $w['Z4'] ) || $w['Z4'] < strtotime( $ost ) ) ) { $kod = 'Z4'; }
-			elseif ( $d['lekcje'] > 0 && $przerwa >= 7 && $przerwa < 21 && ( ! isset( $w['Z3'] ) || $w['Z3'] < strtotime( $ost ) ) ) { $kod = 'Z3'; }
+			elseif ( $d['lekcje'] > 0 && $przerwa >= 7 && $przerwa <= 13 && ( ! isset( $w['Z4'] ) || $w['Z4'] < strtotime( $ost ) ) ) { $kod = 'Z4'; }
+			elseif ( $d['lekcje'] > 0 && $przerwa >= 3 && $przerwa <= 6 && ( ! isset( $w['Z3'] ) || $w['Z3'] < strtotime( $ost ) ) ) { $kod = 'Z3'; }
 		}
 		if ( $kod ) {
 			gk_nl_wyslij( $k, $kod );

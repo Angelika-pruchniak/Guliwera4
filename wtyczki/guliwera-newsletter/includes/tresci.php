@@ -30,6 +30,12 @@ function gk_nl_ps( $html ) {
 	return '<p style="margin:6px 0 18px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#7A6580;"><b>P.S.</b> ' . $html . '</p>';
 }
 
+/** Obrazek Wafla w mailu (z wtyczki „Guliwera – powiadomienia Akademii”, jeśli jest). */
+function gk_nl_wafel( $poza, $alt ) {
+	if ( ! function_exists( 'gk_pw_obrazek' ) ) { return ''; }
+	return '<p style="margin:0 0 16px;text-align:center;"><img src="' . gk_ml_esc( gk_pw_obrazek( $poza ) ) . '" width="160" height="160" alt="' . gk_ml_esc( $alt ) . '" style="display:inline-block;border:0;border-radius:24px;"></p>';
+}
+
 function gk_nl_link( $txt, $url ) { return '<a href="' . gk_ml_esc( $url ) . '" style="color:#E8512A;font-weight:bold;">' . gk_ml_esc( $txt ) . '</a>'; }
 
 function gk_nl_powod( $k ) {
@@ -234,29 +240,28 @@ function gk_nl_tresc( $kod, array $k, array $d ) {
 
 		case 'Z3':
 			$a += array(
-				'preheader' => 'Twoja seria czeka. Jedna lekcja i wracasz do gry.',
+				'preheader' => 'Wafel leży przy drzwiach. 5 minut i seria wraca.',
 				'nadtytul'  => 'Akademia Guliwera',
-				'tytul'     => 'Wracasz na 5 minut?',
-				'akapity'   => array(
-					gk_nl_cz( $k ) . ' Tydzień przerwy to nic złego. Najtrudniejsza jest pierwsza lekcja po przerwie, więc zrób dziś tylko jedną.',
-					'Rabat za naukę liczy aktywne dni z ostatnich 4 tygodni, więc po przerwie trochę spada. Wraca, gdy wracasz Ty.',
-				),
+				'tytul'     => 'Wafel czeka na Ciebie',
+				'akapity'   => array( gk_nl_cz( $k ) . ' Od kilku dni nie było lekcji, a Wafel leży przy drzwiach i nasłuchuje. Bez wyrzutów: przerwy się zdarzają.' ),
+				'po'        => gk_nl_wafel( 'czeka', 'Wafel leży i czeka' )
+					. gk_nl_p( 'Najtrudniejsza jest pierwsza lekcja po przerwie, więc zrób dziś tylko jedną. To 5 minut.' )
+					. gk_nl_p( 'Rabat za naukę liczy aktywne dni z ostatnich 4 tygodni, więc po przerwie trochę spada. Wraca, gdy wracasz Ty.', 'color:#7A6580;font-size:15px;' ),
 				'cta'       => array( 'Wracam do lekcji', $akad ),
 			);
-			return array( 'Wracasz na 5 minut?', $a );
+			return array( 'Wafel czeka na Ciebie (5 minut wystarczy)', $a );
 
 		case 'Z4':
 			$a += array(
-				'preheader' => 'Bez presji. Możesz też zmienić, jak często piszę.',
+				'preheader' => 'Obudzisz go jedną lekcją? Bez presji, możesz też zmienić, jak często piszę.',
 				'nadtytul'  => 'Akademia Guliwera',
-				'tytul'     => 'Zostawić Ci miejsce w Akademii?',
-				'akapity'   => array(
-					gk_nl_cz( $k ) . ' Nie było Cię w Akademii od 3 tygodni. Rozumiem, kalendarz bywa bezlitosny.',
-					'Masz 3 opcje: wracasz na lekcję, zostajesz tylko przy czwartkowym newsletterze albo ' . gk_nl_link( 'wybierasz „raz w miesiącu”', add_query_arg( 'gk_nl_pref', $k['token'], home_url( '/' ) ) ) . '.',
-				),
-				'cta'       => array( 'Wracam do lekcji', $akad ),
+				'tytul'     => 'Wafel zasnął z tęsknoty…',
+				'akapity'   => array( gk_nl_cz( $k ) . ' Tydzień bez lekcji i Wafel w końcu zasnął. Obudzisz go jedną krótką lekcją?' ),
+				'po'        => gk_nl_wafel( 'spi', 'Wafel śpi' )
+					. gk_nl_p( 'A jeśli to nie jest dobry moment na naukę: zostań przy czwartkowym newsletterze albo ' . gk_nl_link( 'wybierz „raz w miesiącu”', add_query_arg( 'gk_nl_pref', $k['token'], home_url( '/' ) ) ) . '. To ostatnie przypomnienie o tej przerwie.' ),
+				'cta'       => array( 'Budzę Wafla', $akad ),
 			);
-			return array( 'Zostawić Ci miejsce w Akademii?', $a );
+			return array( 'Wafel zasnął z tęsknoty…', $a );
 
 		case 'Z5':
 			if ( empty( $d['kupon_kod'] ) ) { return array( '', array() ); }
@@ -346,7 +351,7 @@ function gk_nl_opisy() {
 		'P0' => 'Potwierdzenie zapisu (double opt-in)', 'W1' => 'Seria · dzień 0: Pakiet startowy', 'W2' => 'Seria · dzień 1: Strategia na 1 stronie (39 zł)',
 		'W3' => 'Seria · dzień 3: nawyk i rabat', 'W4' => 'Seria · dzień 6: próg rentowności', 'W5' => 'Seria · dzień 8: Pakiet 297 zł',
 		'W6' => 'Seria · dzień 10: pytanie', 'W7' => 'Seria · dzień 14: co dalej', 'Z1' => 'Darmowe działy ukończone → Akademia Pro', 'Z1b' => 'Akademia Pro: przypomnienie po 3 dniach',
-		'Z2_7' => 'Seria 7 dni', 'Z2_30' => 'Seria 30 dni', 'Z3' => '7 dni bez lekcji', 'Z4' => '21 dni bez lekcji', 'Z5' => 'Kupon wygasa za 2 dni',
+		'Z2_7' => 'Seria 7 dni', 'Z2_30' => 'Seria 30 dni', 'Z3' => '3 dni bez lekcji (Wafel czeka)', 'Z4' => '7 dni bez lekcji (Wafel śpi)', 'Z5' => 'Kupon wygasa za 2 dni',
 		'Z6a' => 'Po zakupie Strategii · dzień 1', 'Z6b' => 'Po zakupie Strategii · dzień 7: Planer', 'Z6c' => 'Po zakupie Strategii · dzień 14: opinia',
 		'Z7a' => 'Po zakupie Pakietu · dzień 2', 'Z7b' => 'Po zakupie Pakietu · dzień 10: opinia', 'Z7c' => 'Po zakupie Pakietu · dzień 21: kurs',
 	);
