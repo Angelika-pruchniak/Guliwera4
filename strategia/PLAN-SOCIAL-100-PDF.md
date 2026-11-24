@@ -50,7 +50,7 @@ Dlatego cel dzielimy na kanały, w których konwersja jest wyższa niż na zimne
    - posty o szkoleniu „AI i sprzedaż w małej firmie” (19.11 LI, 17.11 FB, 1.12 FB) oraz KFS/BUR (12.11 LI, 16.11 FB)
      → wycofać albo zamienić wezwanie: zamiast „napisz AI, prześlę program szkolenia” dać link do Zestawu Plan 2027 / Strategii na 1 stronie;
    - **Black Friday:** posty 25 i 27.11 mówią „bonus zamiast rabatu”. Oferta musi to powtarzać: zamiast −30% na Pakiet
-     → **Pakiet 297 zł + bonus: miejsce na grupowej sesji online „Plan 2027 – Q&A” (sobota 13.12, 90 min)**.
+     → **Pakiet 297 zł + bonus: miejsce na grupowej sesji online „Plan 2027 – Q&A” (sobota 13.12, 90 min)** – termin potwierdzony przez Angelikę.
      Pakiet zawiera już Strategię na 1 stronie i Planer 90 dni, więc nie mogą być gratisem. Sesja mieści się w sobotach Angeliki.
      Decyzje 22.11: bonus zamiast rabatu – zaakceptowany; płatności sprawdzone przez Angelikę (zamówienia testowe poprawne).
      Inaczej marka mówi jedno, a robi drugie. ❓ decyzja Angeliki.
