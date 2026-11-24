@@ -279,3 +279,12 @@ button:disabled { cursor: default; }
 .cert-data { color: #7A6580; font-size: 14px; margin-top: 18px; }
 @media print { .cert-akcje { display: none; } .cert-wrap { background: #fff; } }
 .pro-zakup a.btn { text-decoration: none; text-align: center; }
+
+/* Przypomnienia od Wafla */
+.push-card { display: flex; gap: 10px; align-items: flex-start; background: var(--yellow-l, #FFEFC7); border: 2px solid var(--yellow, #FFC84A); border-radius: 20px; padding: 12px; }
+.push-text { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; font-size: 14px; }
+.push-text b { font-size: 15px; }
+.push-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 4px; }
+.push-godz { display: inline-flex; gap: 6px; align-items: center; font-weight: 600; }
+.push-godz select { font: inherit; padding: 6px 8px; border-radius: 10px; border: 2px solid var(--line); background: #fff; }
+.push-blad { color: #B3261E; font-size: 13px; }

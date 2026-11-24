@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Wafel } from '../components/Wafel'
 import { RabatCard } from '../components/RabatCard'
 import { ProCard } from '../components/ProCard'
+import { PushSettings } from '../components/PushSettings'
 import { konto } from '../konto'
 import { Coin, Flame, Heart, Progress, Snow, Star } from '../components/ui'
 import { fx } from '../fx'
@@ -100,6 +101,7 @@ export function Profile({ onCert }: { onCert: () => void }) {
           <span>Wibracje <span className="muted small">(Android)</span></span>
           <input type="checkbox" checked={s.settings.vibrate} onChange={(e) => { update((x) => { x.settings.vibrate = e.target.checked }); fx('pop') }} />
         </label>
+        <PushSettings />
         <label className="toggle">
           <span>Cel dnia</span>
           <select value={s.dailyGoal} onChange={(e) => update((x) => { x.dailyGoal = Number(e.target.value) })}>
@@ -120,7 +122,7 @@ export function Profile({ onCert }: { onCert: () => void }) {
       <div className="card about">
         <h3>O aplikacji</h3>
         <p>Akademia Guliwera to autorskie lekcje <b>Guliwera 4</b> („strategia, produkty cyfrowe i dobry humor”). Zakres działów odpowiada typowym przedmiotom studiów ekonomicznych i menedżerskich: mikro- i makroekonomii, podstawom finansów, rachunkowości oraz zarządzaniu strategicznemu.</p>
-        <p className="muted small">Nazwy modeli (np. macierz BCG, model 7S, 5 sił Portera) opisują ogólnie znane koncepcje. Aplikacja nie jest powiązana z Boston Consulting Group, McKinsey &amp; Company ani żadną uczelnią. Treści mają charakter edukacyjny i nie są poradą finansową. Postęp w aplikacji jest zapisany na tym urządzeniu, a ukończone lekcje i aktywne dni (do rabatu) na Twoim koncie guliwera4.pl.</p>
+        <p className="muted small">Nazwy modeli (np. macierz BCG, model 7S, 5 sił Portera) opisują ogólnie znane koncepcje. Aplikacja nie jest powiązana z Boston Consulting Group, McKinsey &amp; Company ani żadną uczelnią. Treści mają charakter edukacyjny i nie są poradą finansową. Postęp w aplikacji jest zapisany na tym urządzeniu, a ukończone lekcje i aktywne dni (do rabatu) na Twoim koncie guliwera4.pl. Gdy włączysz przypomnienia, zapisujemy na koncie adres powiadomień tej przeglądarki i wybraną porę; wyłączenie przełącznika je usuwa.</p>
         <p className="muted small">guliwera4.pl</p>
       </div>
     </div>

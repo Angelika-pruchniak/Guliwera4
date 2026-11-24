@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { flatLessons, units } from '../content'
 import { InstallCard } from '../components/InstallCard'
+import { PushCard } from '../components/PushCard'
 import { Wafel } from '../components/Wafel'
 import { Progress, Star } from '../components/ui'
 import { fx } from '../fx'
@@ -47,6 +48,7 @@ export function Home({ onLesson, onSkip, onChest, pro = false }: Props) {
   return (
     <div className="home">
       <InstallCard />
+      <PushCard />
       <div className="goal-card">
         <Wafel mood={goalDone ? 'cheer' : missed ? 'wait' : idle} size={54} />
         <div className="goal-text">

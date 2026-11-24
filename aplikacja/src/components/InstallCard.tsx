@@ -16,9 +16,9 @@ export function InstallCard() {
       <div className="install-text">
         <b>Zainstaluj Akademię na telefonie</b>
         {howto ? (
-          <span>W Safari dotknij <b>Udostępnij</b> (kwadrat ze strzałką), a potem <b>Do ekranu początkowego</b>.</span>
+          <span>W Safari dotknij <b>Udostępnij</b> (kwadrat ze strzałką), a potem <b>Do ekranu początkowego</b>. Tylko tak iPhone pozwala na przypomnienia od Wafla.</span>
         ) : (
-          <span>Ikona Wafla na ekranie, działa też offline.</span>
+          <span>Ikona Wafla na ekranie, działa offline i może przypominać o lekcji.</span>
         )}
       </div>
       <div className="install-btns">
