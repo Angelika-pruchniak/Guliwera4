@@ -14,7 +14,7 @@ const { chromium } = require('playwright');
   const bezFot = await p.$$eval('.bl-karta .fot', f => f.filter(x => !x.querySelector('img')).length);
   if (bezFot) blad('Blog: ' + bezFot + ' kart wpisów bez zdjęcia');
   await idz('/materialy/');
-  const produkty = [...new Set(await p.$$eval('a[href*="/produkt/"]', a => a.map(x => x.pathname)))];
+  const produkty = [...new Set([...(await p.$$eval('a[href*="/produkt/"]', a => a.map(x => x.pathname))), '/produkt/zestaw-plan-2027/'])];
   for (const u of produkty) { const r = await idz(u); const h = await p.locator('h1').first().textContent().catch(() => ''); if (r.status() !== 200 || /horyzoncie/.test(h)) blad(u + ' produkt niedostępny (' + r.status() + ', ' + h + ')');
     const okl = await p.evaluate(() => { const e = document.querySelector('.gk-prod-okl .okl'); if (!e) return 'brak'; const c = getComputedStyle(e); return (c.backgroundImage !== 'none' || c.backgroundColor !== 'rgba(0, 0, 0, 0)') && e.offsetHeight > 150 ? 'ok' : 'bez stylu'; });
     if (okl !== 'ok') blad(u + ' okładka PDF: ' + okl); }
