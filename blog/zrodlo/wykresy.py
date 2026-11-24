@@ -32,7 +32,7 @@ def kolo(czesci):
         s += f'<path d="M190 190 L{x1:.1f} {y1:.1f} A170 170 0 {1 if p > 50 else 0} 1 {x2:.1f} {y2:.1f} Z" fill="{k}" stroke="#FFF6EE" stroke-width="4"/>'
         leg += f'<li><span style="background:{k}"></span>{et} <b>{p}%</b></li>'
         a = a2
-    return f'<div class="dn"><svg width="380" height="380" viewBox="0 0 380 380">{s}</svg><ul class="leg">{leg}</ul></div>'
+    return f'<div class="dwa"><svg width="400" height="400" viewBox="0 0 380 380">{s}</svg><ul class="leg">{leg}</ul></div>'
 
 def gantt(wiersze):
     """[(etykieta, od_tyg, do_tyg)] na 13 tygodni"""
@@ -75,6 +75,15 @@ W = [
  plansza("tk-rynek", "Zakupy z głową", "Off-price w Polsce i noszenie ubrań na świecie",
    bary([("TK Maxx: do 60% taniej niż ceny regularne", 60, "do 60%"), ("HalfPrice: wzrost sprzedaży II kw. 2025 r/r", 22, "+22%"), ("Spadek liczby założeń ubrania w 15 lat", 36, "−36%")], 70),
    "TK Maxx/Retailnet; Grupa CCC (Bankier, II kw. 2025); Ellen MacArthur Foundation, A New Textiles Economy"),
+ plansza("sk-sklad", "Szafa kapsułowa", "Z czego składa się kapsuła 22 elementów",
+   kolo([("Góry: koszule, swetry, t-shirty", 32), ("Doły: spodnie, spódnice", 23), ("Okrycia i marynarki", 18), ("Buty", 14), ("Sukienka, torba, apaszka", 14)]),
+   "plan kapsuły Guliwera 4 (7 + 5 + 4 + 3 + 3 = 22 elementy)"),
+ plansza("sk-zestawy", "Szafa kapsułowa", "22 elementy = ponad 100 zestawów do pracy",
+   bary([("7 gór × 5 dołów", 35, "35 zestawów"), ("× 3 warianty: bez marynarki, granatowa, w kratę", 105, "105 zestawów"), ("+ sukienka z 3 okryciami", 3, "+3"), ("Razem", 108, "108")], 110),
+   "obliczenia Guliwera 4; liczone bez butów i dodatków"),
+ plansza("sk-dane", "Szafa kapsułowa", "Dlaczego warto nosić dłużej",
+   bary([("Ubranie zakładamy rzadziej niż 15 lat temu", 36, "−36%"), ("Mniej CO₂, wody i odpadów, gdy nosimy ubrania 9 mies. dłużej", 30, "20–30%"), ("Analizowanych ubrań nieużywanych od 12 mies.", 25, "co 4."), ("Średnio nienoszonych ubrań w niemieckich domach", 30, "30%")], 40),
+   "Ellen MacArthur Foundation; WRAP (UK), Valuing Our Clothes; Cleaner and Responsible Consumption za RMF24; raport Hot or Cool 2022"),
 ]
 
 CSS = """<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#ccc}

@@ -9,6 +9,7 @@ WPISY = [
  ("podsumowanie-roku-w-firmie", "Biznes i strategia", "Podsumowanie roku<br>w małej firmie", "5 liczb, które musisz znać", ["przychód", "marża", "klienci"], "#B9A5E3", "#EDE5FB"),
  ("strategia-na-1-stronie-2027", "Biznes i strategia", "Strategia<br>na 1 stronie", "plan na 2027 w 60 minut", ["cel", "klient", "priorytety"], "#F4799F", "#FFD9E4"),
  ("plan-90-dni", "Rozwój i kariera", "Plan 90 dni", "pierwszy kwartał 2027 krok po kroku", ["3 cele", "12 tygodni", "1 przegląd"], "#FFC84A", "#FFEFC7"),
+ ("szafa-kapsulowa", "Styl i wizerunek", "Szafa kapsułowa:<br>22 elementy", "ile kosztuje i ile razy ją założysz", ["105 zestawów", "budżet", "koszt noszenia"], "#B9A5E3", "#FFD9E4"),
  ("tk-maxx-half-price-jak-kupowac", "Zakupy z głową", "TK Maxx<br>i Half Price", "jak szukać perełek bez chaosu", ["metka", "skład", "dostawy"], "#1E2A4A", "#EDE5FB"),
 ]
 
