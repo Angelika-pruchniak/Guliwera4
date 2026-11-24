@@ -38,7 +38,7 @@ E-mail na stronie: kontakt@guliwera4.pl
 
 ## Wtyczki własne (aktywne, zostawić)
 - `guliwera-favicon`: ikona strony (media 96).
-- `guliwera-gtm`: Google Tag Manager GTM-KK3LPNV6 (od 6.11.2026; wcześniej GTM-5JKVC955, bez dostępu) + zdarzenia e-commerce GA4 (view_item, add_to_cart, begin_checkout, purchase).
+- `guliwera-gtm` 2.1: Google Tag Manager GTM-KK3LPNV6 (od 6.11.2026; stary GTM-5JKVC955 nieużywany – zawartość zaimportowana 24.11) + baner z kategoriami (Consent Mode v2) + zdarzenia view_item, add_to_cart, begin_checkout, purchase (po opłaceniu), sign_up, generate_lead. W kontenerze: GA4 G-DR20XRGWBV, Google Ads AW-955427764. Instrukcja reklam: `reklamy/URUCHOMIENIE.md`.
 - `guliwera-sklep-styl` (kod w `wtyczki/`):
   - produkty, koszyk, zamówienie i konto w wyglądzie strony;
   - Polska, ceny w formacie „39,00 zł”;
