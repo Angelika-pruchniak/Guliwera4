@@ -3,7 +3,7 @@ import { flatLessons, pick, quickExercises, units, type Item } from './content'
 import { Wafel } from './components/Wafel'
 import { Coin, Confetti, Flame, Heart } from './components/ui'
 import { fx } from './fx'
-import { dzialZablokowany, jestPro, useRabat, wyslijKolejke, zglosAktywnosc, zglosLekcje } from './konto'
+import { DARMOWE_DZIALY, dzialZablokowany, jestPro, useRabat, wyslijKolejke, zglosAktywnosc, zglosLekcje } from './konto'
 import { ProZakup } from './components/ProCard'
 import { Certyfikat } from './screens/Certyfikat'
 import { Home } from './screens/Home'
@@ -56,13 +56,17 @@ export default function App() {
       return (
         <Placement
           onExit={home}
+          maxUnit={pro ? units.length : (rab?.darmoweDzialy ?? DARMOWE_DZIALY)}
           onDone={(u) => {
             const rewards = passTest(u, true)
+            const zaliczone = u === 1 ? 'Dział 1 masz zaliczony' : `Działy 1–${u} masz zaliczone`
             setView({
               name: 'result', rewards, accuracy: null, seconds: null, heading: 'Poziom sprawdzony!',
               title: u === 0
                 ? 'Zaczynamy od podstaw: dział 1, „Język pieniędzy”. Wafel poprowadzi Cię krok po kroku.'
-                : `Twój start: dział ${u + 1}, „${units[u].title}”. Działy 1–${u} masz odblokowane, możesz do nich wracać.`,
+                : dzialZablokowany(rab, u)
+                  ? `Brawo! ${zaliczone} – darmowa część Akademii nie ma przed Tobą tajemnic. Kolejny krok: dział ${u + 1}, „${units[u].title}” w Akademii Pro.`
+                  : `Twój start: dział ${u + 1}, „${units[u].title}”. ${zaliczone}, możesz ${u === 1 ? 'do niego' : 'do nich'} wracać.`,
             })
           }}
         />

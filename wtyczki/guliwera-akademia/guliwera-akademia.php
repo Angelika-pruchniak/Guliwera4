@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – Akademia (aplikacja)
  * Description: Udostępnia aplikację Akademia Guliwera pod adresem guliwera4.pl/akademia/ (tylko dla zalogowanych), liczy postęp na serwerze, daje rabaty na PDF-y za regularną naukę i dodaje wyróżniony przycisk „Akademia” w menu strony. Zostaw włączoną.
- * Version: 1.4.2
+ * Version: 1.4.3
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
