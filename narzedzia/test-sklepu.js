@@ -10,6 +10,7 @@ const { chromium } = require('playwright');
     if (r.status() !== 200) blad(u + ' status ' + r.status());
     if (t.includes('Wielkie rzeczy są na horyzoncie')) blad(u + ' pokazuje stronę „Wkrótce”');
   }
+  { const r = await p.request.get('https://guliwera4.pl/favicon.ico', { maxRedirects: 0 }); if (r.status() !== 200 || !/icon/.test(r.headers()['content-type'] || '')) blad('Favikona /favicon.ico: ' + r.status()); }
   await idz('/blog/');
   const bezFot = await p.$$eval('.bl-karta .fot', f => f.filter(x => !x.querySelector('img')).length);
   if (bezFot) blad('Blog: ' + bezFot + ' kart wpisów bez zdjęcia');
