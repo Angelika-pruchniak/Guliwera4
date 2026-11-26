@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Guliwera – struktura strony
  * Description: Struktura guliwera4.pl według strategii (drabina produktów): jedno menu na wszystkich podstronach (Start, Materiały, Kurs, Akademia, O mnie, Kontakt), przycisk „Zacznij za darmo”, Lokalizacja i Usługi B2B połączone z Kontaktem (przekierowania 301). Zostaw włączoną.
- * Version: 2.6
+ * Version: 2.7
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -694,3 +694,33 @@ add_action( 'shutdown', function () {
 	}
 	if ( $w['bledy'] ) { wp_mail( get_option( 'admin_email' ), '[Guliwera 4] BŁĄD pobierania PDF po zakupie', "Test pobrania PDF:\n- " . implode( "\n- ", $w['bledy'] ) ); }
 }, 99 );
+
+/* Wersja 2.7 (26.11): favikona dla Google – kwadratowe ikony 48/96/192 px (wielokrotności 48 px) i prawdziwy /favicon.ico (bez przekierowania). */
+add_action( 'plugins_loaded', function () {
+	$path = (string) wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '', PHP_URL_PATH );
+	if ( '/favicon.ico' !== $path ) { return; }
+	$f = __DIR__ . '/ikony/favicon.ico';
+	if ( ! is_file( $f ) ) { return; }
+	while ( ob_get_level() > 0 ) { ob_end_clean(); }
+	status_header( 200 );
+	header( 'Content-Type: image/x-icon' );
+	header( 'Cache-Control: public, max-age=604800' );
+	header( 'Content-Length: ' . filesize( $f ) );
+	readfile( $f );
+	exit;
+}, 0 );
+add_filter( 'site_icon_meta_tags', function () {
+	$u = plugins_url( 'ikony/', __FILE__ );
+	return array(
+		'<link rel="icon" href="' . esc_url( home_url( '/favicon.ico' ) ) . '" sizes="48x48">',
+		'<link rel="icon" type="image/png" href="' . esc_url( $u . 'favicon-48.png' ) . '" sizes="48x48">',
+		'<link rel="icon" type="image/png" href="' . esc_url( $u . 'favicon-96.png' ) . '" sizes="96x96">',
+		'<link rel="icon" type="image/png" href="' . esc_url( $u . 'favicon-192.png' ) . '" sizes="192x192">',
+		'<link rel="apple-touch-icon" href="' . esc_url( $u . 'apple-touch-icon.png' ) . '">',
+	);
+}, 99 );
+add_action( 'init', function () {
+	if ( '2.7' === get_option( 'gk_strona_ver27' ) ) { return; }
+	update_option( 'gk_strona_ver27', '2.7' );
+	gk_strona_wyczysc_cache();
+}, 32 );
